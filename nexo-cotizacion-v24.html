@@ -22,7 +22,7 @@
   .hero { position:relative; height:320px; overflow:hidden; }
   .hero img { width:100%; height:100%; object-fit:cover; filter:brightness(0.48); }
   .hero-texto { position:absolute; bottom:0; left:0; right:0; padding:20px; background:linear-gradient(to top,rgba(13,5,2,0.92),transparent); }
-  .hero-top { position:absolute; top:0; left:0; right:0; padding:20px; display:flex; align-items:center; justify-content:space-between; }
+  .hero-top { position:absolute; top:0; left:0; right:0; padding:20px; display:flex; align-items:center; justify-content:space-between; filter:drop-shadow(0 1px 4px rgba(13,5,2,0.5)); }
   .hero-top .logo-nombre { font-size:24px; font-weight:600; color:white; letter-spacing:-0.5px; line-height:1; }
   .hero-top .logo-taller { font-size:9px; color:rgba(255,255,255,0.8); font-weight:400; line-height:1.4; }
   .hero-top .header-textos { display:flex; align-items:center; gap:9px; }
@@ -277,7 +277,7 @@ document.addEventListener("DOMContentLoaded", () => {
   <h2 class="seguimos-titulo">¿Cómo seguimos?</h2>
   <p class="seguimos-sub">Etapas · Fechas · Plan de pagos</p>
   <p class="seguimos-aviso">Los pagos están basados en la cotización inicial y pueden variar con la personalización. Las fechas son estimadas.</p>
-  <div class="paso"><img class="paso-icono" src="assets/icono-reserva.png" alt=""><div><p class="paso-etapa">Anteproyecto · Hoy</p><p class="paso-nombre">Reserva de lugar</p></div><div class="paso-monto"><p class="paso-num" id="cfg-monto-anticipo">USD 2.900</p><p class="paso-pct">Anticipo 5%</p></div></div>
+  <div class="paso"><img class="paso-icono" src="assets/icono-reserva.png" alt="" style="filter:brightness(0) invert(1)"><div><p class="paso-etapa">Anteproyecto · Hoy</p><p class="paso-nombre">Reserva de lugar</p></div><div class="paso-monto"><p class="paso-num" id="cfg-monto-anticipo">USD 2.900</p><p class="paso-pct">Anticipo 5%</p></div></div>
   <div class="paso"><div class="paso-icono-svg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
   <path d="M8,4 L4,4 L4,36 L8,36" stroke="#cea27c" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
   <path d="M32,4 L36,4 L36,36 L32,36" stroke="#cea27c" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
