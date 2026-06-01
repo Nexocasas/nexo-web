@@ -10,6 +10,8 @@
   :root { --arena:#cea27c; --negro:#0d0502; --marron:#553f31; --blanco:#f9f8f6; --gris:#7a6a60; --linea:#d8cdc6; }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--blanco); color:var(--negro); font-family:'DM Sans',sans-serif; max-width:480px; margin:0 auto; }
+  .back-btn { display:flex; align-items:center; gap:6px; color:white; text-decoration:none; font-size:13px; -webkit-tap-highlight-color:transparent; }
+  .back-btn svg { width:18px; }
   .header { background:var(--negro); padding:18px 20px; display:flex; align-items:center; justify-content:space-between; }
   
     .header-icono { width:36px; height:36px; object-fit:contain; flex-shrink:0; }
@@ -48,10 +50,10 @@
 </head>
 <body>
 <div class="header">
-  <div class="header-textos">
-    <span class="logo-nombre">Nexo</span>
-    <span class="logo-taller">Taller<br>de Casas</span>
-  </div>
+  <a class="back-btn" href="nexo-cotizacion-v24.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15,18 9,12 15,6"></polyline></svg>
+    Cotización
+  </a>
   <img class="header-icono" src="assets/nexo-icono-blanco.png" alt="Nexo">
 </div>
 <div class="hero">
