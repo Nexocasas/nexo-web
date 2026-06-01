@@ -21,9 +21,10 @@
   .lightbox.activo { display:flex; }
   .lb-img-wrap { flex:1; display:flex; align-items:center; justify-content:center; overflow:hidden; touch-action:pinch-zoom; padding:8px; }
   .lb-img-wrap img { max-width:100%; max-height:100%; object-fit:contain; }
-  .lb-footer { padding:12px 16px 24px; display:flex; align-items:center; gap:10px; }
-  .lb-desc { color:rgba(255,255,255,0.75); font-size:12px; line-height:1.4; flex:1; }
+  .lb-footer { padding:12px 16px 28px; display:flex; flex-direction:column; align-items:center; gap:10px; }
+  .lb-desc { color:rgba(255,255,255,0.75); font-size:12px; line-height:1.4; text-align:center; }
   .lb-btn { width:34px; height:34px; background:rgba(255,255,255,0.12); border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:20px; cursor:pointer; border:none; flex-shrink:0; }
+    .lb-nav { display:flex; gap:16px; }
   .lb-cerrar { width:34px; height:34px; background:rgba(255,255,255,0.12); border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:20px; cursor:pointer; flex-shrink:0; }
 
   .page-header { background:var(--negro); padding:16px 20px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:10; }
@@ -75,12 +76,13 @@
         <div class="foto-desc">Revestimientos  Interior cotizado</div>
       </div></div>
 <div class="lightbox" id="lightbox" onclick="cerrarLb()">
-  <div class="lb-img-wrap" onclick="event.stopPropagation()"><img id="lb-img" src="" alt=""></div>
+  <div class="lb-img-wrap"><img id="lb-img" src="" alt=""></div>
   <div class="lb-footer" onclick="event.stopPropagation()">
+    <div class="lb-nav">
+      <button class="lb-btn" onclick="lbNav(-1)">&#8249;</button>
+      <button class="lb-btn" onclick="lbNav(1)">&#8250;</button>
+    </div>
     <div class="lb-desc" id="lb-desc"></div>
-    <button class="lb-btn" onclick="lbNav(-1)">‹</button>
-    <button class="lb-btn" onclick="lbNav(1)">›</button>
-    <div class="lb-cerrar" onclick="cerrarLb()">×</div>
   </div>
 </div>
 <script>
