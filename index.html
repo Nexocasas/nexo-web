@@ -58,7 +58,9 @@ d.innerHTML=`<summary class="cover"><div class="cover-bg" style="background-imag
   <a href="proyectos.html" class="ref-link">Ver en nuestros proyectos →</a>
   <p class="soft-label" style="margin-top:20px">Decisiones del proyecto</p>
   <div class="choices"></div>
-  <div class="comments"><p class="soft-label">Notas del rubro</p><div class="comment-grid"><textarea data-key="${cat.slug}_comentario_cliente" placeholder="Preferencias, dudas o referencias del cliente..."></textarea><textarea data-key="${cat.slug}_comentario_nexo" placeholder="Aclaraciones técnicas, impacto en presupuesto..."></textarea></div></div>
+  <div class="comments"><p class="soft-label">Notas del rubro</p><div class="comment-grid"><textarea data-key="${cat.slug}_comentario_cliente" placeholder="Preferencias, dudas o referencias del cliente..."></textarea><textarea data-key="${cat.slug}_comentario_nexo" placeholder="Aclaraciones técnicas, impacto en presupuesto..."></textarea</div>
+  <button class="btn-guardar" onclick="guardarRubro(this,`${cat.slug}`)">Guardar cambios</button>
+  <p class="guardar-msg" id="msg-${cat.slug}"></p></div></div>
 </div>`;
 
 const ch=d.querySelector('.choices');
