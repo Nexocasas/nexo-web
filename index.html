@@ -19,10 +19,8 @@
   .base-inc{color:var(--marron)}
   .base-extra{color:var(--suave)}
   .ref-link{display:inline-flex;align-items:center;gap:5px;margin:10px 0 4px;font-size:12px;font-weight:600;color:var(--marron);text-decoration:none;border-bottom:1px solid var(--linea)}
-  .choice-status-inc{background:#f0ece7;color:var(--marron);font-size:11px;padding:3px 9px;border-radius:20px;white-space:nowrap}
-  .choice-status-extra{background:#eee;color:var(--suave);font-size:11px;padding:3px 9px;border-radius:20px;white-space:nowrap}  .btn-guardar{width:100%;margin-top:16px;padding:13px;background:var(--negro);color:white;border:none;border-radius:8px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer}
-  .btn-guardar.ok{background:var(--marron)}
-</style>  <link rel="icon" type="image/png" href="assets/favicon.png?v=3">
+  .choice-status-inc{display:inline-block;background:#f0ece7;color:var(--marron);font-size:11px;padding:4px 10px;border-radius:6px;line-height:1.4;margin-top:4px}
+  .choice-status-extra{display:inline-block;background:#eee;color:var(--suave);font-size:11px;padding:4px 10px;border-radius:6px;line-height:1.4;margin-top:4px}</style>  <link rel="icon" type="image/png" href="assets/favicon.png?v=3">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2">
 </head><body><section class="hero">
   <img src="assets/img/hero.jpg" alt="">
@@ -37,8 +35,9 @@
     <p class="hero-titulo">Tu Casa Nexo</p>
     <p class="hero-proyecto" id="hero-proyecto-desc">Bitácora de proyecto</p>
   </div>
-</section><main class="wrap"><section class="project-card"><div class="project-grid"><div class="field"><div class="label">Proyecto</div><div class="editable" id="field-proyecto" data-key="proyecto">Casa de Juli y Nico</div></div><div class="field"><div class="label">Etapa actual</div><div class="editable" id="field-etapa" data-key="etapa">Proyecto</div></div><div class="field"><div class="label">Estado general</div><div class="editable" id="field-estado" data-key="estado">En desarrollo</div></div></div></div></section><section class="cards" id="rubros"></section><div id="nexo-actions" style="display:none;padding:20px 18px 40px"><button onclick="window.print()" style="width:100%;margin-bottom:10px;border-radius:8px;padding:12px;background:var(--marron);color:white;border:none;font-family:inherit;font-size:14px;cursor:pointer">Imprimir / Guardar PDF</button><button onclick="exportar()" style="width:100%;border-radius:8px;padding:12px;background:white;color:var(--marron);border:1px solid var(--linea);font-family:inherit;font-size:14px;cursor:pointer">Exportar registro</button></div></main><script>const categories=[{"slug": "exterior", "title": "Exterior", "desc": "Revestimientos, aberturas, cubierta, deck y expansión exterior.", "cover": "exterior_cover.jpg", "refs": ["exterior_ref_1.jpg", "exterior_ref_2.jpg", "exterior_ref_3.jpg"], "items": [["Techos", "Chapa prepintada sinusoidal (varios colores)"], ["Paredes", "Chapa prepintada sinusoidal (varios colores) / Entablonado pino impregnado vertical"], ["Esquineros / Cenefas", "Chapa prepintada lisa (varios colores)"], ["Aberturas", "PVC Negro"], ["Contramarcos", "Marco cajón de pino impregnado pintado (varios colores)"], ["Deck exterior", "A cotizar según proyecto"]]}, {"slug": "interior", "title": "Interior", "desc": "Revestimientos interiores, pisos, zócalos y terminaciones.", "cover": "interior_cover.jpg", "refs": ["interior_ref_1.jpg", "interior_ref_2.jpg", "interior_ref_3.jpg"], "items": [["Paredes interiores", "Machimbre de eucalipto"], ["Cielorraso", "Machimbre de eucalipto"], ["Piso", "Vinílico SPC"], ["Zócalos y terminaciones", "Eucalipto"], ["Tapas de luz", "A definir"]]}, {"slug": "cocina", "title": "Cocina", "desc": "Mesada, bacha, grifería, muebles, alzada y electrodomésticos.", "cover": "cocina_cover.jpg", "refs": ["cocina_ref_1.jpg", "cocina_ref_2.jpg", "cocina_ref_3.jpg"], "items": [["Mesada", "Negro Brasil"], ["Bacha", "Johnson incluida en propuesta base"], ["Grifería", "FV línea cotizada"], ["Alzada", "Según propuesta base"], ["Muebles", "Fabricación Nexo"], ["Extractor", "Incluido según cotización"], ["Horno / anafe", "No incluido"], ["Heladera", "No incluida"]]}, {"slug": "banos", "title": "Baños", "desc": "Artefactos, vanitory, ducha, bañera, mampara y revestimientos.", "cover": "banos_cover.jpg", "refs": ["banos_ref_1.jpg", "banos_ref_2.jpg", "banos_ref_3.jpg"], "items": [["Inodoro", "Roca Monaco"], ["Bidet / bidematic", "Bidematic monocomando"], ["Griferías", "FV línea cotizada"], ["Vanitory", "Fabricación Nexo"], ["Revestimiento ducha", "Cerámico en sectores cotizados"], ["Mampara", "No incluida / a cotizar"]]}, {"slug": "lavadero", "title": "Lavadero", "desc": "Pileta, guardado, termotanque, lavarropas y conexiones.", "cover": "lavadero_cover.jpg", "refs": ["lavadero_ref_1.jpg", "lavadero_ref_2.jpg", "lavadero_ref_3.jpg"], "items": [["Pileta lavadero", "Incluida según cotización"], ["Mesada", "Tablero de eucalipto"], ["Mueble / guardado", "Según propuesta base"], ["Termotanque", "Eléctrico 90 lts"], ["Lavarropas", "No incluido"]]}, {"slug": "dormitorio", "title": "Dormitorio", "desc": "Placards, guardado, escritorios y mobiliario fijo.", "cover": "dormitorio_cover.jpg", "refs": ["dormitorio_ref_1.jpg", "dormitorio_ref_2.jpg", "dormitorio_ref_3.jpg"], "items": [["Placard", "Según configuración cotizada"], ["Interior de placard", "Barrales, estantes y cajoneras"], ["Puertas de placard", "Corredizas"], ["Guardado adicional", "A definir"]]}, {"slug": "puertas", "title": "Puertas", "desc": "Puertas exteriores, interiores, corredizas, vidriadas y herrajes.", "cover": "puertas_cover.jpg", "refs": ["puertas_ref_1.jpg", "puertas_ref_2.jpg", "puertas_ref_3.jpg"], "items": [["Puerta exterior", "Fabricada en taller"], ["Puertas interiores", "Machimbre de eucalipto"], ["Puertas corredizas", "A definir según proyecto"], ["Herrajes", "Según propuesta base"], ["Terminación / color", "A definir"]]}, {"slug": "calefaccion", "title": "Calefacción", "desc": "Sistema, ubicación de equipos, salidas y preinstalaciones.", "cover": "calefaccion_cover.jpg", "refs": ["calefaccion_ref_1.jpg", "calefaccion_ref_2.jpg", "calefaccion_ref_3.jpg"], "items": [["Sistema de calefacción", "A definir según proyecto"], ["Ubicación de equipos", "A definir"], ["Salidas / ventilaciones", "Según sistema elegido"], ["Preinstalaciones", "A cotizar si corresponde"]]}, {"slug": "equipamiento", "title": "Equipamiento", "desc": "Iluminación, cortinas, accesorios y mobiliario complementario.", "cover": "equipamiento_cover.jpg", "refs": ["equipamiento_ref_1.jpg", "equipamiento_ref_2.jpg", "equipamiento_ref_3.jpg"], "items": [["Artefactos de iluminación", "No incluidos / a definir"], ["Cortinas", "No incluidas"], ["Accesorios baño", "No incluidos"], ["Accesorios cocina", "No incluidos"], ["Mobiliario adicional", "A definir"]]}];
+</section><main class="wrap"><section class="project-card"><div class="project-grid"><div class="field"><div class="label">Proyecto</div><div class="editable" id="field-proyecto" data-key="proyecto">Casa de Juli y Nico</div></div><div class="field"><div class="label">Etapa actual</div><div class="editable" id="field-etapa" data-key="etapa">Proyecto</div></div><div class="field"><div class="label">Estado general</div><div class="editable" id="field-estado" data-key="estado">En desarrollo</div></div></div></div></section><section class="cards" id="rubros"></section><div id="nexo-actions" style="display:none;padding:20px 18px 40px;display:none"><button onclick="window.print()" style="width:100%;margin-bottom:10px;border-radius:8px;padding:12px;background:var(--marron);color:white;border:none;font-family:inherit;font-size:14px;cursor:pointer">Imprimir / Guardar PDF</button><button onclick="exportar()" style="width:100%;border-radius:8px;padding:12px;background:white;color:var(--marron);border:1px solid var(--linea);font-family:inherit;font-size:14px;cursor:pointer">Exportar registro</button></div></main><script>const categories=[{"slug": "exterior", "title": "Exterior", "desc": "Revestimientos, aberturas, cubierta, deck y expansión exterior.", "cover": "exterior_cover.jpg", "refs": ["exterior_ref_1.jpg", "exterior_ref_2.jpg", "exterior_ref_3.jpg"], "items": [["Techos", "Chapa prepintada sinusoidal (varios colores)"], ["Paredes", "Chapa prepintada sinusoidal (varios colores) / Entablonado pino impregnado vertical"], ["Esquineros / Cenefas", "Chapa prepintada lisa (varios colores)"], ["Aberturas", "PVC Negro"], ["Contramarcos", "Marco cajón de pino impregnado pintado (varios colores)"], ["Deck exterior", "A cotizar según proyecto"]]}, {"slug": "interior", "title": "Interior", "desc": "Revestimientos interiores, pisos, zócalos y terminaciones.", "cover": "interior_cover.jpg", "refs": ["interior_ref_1.jpg", "interior_ref_2.jpg", "interior_ref_3.jpg"], "items": [["Paredes interiores", "Machimbre de eucalipto"], ["Cielorraso", "Machimbre de eucalipto"], ["Piso", "Vinílico SPC"], ["Zócalos y terminaciones", "Eucalipto"], ["Tapas de luz", "A definir"]]}, {"slug": "cocina", "title": "Cocina", "desc": "Mesada, bacha, grifería, muebles, alzada y electrodomésticos.", "cover": "cocina_cover.jpg", "refs": ["cocina_ref_1.jpg", "cocina_ref_2.jpg", "cocina_ref_3.jpg"], "items": [["Mesada", "Negro Brasil"], ["Bacha", "Johnson incluida en propuesta base"], ["Grifería", "FV línea cotizada"], ["Alzada", "Según propuesta base"], ["Muebles", "Fabricación Nexo"], ["Extractor", "Incluido según cotización"], ["Horno / anafe", "No incluido"], ["Heladera", "No incluida"]]}, {"slug": "banos", "title": "Baños", "desc": "Artefactos, vanitory, ducha, bañera, mampara y revestimientos.", "cover": "banos_cover.jpg", "refs": ["banos_ref_1.jpg", "banos_ref_2.jpg", "banos_ref_3.jpg"], "items": [["Inodoro", "Roca Monaco"], ["Bidet / bidematic", "Bidematic monocomando"], ["Griferías", "FV línea cotizada"], ["Vanitory", "Fabricación Nexo"], ["Revestimiento ducha", "Cerámico en sectores cotizados"], ["Mampara", "No incluida / a cotizar"]]}, {"slug": "lavadero", "title": "Lavadero", "desc": "Pileta, guardado, termotanque, lavarropas y conexiones.", "cover": "lavadero_cover.jpg", "refs": ["lavadero_ref_1.jpg", "lavadero_ref_2.jpg", "lavadero_ref_3.jpg"], "items": [["Pileta lavadero", "Incluida según cotización"], ["Mesada", "Tablero de eucalipto"], ["Mueble / guardado", "Según propuesta base"], ["Termotanque", "Eléctrico 90 lts"], ["Lavarropas", "No incluido"]]}, {"slug": "dormitorio", "title": "Dormitorio", "desc": "Placards, guardado, escritorios y mobiliario fijo.", "cover": "dormitorio_cover.jpg", "refs": ["dormitorio_ref_1.jpg", "dormitorio_ref_2.jpg", "dormitorio_ref_3.jpg"], "items": [["Placard", "Según configuración cotizada"], ["Interior de placard", "Barrales, estantes y cajoneras"], ["Puertas de placard", "Corredizas"], ["Guardado adicional", "A definir"]]}, {"slug": "puertas", "title": "Puertas", "desc": "Puertas exteriores, interiores, corredizas, vidriadas y herrajes.", "cover": "puertas_cover.jpg", "refs": ["puertas_ref_1.jpg", "puertas_ref_2.jpg", "puertas_ref_3.jpg"], "items": [["Puerta exterior", "Fabricada en taller"], ["Puertas interiores", "Machimbre de eucalipto"], ["Puertas corredizas", "A definir según proyecto"], ["Herrajes", "Según propuesta base"], ["Terminación / color", "A definir"]]}, {"slug": "calefaccion", "title": "Calefacción", "desc": "Sistema, ubicación de equipos, salidas y preinstalaciones.", "cover": "calefaccion_cover.jpg", "refs": ["calefaccion_ref_1.jpg", "calefaccion_ref_2.jpg", "calefaccion_ref_3.jpg"], "items": [["Sistema de calefacción", "A definir según proyecto"], ["Ubicación de equipos", "A definir"], ["Salidas / ventilaciones", "Según sistema elegido"], ["Preinstalaciones", "A cotizar si corresponde"]]}, {"slug": "equipamiento", "title": "Equipamiento", "desc": "Iluminación, cortinas, accesorios y mobiliario complementario.", "cover": "equipamiento_cover.jpg", "refs": ["equipamiento_ref_1.jpg", "equipamiento_ref_2.jpg", "equipamiento_ref_3.jpg"], "items": [["Artefactos de iluminación", "No incluidos / a definir"], ["Cortinas", "No incluidas"], ["Accesorios baño", "No incluidos"], ["Accesorios cocina", "No incluidos"], ["Mobiliario adicional", "A definir"]]}];
 function keyFor(cat,item,suf){return(cat+'_'+item+'_'+suf).replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]+/g,'_')}
+const MODO_NEXO = new URLSearchParams(window.location.search).get("nexo")==="1";
 function isExtra(v){return /a cotizar|a definir|no incluido|no incluida/i.test(v)}
 function render(){const root=document.getElementById('rubros');root.innerHTML='';categories.forEach(cat=>{const d=document.createElement('details');d.className='rubro';
 
@@ -66,51 +65,20 @@ cat.items.forEach(([item,base])=>{
   const div=document.createElement('div');div.className='choice';
   div.innerHTML=`<div class="choice-head">
     <div><div class="choice-title">${item}</div>
-    <span class="${extra?'choice-status-extra':'choice-status-inc'}">${extra?'⚠ A cotizar según proyecto':'✓ Opción base: '+base}</span></div>
+    <span class="${extra?'choice-status-extra':'choice-status-inc'}">${extra?'⚠ A cotizar por separado':'✓ Opción base: '+base}</span></div>
     <span class="mini-state" data-mini="${kC}">A definir</span></div>
-
   <div class="choice-main"><div><div class="input-label">Decisión tomada</div>
     <input data-key="${kE}" placeholder="Mantener cotizado / cambiar por..."></div>
-    <div><div class="input-label">Estado</div>
-    <select data-key="${kC}" data-type="condicion" data-cat="${cat.slug}"><option>A definir</option><option>Mantener opción cotizada</option><option>Evaluar alternativa</option><option>Requiere recotización</option><option>Definido</option></select></div></div>`;
+    ${MODO_NEXO ? `<div><div class="input-label">Estado</div><select data-key="${kC}" data-type="condicion" data-cat="${cat.slug}"><option>A definir</option><option>Mantener opción cotizada</option><option>Evaluar alternativa</option><option>Requiere recotización</option><option>Definido</option></select></div>` : ""}</div>`;
   ch.appendChild(div);
 });
 root.appendChild(d);});}render();load();
-const MODO_NEXO = new URLSearchParams(window.location.search).get('nexo') === '1';
-
-function applyNexoMode() {
-  if (!MODO_NEXO) return;
-  // Make project fields editable
-  ['field-proyecto','field-etapa','field-estado'].forEach(function(id) {
-    var el = document.getElementById(id);
-    if (el) el.contentEditable = 'true';
-  });
-  // Add Estado select to each choice
-  document.querySelectorAll('.choice').forEach(function(ch) {
-    var kC = ch.querySelector('[data-key$="_condicion"]');
-    if (!kC) return;
-    var key = kC.dataset.key;
-    var cat = key.split('_')[0];
-    var wrap = document.createElement('div');
-    wrap.innerHTML = '<div class="input-label">Estado</div><select data-key="'+key+'" data-type="condicion" data-cat="'+cat+'"><option>A definir</option><option>Mantener opción cotizada</option><option>Evaluar alternativa</option><option>Requiere recotización</option><option>Definido</option></select>';
-    ch.querySelector('.choice-main').appendChild(wrap);
-  });
-  // Show buttons
-  var actions = document.getElementById('nexo-actions');
-  if (actions) actions.style.display = 'block';
-}
-
-function addGuardarButtons() {
-  document.querySelectorAll('.rubro .body').forEach(function(body) {
-    if (body.querySelector('.btn-guardar')) return;
-    var btn = document.createElement('button');
-    btn.className = 'btn-guardar';
-    btn.textContent = 'Guardar cambios';
-    btn.onclick = function() {
-      btn.textContent = '✓ Guardado';
-      btn.classList.add('ok');
-      setTimeout(function(){ btn.textContent = 'Guardar cambios'; btn.classList.remove('ok'); }, 3000);
-    };
-    body.appendChild(btn);
-  });
-}applyNexoMode();addGuardarButtons();</script></body></html>
+  // Apply nexo mode
+  if (MODO_NEXO) {
+    ['field-proyecto','field-etapa','field-estado'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.contentEditable = 'true';
+    });
+    const btn = document.getElementById('nexo-actions');
+    if (btn) btn.style.display = 'block';
+  }</script></body></html>
