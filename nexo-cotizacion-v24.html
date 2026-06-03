@@ -62,14 +62,6 @@
   .cotizar-titulo { font-size:14px; font-weight:600; color:var(--negro); margin-bottom:3px; }
   .cotizar-desc { font-size:13px; color:var(--gris); line-height:1.5; }
 
-  .cal-wrap { position:relative; margin-top:4px; }
-  .cal-months { display:flex; border-bottom:1px solid rgba(255,255,255,0.15); margin-bottom:8px; }
-  .cal-m { flex:1; text-align:center; font-size:9px; color:rgba(255,255,255,0.55); padding:6px 2px; text-transform:uppercase; letter-spacing:.5px; border-right:1px solid rgba(255,255,255,0.08); }
-  .cal-m:last-child { border-right:none; }
-  .cal-bands { position:relative; height:52px; }
-  .cal-band { position:absolute; height:40px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:600; letter-spacing:.3px; text-align:center; line-height:1.3; padding:0 4px; top:0; }
-  .cal-band.ocupado { background:rgba(255,255,255,0.12); color:rgba(255,255,255,0.6); }
-  .cal-band.disponible { background:var(--arena); color:var(--negro); }
   .agenda-aviso { font-size:13px; color:var(--negro); background:white; border:1px solid var(--linea); border-left:3px solid var(--arena); padding:12px 14px; margin-bottom:24px; line-height:1.5; border-radius:0 4px 4px 0; }
   .agenda-aviso strong { font-weight:600; }
   .timeline { display:flex; position:relative; padding-bottom:4px; }
@@ -189,49 +181,7 @@ const CONFIG = {
 };
 /* ═══════════════════════════════════════════════════════ */
 
-
-function buildCalendar() {
-  const el = document.getElementById('cal-agenda');
-  if (!el) return;
-  const mNames = ['','Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
-  function parse(s){ const p=s.split('/'); return {m:parseInt(p[0]),y:parseInt(p[1])}; }
-  function addMonths(d,n){ let m=d.m+n,y=d.y; while(m>12){m-=12;y++;} return {m,y}; }
-  function eq(a,b){ return a.m===b.m && a.y===b.y; }
-  function diff(a,b){ return (b.y-a.y)*12+(b.m-a.m); }
-
-  const a0start = parse(CONFIG.agenda[0].inicio);
-  const end     = parse(CONFIG.entregaTuCasa);
-  const total   = diff(a0start, end);
-
-  // Build months header
-  let hdr = '<div class="cal-months">';
-  for(let i=0;i<=total;i++){
-    const d=addMonths(a0start,i);
-    hdr+=`<div class="cal-m">${mNames[d.m]}</div>`;
-  }
-  hdr += '</div><div class="cal-bands">';
-
-  // Build project bands
-  const projects = CONFIG.agenda.map(a=>({
-    name: a.nombre.replace('\n',' '),
-    start: parse(a.inicio),
-    end: parse(a.entrega),
-    type:'ocupado'
-  }));
-  const lastEnd = parse(CONFIG.agenda[CONFIG.agenda.length-1].entrega);
-  projects.push({ name:'Tu casa', start:lastEnd, end:parse(CONFIG.entregaTuCasa), type:'disponible' });
-
-  projects.forEach(p=>{
-    const si = diff(a0start, p.start);
-    const ei = diff(a0start, p.end);
-    const l  = (si/(total+1)*100).toFixed(1);
-    const w  = ((ei-si)/(total+1)*100).toFixed(1);
-    hdr+=`<div class="cal-band ${p.type}" style="left:${l}%;width:${w}%">${p.name}</div>`;
-  });
-
-  hdr += '</div>';
-  el.innerHTML = hdr;
-}document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
   const set = (id, val) => { const el = document.getElementById(id); if (el) el.innerHTML = val; };
   set("cfg-fecha",         CONFIG.fechaEnvio);
   set("cfg-descripcion",   CONFIG.descripcion || PLANOS[CONFIG.plano] || "");
@@ -261,7 +211,6 @@ function buildCalendar() {
   if (planoEl) planoEl.src = CONFIG.plano;
   const planoLb = document.getElementById("cfg-plano-lb");
   if (planoLb) planoLb.src = CONFIG.plano;
-  buildCalendar();
 });
 
   // Rubros accordion
@@ -327,81 +276,6 @@ function buildCalendar() {
   <a class="total-link" onclick="abrirIncluye()" href="#que-incluye">Ver qué incluye ↓</a>
 </div>
 
-</div>
-
-<div class="acc-header" onclick="toggle('agenda-cuerpo','icono-agenda')">
-  <span class="acc-titulo">Agenda de producción</span>
-  <span class="acc-icono" id="icono-agenda">+</span>
-</div>
-<div class="acc-cuerpo" id="agenda-cuerpo">
-<div class="seccion">
-  <div class="agenda-aviso">Construimos <strong>una casa a la vez.</strong> Con el anticipo del 5% reservás tu lugar y comenzamos la personalización de tu proyecto.</div>
-<div id="cal-agenda" class="cal-wrap"></div>-- PLANO DE REFERENCIA -->
-<div class="plano-bloque">
-  <p class="plano-label">Plano de referencia</p>
-  <div class="plano-wrap" onclick="abrirPlano()"><img src="" id="cfg-plano"  alt="Plano de referencia">
-    <div class="plano-tap-hint">Tocá para ampliar</div>
-  </div>
-  <p class="plano-nota">El plano es de referencia y puede ajustarse durante el proceso de proyecto.</p>
-</div>
-
-<!-- LIGHTBOX -->
-<div class="lightbox" id="plano-lightbox" onclick="cerrarPlano()">
-  <div class="lightbox-cerrar" onclick="cerrarPlano()">×</div>
-  <img id="cfg-plano-lb" src="" alt="Plano de referencia">
-</div>
-
-
-
-<div class="total-bloque">
-  <p class="total-label">Total · Materiales + Mano de obra</p>
-  <div class="total-valor" id="cfg-total">USD 58.000</div><!-- MONTO -->
-  <p class="total-detalle">Entrega llave en mano · Exento de IVA<br>Solicitar factura si corresponde</p>
-  <a class="total-link" onclick="abrirIncluye()" href="#que-incluye">Ver qué incluye ↓</a>
-</div>
-
-</div>
-
-<div class="acc-header" onclick="toggle('agenda-cuerpo','icono-agenda')">
-  <span class="acc-titulo">Agenda de producción</span>
-  <span class="acc-icono" id="icono-agenda">+</span>
-</div>
-<div class="acc-cuerpo" id="agenda-cuerpo">
-<div class="seccion">
-  <div class="agenda-aviso">Construimos <strong>una casa a la vez.</strong> Con el anticipo del 5% reservás tu lugar y comenzamos la personalización de tu proyecto.</div>
-  <div class="timeline">
-    <div class="tl-linea"></div>
-    <div class="tl-item"><p class="tl-fecha-inicio" id="cfg-ag1-inicio">Inicio 02/2027</p><div class="tl-punto"></div><p class="tl-nombre" id="cfg-ag1-nombre">Casa Orillas<br>del Caleufu</p><p class="tl-entrega" id="cfg-ag1-entrega">Entrega 04/2027</p></div>
-    <div class="tl-item"><p class="tl-fecha-inicio" id="cfg-ag2-inicio">Inicio 04/2027</p><div class="tl-punto"></div><p class="tl-nombre" id="cfg-ag2-nombre">Casa de<br>Juli y Nico</p><p class="tl-entrega" id="cfg-ag2-entrega">Entrega 07/2027</p></div>
-    <div class="tl-item"><p class="tl-fecha-inicio">Inicio 07/2027</p><div class="tl-punto activo"></div><p class="tl-nombre disponible">Tu casa</p><p class="tl-entrega" id="cfg-ag3-entrega">Entrega 09/2027</p></div>
-  </div>
-</div>
-
-</div>
-
-<div class="ver-proyectos-bloque">
-  <div class="ver-proyectos-texto">
-    <h3>Nuestros proyectos</h3>
-    <p>Conocé los distintos proyectos que realizamos y las posibilidades de personalización.</p>
-  </div>
-  <a href="proyectos.html" class="ver-proyectos-btn">Ver fotos →</a><!-- LINK PROYECTOS -->
-</div>
-
-<div class="acc-header" onclick="toggle('seguimos-cuerpo','icono-seguimos')">
-  <span class="acc-titulo">¿Cómo seguimos?</span>
-  <span class="acc-icono" id="icono-seguimos">+</span>
-</div>
-<div class="acc-cuerpo dark" id="seguimos-cuerpo">
-<div class="seguimos-bloque">
-  <div class="paso"><img class="paso-icono" src="assets/icono-reserva.png" alt="" style="filter:brightness(0) invert(1)"><div><p class="paso-etapa">Anteproyecto · Hoy</p><p class="paso-nombre">Reserva de lugar</p></div><div class="paso-monto"><p class="paso-num" id="cfg-monto-anticipo">USD 2.900</p><p class="paso-pct">Anticipo 5%</p></div></div>
-  <div class="paso"><img class="paso-icono" src="assets/icono-proyecto.png" alt=""><div><p class="paso-etapa" id="cfg-paso-proyecto">Proyecto · Hoy — 06/2027</p><p class="paso-nombre">Personalización y recotización</p><p class="paso-desc">Decisiones proyectuales · Presupuesto final · Compra de materiales</p></div><div class="paso-monto"><p class="paso-num" style="color:rgba(255,255,255,0.2)">—</p></div></div>
-  <div class="paso"><img class="paso-icono" src="assets/icono-obra-inicio.png" alt=""><div><p class="paso-etapa" id="cfg-paso-obra">Inicio de obra · 07/2027</p><p class="paso-nombre">1° Pago mano de obra</p></div><div class="paso-monto"><p class="paso-num" id="cfg-monto-pago1">USD 9.700</p><p class="paso-pct">33,3%</p></div></div>
-  <div class="paso"><img class="paso-icono" src="assets/icono-obra-avance.png" alt=""><div><p class="paso-etapa" id="cfg-paso-avance">Avance de obra · A definir</p><p class="paso-nombre">2° Pago mano de obra</p></div><div class="paso-monto"><p class="paso-num" id="cfg-monto-pago1">USD 9.700</p><p class="paso-pct">33,3%</p></div></div>
-  <div class="paso"><img class="paso-icono" src="assets/nexo-icono-blanco.png" alt=""><div><p class="paso-etapa">Contraentrega · <span id="cfg-paso-entrega">09/2027</span></p><p class="paso-nombre">3° Pago mano de obra</p></div><div class="paso-monto"><p class="paso-num" id="cfg-monto-pago3">USD 9.700</p><p class="paso-pct">Saldo final</p></div></div>
-</div>
-
-</div>
-
 <div id="que-incluye">
   <div class="acc-header" onclick="toggle('incluye-cuerpo','icono-incluye')">
     <span class="acc-titulo">¿Qué incluye?</span>
@@ -423,11 +297,13 @@ function buildCalendar() {
 </div>
 
 
+
 <div class="seccion">
   <span class="tag-cotizar">No incluido · A cotizar según particularidades del lote</span>
   <div class="cotizar-item"><p class="cotizar-titulo">Movimiento de suelo</p><p class="cotizar-desc">Visitamos el terreno para evaluar la factibilidad del proyecto y cotizar las tareas necesarias.</p></div>
   <div class="cotizar-item"><p class="cotizar-titulo">Conexión a servicios</p><p class="cotizar-desc">Según disponibilidad en tu lote, evaluamos y cotizamos las tareas a realizar.</p></div>
   <div class="cotizar-item"><p class="cotizar-titulo">Traslado</p><p class="cotizar-desc">Una vez lista tu casa, cotizamos el transporte hasta el terreno.</p></div>
+
 <div>
   <div class="acc-header" onclick="toggle('opc-cuerpo','icono-opc')">
     <span class="acc-titulo">Opcionales</span>
@@ -440,6 +316,51 @@ function buildCalendar() {
     </div>
   </div>
 </div>
+
+
+<div class="acc-header" onclick="toggle('seguimos-cuerpo','icono-seguimos')">
+  <span class="acc-titulo">¿Cómo seguimos?</span>
+  <span class="acc-icono" id="icono-seguimos">+</span>
+</div>
+<div class="acc-cuerpo dark" id="seguimos-cuerpo">
+<div class="seguimos-bloque">
+  <div class="paso"><img class="paso-icono" src="assets/icono-reserva.png" alt="" style="filter:brightness(0) invert(1)"><div><p class="paso-etapa">Anteproyecto · Hoy</p><p class="paso-nombre">Reserva de lugar</p></div><div class="paso-monto"><p class="paso-num" id="cfg-monto-anticipo">USD 2.900</p><p class="paso-pct">Anticipo 5%</p></div></div>
+  <div class="paso"><img class="paso-icono" src="assets/icono-proyecto.png" alt=""><div><p class="paso-etapa" id="cfg-paso-proyecto">Proyecto · Hoy — 06/2027</p><p class="paso-nombre">Personalización y recotización</p><p class="paso-desc">Decisiones proyectuales · Presupuesto final · Compra de materiales</p></div><div class="paso-monto"><p class="paso-num" style="color:rgba(255,255,255,0.2)">—</p></div></div>
+  <div class="paso"><img class="paso-icono" src="assets/icono-obra-inicio.png" alt=""><div><p class="paso-etapa" id="cfg-paso-obra">Inicio de obra · 07/2027</p><p class="paso-nombre">1° Pago mano de obra</p></div><div class="paso-monto"><p class="paso-num" id="cfg-monto-pago1">USD 9.700</p><p class="paso-pct">33,3%</p></div></div>
+  <div class="paso"><img class="paso-icono" src="assets/icono-obra-avance.png" alt=""><div><p class="paso-etapa" id="cfg-paso-avance">Avance de obra · A definir</p><p class="paso-nombre">2° Pago mano de obra</p></div><div class="paso-monto"><p class="paso-num" id="cfg-monto-pago1">USD 9.700</p><p class="paso-pct">33,3%</p></div></div>
+  <div class="paso"><img class="paso-icono" src="assets/nexo-icono-blanco.png" alt=""><div><p class="paso-etapa">Contraentrega · <span id="cfg-paso-entrega">09/2027</span></p><p class="paso-nombre">3° Pago mano de obra</p></div><div class="paso-monto"><p class="paso-num" id="cfg-monto-pago3">USD 9.700</p><p class="paso-pct">Saldo final</p></div></div>
+</div>
+
+</div>
+
+
+<div class="acc-header" onclick="toggle('agenda-cuerpo','icono-agenda')">
+  <span class="acc-titulo">Agenda de producción</span>
+  <span class="acc-icono" id="icono-agenda">+</span>
+</div>
+<div class="acc-cuerpo" id="agenda-cuerpo">
+<div class="seccion">
+  <div class="agenda-aviso">Construimos <strong>una casa a la vez.</strong> Con el anticipo del 5% reservás tu lugar y comenzamos la personalización de tu proyecto.</div>
+  <div class="timeline">
+    <div class="tl-linea"></div>
+    <div class="tl-item"><p class="tl-fecha-inicio" id="cfg-ag1-inicio">Inicio 02/2027</p><div class="tl-punto"></div><p class="tl-nombre" id="cfg-ag1-nombre">Casa Orillas<br>del Caleufu</p><p class="tl-entrega" id="cfg-ag1-entrega">Entrega 04/2027</p></div>
+    <div class="tl-item"><p class="tl-fecha-inicio" id="cfg-ag2-inicio">Inicio 04/2027</p><div class="tl-punto"></div><p class="tl-nombre" id="cfg-ag2-nombre">Casa de<br>Juli y Nico</p><p class="tl-entrega" id="cfg-ag2-entrega">Entrega 07/2027</p></div>
+    <div class="tl-item"><p class="tl-fecha-inicio">Inicio 07/2027</p><div class="tl-punto activo"></div><p class="tl-nombre disponible">Tu casa</p><p class="tl-entrega" id="cfg-ag3-entrega">Entrega 09/2027</p></div>
+  </div>
+</div>
+
+</div>
+
+
+<div class="ver-proyectos-bloque">
+  <div class="ver-proyectos-texto">
+    <h3>Nuestros proyectos</h3>
+    <p>Conocé los distintos proyectos que realizamos y las posibilidades de personalización.</p>
+  </div>
+  <a href="proyectos.html" class="ver-proyectos-btn">Ver fotos →</a><!-- LINK PROYECTOS -->
+</div>
+
+
 
 <div class="contacto-bloque">
   <img class="ct-icono" src="assets/nexo-icono-blanco.png" alt="Nexo logo">
