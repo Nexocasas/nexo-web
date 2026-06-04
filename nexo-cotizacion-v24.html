@@ -62,7 +62,7 @@
   .cotizar-titulo { font-size:14px; font-weight:600; color:var(--negro); margin-bottom:3px; }
   .cotizar-desc { font-size:13px; color:var(--gris); line-height:1.5; }
 
-  .agenda-aviso { font-size:13px; color:var(--negro); background:white; border:1px solid var(--linea); border-left:3px solid var(--arena); padding:12px 14px; margin-bottom:24px; line-height:1.5; border-radius:0 4px 4px 0; }
+  .agenda-aviso { font-size:11px; color:var(--gris); line-height:1.5; margin-bottom:18px; }
   .agenda-aviso strong { font-weight:600; }
   .timeline { display:flex; position:relative; padding-bottom:4px; }
   .tl-linea { position:absolute; top:29px; left:5%; right:5%; height:1.5px; background:var(--linea); }
@@ -135,9 +135,12 @@
   .ct-item { margin-bottom:14px; }
   .ct-label { font-size:9.5px; letter-spacing:1.5px; text-transform:uppercase; color:var(--arena); margin-bottom:3px; }
   .ct-item a { color:var(--negro); text-decoration:none; font-size:13px; }
+  .cal-years { display:flex; margin-bottom:4px; }
+  .cal-y { flex:1; text-align:center; font-size:9px; font-weight:600; color:var(--marron); letter-spacing:.5px; border-bottom:1px solid var(--linea); padding-bottom:3px; margin:0 1px; }
   .cal-months { display:flex; margin-bottom:6px; }
   .cal-m { flex:1; text-align:center; font-size:9px; color:var(--gris); text-transform:uppercase; letter-spacing:.5px; }
-  .cal-track { display:flex; gap:3px; height:40px; }
+  .cal-track { display:flex; gap:3px; height:46px; }
+  .cal-seg.vacio { background:transparent; }
   .cal-seg { display:flex; align-items:center; justify-content:center; text-align:center; border-radius:6px; font-size:9.5px; font-weight:600; line-height:1.15; padding:0 6px; box-sizing:border-box; }
   .cal-seg.ocupado { background:#ece2d8; color:var(--marron); }
   .cal-seg.disponible { background:var(--arena); color:var(--negro); }
@@ -197,20 +200,26 @@ function buildCalendar(){
   if(!el)return;
   var M=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   function parse(s){var p=s.split('/');return parseInt(p[1])*12+(parseInt(p[0])-1);}
-  function label(i){return M[((i%12)+12)%12];}
+  function mLabel(i){return M[((i%12)+12)%12];}
+  function yLabel(i){return Math.floor(i/12);}
   var segs=[];
   CONFIG.agenda.forEach(function(a){segs.push({ini:parse(a.inicio),fin:parse(a.entrega),nombre:a.nombre.replace('\n',' '),tipo:'ocupado'});});
   var lastFin=parse(CONFIG.agenda[CONFIG.agenda.length-1].entrega);
   segs.push({ini:lastFin,fin:parse(CONFIG.entregaTuCasa),nombre:'Tu casa',tipo:'disponible'});
-  var start=segs[0].ini;
+  var firstStart=segs[0].ini;
+  var calStart=firstStart-2;
   var end=parse(CONFIG.entregaTuCasa);
-  var totalM=end-start;
+  var totalM=end-calStart;
+  var years='';var i=0;
+  while(i<totalM){var y=yLabel(calStart+i);var span=0;while(i<totalM&&yLabel(calStart+i)===y){span++;i++;}years+='<div class="cal-y" style="flex:'+span+'">'+y+'</div>';}
   var months='';
-  for(var i=0;i<totalM;i++){months+='<div class="cal-m">'+label(start+i)+'</div>';}
+  for(var j=0;j<totalM;j++){months+='<div class="cal-m">'+mLabel(calStart+j)+'</div>';}
   var track='';
+  var lead=firstStart-calStart;
+  if(lead>0){track+='<div class="cal-seg vacio" style="flex:'+lead+'"></div>';}
   segs.forEach(function(s){var span=s.fin-s.ini;track+='<div class="cal-seg '+s.tipo+'" style="flex:'+span+'">'+s.nombre+'</div>';});
   var leg='<div class="cal-leyenda"><span><span class="cal-dot dot-ocu"></span>Reservado</span><span><span class="cal-dot dot-disp"></span>Tu lugar</span></div>';
-  el.innerHTML='<div class="cal-months">'+months+'</div><div class="cal-track">'+track+'</div>'+leg;
+  el.innerHTML='<div class="cal-years">'+years+'</div><div class="cal-months">'+months+'</div><div class="cal-track">'+track+'</div>'+leg;
 }
 document.addEventListener("DOMContentLoaded", () => {
   const set = (id, val) => { const el = document.getElementById(id); if (el) el.innerHTML = val; };
