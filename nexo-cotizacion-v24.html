@@ -135,6 +135,17 @@
   .ct-item { margin-bottom:14px; }
   .ct-label { font-size:9.5px; letter-spacing:1.5px; text-transform:uppercase; color:var(--arena); margin-bottom:3px; }
   .ct-item a { color:var(--negro); text-decoration:none; font-size:13px; }
+  .cal-months { display:flex; margin-bottom:6px; }
+  .cal-m { flex:1; text-align:center; font-size:9px; color:var(--gris); text-transform:uppercase; letter-spacing:.5px; }
+  .cal-track { display:flex; gap:3px; height:40px; }
+  .cal-seg { display:flex; align-items:center; justify-content:center; text-align:center; border-radius:6px; font-size:9.5px; font-weight:600; line-height:1.15; padding:0 6px; box-sizing:border-box; }
+  .cal-seg.ocupado { background:#ece2d8; color:var(--marron); }
+  .cal-seg.disponible { background:var(--arena); color:var(--negro); }
+  .cal-leyenda { display:flex; gap:16px; margin-top:12px; font-size:9px; color:var(--gris); }
+  .cal-leyenda > span { display:flex; align-items:center; gap:5px; }
+  .cal-dot { width:9px; height:9px; border-radius:3px; display:inline-block; }
+  .dot-ocu { background:#ece2d8; }
+  .dot-disp { background:var(--arena); }
 </style>
 <script>
 // Descripciones automáticas por plano — no hace falta tocar esto
@@ -181,6 +192,26 @@ const CONFIG = {
 };
 /* ═══════════════════════════════════════════════════════ */
 
+function buildCalendar(){
+  var el=document.getElementById('cal-agenda');
+  if(!el)return;
+  var M=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  function parse(s){var p=s.split('/');return parseInt(p[1])*12+(parseInt(p[0])-1);}
+  function label(i){return M[((i%12)+12)%12];}
+  var segs=[];
+  CONFIG.agenda.forEach(function(a){segs.push({ini:parse(a.inicio),fin:parse(a.entrega),nombre:a.nombre.replace('\n',' '),tipo:'ocupado'});});
+  var lastFin=parse(CONFIG.agenda[CONFIG.agenda.length-1].entrega);
+  segs.push({ini:lastFin,fin:parse(CONFIG.entregaTuCasa),nombre:'Tu casa',tipo:'disponible'});
+  var start=segs[0].ini;
+  var end=parse(CONFIG.entregaTuCasa);
+  var totalM=end-start;
+  var months='';
+  for(var i=0;i<totalM;i++){months+='<div class="cal-m">'+label(start+i)+'</div>';}
+  var track='';
+  segs.forEach(function(s){var span=s.fin-s.ini;track+='<div class="cal-seg '+s.tipo+'" style="flex:'+span+'">'+s.nombre+'</div>';});
+  var leg='<div class="cal-leyenda"><span><span class="cal-dot dot-ocu"></span>Reservado</span><span><span class="cal-dot dot-disp"></span>Tu lugar</span></div>';
+  el.innerHTML='<div class="cal-months">'+months+'</div><div class="cal-track">'+track+'</div>'+leg;
+}
 document.addEventListener("DOMContentLoaded", () => {
   const set = (id, val) => { const el = document.getElementById(id); if (el) el.innerHTML = val; };
   set("cfg-fecha",         CONFIG.fechaEnvio);
@@ -202,6 +233,7 @@ document.addEventListener("DOMContentLoaded", () => {
     set("cfg-ag2-entrega", "Entrega " + CONFIG.agenda[1].entrega);
   }
   set("cfg-ag3-entrega",   "Entrega " + CONFIG.entregaTuCasa);
+  buildCalendar();
   // Pasos
   set("cfg-paso-proyecto", "Proyecto · " + CONFIG.pasoProyecto);
   set("cfg-paso-obra",     "Inicio de obra · " + CONFIG.pasoObra);
@@ -341,12 +373,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <div class="acc-cuerpo" id="agenda-cuerpo">
 <div class="seccion">
   <div class="agenda-aviso">Construimos <strong>una casa a la vez.</strong> Con el anticipo del 5% reservás tu lugar y comenzamos la personalización de tu proyecto.</div>
-  <div class="timeline">
-    <div class="tl-linea"></div>
-    <div class="tl-item"><p class="tl-fecha-inicio" id="cfg-ag1-inicio">Inicio 02/2027</p><div class="tl-punto"></div><p class="tl-nombre" id="cfg-ag1-nombre">Casa Orillas<br>del Caleufu</p><p class="tl-entrega" id="cfg-ag1-entrega">Entrega 04/2027</p></div>
-    <div class="tl-item"><p class="tl-fecha-inicio" id="cfg-ag2-inicio">Inicio 04/2027</p><div class="tl-punto"></div><p class="tl-nombre" id="cfg-ag2-nombre">Casa de<br>Juli y Nico</p><p class="tl-entrega" id="cfg-ag2-entrega">Entrega 07/2027</p></div>
-    <div class="tl-item"><p class="tl-fecha-inicio">Inicio 07/2027</p><div class="tl-punto activo"></div><p class="tl-nombre disponible">Tu casa</p><p class="tl-entrega" id="cfg-ag3-entrega">Entrega 09/2027</p></div>
-  </div>
+  <div id="cal-agenda"></div>
 </div>
 
 </div>
