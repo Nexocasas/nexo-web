@@ -182,7 +182,7 @@ const CONFIG = {
     { inicio: "03/2027", nombre: "Casa Caleufu", entrega: "05/2027" },
     { inicio: "05/2027", nombre: "Casa de Juli y Nico",      entrega: "08/2027" },
   ],
-  entregaTuCasa: "10/2027",   // siempre el 3° slot
+  entregaTuCasa: "09/2027",   // siempre el 3° slot
 
   // ── Fechas de pasos ──────────────────────────────────
   pasoProyecto: "Hoy — 06/2027",
@@ -211,10 +211,15 @@ function buildCalendar(){
   segs.push({ini:lastFin,fin:parse(CONFIG.entregaTuCasa),nombre:'Tu casa',tipo:'disponible'});
   var start=segs[0].ini;var end=parse(CONFIG.entregaTuCasa);var totalM=end-start;
   function occ(m){for(var k=0;k<segs.length;k++){if(m>=segs[k].ini&&m<segs[k].fin)return k;}return -1;}
-  var perRow=Math.ceil(totalM/2);
+  var mid=totalM/2;var splitAt=Math.ceil(mid);
+  var bounds=[];segs.forEach(function(s){var off=s.ini-start;if(off>0&&off<totalM)bounds.push(off);});
+  if(bounds.length){splitAt=bounds[0];for(var bi=1;bi<bounds.length;bi++){if(Math.abs(bounds[bi]-mid)<Math.abs(splitAt-mid))splitAt=bounds[bi];}}
+  var strips=[[0,splitAt],[splitAt,totalM]];
+  var maxC=Math.max(splitAt,totalM-splitAt);
   var html='';
-  for(var r=0;r<totalM;r+=perRow){
-    var a=r;var b=Math.min(r+perRow,totalM);
+  strips.forEach(function(st){
+    var a=st[0],b=st[1];if(b<=a)return;
+    var w=((b-a)/maxC*100).toFixed(2);
     var years='';var i=a;
     while(i<b){var y=yLabel(start+i);var span=0;while(i<b&&yLabel(start+i)===y){span++;i++;}years+='<div class="cal-y" style="flex:'+span+'">'+y+'</div>';}
     var months='';for(var j=a;j<b;j++){months+='<div class="cal-m">'+mLabel(start+j)+'</div>';}
@@ -223,8 +228,8 @@ function buildCalendar(){
       if(o<0){track+='<div class="cal-seg vacio" style="flex:'+span+'"></div>';}
       else{track+='<div class="cal-seg '+segs[o].tipo+'" style="flex:'+span+'">'+segs[o].nombre+'</div>';}
       k+=span;}
-    html+='<div class="cal-strip"><div class="cal-years">'+years+'</div><div class="cal-months">'+months+'</div><div class="cal-track">'+track+'</div></div>';
-  }
+    html+='<div class="cal-strip" style="width:'+w+'%"><div class="cal-years">'+years+'</div><div class="cal-months">'+months+'</div><div class="cal-track">'+track+'</div></div>';
+  });
   html+='<div class="cal-leyenda"><span><span class="cal-dot dot-ocu"></span>Reservado</span><span><span class="cal-dot dot-disp"></span>Tu lugar</span></div>';
   el.innerHTML=html;
 }
