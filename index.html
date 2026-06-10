@@ -1,87 +1,236 @@
-﻿<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tu Casa Nexo</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet"><style>
-:root{--marron:#553f31;--negro:#0d0502;--beige:#cea27c;--fondo:#f9f8f6;--blanco:#fff;--linea:#eadfd4;--texto:#201611;--suave:#75655b;--rev:#8a5846}*{box-sizing:border-box}html,body{margin:0;background:var(--fondo);color:var(--texto);font-family:"DM Sans",Arial,sans-serif;line-height:1.45}.hero{position:relative;height:320px;overflow:hidden}
-.hero>img{width:100%;height:100%;object-fit:cover;filter:brightness(.48)}
-.hero-top{position:absolute;top:0;left:0;right:0;padding:20px;display:flex;align-items:center;justify-content:space-between}
-.hero-top .logo-nombre{font-size:22px;font-weight:600;color:white;letter-spacing:-.5px;line-height:1}
-.hero-top .logo-taller{font-size:9px;color:rgba(255,255,255,.8);font-weight:400;line-height:1.4}
-.hero-top .htextos{display:flex;align-items:center;gap:9px}
-.hero-top .hicono{width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 6px rgba(0,0,0,.8))}
-.hero-top .logo-nombre{text-shadow:0 1px 6px rgba(0,0,0,.9)}
-.hero-top .logo-taller{text-shadow:0 1px 4px rgba(0,0,0,.9)}
-.hero-bottom{position:absolute;bottom:0;left:0;right:0;padding:22px 20px 28px;background:linear-gradient(to top,rgba(13,5,2,.92),transparent)}
-.hero-titulo{font-size:32px;font-weight:300;color:white;letter-spacing:-.5px;line-height:1;margin:0 0 6px}
-.hero-proyecto{font-size:12px;color:rgba(255,255,255,.65);line-height:1.4}.wrap{width:min(1160px,100%);margin:0 auto;padding:30px 18px 80px}.intro{max-width:760px;margin:36px auto 34px;text-align:center}h1{font-size:clamp(28px,5vw,40px);line-height:.92;letter-spacing:-.04em;font-weight:500;color:var(--marron);margin:0 0 8px}.intro p{font-size:18px;color:var(--suave);margin:0 auto;max-width:680px}.project-card{background:var(--blanco);border:1px solid var(--linea);border-radius:12px;padding:10px 14px;margin:12px auto 16px}.project-grid{display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:12px}.field{background:#fbf7f3;border:1px solid var(--linea);border-radius:18px;padding:14px}.label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--suave);margin-bottom:3px}.editable{outline:none;min-height:20px;font-size:14px;border-radius:6px}.editable:focus{background:white;box-shadow:0 0 0 2px rgba(206,162,124,.45)}.progress{height:10px;background:#eee6de;border-radius:999px;overflow:hidden;margin:14px 0 12px}.progress div{height:100%;width:0;background:var(--beige);transition:.2s}.stats{display:flex;gap:10px;flex-wrap:wrap}.pill{border:1px solid var(--linea);background:#f4ece5;border-radius:999px;padding:7px 11px;font-size:13px;color:var(--marron)}.section-title{font-size:34px;line-height:1;letter-spacing:-.05em;font-weight:500;color:var(--marron);margin:34px 0 18px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}details.rubro{background:white;border:1px solid var(--linea);border-radius:30px;overflow:hidden;box-shadow:0 10px 26px rgba(85,63,49,.06)}details.rubro[open]{grid-column:1/-1}summary.cover{list-style:none;cursor:pointer;min-height:320px;position:relative;display:flex;align-items:flex-end;color:white;overflow:hidden}details.rubro[open] summary.cover{min-height:380px}summary.cover::-webkit-details-marker{display:none}.cover-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.01)}.cover-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(13,5,2,.78),rgba(13,5,2,.24),rgba(13,5,2,.04))}.cover-content{position:relative;z-index:1;width:100%;padding:24px}.cover-title{font-size:clamp(42px,6vw,70px);line-height:.9;letter-spacing:-.07em;font-weight:500;margin-bottom:12px}.cover-desc{font-size:16px;opacity:.9;max-width:620px}.cover-bottom{display:flex;justify-content:space-between;gap:12px;align-items:flex-end;margin-top:22px}.mini-stats{display:flex;gap:6px;flex-wrap:wrap}.mini{background:rgba(249,248,246,.17);border:1px solid rgba(249,248,246,.25);border-radius:999px;padding:6px 10px;font-size:12px;backdrop-filter:blur(3px)}.body{padding:26px;background:white}.rubro-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:26px;align-items:start}.soft-label{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--suave);margin:0 0 12px}.base-box{background:#fbf7f3;border:1px solid var(--linea);border-radius:24px;padding:18px}.base-list{display:grid;gap:9px;margin:0;padding:0;list-style:none}.base-list li{border-bottom:1px solid var(--linea);padding:0 0 9px}.base-list li:last-child{border-bottom:0;padding-bottom:0}.nota{color:var(--suave);font-size:14px;margin:14px 0 0}.refs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}.ref{height:210px;border-radius:22px;background-size:cover;background-position:center;position:relative;overflow:hidden;border:1px solid var(--linea)}.choices{display:grid;gap:14px}.choice{border:1px solid var(--linea);border-radius:22px;padding:16px;background:#fff}.choice-head{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:start;margin-bottom:12px}.choice-title{font-size:19px;font-weight:700;color:var(--marron)}.included{font-size:13px;color:var(--suave);margin-top:3px}.mini-state{border-radius:999px;padding:6px 10px;font-size:12px;font-weight:700;background:#f4ece5;color:var(--marron);white-space:nowrap}.choice-main{display:grid;grid-template-columns:1fr .6fr;gap:10px}.input-label{font-size:12px;color:var(--suave);margin-bottom:5px}input,select,textarea{width:100%;font-family:inherit;font-size:15px;border:1px solid var(--linea);border-radius:15px;background:white;color:var(--texto);padding:10px}textarea{min-height:76px;margin-top:10px;resize:vertical}.tiny-controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.comments{margin-top:24px;background:#fbf7f3;border:1px solid var(--linea);border-radius:24px;padding:18px}.comment-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:980px){.cards{grid-template-columns:repeat(2,1fr)}.project-grid,.rubro-grid,.choice-main{grid-template-columns:1fr}.refs{grid-template-columns:1fr 1fr}}@media(max-width:640px){.hero{height:320px}.wrap{padding:20px 12px 70px}.intro{text-align:left;margin:30px 0 24px}.intro p{font-size:16px}.project-grid,.cards,.actions,.comment-grid,.tiny-controls{grid-template-columns:1fr}.refs{grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:20px}summary.cover,details.rubro[open] summary.cover{min-height:260px}.body{padding:16px}.cover-title{font-size:42px}.cover-bottom{align-items:flex-start;flex-direction:column}.ref{height:130px;border-radius:8px}.choice-head{grid-template-columns:1fr}}@media print{.actions,button{display:none!important}details.rubro{break-inside:avoid}details:not([open]) .body{display:block}}
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexo — Tu Casa Nexo</title>
+<link rel="stylesheet" href="https://use.typekit.net/gvc0wtt.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="assets/favicon.png?v=3">
+<style>
+  :root {
+    --bg:#0d0b09; --bg2:#141210; --text:#f0ece5; --amber:#c9aa82;
+    --muted:rgba(240,236,229,0.45); --border:rgba(240,236,229,0.1);
+    --warn:#d98b6a;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; }
 
-  .base-item{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:7px 0;border-bottom:1px solid var(--linea)}
-  .base-item:last-child{border-bottom:0}
-  .base-item-name{font-size:13px;color:var(--texto);font-weight:500;flex:1}
-  .base-item-val{font-size:12px;text-align:right}
-  .base-inc{color:var(--marron)}
-  .base-extra{color:var(--suave)}
-  .ref-link{display:inline-flex;align-items:center;gap:5px;margin:10px 0 4px;font-size:12px;font-weight:600;color:var(--marron);text-decoration:none;border-bottom:1px solid var(--linea)}
-  .choice-status-inc{display:inline-block;background:#f0ece7;color:var(--marron);font-size:11px;padding:4px 10px;border-radius:6px;line-height:1.4;margin-top:4px}
-  .choice-status-extra{display:inline-block;background:#eee;color:var(--suave);font-size:11px;padding:4px 10px;border-radius:6px;line-height:1.4;margin-top:4px}.choice-base-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:4px}.choice-base-row .choice-status-inc,.choice-base-row .choice-status-extra{margin-top:0}.cot-thumb{width:34px;height:34px;border-radius:6px;object-fit:cover;cursor:zoom-in;border:1px solid var(--linea);flex-shrink:0}.cot-lb{display:none;position:fixed;inset:0;background:rgba(13,5,2,.92);z-index:300;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}.cot-lb.activo{display:flex}.cot-lb img{max-width:100%;max-height:100%;border-radius:8px}</style>  <link rel="icon" type="image/png" href="assets/favicon.png?v=3">
-  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2">
-</head><body><section class="hero">
-  <img src="assets/img/hero.jpg" alt="">
-  <div class="hero-top">
-    <div class="htextos">
-      <span class="logo-nombre">Nexo</span>
-      <span class="logo-taller">Taller<br>de Casas</span>
-    </div>
-    <img class="hicono" src="assets/nexo-icono-blanco.png" alt="Nexo">
+  /* ── NAV ── */
+  .nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between;
+    padding:1.1rem max(1.6rem, calc(50% - 620px)); border-bottom:1px solid var(--border); background:var(--bg); }
+  .nav-logo { cursor:pointer; display:flex; align-items:center; gap:9px; }
+  .nav-logo img { height:26px; width:auto; }
+  .nav-centro { font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--muted); opacity:0; transition:opacity .4s; pointer-events:none; }
+  .nav-centro.visible { opacity:1; }
+  .hamburger { cursor:pointer; display:flex; flex-direction:column; gap:6px; background:none; border:none; padding:4px; }
+  .hamburger span { display:block; width:22px; height:1px; background:var(--text); transition:all .3s; }
+
+  /* ── MENU OVERLAY ── */
+  .menu-overlay { position:fixed; inset:0; z-index:200; background:var(--bg); display:none; flex-direction:column; align-items:center; justify-content:center; }
+  .menu-overlay.activo { display:flex; }
+  .menu-close { position:absolute; top:1.1rem; right:max(1.6rem,calc(50% - 620px)); background:none; border:none; color:var(--text); font-size:1.6rem; cursor:pointer; line-height:1; }
+  .menu-subtitulo { font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--amber); margin-bottom:1.8rem; }
+  .menu-item { background:none; border:none; color:var(--text); font-family:'scale-variable',sans-serif; font-weight:200; font-size:clamp(1.8rem,4vw,2.8rem); line-height:1.25; cursor:pointer; transition:color .25s; padding:.15rem 0; }
+  .menu-item:hover { color:var(--amber); }
+  .menu-inicio { margin-top:1.8rem; font-family:'DM Sans',sans-serif; font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); }
+
+  /* ── VISTAS ── */
+  .vista { display:none; }
+  .vista.activa { display:block; }
+  #inicio, #rubro-page { max-width:1240px; margin:0 auto; padding:0 max(1.6rem,calc(50% - 620px)); }
+  .wrap-pad { padding-top:61px; }
+
+  /* ── HERO INICIO ── */
+  .hero { padding:5.5rem 0 2.5rem; border-bottom:1px solid var(--border); }
+  .hero-tag { font-size:0.62rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--amber); margin-bottom:1.1rem; }
+  .hero-titulo { font-family:'scale-variable',sans-serif; font-weight:200; font-size:clamp(3rem,8vw,6rem); line-height:0.95; letter-spacing:-0.01em; margin-bottom:1.3rem; }
+  .hero-intro { font-size:0.95rem; color:var(--muted); max-width:560px; line-height:1.6; }
+
+  /* ── DATOS PROYECTO ── */
+  .datos { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); margin:2.5rem 0 3.5rem; }
+  .field { background:var(--bg); padding:1.2rem 1.3rem; }
+  .label { font-size:0.55rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted); margin-bottom:0.5rem; }
+  .editable { font-size:1rem; color:var(--text); outline:none; min-height:1.4em; }
+  .editable[contenteditable="true"]:focus { color:var(--amber); }
+
+  /* ── GRID DE RUBROS ── */
+  .rubros-label { font-size:0.62rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--amber); margin-bottom:1.4rem; }
+  .rubros-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.1rem; padding-bottom:5rem; }
+  .rubro-card { position:relative; aspect-ratio:4/5; border-radius:4px; overflow:hidden; cursor:pointer; background:var(--bg2); }
+  .rubro-card .rc-bg { position:absolute; inset:0; background-size:cover; background-position:center; transition:transform .6s; }
+  .rubro-card:hover .rc-bg { transform:scale(1.05); }
+  .rubro-card .rc-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(13,11,9,0.92) 8%, rgba(13,11,9,0.15) 60%, rgba(13,11,9,0.35)); }
+  .rubro-card .rc-content { position:absolute; left:0; right:0; bottom:0; padding:1.3rem; }
+  .rubro-card .rc-num { font-size:0.55rem; letter-spacing:0.2em; color:var(--amber); margin-bottom:0.5rem; }
+  .rubro-card .rc-titulo { font-family:'scale-variable',sans-serif; font-weight:200; font-size:1.9rem; line-height:1; margin-bottom:0.3rem; }
+  .rubro-card .rc-desc { font-size:0.72rem; color:var(--muted); line-height:1.4; }
+
+  /* ── RUBRO PAGE ── */
+  #rubro-page { padding-top:61px; }
+  .rp-head { padding:3.5rem 0 2.2rem; border-bottom:1px solid var(--border); }
+  .rp-num { font-size:0.62rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--amber); margin-bottom:1rem; }
+  .rp-titulo { font-family:'scale-variable',sans-serif; font-weight:200; font-size:clamp(2.6rem,6vw,4.5rem); line-height:0.95; margin-bottom:0.9rem; }
+  .rp-desc { font-size:0.92rem; color:var(--muted); max-width:600px; line-height:1.6; }
+  .sec-label { font-size:0.62rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--amber); margin:3rem 0 1.1rem; }
+
+  .refs { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; }
+  .ref { aspect-ratio:1; border-radius:3px; background-size:cover; background-position:center; }
+  .ref-link { display:inline-flex; align-items:center; gap:6px; margin-top:1.1rem; font-size:0.72rem; letter-spacing:0.08em; color:var(--amber); text-decoration:none; border-bottom:1px solid var(--border); padding-bottom:3px; }
+
+  /* ── CHOICES / DECISIONES ── */
+  .choices { display:grid; gap:1rem; }
+  .choice { border:1px solid var(--border); border-radius:6px; padding:1.2rem 1.3rem; background:var(--bg2); }
+  .choice-head { display:grid; grid-template-columns:1fr auto; gap:1rem; align-items:start; margin-bottom:0.9rem; }
+  .choice-title { font-size:1.15rem; font-weight:400; color:var(--text); }
+  .choice-base-row { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:0.5rem; }
+  .choice-status-inc { display:inline-block; font-size:0.68rem; color:var(--amber); background:rgba(201,170,130,0.1); border:1px solid rgba(201,170,130,0.25); padding:3px 9px; border-radius:4px; line-height:1.4; }
+  .choice-status-extra { display:inline-block; font-size:0.68rem; color:var(--warn); background:rgba(217,139,106,0.08); border:1px solid rgba(217,139,106,0.25); padding:3px 9px; border-radius:4px; line-height:1.4; }
+  .cot-thumb { width:34px; height:34px; border-radius:5px; object-fit:cover; cursor:zoom-in; border:1px solid var(--border); flex-shrink:0; }
+  .mini-state { font-size:0.6rem; letter-spacing:0.06em; color:var(--muted); white-space:nowrap; padding-top:4px; }
+  .choice-main { display:grid; grid-template-columns:1fr; gap:0.8rem; }
+  .input-label { font-size:0.55rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); margin-bottom:0.4rem; }
+  input, select, textarea { width:100%; font-family:inherit; font-size:0.9rem; background:var(--bg); color:var(--text); border:1px solid var(--border); border-radius:5px; padding:0.65rem 0.8rem; outline:none; }
+  input:focus, select:focus, textarea:focus { border-color:var(--amber); }
+  input::placeholder, textarea::placeholder { color:rgba(240,236,229,0.3); }
+  select option { background:var(--bg2); }
+  .comments { margin-top:2rem; }
+  .comment-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; }
+  textarea { min-height:90px; resize:vertical; }
+  .rp-bottom { padding:3rem 0 5rem; }
+
+  /* ── COT LIGHTBOX ── */
+  .cot-lb { display:none; position:fixed; inset:0; background:rgba(8,7,6,0.94); z-index:300; align-items:center; justify-content:center; padding:24px; cursor:zoom-out; }
+  .cot-lb.activo { display:flex; }
+  .cot-lb img { max-width:100%; max-height:100%; border-radius:8px; }
+
+  @media(max-width:880px){
+    .datos { grid-template-columns:1fr; }
+    .rubros-grid { grid-template-columns:repeat(2,1fr); }
+    .comment-grid { grid-template-columns:1fr; }
+  }
+  @media(max-width:560px){
+    .rubros-grid { grid-template-columns:1fr; }
+    .refs { gap:4px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo" onclick="irAInicio()"><img src="assets/nexo-icono-blanco.png" alt="Nexo"></div>
+  <div class="nav-centro" id="nav-centro"></div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menú"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- MENU OVERLAY -->
+<div class="menu-overlay" id="menu-overlay">
+  <button class="menu-close" onclick="cerrarMenu()">&times;</button>
+  <p class="menu-subtitulo">Rubros</p>
+  <div id="menu-items"></div>
+  <button class="menu-item menu-inicio" onclick="irAInicio()">Volver al inicio</button>
+</div>
+
+<!-- VISTA INICIO -->
+<section class="vista activa" id="inicio">
+  <div class="hero">
+    <p class="hero-tag">Bitácora de proyecto</p>
+    <h1 class="hero-titulo">Tu Casa Nexo</h1>
+    <p class="hero-intro">Este espacio reúne las referencias y registra las decisiones de tu proyecto. Cada rubro parte de una configuración cotizada y puede personalizarse en el proceso.</p>
   </div>
-  <div class="hero-bottom">
-    <p class="hero-titulo">Tu Casa Nexo</p>
-    <p class="hero-proyecto" id="hero-proyecto-desc">Bitácora de proyecto</p>
+  <div class="datos">
+    <div class="field"><div class="label">Proyecto</div><div class="editable" id="field-proyecto" data-key="proyecto">Casa de Juli y Nico</div></div>
+    <div class="field"><div class="label">Etapa actual</div><div class="editable" id="field-etapa" data-key="etapa">Proyecto</div></div>
+    <div class="field"><div class="label">Estado general</div><div class="editable" id="field-estado" data-key="estado">En desarrollo</div></div>
   </div>
-</section><main class="wrap"><section class="project-card"><div class="project-grid"><div class="field"><div class="label">Proyecto</div><div class="editable" id="field-proyecto" data-key="proyecto">Casa de Juli y Nico</div></div><div class="field"><div class="label">Etapa actual</div><div class="editable" id="field-etapa" data-key="etapa">Proyecto</div></div><div class="field"><div class="label">Estado general</div><div class="editable" id="field-estado" data-key="estado">En desarrollo</div></div></div></div></section><section class="cards" id="rubros"></section><div id="nexo-actions" style="display:none;padding:20px 18px 40px;display:none"><button onclick="window.print()" style="width:100%;margin-bottom:10px;border-radius:8px;padding:12px;background:var(--marron);color:white;border:none;font-family:inherit;font-size:14px;cursor:pointer">Imprimir / Guardar PDF</button><button onclick="exportar()" style="width:100%;border-radius:8px;padding:12px;background:white;color:var(--marron);border:1px solid var(--linea);font-family:inherit;font-size:14px;cursor:pointer">Exportar registro</button></div></main><div id="cot-lb" class="cot-lb" onclick="cerrarCot()"><img id="cot-lb-img" src="" alt=""></div>
-<script>const categories=[{"slug": "exterior", "title": "Exterior", "desc": "Revestimientos, aberturas, cubierta, deck y expansión exterior.", "cover": "exterior_cover.jpg", "refs": ["exterior_ref_1.jpg", "exterior_ref_2.jpg", "exterior_ref_3.jpg"], "items": [["Techos", "Chapa prepintada sinusoidal (varios colores)"], ["Paredes", "Chapa prepintada sinusoidal (varios colores) / Entablonado pino impregnado vertical", "exterior-2.jpg"], ["Esquineros / Cenefas", "Chapa prepintada lisa (varios colores)", "exterior-3.jpg"], ["Aberturas", "PVC Negro", "exterior-4.jpg"], ["Contramarcos", "Marco cajón de pino impregnado pintado (varios colores)", "exterior-5.jpg"], ["Deck exterior", "A cotizar según proyecto"]]}, {"slug": "interior", "title": "Interior", "desc": "Revestimientos interiores, pisos, zócalos y terminaciones.", "cover": "interior_cover.jpg", "refs": ["interior_ref_1.jpg", "interior_ref_2.jpg", "interior_ref_3.jpg"], "items": [["Paredes", "Machimbre Eucalipto 1/2\"x5\""], ["Cielorraso", "Machimbre Eucalipto 1/2\"x5\""], ["Piso", "Vinílico SPC (ver catálogo de colores/texturas)"], ["Zócalos y contramarcos", "Eucalipto"]]}, {"slug": "cocina", "title": "Cocina", "desc": "Mesada, bacha, grifería, muebles, alzada y electrodomésticos.", "cover": "cocina_cover.jpg", "refs": ["cocina_ref_1.jpg", "cocina_ref_2.jpg", "cocina_ref_3.jpg"], "items": [["Mesada", "Negro Brasil x 3m", "cocina-1.jpg"], ["Alzada", "Machimbre Eucalipto c/chapón sobre anafe", "cocina-2.jpg"], ["Bacha", "Johnson ZZ 52/18", "cocina-3.jpg"], ["Grifería", "Fv Puelo Monocomando", "cocina-4.jpg"], ["Mueble bajo mesada", "Interiores Eucalipto - Frentes melamina. 3 Puertas/3 cajones/Especiero/Gabinete Heladera"], ["Mueble alacena", "Interiores Eucalipto - Frentes melamina. 5 puertas con estante regulable/Luz led bajo alacena"], ["Extractor", "Motor extractor (sin filtro)"], ["Horno / Anafe", "No incluido"], ["Heladera", "No incluido"], ["Lavavajillas", "No incluido"], ["Microondas", "No incluido"]]}, {"slug": "banos", "title": "Baños", "desc": "Artefactos, vanitory, ducha, bañera, mampara y revestimientos.", "cover": "banos_cover.jpg", "refs": ["banos_ref_1.jpg", "banos_ref_2.jpg", "banos_ref_3.jpg"], "items": [["Inodoro", "Roca Monaco", "banos-1.jpg"], ["Ducha / Bañadera", "Receptáculo de ducha acrílico Ferrum 140x70cm", "banos-2.jpg"], ["Lavatorio", "Bacha de apoyo Piazza A449 (46cm x 42cm)", "banos-3.jpg"], ["Mueble Vanitory", "Mueble de colgar de Eucalipto c/ 2 puertas.", "banos-4.jpg"], ["Griferías", "Kit FV Puelo ducha-bañadera c/transferencia + lavatorio bajo monocomando color negro / Bidet de mano frío-calor color negro", ["banos-5-ducha.jpg", "banos-5-lavatorio.jpg"]], ["Revestimiento cerámico", "Cerámico 60x60x3m² · Ducha completa + detrás de inodoro y vanitory hasta 1,20m", "banos-6.jpg"], ["Mampara / Cortina", "No incluido"], ["Toallero", "No incluido"], ["Accesorios (espejo, jaboneras, portarrollos)", "No incluido"]]}, {"slug": "lavadero", "title": "Lavadero", "desc": "Pileta, guardado, termotanque, lavarropas y conexiones.", "cover": "lavadero_cover.jpg", "refs": ["lavadero_ref_1.jpg", "lavadero_ref_2.jpg", "lavadero_ref_3.jpg"], "items": [["Mesada", "Tablero Eucalipto 30mm x 1,2m"], ["Pileta", "Mi pileta 46x37x24"], ["Grifería", "Fv Puelo monocomando"], ["Cerramiento", "2 puertas corredizas piso a techo (tipo placard) de Eucalipto"], ["Lavarropas", "No incluido"]]}, {"slug": "dormitorio", "title": "Dormitorio", "desc": "Placards, guardado, escritorios y mobiliario fijo.", "cover": "dormitorio_cover.jpg", "refs": ["dormitorio_ref_1.jpg", "dormitorio_ref_2.jpg", "dormitorio_ref_3.jpg"], "items": [["Placard", "Placard de melamina con 2 puertas corredizas. 4 cajones + barrales y estantes regulables"], ["Mesas de luz", "No incluido"]]}, {"slug": "puertas", "title": "Puertas", "desc": "Puertas exteriores, interiores, corredizas, vidriadas y herrajes.", "cover": "puertas_cover.jpg", "refs": ["puertas_ref_1.jpg", "puertas_ref_2.jpg", "puertas_ref_3.jpg"], "items": [["Puerta exterior", "Madera pintada (color según proyecto)"], ["Puerta interior baño", "Corrediza embutida de Euca"], ["Puerta interior dormitorio", "Corrediza de abrir de Euca"], ["Otras", "A definir según proyecto"]]}, {"slug": "calefaccion", "title": "Calefacción", "desc": "Sistema, ubicación de equipos, salidas y preinstalaciones.", "cover": "calefaccion_cover.jpg", "refs": ["calefaccion_ref_1.jpg", "calefaccion_ref_2.jpg", "calefaccion_ref_3.jpg"], "items": [["Sistema de calefacción", "A definir según proyecto"], ["Ubicación de equipos", "A definir"], ["Salidas / ventilaciones", "Según sistema elegido"], ["Preinstalaciones", "A cotizar si corresponde"]]}, {"slug": "equipamiento", "title": "Equipamiento", "desc": "Iluminación, cortinas, accesorios y mobiliario complementario.", "cover": "equipamiento_cover.jpg", "refs": ["equipamiento_ref_1.jpg", "equipamiento_ref_2.jpg", "equipamiento_ref_3.jpg"], "items": [["Artefactos de iluminación", "No incluidos / a definir"], ["Cortinas", "No incluidas"], ["Accesorios baño", "No incluidos"], ["Accesorios cocina", "No incluidos"], ["Mobiliario adicional", "A definir"]]}];
-function keyFor(cat,item,suf){return(cat+'_'+item+'_'+suf).replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]+/g,'_')}
+  <p class="rubros-label">Rubros del proyecto</p>
+  <div class="rubros-grid" id="rubros-grid"></div>
+</section>
+
+<!-- VISTA RUBRO -->
+<section class="vista" id="rubro-page"></section>
+
+<!-- COT LIGHTBOX -->
+<div class="cot-lb" id="cot-lb" onclick="cerrarCot()"><img id="cot-lb-img" src="" alt=""></div>
+
+<script>
+const categories = [{"slug": "exterior", "title": "Exterior", "desc": "Revestimientos, aberturas, cubierta, deck y expansión exterior.", "cover": "exterior_cover.jpg", "refs": ["exterior_ref_1.jpg", "exterior_ref_2.jpg", "exterior_ref_3.jpg"], "items": [["Techos", "Chapa prepintada sinusoidal (varios colores)"], ["Paredes", "Chapa prepintada sinusoidal (varios colores) / Entablonado pino impregnado vertical", "exterior-2.jpg"], ["Esquineros / Cenefas", "Chapa prepintada lisa (varios colores)", "exterior-3.jpg"], ["Aberturas", "PVC Negro", "exterior-4.jpg"], ["Contramarcos", "Marco cajón de pino impregnado pintado (varios colores)", "exterior-5.jpg"], ["Deck exterior", "A cotizar según proyecto"]]}, {"slug": "interior", "title": "Interior", "desc": "Revestimientos interiores, pisos, zócalos y terminaciones.", "cover": "interior_cover.jpg", "refs": ["interior_ref_1.jpg", "interior_ref_2.jpg", "interior_ref_3.jpg"], "items": [["Paredes", "Machimbre Eucalipto 1/2\"x5\""], ["Cielorraso", "Machimbre Eucalipto 1/2\"x5\""], ["Piso", "Vinílico SPC (ver catálogo de colores/texturas)"], ["Zócalos y contramarcos", "Eucalipto"]]}, {"slug": "cocina", "title": "Cocina", "desc": "Mesada, bacha, grifería, muebles, alzada y electrodomésticos.", "cover": "cocina_cover.jpg", "refs": ["cocina_ref_1.jpg", "cocina_ref_2.jpg", "cocina_ref_3.jpg"], "items": [["Mesada", "Negro Brasil x 3m", "cocina-1.jpg"], ["Alzada", "Machimbre Eucalipto c/chapón sobre anafe", "cocina-2.jpg"], ["Bacha", "Johnson ZZ 52/18", "cocina-3.jpg"], ["Grifería", "Fv Puelo Monocomando", "cocina-4.jpg"], ["Mueble bajo mesada", "Interiores Eucalipto - Frentes melamina. 3 Puertas/3 cajones/Especiero/Gabinete Heladera"], ["Mueble alacena", "Interiores Eucalipto - Frentes melamina. 5 puertas con estante regulable/Luz led bajo alacena"], ["Extractor", "Motor extractor (sin filtro)"], ["Horno / Anafe", "No incluido"], ["Heladera", "No incluido"], ["Lavavajillas", "No incluido"], ["Microondas", "No incluido"]]}, {"slug": "banos", "title": "Baños", "desc": "Artefactos, vanitory, ducha, bañera, mampara y revestimientos.", "cover": "banos_cover.jpg", "refs": ["banos_ref_1.jpg", "banos_ref_2.jpg", "banos_ref_3.jpg"], "items": [["Inodoro", "Roca Monaco", "banos-1.jpg"], ["Ducha / Bañadera", "Receptáculo de ducha acrílico Ferrum 140x70cm", "banos-2.jpg"], ["Lavatorio", "Bacha de apoyo Piazza A449 (46cm x 42cm)", "banos-3.jpg"], ["Mueble Vanitory", "Mueble de colgar de Eucalipto c/ 2 puertas.", "banos-4.jpg"], ["Griferías", "Kit FV Puelo ducha-bañadera c/transferencia + lavatorio bajo monocomando color negro / Bidet de mano frío-calor color negro", ["banos-5-ducha.jpg", "banos-5-lavatorio.jpg"]], ["Revestimiento cerámico", "Cerámico 60x60x3m² · Ducha completa + detrás de inodoro y vanitory hasta 1,20m", "banos-6.jpg"], ["Mampara / Cortina", "No incluido"], ["Toallero", "No incluido"], ["Accesorios (espejo, jaboneras, portarrollos)", "No incluido"]]}, {"slug": "lavadero", "title": "Lavadero", "desc": "Pileta, guardado, termotanque, lavarropas y conexiones.", "cover": "lavadero_cover.jpg", "refs": ["lavadero_ref_1.jpg", "lavadero_ref_2.jpg", "lavadero_ref_3.jpg"], "items": [["Mesada", "Tablero Eucalipto 30mm x 1,2m"], ["Pileta", "Mi pileta 46x37x24"], ["Grifería", "Fv Puelo monocomando"], ["Cerramiento", "2 puertas corredizas piso a techo (tipo placard) de Eucalipto"], ["Lavarropas", "No incluido"]]}, {"slug": "dormitorio", "title": "Dormitorio", "desc": "Placards, guardado, escritorios y mobiliario fijo.", "cover": "dormitorio_cover.jpg", "refs": ["dormitorio_ref_1.jpg", "dormitorio_ref_2.jpg", "dormitorio_ref_3.jpg"], "items": [["Placard", "Placard de melamina con 2 puertas corredizas. 4 cajones + barrales y estantes regulables"], ["Mesas de luz", "No incluido"]]}, {"slug": "puertas", "title": "Puertas", "desc": "Puertas exteriores, interiores, corredizas, vidriadas y herrajes.", "cover": "puertas_cover.jpg", "refs": ["puertas_ref_1.jpg", "puertas_ref_2.jpg", "puertas_ref_3.jpg"], "items": [["Puerta exterior", "Madera pintada (color según proyecto)"], ["Puerta interior baño", "Corrediza embutida de Euca"], ["Puerta interior dormitorio", "Corrediza de abrir de Euca"], ["Otras", "A definir según proyecto"]]}, {"slug": "calefaccion", "title": "Calefacción", "desc": "Sistema, ubicación de equipos, salidas y preinstalaciones.", "cover": "calefaccion_cover.jpg", "refs": ["calefaccion_ref_1.jpg", "calefaccion_ref_2.jpg", "calefaccion_ref_3.jpg"], "items": [["Sistema de calefacción", "A definir según proyecto"], ["Ubicación de equipos", "A definir"], ["Salidas / ventilaciones", "Según sistema elegido"], ["Preinstalaciones", "A cotizar si corresponde"]]}, {"slug": "equipamiento", "title": "Equipamiento", "desc": "Iluminación, cortinas, accesorios y mobiliario complementario.", "cover": "equipamiento_cover.jpg", "refs": ["equipamiento_ref_1.jpg", "equipamiento_ref_2.jpg", "equipamiento_ref_3.jpg"], "items": [["Artefactos de iluminación", "No incluidos / a definir"], ["Cortinas", "No incluidas"], ["Accesorios baño", "No incluidos"], ["Accesorios cocina", "No incluidos"], ["Mobiliario adicional", "A definir"]]}];
 const MODO_NEXO = new URLSearchParams(window.location.search).get("nexo")==="1";
-const GALERIAS=["cocina"];
-function isExtra(v){return /a cotizar|a definir|no incluido|no incluida/i.test(v)}
-function abrirCot(src){var lb=document.getElementById("cot-lb");document.getElementById("cot-lb-img").src=src;lb.classList.add("activo");}function cerrarCot(){document.getElementById("cot-lb").classList.remove("activo");}function render(){const root=document.getElementById('rubros');root.innerHTML='';categories.forEach(cat=>{const d=document.createElement('details');d.className='rubro';
+const GALERIAS = ["cocina"];
+function keyFor(cat,item,suf){return(cat+'_'+item+'_'+suf).replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]+/g,'_');}
+function isExtra(v){return /a cotizar|a definir|no incluido|no incluida/i.test(v);}
+function abrirCot(src){var lb=document.getElementById("cot-lb");document.getElementById("cot-lb-img").src=src;lb.classList.add("activo");}
+function cerrarCot(){document.getElementById("cot-lb").classList.remove("activo");}
 
-const baseItems=cat.items.map(([item,base])=>{
-  const extra=isExtra(base);
-  return `<div class="base-item"><span class="base-item-name">${item}</span><span class="base-item-val ${extra?'base-extra':'base-inc'}">${extra?'⚠ A cotizar':'✓ '+base}</span></div>`;
-}).join('');
+/* Render landing cards */
+function renderInicio(){
+  var grid=document.getElementById('rubros-grid'); grid.innerHTML='';
+  var menu=document.getElementById('menu-items'); menu.innerHTML='';
+  categories.forEach(function(cat,i){
+    var card=document.createElement('div'); card.className='rubro-card';
+    card.onclick=function(){irARubro(i);};
+    card.innerHTML='<div class="rc-bg" style="background-image:url(\'assets/img/'+cat.cover+'\')"></div><div class="rc-overlay"></div><div class="rc-content"><div class="rc-num">'+String(i+1).padStart(2,'0')+'</div><div class="rc-titulo">'+cat.title+'</div><div class="rc-desc">'+cat.desc+'</div></div>';
+    grid.appendChild(card);
+    var mi=document.createElement('button'); mi.className='menu-item'; mi.textContent=cat.title;
+    mi.onclick=function(){irARubro(i);cerrarMenu();};
+    menu.appendChild(mi);
+  });
+}
 
-d.innerHTML=`<summary class="cover"><div class="cover-bg" style="background-image:url('assets/img/${cat.cover}')"></div><div class="cover-content"><div class="cover-title">${cat.title}</div><div class="cover-desc">${cat.desc}</div><div class="cover-bottom"><div class="mini-stats"><span class="mini" data-cat-elegidas="${cat.slug}">0 elecciones</span><span class="mini" data-cat-recotizar="${cat.slug}">0 a revisar</span></div></div></div></summary>
-<div class="body">
+/* Render rubro detail */
+function renderRubro(i){
+  var cat=categories[i];
+  var refs=cat.refs.map(function(img){return '<div class="ref" style="background-image:url(\'assets/img/'+img+'\')"></div>';}).join('');
+  var galHref=GALERIAS.includes(cat.slug)?'galeria-'+cat.slug+'.html':'proyectos.html';
+  var galTxt=GALERIAS.includes(cat.slug)?'Ver galería de fotos →':'Ver en nuestros proyectos →';
+  var html='<div class="rp-head"><div class="rp-num">Rubro '+String(i+1).padStart(2,'0')+'</div><h2 class="rp-titulo">'+cat.title+'</h2><p class="rp-desc">'+cat.desc+'</p></div>'
+    +'<p class="sec-label">Referencias</p><div class="refs">'+refs+'</div>'
+    +'<a href="'+galHref+'" class="ref-link">'+galTxt+'</a>'
+    +'<p class="sec-label">Definiciones del proyecto</p><div class="choices" id="choices-'+i+'"></div>'
+    +'<div class="comments"><p class="sec-label" style="margin-top:2rem">Notas del rubro</p><div class="comment-grid"><textarea data-key="'+cat.slug+'_comentario_cliente" placeholder="Preferencias, dudas o referencias del cliente..."></textarea><textarea data-key="'+cat.slug+'_comentario_nexo" placeholder="Aclaraciones técnicas, impacto en presupuesto..."></textarea></div></div>'
+    +'<div class="rp-bottom"></div>';
+  var page=document.getElementById('rubro-page'); page.innerHTML=html;
+  var ch=document.getElementById('choices-'+i);
+  cat.items.forEach(function(it){
+    var item=it[0], base=it[1], cot=it[2];
+    var kE=keyFor(cat.slug,item,'eleccion'), kC=keyFor(cat.slug,item,'condicion');
+    var ph=(item.includes('Horno')||item.includes('Heladera')||item.includes('Lavarropas')||item.includes('Lavavajillas')||item.includes('Microondas'))?'Especificar modelo/dimensiones':((item.includes('Puerta de ba')||item.includes('Puerta de dorm'))?'Corrediza / De Abrir':'Mantener cotizado / cambiar por...');
+    var extra=isExtra(base);
+    var thumbs=''; if(cot){(Array.isArray(cot)?cot:[cot]).forEach(function(im){thumbs+='<img class="cot-thumb" src="assets/img/cot/'+im+'" alt="Opción cotizada" onclick="abrirCot(this.src)">';});}
+    var statusTxt=extra?(base.toLowerCase().includes('no incluido')?'⚠ No incluido':'⚠ A cotizar según proyecto'):('✓ Opción base: '+base);
+    var estadoHtml=MODO_NEXO?'<div><div class="input-label">Estado</div><select data-key="'+kC+'" data-type="condicion" data-cat="'+cat.slug+'"><option>A definir</option><option>Mantener opción cotizada</option><option>Evaluar alternativa</option><option>Requiere recotización</option><option>Definido</option></select></div>':'';
+    var div=document.createElement('div'); div.className='choice';
+    div.innerHTML='<div class="choice-head"><div><div class="choice-title">'+item+'</div><div class="choice-base-row"><span class="'+(extra?'choice-status-extra':'choice-status-inc')+'">'+statusTxt+'</span>'+thumbs+'</div></div><span class="mini-state" data-mini="'+kC+'">A definir</span></div><div class="choice-main"><div><input data-key="'+kE+'" placeholder="'+ph+'"></div>'+estadoHtml+'</div>';
+    ch.appendChild(div);
+  });
+}
 
-  <p class="soft-label" style="margin-top:20px">Referencias</p>
-  <div class="refs">${cat.refs.map(img=>`<div class="ref" style="background-image:url('assets/img/${img}')"></div>`).join('')}</div>
-  <a href="${GALERIAS.includes(cat.slug)?'galeria-'+cat.slug+'.html':'proyectos.html'}" class="ref-link">${GALERIAS.includes(cat.slug)?'Ver galería de fotos →':'Ver en nuestros proyectos →'}</a>
-  <p class="soft-label" style="margin-top:20px">Definiciones del proyecto</p>
-  <div class="choices"></div>
-  <div class="comments"><p class="soft-label">Notas del rubro</p><div class="comment-grid"><textarea data-key="${cat.slug}_comentario_cliente" placeholder="Preferencias, dudas o referencias del cliente..."></textarea><textarea data-key="${cat.slug}_comentario_nexo" placeholder="Aclaraciones técnicas, impacto en presupuesto..."></textarea></div></div>
-</div>`;
+/* Navegación */
+function irARubro(i){
+  cerrarMenu();
+  renderRubro(i);
+  document.getElementById('inicio').classList.remove('activa');
+  document.getElementById('rubro-page').classList.add('activa');
+  document.getElementById('nav-centro').textContent=categories[i].title;
+  document.getElementById('nav-centro').classList.add('visible');
+  window.scrollTo({top:0});
+}
+function irAInicio(){
+  cerrarMenu();
+  document.getElementById('rubro-page').classList.remove('activa');
+  document.getElementById('inicio').classList.add('activa');
+  document.getElementById('nav-centro').classList.remove('visible');
+  window.scrollTo({top:0});
+}
+function toggleMenu(){ document.getElementById('menu-overlay').classList.toggle('activo'); }
+function cerrarMenu(){ document.getElementById('menu-overlay').classList.remove('activo'); }
 
-const ch=d.querySelector('.choices');
-cat.items.forEach(([item,base,cot])=>{
-  const kE=keyFor(cat.slug,item,'eleccion'),kC=keyFor(cat.slug,item,'condicion');
-  const ph=item.includes('Horno')||item.includes('Heladera')||item.includes('Lavarropas')||item.includes('Lavavajillas')||item.includes('Microondas')?'Especificar modelo/dimensiones':item.includes('Puerta de ba')||item.includes('Puerta de dorm')?'Corrediza / De Abrir':'Mantener cotizado / cambiar por...';
-  const extra=isExtra(base);
-  let thumbs="";if(cot){(Array.isArray(cot)?cot:[cot]).forEach(im=>{thumbs+='<img class="cot-thumb" src="assets/img/cot/'+im+'" alt="Opción cotizada" onclick="abrirCot(this.src)">';});}
-  const div=document.createElement('div');div.className='choice';
-  div.innerHTML=`<div class="choice-head">
-    <div><div class="choice-title">${item}</div>
-    <div class="choice-base-row"><span class="${extra?'choice-status-extra':'choice-status-inc'}">${extra?(base.toLowerCase().includes('no incluido')?'⚠ No incluido':'⚠ A cotizar según proyecto'):'✓ Opción base: '+base}</span>${thumbs}</div></div>
-    <span class="mini-state" data-mini="${kC}">A definir</span></div>
-  <div class="choice-main"><div>
-    <input data-key="${kE}" placeholder="${ph}"></div>
-    ${MODO_NEXO ? `<div><div class="input-label">Estado</div><select data-key="${kC}" data-type="condicion" data-cat="${cat.slug}"><option>A definir</option><option>Mantener opción cotizada</option><option>Evaluar alternativa</option><option>Requiere recotización</option><option>Definido</option></select></div>` : ""}</div>`;
-  ch.appendChild(div);
-});
-root.appendChild(d);});}render();load();
-  // Apply nexo mode
-  if (MODO_NEXO) {
-    ['field-proyecto','field-etapa','field-estado'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.contentEditable = 'true';
-    });
-    const btn = document.getElementById('nexo-actions');
-    if (btn) btn.style.display = 'block';
-  }</script></body></html>
+renderInicio();
+if(MODO_NEXO){
+  ['field-proyecto','field-etapa','field-estado'].forEach(function(id){var el=document.getElementById(id); if(el) el.contentEditable='true';});
+}
+</script>
+</body>
+</html>
