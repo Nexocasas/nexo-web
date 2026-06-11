@@ -124,7 +124,7 @@ function renderLista(rows){
     var linkNexo=linkCli+'&nexo=1';
     var card=document.createElement('div'); card.className='cli';
     card.innerHTML=
-      '<div class="cli-head" onclick="this.parentNode.classList.toggle(\'abierto\')">'+
+      '<div class="cli-head" onclick="toggleCli(this)">'+
         '<div><div class="cli-nombre">'+row.nombre+'</div><div class="cli-meta">Última actividad: '+fecha(row.actualizado)+'</div></div>'+
         '<div class="cli-acciones">'+
           '<button class="btn sm" onclick="event.stopPropagation();copiar(\''+linkCli+'\',this)">Copiar link cliente</button>'+
@@ -218,9 +218,10 @@ function imprimir(idx){
   w.document.close();
   setTimeout(function(){ w.print(); }, 400);
 }
-function irAlPanel(){ document.querySelectorAll('.cli.abierto').forEach(function(x){x.classList.remove('abierto');}); window.scrollTo({top:0,behavior:'smooth'}); }
-window.addEventListener('scroll',function(){ document.getElementById('top-flotante').classList.toggle('show', window.scrollY>350); });
-function cerrarCli(btn){ var card=btn.closest('.cli'); card.classList.remove('abierto'); card.scrollIntoView({behavior:'smooth',block:'center'}); }
+function irAlPanel(){ document.querySelectorAll('.cli.abierto').forEach(function(x){x.classList.remove('abierto');}); actualizarFlotante(); window.scrollTo({top:0,behavior:'smooth'}); }
+function actualizarFlotante(){ var b=document.getElementById('top-flotante'); if(b) b.classList.toggle('show', !!document.querySelector('.cli.abierto')); }
+function toggleCli(head){ head.parentNode.classList.toggle('abierto'); actualizarFlotante(); }
+function cerrarCli(btn){ var card=btn.closest('.cli'); card.classList.remove('abierto'); actualizarFlotante(); card.scrollIntoView({behavior:'smooth',block:'center'}); }
 function copiar(txt,btn){
   navigator.clipboard.writeText(txt).then(function(){ var t=btn.textContent; btn.textContent='¡Copiado!'; setTimeout(function(){btn.textContent=t;},1500); });
 }
