@@ -87,15 +87,20 @@ let PASS='';
 
 function keyFor(cat,item,suf){return(cat+'_'+item+'_'+suf).replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]+/g,'_');}
 
-async function entrar(){
-  PASS=document.getElementById('pass').value;
+async function entrar(passArg){
+  PASS=passArg||document.getElementById('pass').value;
   const msg=document.getElementById('gate-msg'); msg.textContent='Verificando…';
   const r=await SB.rpc('admin_listar',{p_pass:PASS});
-  if(r.error){ msg.textContent='Contraseña incorrecta'; return; }
+  if(r.error){ msg.textContent='Contraseña incorrecta'; localStorage.removeItem('nexo_pass'); return; }
+  localStorage.setItem('nexo_pass',PASS);
   document.getElementById('gate').style.display='none';
   document.getElementById('panel').style.display='block';
   renderLista(r.data||[]);
 }
+window.addEventListener('DOMContentLoaded',function(){
+  var saved=localStorage.getItem('nexo_pass');
+  if(saved) entrar(saved);
+});
 async function recargar(){
   const r=await SB.rpc('admin_listar',{p_pass:PASS});
   if(!r.error) renderLista(r.data||[]);
