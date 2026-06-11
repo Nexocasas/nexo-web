@@ -48,6 +48,8 @@
   .volver-btn { display:block; margin:1.6rem auto 0; background:transparent; color:var(--amber); border:1px solid rgba(201,170,130,0.35); border-radius:20px; padding:0.5rem 1.4rem; font-size:0.72rem; letter-spacing:0.08em; cursor:pointer; }
   .volver-btn:hover { background:rgba(201,170,130,0.1); }
   @media(min-width:900px){ .cli-body .bitacora-grid { columns:2; column-gap:2.5rem; } .rubro-bloque { break-inside:avoid; } }
+  .top-flotante { position:fixed; bottom:18px; right:18px; z-index:50; background:var(--amber); color:var(--bg); border:none; border-radius:24px; padding:0.65rem 1.2rem; font-size:0.72rem; font-weight:500; letter-spacing:0.05em; cursor:pointer; box-shadow:0 4px 16px rgba(0,0,0,0.4); opacity:0; pointer-events:none; transition:opacity .25s; }
+  .top-flotante.show { opacity:1; pointer-events:auto; }
 </style>
 </head>
 <body>
@@ -74,6 +76,7 @@
   <div id="lista"></div>
 </div>
 
+<button class="top-flotante" id="top-flotante" onclick="irAlPanel()">↑ Panel</button>
 <script>
 const SB_URL='https://chplkjzxfqktftcefwsp.supabase.co';
 const SB_KEY='sb_publishable_v7pYtkEAR0bprUIw1QWiCw_GFdx0Tid';
@@ -167,6 +170,7 @@ function bitacora(d){
   return hayDatos?('<div class="bitacora-grid">'+html+'</div>'):'<p class="vacio" style="margin-top:1rem">El cliente todavía no cargó decisiones.</p>';
 }
 
+function estCls(v){ if(v==='Mantener opción cotizada'||v==='Definido')return 'def'; if(v==='Evaluar alternativa')return 'eval'; if(v==='Requiere recotización')return 'recot'; return 'adef'; }
 function imprimir(idx){
   var row=FILAS[idx]; var d=row.datos||{};
   var hoy=new Date().toLocaleDateString('es-AR',{day:'2-digit',month:'long',year:'numeric'});
@@ -183,7 +187,7 @@ function imprimir(idx){
     +'.dec{padding:4px 0;border-bottom:1px solid #f0ebe6;display:flex;gap:10px}'
     +'.dec .it{font-weight:600;min-width:170px}'
     +'.dec .val{color:#553f31;flex:1}'
-    +'.dec .est{font-size:9px;color:#7a6a60;white-space:nowrap}'
+    +'.dec .est{font-size:8.5px;white-space:nowrap;padding:2px 8px;border-radius:10px}'+'.est.adef{color:#8c7d72;background:#efeae5}'+'.est.def{color:#9c7a3e;background:#f6efe3}'+'.est.eval{color:#9c7a3e;background:#f6efe3}'+'.est.recot{color:#b0552e;background:#fae9e2}'
     +'.nota{font-size:10px;color:#7a6a60;font-style:italic;margin-top:4px}'
     +'.vacio{color:#7a6a60;font-style:italic}'
     +'</style></head><body>'
@@ -194,11 +198,9 @@ function imprimir(idx){
     cat.items.forEach(function(it){
       var item=it[0];
       var kE=keyFor(cat.slug,item,'eleccion'), kC=keyFor(cat.slug,item,'condicion');
-      var e=d[kE], cnd=d[kC];
-      if((e&&e.trim())||(cnd&&cnd!=='A definir')){
-        hay=true;
-        lineas+='<div class="dec"><span class="it">'+item+'</span><span class="val">'+(e&&e.trim()?e:'—')+'</span>'+(cnd&&cnd!=='A definir'?'<span class="est">'+cnd+'</span>':'')+'</div>';
-      }
+      var e=d[kE], cnd=d[kC]||'A definir';
+      hay=true;
+      lineas+='<div class="dec"><span class="it">'+item+'</span><span class="val">'+(e&&e.trim()?e:'—')+'</span><span class="est '+estCls(cnd)+'">'+cnd+'</span></div>';
     });
     var nc=d[cat.slug+'_comentario_cliente'], nn=d[cat.slug+'_comentario_nexo'];
     if(lineas||(nc&&nc.trim())||(nn&&nn.trim())){
@@ -216,6 +218,8 @@ function imprimir(idx){
   w.document.close();
   setTimeout(function(){ w.print(); }, 400);
 }
+function irAlPanel(){ document.querySelectorAll('.cli.abierto').forEach(function(x){x.classList.remove('abierto');}); window.scrollTo({top:0,behavior:'smooth'}); }
+window.addEventListener('scroll',function(){ document.getElementById('top-flotante').classList.toggle('show', window.scrollY>350); });
 function cerrarCli(btn){ var card=btn.closest('.cli'); card.classList.remove('abierto'); card.scrollIntoView({behavior:'smooth',block:'center'}); }
 function copiar(txt,btn){
   navigator.clipboard.writeText(txt).then(function(){ var t=btn.textContent; btn.textContent='¡Copiado!'; setTimeout(function(){btn.textContent=t;},1500); });
