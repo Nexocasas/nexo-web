@@ -25,6 +25,8 @@
   .nav-logo img { height:26px; width:auto; }
   .nav-centro { font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--muted); opacity:0; transition:opacity .4s; pointer-events:none; }
   .nav-centro.visible { opacity:1; }
+  .nav-panel-btn { display:none; align-items:center; gap:5px; color:var(--amber); border:1px solid rgba(201,170,130,0.4); border-radius:18px; padding:0.35rem 0.9rem; font-size:0.62rem; letter-spacing:0.08em; text-decoration:none; margin-right:1rem; }
+  .nav-panel-btn.visible { display:inline-flex; }
   .hamburger { cursor:pointer; display:flex; flex-direction:column; gap:6px; background:none; border:none; padding:4px; }
   .hamburger span { display:block; width:22px; height:1px; background:var(--text); transition:all .3s; }
 
@@ -285,6 +287,8 @@ renderInicio();
 cargarDatos();
 if(MODO_NEXO){
   ['field-proyecto','field-etapa','field-estado'].forEach(function(id){var el=document.getElementById(id); if(el) el.contentEditable='true';});
+  var pb=document.createElement('a'); pb.className='nav-panel-btn visible'; pb.href='panel.html'; pb.textContent='← Panel';
+  var ham=document.querySelector('.hamburger'); ham.parentNode.insertBefore(pb, ham);
 }
 </script>
 </body>
