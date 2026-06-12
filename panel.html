@@ -181,27 +181,41 @@ function estCls(v){ if(v==='Mantener opción cotizada'||v==='Definido')return 'd
 function imprimir(idx){
   var row=FILAS[idx]; var d=row.datos||{};
   var hoy=new Date().toLocaleDateString('es-AR',{day:'2-digit',month:'long',year:'numeric'});
-  var html='<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Nexo - '+row.nombre+'</title>'
+  var html='<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Tu Casa Nexo - '+row.nombre+'</title>'
     +'<style>'
-    +'@page{margin:1.8cm}*{margin:0;padding:0;box-sizing:border-box}'
-    +'body{font-family:"DM Sans",Arial,sans-serif;color:#0d0502;font-size:13px;line-height:1.6;padding:24px}'
-    +'.head{border-bottom:2px solid #cea27c;padding-bottom:16px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center}'
-    +'.head .marca{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#a8866a;margin-bottom:7px}'
-    +'.head h1{font-size:26px;font-weight:600;letter-spacing:-0.5px}'
-    +'.head .fecha{font-size:10px;color:#7a6a60;text-align:right;margin-bottom:4px}'
-    +'.head .logo{width:54px;opacity:0.85}'
-    +'.head-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px}'
-    +'.rb{margin-bottom:20px;page-break-inside:avoid}'
-    +'.rb h2{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#a8866a;border-bottom:1px solid #e3dad2;padding-bottom:5px;margin-bottom:8px}'
-    +'.dec{padding:5px 0;border-bottom:1px solid #f0ebe6;display:flex;gap:12px}'
-    +'.dec .it{font-weight:600;min-width:180px}'
-    +'.dec .val{color:#553f31;flex:1}'
-    +'.dec .est{font-size:10px;white-space:nowrap;padding:2px 9px;border-radius:10px}'+'.est.adef{color:#8c7d72;background:#efeae5}'+'.est.def{color:#9c7a3e;background:#f6efe3}'+'.est.eval{color:#9c7a3e;background:#f6efe3}'+'.est.recot{color:#b0552e;background:#fae9e2}'
-    +'.nota{font-size:11px;color:#7a6a60;font-style:italic;margin-top:5px}'
+    +'@page{margin:1.8cm 1.8cm 2.2cm 1.8cm}'
+    +'*{margin:0;padding:0;box-sizing:border-box}'
+    +'body{font-family:"DM Sans",Arial,sans-serif;color:#1a1410;font-size:12.5px;line-height:1.65}'
+    +'.head{display:flex;justify-content:space-between;align-items:center;padding-bottom:18px;margin-bottom:28px;border-bottom:3px solid #c9aa82}'
+    +'.head-left{display:flex;align-items:center;gap:16px}'
+    +'.logo{width:46px;opacity:0.88}'
+    +'.marca{font-size:9px;letter-spacing:2.8px;text-transform:uppercase;color:#a8866a;margin-bottom:4px}'
+    +'.doc-tipo{font-size:20px;font-weight:300;color:#1a1410;letter-spacing:-0.3px}'
+    +'.head-right{text-align:right}'
+    +'.fecha{font-size:9.5px;color:#a8866a;letter-spacing:0.08em;margin-bottom:6px}'
+    +'.cliente{font-size:26px;font-weight:600;letter-spacing:-0.5px;color:#1a1410;line-height:1.1}'
+    +'.rb{margin-bottom:22px;page-break-inside:avoid}'
+    +'.rb-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid #e8e0d8}'
+    +'.rb-bar{width:3px;height:16px;background:#c9aa82;border-radius:2px;flex-shrink:0}'
+    +'.rb-titulo{font-size:9.5px;letter-spacing:2.5px;text-transform:uppercase;color:#a8866a;font-weight:500}'
+    +'.dec{display:flex;align-items:baseline;gap:14px;padding:5px 0;border-bottom:1px solid #f2ece6}'
+    +'.dec:last-of-type{border-bottom:none}'
+    +'.it{font-weight:600;font-size:12px;min-width:175px;flex-shrink:0;color:#1a1410}'
+    +'.val{color:#5a4a3e;flex:1;font-size:12px}'
+    +'.est{font-size:9px;white-space:nowrap;padding:2px 9px;border-radius:10px;font-weight:500}'
+    +'.adef{color:#8c7d72;background:#efeae5}'
+    +'.def{color:#7a5c1e;background:#f5ead8}'
+    +'.eval{color:#7a5c1e;background:#f5ead8}'
+    +'.recot{color:#8b3a1e;background:#fae0d8}'
+    +'.nota{font-size:10.5px;color:#7a6a60;font-style:italic;margin-top:5px;padding-left:189px}'
     +'.vacio{color:#7a6a60;font-style:italic}'
+    +'.footer{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #e8e0d8;font-size:8px;color:#c9aa82;letter-spacing:2px;text-transform:uppercase}'
     +'</style></head><body>'
-    +'<div class="head"><div><p class="marca">Nexo · Taller de Casas</p><h1>'+row.nombre+'</h1></div>'
-    +'<div class="head-right"><img class="logo" src="assets/nexo-icono-negro.png"><p class="fecha">Bitácora de proyecto · '+hoy+'</p></div></div>';
+    +'<div class="head">'
+    +'<div class="head-left"><img class="logo" src="assets/nexo-icono-negro.png"><div><p class="marca">Nexo · Taller de Casas</p><p class="doc-tipo">Tu Casa Nexo</p></div></div>'
+    +'<div class="head-right"><p class="fecha">Bitácora de proyecto · '+hoy+'</p><p class="cliente">'+row.nombre+'</p></div>'
+    +'</div>'
+    +'<div class="footer"><span>Nexo · Taller de Casas</span><span>Tu Casa Nexo</span></div>';
   var hay=false;
   CATEGORIES.forEach(function(cat){
     var lineas='';
@@ -217,9 +231,9 @@ function imprimir(idx){
     var nc=d[cat.slug+'_comentario_cliente'], nn=d[cat.slug+'_comentario_nexo'];
     if(lineas||(nc&&nc.trim())||(nn&&nn.trim())){
       hay=true;
-      html+='<div class="rb"><h2>'+cat.title+'</h2>'+lineas;
-      if(nc&&nc.trim()) html+='<p class="nota">Notas cliente: '+nc+'</p>';
-      if(nn&&nn.trim()) html+='<p class="nota">Notas Nexo: '+nn+'</p>';
+      html+='<div class="rb"><div class="rb-head"><div class="rb-bar"></div><span class="rb-titulo">'+cat.title+'</span></div>'+lineas;
+      if(nc&&nc.trim()) html+='<p class="nota">Cliente: '+nc+'</p>';
+      if(nn&&nn.trim()) html+='<p class="nota">Nexo: '+nn+'</p>';
       html+='</div>';
     }
   });
