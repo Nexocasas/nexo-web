@@ -290,7 +290,7 @@ function borrarExtra(catSlug,idx,rubroIdx){
 }
 function renderRubro(i){
   var cat=categories[i];
-  var refs=cat.refs.map(function(img){return '<div class="ref" style="background-image:url(\'assets/img/'+img+'\')"></div>';}).join('');
+  var refs=cat.refs.map(function(img){return '<div class="ref" style="background-image:url(\'assets/img/'+img+'\');cursor:zoom-in" onclick="abrirCot(\'assets/img/'+img+'\')"></div>';}).join('');
   var galHref=GALERIAS.includes(cat.slug)?'galeria-'+cat.slug+'.html':'proyectos.html';
   var galTxt=GALERIAS.includes(cat.slug)?'Ver galería de fotos →':'Ver en nuestros proyectos →';
   var html='<div class="rp-head"><div class="rp-num">Rubro '+String(i+1).padStart(2,'0')+'</div><h2 class="rp-titulo">'+cat.title+'</h2><p class="rp-desc">'+cat.desc+'</p></div>'
