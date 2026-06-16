@@ -33,6 +33,9 @@
   .cli-nombre { font-size:1.15rem; font-weight:400; }
   .cli-meta { font-size:0.65rem; color:var(--muted); margin-top:3px; letter-spacing:0.05em; }
 .badge-nuevo { display:inline-block; font-size:0.58rem; letter-spacing:0.08em; text-transform:uppercase; background:rgba(201,170,130,0.15); color:var(--amber); border:1px solid rgba(201,170,130,0.4); border-radius:20px; padding:2px 9px; margin-left:8px; vertical-align:middle; }
+.dec.nuevo { background:rgba(201,170,130,0.07); border-radius:5px; padding-left:8px; margin-left:-8px; border-left:2px solid var(--amber); }
+.dec.nuevo .it { color:var(--amber); }
+.dec-tag-nuevo { font-size:0.52rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--amber); margin-left:6px; opacity:0.8; }
   .cli-acciones { display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center; }
   .cli-body { display:none; margin-top:1.2rem; padding-top:1.2rem; border-top:1px solid var(--border); }
   .cli.abierto .cli-body { display:block; }
@@ -143,16 +146,17 @@ function renderLista(rows){
       '</div>'+
       '<div class="cli-body">'+
         '<div class="link-row"><span>Link cliente:</span><code>'+linkCli+'</code></div>'+
-        bitacora(row.datos||{})+
+        bitacora(row.datos||{}, JSON.parse(localStorage.getItem('datos_'+row.token)||'{}'))+
         '<button class="volver-btn" onclick="cerrarCli(this)">↑ Volver al listado</button>'+
       '</div>';
     cont.appendChild(card);
   });
 }
 
-function bitacora(d){
+function bitacora(d, dAntes){
   var html='';
   var hayDatos=false;
+  dAntes=dAntes||{};
   CATEGORIES.forEach(function(cat){
     var lineas='';
     cat.items.forEach(function(it){
@@ -161,19 +165,23 @@ function bitacora(d){
       var e=d[kE], c=d[kC];
       if((e&&e.trim())||(c&&c!=='A definir')){
         hayDatos=true;
+        var esNuevo=(d[kE]!==dAntes[kE])||(d[kC]!==dAntes[kC]);
+        var clsNuevo=esNuevo?' nuevo':'';
+        var tagNuevo=esNuevo?'<span class="dec-tag-nuevo">nuevo</span>':'';
         var partes=[];
         if(e&&e.trim()) partes.push('<span class="val">'+e+'</span>');
         if(c&&c!=='A definir') partes.push('<span class="val">['+c+']</span>');
-        lineas+='<div class="dec"><span class="it">'+item+'</span> — '+partes.join(' · ')+'</div>';
+        lineas+='<div class="dec'+clsNuevo+'"><span class="it">'+item+tagNuevo+'</span> — '+partes.join(' · ')+'</div>';
       }
     });
     var extrasRaw=d['extras_'+cat.slug];
-    if(extrasRaw){ var extras; try{ extras=JSON.parse(extrasRaw); }catch(ex){ extras=[]; } extras.forEach(function(ex){ var kE=keyFor('x_'+cat.slug,ex.name,'eleccion'), kC=keyFor('x_'+cat.slug,ex.name,'condicion'); var e=d[kE], c=d[kC]; if((e&&e.trim())||(c&&c!=='A definir')){ hayDatos=true; var partes=[]; if(e&&e.trim()) partes.push('<span class="val">'+e+'</span>'); if(c&&c!=='A definir') partes.push('<span class="val">['+c+']</span>'); lineas+='<div class="dec"><span class="it">'+ex.name+'</span> — '+partes.join(' · ')+'</div>'; } }); }
+    if(extrasRaw){ var extras; try{ extras=JSON.parse(extrasRaw); }catch(ex){ extras=[]; } extras.forEach(function(ex){ var kE=keyFor('x_'+cat.slug,ex.name,'eleccion'), kC=keyFor('x_'+cat.slug,ex.name,'condicion'); var e=d[kE], c=d[kC]; if((e&&e.trim())||(c&&c!=='A definir')){ hayDatos=true; var esNuevo=(d[kE]!==dAntes[kE])||(d[kC]!==dAntes[kC]); var clsNuevo=esNuevo?' nuevo':''; var tagNuevo=esNuevo?'<span class="dec-tag-nuevo">nuevo</span>':''; var partes=[]; if(e&&e.trim()) partes.push('<span class="val">'+e+'</span>'); if(c&&c!=='A definir') partes.push('<span class="val">['+c+']</span>'); lineas+='<div class="dec'+clsNuevo+'"><span class="it">'+ex.name+tagNuevo+'</span> — '+partes.join(' · ')+'</div>'; } }); }
     var nc=d[cat.slug+'_comentario_cliente'], nn=d[cat.slug+'_comentario_nexo'];
+    var ncAntes=dAntes[cat.slug+'_comentario_cliente'], nnAntes=dAntes[cat.slug+'_comentario_nexo'];
     if(lineas||((nc&&nc.trim())||(nn&&nn.trim()))){
       hayDatos=true;
       html+='<div class="rubro-bloque"><h4>'+cat.title+'</h4>'+lineas;
-      if(nc&&nc.trim()) html+='<p class="nota">Cliente: '+nc+'</p>';
+      if(nc&&nc.trim()) html+='<p class="nota'+(nc!==ncAntes?' nuevo':'')+'">Cliente: '+nc+'</p>';
       if(nn&&nn.trim()) html+='<p class="nota">Nexo: '+nn+'</p>';
       html+='</div>';
     }
@@ -256,6 +264,9 @@ function toggleCli(head,token,actualizado){
     localStorage.setItem('visto_'+token, actualizado||new Date().toISOString());
     var nombreEl=document.getElementById('nombre-'+token);
     if(nombreEl){ var badge=nombreEl.querySelector('.badge-nuevo'); if(badge) badge.remove(); }
+    // guardar snapshot de datos actuales para comparar en la próxima visita
+    var row=FILAS.find(function(r){ return r.token===token; });
+    if(row) localStorage.setItem('datos_'+token, JSON.stringify(row.datos||{}));
   }
   actualizarFlotante(); 
 }
