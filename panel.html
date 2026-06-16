@@ -32,6 +32,7 @@
   .cli-head { display:flex; align-items:center; justify-content:space-between; gap:1rem; cursor:pointer; }
   .cli-nombre { font-size:1.15rem; font-weight:400; }
   .cli-meta { font-size:0.65rem; color:var(--muted); margin-top:3px; letter-spacing:0.05em; }
+.badge-nuevo { display:inline-block; font-size:0.58rem; letter-spacing:0.08em; text-transform:uppercase; background:rgba(201,170,130,0.15); color:var(--amber); border:1px solid rgba(201,170,130,0.4); border-radius:20px; padding:2px 9px; margin-left:8px; vertical-align:middle; }
   .cli-acciones { display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center; }
   .cli-body { display:none; margin-top:1.2rem; padding-top:1.2rem; border-top:1px solid var(--border); }
   .cli.abierto .cli-body { display:block; }
@@ -127,10 +128,13 @@ function renderLista(rows){
   rows.forEach(function(row,idx){
     var linkCli=BASE_FORM+'?c='+row.token;
     var linkNexo=linkCli+'&nexo=1';
+    var visto=localStorage.getItem('visto_'+row.token);
+    var hayNuevo=!visto || (row.actualizado && new Date(row.actualizado)>new Date(visto));
+    var badge=hayNuevo?'<span class="badge-nuevo">● Cambios nuevos</span>':'';
     var card=document.createElement('div'); card.className='cli';
     card.innerHTML=
-      '<div class="cli-head" onclick="toggleCli(this)">'+
-        '<div><div class="cli-nombre">'+row.nombre+'</div><div class="cli-meta">Última actividad: '+fecha(row.actualizado)+'</div></div>'+
+      '<div class="cli-head" onclick="toggleCli(this,\''+row.token+'\',\''+row.actualizado+'\')">'+
+        '<div><div class="cli-nombre" id="nombre-'+row.token+'">'+row.nombre+badge+'</div><div class="cli-meta">Última actividad: '+fecha(row.actualizado)+'</div></div>'+
         '<div class="cli-acciones">'+
           '<button class="btn sm" onclick="event.stopPropagation();copiar(\''+linkCli+'\',this)">Copiar link cliente</button>'+
           '<a class="btn ghost sm" href="'+linkNexo+'" target="_blank" onclick="event.stopPropagation()">Abrir</a>'+
@@ -246,7 +250,15 @@ function imprimir(idx){
 }
 function irAlPanel(){ document.querySelectorAll('.cli.abierto').forEach(function(x){x.classList.remove('abierto');}); actualizarFlotante(); window.scrollTo({top:0,behavior:'smooth'}); }
 function actualizarFlotante(){ var b=document.getElementById('top-flotante'); if(b) b.classList.toggle('show', !!document.querySelector('.cli.abierto')); }
-function toggleCli(head){ head.parentNode.classList.toggle('abierto'); actualizarFlotante(); }
+function toggleCli(head,token,actualizado){ 
+  head.parentNode.classList.toggle('abierto'); 
+  if(head.parentNode.classList.contains('abierto') && token){
+    localStorage.setItem('visto_'+token, actualizado||new Date().toISOString());
+    var nombreEl=document.getElementById('nombre-'+token);
+    if(nombreEl){ var badge=nombreEl.querySelector('.badge-nuevo'); if(badge) badge.remove(); }
+  }
+  actualizarFlotante(); 
+}
 function cerrarCli(btn){ var card=btn.closest('.cli'); card.classList.remove('abierto'); actualizarFlotante(); card.scrollIntoView({behavior:'smooth',block:'center'}); }
 function copiar(txt,btn){
   navigator.clipboard.writeText(txt).then(function(){ var t=btn.textContent; btn.textContent='¡Copiado!'; setTimeout(function(){btn.textContent=t;},1500); });
