@@ -95,6 +95,12 @@
   .choice-status-inc.chip-btn.seleccionado { background:#fff; border-color:#fff; color:#111; }
   .choice-status-extra { display:inline-block; font-size:0.68rem; color:var(--warn); background:rgba(217,139,106,0.08); border:1px solid rgba(217,139,106,0.25); padding:3px 9px; border-radius:4px; line-height:1.4; }
   .cot-thumb { width:34px; height:34px; border-radius:5px; object-fit:cover; cursor:zoom-in; border:1px solid var(--border); flex-shrink:0; }
+  .piso-opciones { display:flex; gap:0.7rem; flex-wrap:wrap; }
+  .piso-opcion { display:flex; flex-direction:column; align-items:center; gap:0.4rem; cursor:pointer; }
+  .piso-opcion img { width:72px; height:72px; object-fit:cover; border-radius:6px; border:2px solid transparent; transition:border-color .15s; }
+  .piso-opcion span { font-size:0.62rem; letter-spacing:0.08em; color:var(--muted); text-transform:uppercase; }
+  .piso-opcion.seleccionado img { border-color:var(--amber); }
+  .piso-opcion.seleccionado span { color:var(--amber); }
   .mini-state { font-size:0.58rem; letter-spacing:0.04em; white-space:nowrap; padding:4px 10px; border-radius:20px; border:1px solid var(--border); color:var(--muted); align-self:start; }
   .mini-state.definido { color:var(--amber); border-color:rgba(201,170,130,0.4); background:rgba(201,170,130,0.1); }
   .mini-state.evaluar { color:var(--amber); border-color:rgba(201,170,130,0.3); }
@@ -216,6 +222,17 @@ document.addEventListener('change',function(e){ var el=e.target.closest('[data-k
 function estadoClase(v){ if(v==="Mantener opción cotizada"||v==="Definido")return "definido"; if(v==="Evaluar alternativa")return "evaluar"; if(v==="Requiere recotización")return "recotizar"; return ""; }
 function keyFor(cat,item,suf){return(cat+'_'+item+'_'+suf).replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]+/g,'_');}
 function isExtra(v){return /a cotizar|a definir|no incluido|no incluida/i.test(v);}
+function elegirPiso(el,kE,val){
+  // deseleccionar todos
+  el.closest('.piso-opciones').querySelectorAll('.piso-opcion').forEach(function(o){ o.classList.remove('seleccionado'); });
+  // si era el mismo, deseleccionar (toggle)
+  if(DATOS[kE]===val){ DATOS[kE]=''; guardar(); return; }
+  el.classList.add('seleccionado');
+  // limpiar campo libre
+  var input=el.closest('.choice-main').querySelector('input[data-key="'+kE+'"]');
+  if(input){ input.value=''; }
+  DATOS[kE]=val; guardar();
+}
 function seleccionarBase(btn,kE,kC){
   var input=document.querySelector('input[data-key="'+kE+'"]');
   var ya=btn.classList.contains('seleccionado');
@@ -339,6 +356,7 @@ function renderRubro(i){
     var esChapa=cat.slug==='exterior'&&(item==='Techos'||item==='Esquineros / Cenefas');
     var esParedes=cat.slug==='exterior'&&item==='Paredes';
     var esContramarcos=cat.slug==='exterior'&&item==='Contramarcos';
+    var esPiso=cat.slug==='interior'&&item==='Piso';
     var kPino=keyFor(cat.slug,item,'pino');
     var kMaterial=keyFor(cat.slug,item,'material');
     var inputHtml;
@@ -350,6 +368,16 @@ function renderRubro(i){
     } else if(esContramarcos){
       inputHtml='<div><div class="input-label">Material</div><select data-key="'+kMaterial+'"><option value="">— Seleccionar material —</option><option>Chapa</option><option>Pino impregnado</option></select></div>'
         +'<div><div class="input-label">Color</div><input data-key="'+kE+'" placeholder="Seleccionar color..."></div>';
+    } else if(esPiso){
+      var pisoOpts=[{val:'Alarce',img:'piso-alarce.webp'},{val:'Granito',img:'piso-granito.webp'},{val:'Quarzo',img:'piso-quarzo.webp'}];
+      var optsHtml=pisoOpts.map(function(o){
+        return '<div class="piso-opcion" onclick="elegirPiso(this,\''+kE+'\',\''+o.val+'\')">'
+          +'<img src="assets/img/cot/'+o.img+'" alt="'+o.val+'">'
+          +'<span>'+o.val+'</span>'
+          +'</div>';
+      }).join('');
+      inputHtml='<div><div class="input-label">Color del piso vinílico SPC</div><div class="piso-opciones">'+optsHtml+'</div></div>'
+        +'<div style="margin-top:0.5rem"><input data-key="'+kE+'" placeholder="Cambiar por..."></div>';
     } else {
       inputHtml='<div><input data-key="'+kE+'" placeholder="'+ph+'"></div>';
     }
@@ -380,6 +408,11 @@ function renderRubro(i){
     extrasArea.appendChild(formDiv);
   }
   document.querySelectorAll("#rubro-page [data-key]").forEach(function(el){ var v=DATOS[el.dataset.key]; if(v==null)return; if(el.tagName==="SELECT"||el.tagName==="INPUT"||el.tagName==="TEXTAREA"){el.value=v;} });
+  // restaurar selección de pisos
+  document.querySelectorAll('#rubro-page .piso-opcion').forEach(function(el){
+    var kE=el.closest('.choice-main').querySelector('input[data-key]').dataset.key;
+    if(DATOS[kE]===el.querySelector('span').textContent) el.classList.add('seleccionado');
+  });
   // restaurar estado de chips seleccionados
   document.querySelectorAll('#rubro-page .chip-btn').forEach(function(btn){
     var kE=btn.dataset.ke;
