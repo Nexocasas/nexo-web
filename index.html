@@ -266,7 +266,7 @@ function renderExtras(catSlug, rubroIdx, ch){
     var kE=keyFor('x_'+catSlug,nombre,'eleccion'), kC=keyFor('x_'+catSlug,nombre,'condicion');
     var estadoHtml=MODO_NEXO?'<div><div class="input-label">Estado</div><select data-key="'+kC+'" data-type="condicion" data-cat="'+catSlug+'"><option>A definir</option><option>Mantener opción cotizada</option><option>Evaluar alternativa</option><option>Requiere recotización</option><option>Definido</option></select></div>':'';
     var div=document.createElement('div'); div.className='choice';
-    div.innerHTML='<div class="choice-head"><div><div class="choice-title">'+nombre+'</div><div class="choice-base-row"><span class="choice-status-inc">✓ Opción cotizada: '+base+'</span></div></div><span class="mini-state '+estadoClase(DATOS[kC])+'" data-mini="'+kC+'">'+(DATOS[kC]||'A definir')+'</span></div><div class="choice-main"><div><input data-key="'+kE+'" placeholder="Mantener cotizado / cambiar por..."></div>'+estadoHtml+'</div>';
+    div.innerHTML='<div class="choice-head"><div><div class="choice-title">'+nombre+'</div><div class="choice-base-row"><span class="choice-status-inc">✓ Opción cotizada: '+base+'</span></div></div><span class="mini-state '+estadoClase(DATOS[kC])+'" data-mini="'+kC+'">'+(DATOS[kC]||'A definir')+'</span></div><div class="choice-main"><div><input data-key="'+kE+'" placeholder="Cambiar por..."></div>'+estadoHtml+'</div>';
     if(MODO_NEXO){
       var titleEl=div.querySelector('.choice-title');
       var btnUp=document.createElement('button'); btnUp.className='borrar-extra-btn'; btnUp.title='Subir'; btnUp.textContent='↑'; btnUp.style.fontSize='0.75rem';
@@ -329,7 +329,7 @@ function renderRubro(i){
   cat.items.forEach(function(it){
     var item=it[0], base=it[1], cot=it[2];
     var kE=keyFor(cat.slug,item,'eleccion'), kC=keyFor(cat.slug,item,'condicion');
-    var ph=(item.includes('Horno')||item.includes('Heladera')||item.includes('Lavarropas')||item.includes('Lavavajillas')||item.includes('Microondas'))?'Especificar modelo/dimensiones':((item.includes('Puerta de ba')||item.includes('Puerta de dorm'))?'Corrediza / De Abrir':'Mantener cotizado / cambiar por...');
+    var ph=(item.includes('Horno')||item.includes('Heladera')||item.includes('Lavarropas')||item.includes('Lavavajillas')||item.includes('Microondas'))?'Especificar modelo/dimensiones':((item.includes('Puerta de ba')||item.includes('Puerta de dorm'))?'Corrediza / De Abrir':'Cambiar por...');
     var extra=isExtra(base);
     var thumbs=''; if(cot){(Array.isArray(cot)?cot:[cot]).forEach(function(im){thumbs+='<img class="cot-thumb" src="assets/img/cot/'+im+'" alt="Opción cotizada" onclick="abrirCot(this.src)">';});}
     var statusTxt=extra?(base.toLowerCase().includes('no incluido')?'⚠ No incluido':'⚠ A cotizar según proyecto'):('✓ Opción base: '+base);
