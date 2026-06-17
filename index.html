@@ -105,7 +105,7 @@
   .mini-state.definido { color:var(--amber); border-color:rgba(201,170,130,0.4); background:rgba(201,170,130,0.1); }
   .mini-state.evaluar { color:var(--amber); border-color:rgba(201,170,130,0.3); }
   .mini-state.recotizar { color:var(--warn); border-color:rgba(217,139,106,0.45); background:rgba(217,139,106,0.1); }
-  .decisiones-conteo { font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--border); }
+  .decisiones-conteo { font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-top:1rem; }
   .decisiones-conteo strong { color:var(--amber); }
   .choice-main { display:grid; grid-template-columns:1fr; gap:0.8rem; }
   .input-label { font-size:0.55rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); margin-bottom:0.4rem; }
@@ -344,7 +344,7 @@ function renderRubro(i){
   var refs=cat.refs.map(function(img){return '<div class="ref" style="background-image:url(\'assets/img/'+img+'\');cursor:zoom-in" onclick="abrirCot(\'assets/img/'+img+'\')"></div>';}).join('');
   var galHref=GALERIAS.includes(cat.slug)?'galeria-'+cat.slug+'.html':'proyectos.html';
   var galTxt=GALERIAS.includes(cat.slug)?'Ver galería de fotos →':'Ver en nuestros proyectos →';
-  var html='<div class="rp-head"><div class="rp-num">Rubro '+String(i+1).padStart(2,'0')+'</div><h2 class="rp-titulo">'+cat.title+'</h2><p class="rp-desc">'+cat.desc+'</p></div>'
+  var html='<div class="rp-head"><div class="rp-num">Rubro '+String(i+1).padStart(2,'0')+'</div><h2 class="rp-titulo">'+cat.title+'</h2><p class="rp-desc">'+cat.desc+'</p><div class="decisiones-conteo" id="conteo-decisiones">— de — decisiones definidas</div></div>'
     +'<p class="sec-label">Referencias</p><div class="refs">'+refs+'</div>'
     +'<a href="'+galHref+'" class="ref-link">'+galTxt+'</a>'
     +'<p class="sec-label">Definiciones del proyecto</p><div class="choices" id="choices-'+i+'"></div><div id="extras-area-'+i+'"></div>'
@@ -419,23 +419,16 @@ function renderRubro(i){
     extrasArea.appendChild(formDiv);
   }
   document.querySelectorAll("#rubro-page [data-key]").forEach(function(el){ var v=DATOS[el.dataset.key]; if(v==null)return; if(el.tagName==="SELECT"||el.tagName==="INPUT"||el.tagName==="TEXTAREA"){el.value=v;} });
-  // conteo de decisiones definidas por el arquitecto
-  var totalItems=document.querySelectorAll('#rubro-page .mini-state').length;
-  var definidos=Array.from(document.querySelectorAll('#rubro-page .mini-state')).filter(function(el){
-    return el.classList.contains('definido');
-  }).length;
-  var conteoDiv=document.createElement('div');
-  conteoDiv.className='decisiones-conteo';
-  conteoDiv.id='conteo-decisiones';
-  conteoDiv.innerHTML='<strong>'+definidos+'</strong> de '+totalItems+' decisiones definidas por Nexo';
-  ch.appendChild(conteoDiv);
-  // actualizar conteo al cambiar estados
-  document.addEventListener('change',function actualizarConteo(e){
-    if(!e.target.closest('[data-type="condicion"]')) return;
-    var def=Array.from(document.querySelectorAll('#rubro-page .mini-state')).filter(function(el){ return el.classList.contains('definido'); }).length;
+  // conteo de decisiones definidas
+  function actualizarConteo(){
     var tot=document.querySelectorAll('#rubro-page .mini-state').length;
+    var def=Array.from(document.querySelectorAll('#rubro-page .mini-state')).filter(function(el){ return el.classList.contains('definido'); }).length;
     var c=document.getElementById('conteo-decisiones');
-    if(c) c.innerHTML='<strong>'+def+'</strong> de '+tot+' decisiones definidas por Nexo';
+    if(c) c.innerHTML='<strong>'+def+'</strong> de '+tot+' decisiones definidas';
+  }
+  actualizarConteo();
+  document.addEventListener('change',function(e){
+    if(e.target.closest('[data-type="condicion"]')) actualizarConteo();
   });
   // restaurar selección de pisos
   document.querySelectorAll('#rubro-page .piso-opcion').forEach(function(el){
