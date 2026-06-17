@@ -105,6 +105,8 @@
   .mini-state.definido { color:var(--amber); border-color:rgba(201,170,130,0.4); background:rgba(201,170,130,0.1); }
   .mini-state.evaluar { color:var(--amber); border-color:rgba(201,170,130,0.3); }
   .mini-state.recotizar { color:var(--warn); border-color:rgba(217,139,106,0.45); background:rgba(217,139,106,0.1); }
+  .decisiones-conteo { font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--border); }
+  .decisiones-conteo strong { color:var(--amber); }
   .choice-main { display:grid; grid-template-columns:1fr; gap:0.8rem; }
   .input-label { font-size:0.55rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); margin-bottom:0.4rem; }
   input, select, textarea { width:100%; font-family:inherit; font-size:0.9rem; background:var(--bg); color:var(--text); border:1px solid var(--border); border-radius:5px; padding:0.65rem 0.8rem; outline:none; }
@@ -417,6 +419,24 @@ function renderRubro(i){
     extrasArea.appendChild(formDiv);
   }
   document.querySelectorAll("#rubro-page [data-key]").forEach(function(el){ var v=DATOS[el.dataset.key]; if(v==null)return; if(el.tagName==="SELECT"||el.tagName==="INPUT"||el.tagName==="TEXTAREA"){el.value=v;} });
+  // conteo de decisiones definidas por el arquitecto
+  var totalItems=document.querySelectorAll('#rubro-page .mini-state').length;
+  var definidos=Array.from(document.querySelectorAll('#rubro-page .mini-state')).filter(function(el){
+    return el.classList.contains('definido');
+  }).length;
+  var conteoDiv=document.createElement('div');
+  conteoDiv.className='decisiones-conteo';
+  conteoDiv.id='conteo-decisiones';
+  conteoDiv.innerHTML='<strong>'+definidos+'</strong> de '+totalItems+' decisiones definidas por Nexo';
+  ch.appendChild(conteoDiv);
+  // actualizar conteo al cambiar estados
+  document.addEventListener('change',function actualizarConteo(e){
+    if(!e.target.closest('[data-type="condicion"]')) return;
+    var def=Array.from(document.querySelectorAll('#rubro-page .mini-state')).filter(function(el){ return el.classList.contains('definido'); }).length;
+    var tot=document.querySelectorAll('#rubro-page .mini-state').length;
+    var c=document.getElementById('conteo-decisiones');
+    if(c) c.innerHTML='<strong>'+def+'</strong> de '+tot+' decisiones definidas por Nexo';
+  });
   // restaurar selección de pisos
   document.querySelectorAll('#rubro-page .piso-opcion').forEach(function(el){
     var kE=el.closest('.choice-main').querySelector('input[data-key]').dataset.key;
