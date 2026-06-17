@@ -217,14 +217,12 @@ function estadoClase(v){ if(v==="Mantener opción cotizada"||v==="Definido")retu
 function keyFor(cat,item,suf){return(cat+'_'+item+'_'+suf).replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]+/g,'_');}
 function isExtra(v){return /a cotizar|a definir|no incluido|no incluida/i.test(v);}
 function seleccionarBase(btn,kE,kC){
-  var input=document.querySelector('[data-key="'+kE+'"]');
+  var input=document.querySelector('input[data-key="'+kE+'"]');
   var ya=btn.classList.contains('seleccionado');
   if(ya){
-    // deseleccionar
     btn.classList.remove('seleccionado');
     if(input){ input.value=''; input.disabled=false; DATOS[kE]=''; }
   } else {
-    // seleccionar opción base
     btn.classList.add('seleccionado');
     if(input){ input.value='Mantener opción cotizada'; input.disabled=true; DATOS[kE]='Mantener opción cotizada'; }
   }
