@@ -338,13 +338,18 @@ function renderRubro(i){
       : '<button type="button" class="'+chipCls+' chip-btn" data-ke="'+kE+'" data-kc="'+kC+'" onclick="seleccionarBase(this,\''+kE+'\',\''+kC+'\')">'+statusTxt+'</button>';
     var esChapa=cat.slug==='exterior'&&(item==='Techos'||item==='Esquineros / Cenefas');
     var esParedes=cat.slug==='exterior'&&item==='Paredes';
+    var esContramarcos=cat.slug==='exterior'&&item==='Contramarcos';
     var kPino=keyFor(cat.slug,item,'pino');
+    var kMaterial=keyFor(cat.slug,item,'material');
     var inputHtml;
     if(esChapa){
       inputHtml='<div><div class="input-label">Color de chapa</div><select data-key="'+kE+'"><option value="">— Seleccionar color —</option><option>Rojo</option><option>Gris</option><option>Negro</option></select></div>';
     } else if(esParedes){
       inputHtml='<div><div class="input-label">Color de chapa</div><select data-key="'+kE+'"><option value="">— Seleccionar color —</option><option>Rojo</option><option>Gris</option><option>Negro</option></select></div>'
         +'<div><div class="input-label">Entablado pino impregnado vertical</div><select data-key="'+kPino+'"><option value="">— Seleccionar —</option><option>Sí</option><option>No</option></select></div>';
+    } else if(esContramarcos){
+      inputHtml='<div><div class="input-label">Material</div><select data-key="'+kMaterial+'"><option value="">— Seleccionar material —</option><option>Chapa</option><option>Pino impregnado</option></select></div>'
+        +'<div><div class="input-label">Color</div><input data-key="'+kE+'" placeholder="Seleccionar color..."></div>';
     } else {
       inputHtml='<div><input data-key="'+kE+'" placeholder="'+ph+'"></div>';
     }
