@@ -380,16 +380,15 @@ function renderRubro(i){
   // restaurar estado de chips seleccionados
   document.querySelectorAll('#rubro-page .chip-btn').forEach(function(btn){
     var kE=btn.dataset.ke;
-    // seleccionar por defecto si nunca se tocó (valor nulo o vacío)
-    var val=DATOS[kE];
-    if(val==='Mantener opción cotizada' || val==null || val===undefined || val===''){
+    var esColorChapa=(btn.closest('.choice') && btn.closest('.choice').querySelector('select[data-key="'+kE+'"]'));
+    if(DATOS[kE]==='Mantener opción cotizada' || esColorChapa){
       btn.classList.add('seleccionado');
-      if(val==null || val===undefined || val===''){
-        DATOS[kE]='Mantener opción cotizada';
-        guardar();
+      if(esColorChapa && (DATOS[kE]==null||DATOS[kE]==='')){
+        // no tocar el valor, los selectores siguen libres
+      } else {
+        var input=document.querySelector('input[data-key="'+kE+'"]');
+        if(input){ input.value='Mantener opción cotizada'; input.disabled=true; }
       }
-      var input=document.querySelector('[data-key="'+kE+'"]');
-      if(input){ input.value='Mantener opción cotizada'; input.disabled=true; }
     }
   });
 }
