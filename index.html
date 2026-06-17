@@ -89,7 +89,10 @@
   .choice-head { display:grid; grid-template-columns:1fr auto; gap:1rem; align-items:start; margin-bottom:0.9rem; }
   .choice-title { font-size:1.15rem; font-weight:400; color:var(--text); }
   .choice-base-row { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:0.5rem; }
-  .choice-status-inc { display:inline-block; font-size:0.68rem; color:var(--amber); background:rgba(201,170,130,0.1); border:1px solid rgba(201,170,130,0.25); padding:3px 9px; border-radius:4px; line-height:1.4; }
+  .choice-status-inc.chip-btn { cursor:pointer; transition:background .15s, border-color .15s; }
+  .choice-status-inc.chip-btn:hover { background:rgba(201,170,130,0.22); border-color:rgba(201,170,130,0.6); }
+  .choice-status-inc.chip-btn.seleccionado { background:rgba(201,170,130,0.28); border-color:var(--amber); box-shadow:0 0 0 1px var(--amber); }
+  .choice-status-inc.chip-btn.seleccionado::before { content:''; }
   .choice-status-extra { display:inline-block; font-size:0.68rem; color:var(--warn); background:rgba(217,139,106,0.08); border:1px solid rgba(217,139,106,0.25); padding:3px 9px; border-radius:4px; line-height:1.4; }
   .cot-thumb { width:34px; height:34px; border-radius:5px; object-fit:cover; cursor:zoom-in; border:1px solid var(--border); flex-shrink:0; }
   .mini-state { font-size:0.58rem; letter-spacing:0.04em; white-space:nowrap; padding:4px 10px; border-radius:20px; border:1px solid var(--border); color:var(--muted); align-self:start; }
@@ -213,6 +216,20 @@ document.addEventListener('change',function(e){ var el=e.target.closest('[data-k
 function estadoClase(v){ if(v==="Mantener opción cotizada"||v==="Definido")return "definido"; if(v==="Evaluar alternativa")return "evaluar"; if(v==="Requiere recotización")return "recotizar"; return ""; }
 function keyFor(cat,item,suf){return(cat+'_'+item+'_'+suf).replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]+/g,'_');}
 function isExtra(v){return /a cotizar|a definir|no incluido|no incluida/i.test(v);}
+function seleccionarBase(btn,kE,kC){
+  var input=document.querySelector('[data-key="'+kE+'"]');
+  var ya=btn.classList.contains('seleccionado');
+  if(ya){
+    // deseleccionar
+    btn.classList.remove('seleccionado');
+    if(input){ input.value=''; input.disabled=false; DATOS[kE]=''; }
+  } else {
+    // seleccionar opción base
+    btn.classList.add('seleccionado');
+    if(input){ input.value='Mantener opción cotizada'; input.disabled=true; DATOS[kE]='Mantener opción cotizada'; }
+  }
+  guardar();
+}
 function abrirCot(src){var lb=document.getElementById("cot-lb");document.getElementById("cot-lb-img").src=src;lb.classList.add("activo");}
 function cerrarCot(){document.getElementById("cot-lb").classList.remove("activo");}
 
@@ -317,8 +334,12 @@ function renderRubro(i){
     var thumbs=''; if(cot){(Array.isArray(cot)?cot:[cot]).forEach(function(im){thumbs+='<img class="cot-thumb" src="assets/img/cot/'+im+'" alt="Opción cotizada" onclick="abrirCot(this.src)">';});}
     var statusTxt=extra?(base.toLowerCase().includes('no incluido')?'⚠ No incluido':'⚠ A cotizar según proyecto'):('✓ Opción base: '+base);
     var estadoHtml=MODO_NEXO?'<div><div class="input-label">Estado</div><select data-key="'+kC+'" data-type="condicion" data-cat="'+cat.slug+'"><option>A definir</option><option>Mantener opción cotizada</option><option>Evaluar alternativa</option><option>Requiere recotización</option><option>Definido</option></select></div>':'';
+    var chipCls=extra?'choice-status-extra':'choice-status-inc';
+    var chipHtml=extra
+      ? '<span class="'+chipCls+'">'+statusTxt+'</span>'
+      : '<button type="button" class="'+chipCls+' chip-btn" data-ke="'+kE+'" data-kc="'+kC+'" onclick="seleccionarBase(this,\''+kE+'\',\''+kC+'\')">'+statusTxt+'</button>';
     var div=document.createElement('div'); div.className='choice';
-    div.innerHTML='<div class="choice-head"><div><div class="choice-title">'+item+'</div><div class="choice-base-row"><span class="'+(extra?'choice-status-extra':'choice-status-inc')+'">'+statusTxt+'</span>'+thumbs+'</div></div><span class="mini-state '+estadoClase(DATOS[kC])+'" data-mini="'+kC+'">'+(DATOS[kC]||'A definir')+'</span></div><div class="choice-main"><div><input data-key="'+kE+'" placeholder="'+ph+'"></div>'+estadoHtml+'</div>';
+    div.innerHTML='<div class="choice-head"><div><div class="choice-title">'+item+'</div><div class="choice-base-row">'+chipHtml+thumbs+'</div></div><span class="mini-state '+estadoClase(DATOS[kC])+'" data-mini="'+kC+'">'+(DATOS[kC]||'A definir')+'</span></div><div class="choice-main"><div><input data-key="'+kE+'" placeholder="'+ph+'"></div>'+estadoHtml+'</div>';
     ch.appendChild(div);
   });
   var extrasArea=document.getElementById('extras-area-'+i);
@@ -344,6 +365,15 @@ function renderRubro(i){
     extrasArea.appendChild(formDiv);
   }
   document.querySelectorAll("#rubro-page [data-key]").forEach(function(el){ var v=DATOS[el.dataset.key]; if(v==null)return; if(el.tagName==="SELECT"||el.tagName==="INPUT"||el.tagName==="TEXTAREA"){el.value=v;} });
+  // restaurar estado de chips seleccionados
+  document.querySelectorAll('#rubro-page .chip-btn').forEach(function(btn){
+    var kE=btn.dataset.ke;
+    if(DATOS[kE]==='Mantener opción cotizada'){
+      btn.classList.add('seleccionado');
+      var input=document.querySelector('[data-key="'+kE+'"]');
+      if(input) input.disabled=true;
+    }
+  });
 }
 
 /* Navegación */
