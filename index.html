@@ -380,10 +380,16 @@ function renderRubro(i){
   // restaurar estado de chips seleccionados
   document.querySelectorAll('#rubro-page .chip-btn').forEach(function(btn){
     var kE=btn.dataset.ke;
-    if(DATOS[kE]==='Mantener opción cotizada'){
+    // seleccionar por defecto si nunca se tocó (valor nulo o vacío)
+    var val=DATOS[kE];
+    if(val==='Mantener opción cotizada' || val==null || val===undefined || val===''){
       btn.classList.add('seleccionado');
+      if(val==null || val===undefined || val===''){
+        DATOS[kE]='Mantener opción cotizada';
+        guardar();
+      }
       var input=document.querySelector('[data-key="'+kE+'"]');
-      if(input) input.disabled=true;
+      if(input){ input.value='Mantener opción cotizada'; input.disabled=true; }
     }
   });
 }
