@@ -338,8 +338,20 @@ function renderRubro(i){
     var chipHtml=extra
       ? '<span class="'+chipCls+'">'+statusTxt+'</span>'
       : '<button type="button" class="'+chipCls+' chip-btn" data-ke="'+kE+'" data-kc="'+kC+'" onclick="seleccionarBase(this,\''+kE+'\',\''+kC+'\')">'+statusTxt+'</button>';
+    var esChapa=cat.slug==='exterior'&&(item==='Techos'||item==='Esquineros / Cenefas');
+    var esParedes=cat.slug==='exterior'&&item==='Paredes';
+    var kPino=keyFor(cat.slug,item,'pino');
+    var inputHtml;
+    if(esChapa){
+      inputHtml='<div><div class="input-label">Color de chapa</div><select data-key="'+kE+'"><option value="">— Seleccionar color —</option><option>Rojo</option><option>Gris</option><option>Negro</option></select></div>';
+    } else if(esParedes){
+      inputHtml='<div><div class="input-label">Color de chapa</div><select data-key="'+kE+'"><option value="">— Seleccionar color —</option><option>Rojo</option><option>Gris</option><option>Negro</option></select></div>'
+        +'<div><div class="input-label">Entablado pino impregnado vertical</div><select data-key="'+kPino+'"><option value="">— Seleccionar —</option><option>Sí</option><option>No</option></select></div>';
+    } else {
+      inputHtml='<div><input data-key="'+kE+'" placeholder="'+ph+'"></div>';
+    }
     var div=document.createElement('div'); div.className='choice';
-    div.innerHTML='<div class="choice-head"><div><div class="choice-title">'+item+'</div><div class="choice-base-row">'+chipHtml+thumbs+'</div></div><span class="mini-state '+estadoClase(DATOS[kC])+'" data-mini="'+kC+'">'+(DATOS[kC]||'A definir')+'</span></div><div class="choice-main"><div><input data-key="'+kE+'" placeholder="'+ph+'"></div>'+estadoHtml+'</div>';
+    div.innerHTML='<div class="choice-head"><div><div class="choice-title">'+item+'</div><div class="choice-base-row">'+chipHtml+thumbs+'</div></div><span class="mini-state '+estadoClase(DATOS[kC])+'" data-mini="'+kC+'">'+(DATOS[kC]||'A definir')+'</span></div><div class="choice-main">'+inputHtml+estadoHtml+'</div>';
     ch.appendChild(div);
   });
   var extrasArea=document.getElementById('extras-area-'+i);
