@@ -371,7 +371,7 @@ function renderRubro(i){
     } else if(esPiso){
       var pisoOpts=[{val:'Alarce',img:'piso-alarce.webp'},{val:'Granito',img:'piso-granito.webp'},{val:'Quarzo',img:'piso-quarzo.webp'}];
       var optsHtml=pisoOpts.map(function(o){
-        return '<div class="piso-opcion" onclick="elegirPiso(this,\''+kE+'\',\''+o.val+'\')">'
+        return '<div class="piso-opcion" onclick="elegirPiso(this,\''+kE+'\',\''+o.val+'\')" ondblclick="abrirCot(\'assets/img/cot/'+o.img+'\')">'
           +'<img src="assets/img/cot/'+o.img+'" alt="'+o.val+'">'
           +'<span>'+o.val+'</span>'
           +'</div>';
