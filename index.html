@@ -222,6 +222,13 @@ document.addEventListener('change',function(e){ var el=e.target.closest('[data-k
 function estadoClase(v){ if(v==="Mantener opción cotizada"||v==="Definido")return "definido"; if(v==="Evaluar alternativa")return "evaluar"; if(v==="Requiere recotización")return "recotizar"; return ""; }
 function keyFor(cat,item,suf){return(cat+'_'+item+'_'+suf).replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]+/g,'_');}
 function isExtra(v){return /a cotizar|a definir|no incluido|no incluida/i.test(v);}
+function deseleccionarPiso(input,kE){
+  if(input.value.trim()){
+    var opciones=input.closest('.choice-main').querySelectorAll('.piso-opcion');
+    opciones.forEach(function(o){ o.classList.remove('seleccionado'); });
+    DATOS[kE]=input.value; guardar();
+  }
+}
 function elegirPiso(el,kE,val){
   // deseleccionar todos
   el.closest('.piso-opciones').querySelectorAll('.piso-opcion').forEach(function(o){ o.classList.remove('seleccionado'); });
@@ -377,7 +384,7 @@ function renderRubro(i){
           +'</div>';
       }).join('');
       inputHtml='<div><div class="input-label">Color del piso vinílico SPC</div><div class="piso-opciones">'+optsHtml+'</div></div>'
-        +'<div style="margin-top:0.5rem"><input data-key="'+kE+'" placeholder="Cambiar por..."></div>';
+        +'<div style="margin-top:0.5rem"><input data-key="'+kE+'" placeholder="Cambiar por..." oninput="deseleccionarPiso(this,\''+kE+'\')"></div>';
     } else {
       inputHtml='<div><input data-key="'+kE+'" placeholder="'+ph+'"></div>';
     }
