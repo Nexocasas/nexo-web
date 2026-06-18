@@ -369,7 +369,7 @@ function renderRubro(i){
   cat.items.forEach(function(it){
     var item=it[0], base=it[1], cot=it[2];
     var kE=keyFor(cat.slug,item,'eleccion'), kC=keyFor(cat.slug,item,'condicion');
-    var ph=(item.includes('Horno')||item.includes('Heladera')||item.includes('Lavarropas')||item.includes('Lavavajillas')||item.includes('Microondas'))?'Especificar modelo/dimensiones':((item.includes('Puerta de ba')||item.includes('Puerta de dorm'))?'Corrediza / De Abrir':(base.toLowerCase().includes('no incluido')?'Incluír / detallar...':((base.toLowerCase().includes('a cotizar')||base.toLowerCase().includes('a definir'))?'Detallar...':'Cambiar por...')));
+    var ph=(item.includes('Horno')||item.includes('Heladera')||item.includes('Lavarropas')||item.includes('Lavavajillas')||item.includes('Microondas'))?'Especificar modelo/dimensiones':((item.includes('Puerta de ba')||item.includes('Puerta de dorm'))?'Corrediza / De Abrir':(base.toLowerCase().includes('no incluido')?'Incluír / detallar...':((base.toLowerCase().includes('a cotizar')||base.toLowerCase().includes('a definir')||item.includes('Ubicación'))?'Detallar...':'Cambiar por...')));
     var extra=isExtra(base);
     var thumbs=''; if(cot){(Array.isArray(cot)?cot:[cot]).forEach(function(im){thumbs+='<img class="cot-thumb" src="assets/img/cot/'+im+'" alt="Opción cotizada" onclick="abrirCot(this.src)">';});}
     var statusTxt=extra?(base.toLowerCase().includes('no incluido')?'⚠ No incluido':'⚠ A cotizar según proyecto'):('✓ Opción base: '+base);
