@@ -89,6 +89,7 @@
   .car-btn.prev { left:-14px; }
   .car-btn.next { right:-14px; }
   .ref { aspect-ratio:1; border-radius:3px; background-size:cover; background-position:center; }
+  .ref.pos-bottom { background-position:bottom; }
   .ref-link { display:inline-flex; align-items:center; gap:6px; margin-top:1.1rem; font-size:0.72rem; letter-spacing:0.08em; color:var(--amber); text-decoration:none; border-bottom:1px solid var(--border); padding-bottom:3px; }
 
   /* ── CHOICES / DECISIONES ── */
@@ -351,7 +352,7 @@ function borrarExtra(catSlug,idx,rubroIdx){
 }
 function renderRubro(i){
   var cat=categories[i];
-  var refImgs=cat.refs.map(function(img){var src=img.startsWith('assets/')||img.startsWith('http')?img:'assets/img/'+img;return '<div class="ref" style="background-image:url(\''+src+'\');cursor:zoom-in" onclick="abrirCot(\''+src+'\')"></div>';}).join('');
+  var refImgs=cat.refs.map(function(img){var src=img.startsWith('assets/')||img.startsWith('http')?img:'assets/img/'+img; var cls=cat.slug==='calefaccion'?' pos-bottom':''; return '<div class="ref'+cls+'" style="background-image:url(\''+src+'\');cursor:zoom-in" onclick="abrirCot(\''+src+'\')"></div>';}).join('');
   var refsHtml=cat.refs.length>3
     ? '<div class="carrusel-wrap"><button class="car-btn prev" onclick="scrollCar(this,-1)">‹</button><div class="carrusel">'+refImgs+'</div><button class="car-btn next" onclick="scrollCar(this,1)">›</button></div>'
     : '<div class="refs">'+refImgs+'</div>';
