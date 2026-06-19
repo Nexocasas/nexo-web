@@ -240,19 +240,24 @@ function keyFor(cat,item,suf){return(cat+'_'+item+'_'+suf).replace(/[^a-zA-Z0-9√
 function isExtra(v){return /a cotizar|a definir|no incluido|no incluida/i.test(v);}
 function deseleccionarPiso(input,kE){
   if(input.value.trim()){
-    var opciones=input.closest('.choice-main').querySelectorAll('.piso-opcion');
-    opciones.forEach(function(o){ o.classList.remove('seleccionado'); });
+    var choice=input.closest('.choice');
+    choice.querySelectorAll('.piso-opcion').forEach(function(o){ o.classList.remove('seleccionado'); });
+    var chip=choice.querySelector('.chip-btn');
+    if(chip) chip.classList.remove('seleccionado');
     DATOS[kE]=input.value; guardar();
   }
 }
 function elegirPiso(el,kE,val){
+  var choice=el.closest('.choice');
+  var chip=choice.querySelector('.chip-btn');
   // deseleccionar todos
   el.closest('.piso-opciones').querySelectorAll('.piso-opcion').forEach(function(o){ o.classList.remove('seleccionado'); });
   // si era el mismo, deseleccionar (toggle)
-  if(DATOS[kE]===val){ DATOS[kE]=''; guardar(); return; }
+  if(DATOS[kE]===val){ DATOS[kE]=''; if(chip) chip.classList.remove('seleccionado'); guardar(); return; }
   el.classList.add('seleccionado');
+  if(chip) chip.classList.add('seleccionado');
   // limpiar campo libre
-  var input=el.closest('.choice-main').querySelector('input[data-key="'+kE+'"]');
+  var input=choice.querySelector('input[data-key="'+kE+'"]');
   if(input){ input.value=''; }
   DATOS[kE]=val; guardar();
 }
@@ -452,7 +457,11 @@ function renderRubro(i){
   // restaurar selecci√≥n de pisos
   document.querySelectorAll('#rubro-page .piso-opcion').forEach(function(el){
     var kE=el.closest('.choice-main').querySelector('input[data-key]').dataset.key;
-    if(DATOS[kE]===el.querySelector('span').textContent) el.classList.add('seleccionado');
+    if(DATOS[kE]===el.querySelector('span').textContent){
+      el.classList.add('seleccionado');
+      var chip=el.closest('.choice').querySelector('.chip-btn');
+      if(chip) chip.classList.add('seleccionado');
+    }
   });
   // restaurar estado de chips seleccionados
   document.querySelectorAll('#rubro-page .chip-btn').forEach(function(btn){
