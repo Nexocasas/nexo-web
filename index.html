@@ -397,8 +397,10 @@ function renderRubro(i){
     var chipHtml=extra
       ? '<span class="'+chipCls+'">'+statusTxt+'</span>'
       : '<button type="button" class="'+chipCls+' chip-btn" data-ke="'+kE+'" data-kc="'+kC+'" onclick="seleccionarBase(this,\''+kE+'\',\''+kC+'\')">'+checkSvg+statusTxt+'</button>';
-    var chapaOpts=[{val:'Rojo',img:'chapa-rojo.jpg'},{val:'Gris',img:'chapa-gris.jpg'},{val:'Negro',img:'chapa-negro.jpg'}];
-    var chapaHtml=function(kEy){ return '<div class="input-label">Color de chapa</div><div class="piso-opciones">'+chapaOpts.map(function(o){ return '<div class="piso-opcion" onclick="elegirChapa(this,\''+kEy+'\',\''+o.val+'\')" ondblclick="abrirCot(\'assets/img/cot/'+o.img+'\')">'+'<img src="assets/img/cot/'+o.img+'" alt="'+o.val+'">'+'<span>'+o.val+'</span>'+'</div>'; }).join('')+'</div>'; };
+    var chapaImgs=item==='Esquineros / Cenefas'
+      ? [{val:'Rojo',img:'esquinero-rojo.jpg'},{val:'Gris',img:'esquinero-gris.jpg'},{val:'Negro',img:'esquinero-negro.jpg'}]
+      : [{val:'Rojo',img:'chapa-rojo.jpg'},{val:'Gris',img:'chapa-gris.jpg'},{val:'Negro',img:'chapa-negro.jpg'}];
+    var chapaHtml=function(kEy){ return '<div class="input-label">Color de chapa</div><div class="piso-opciones">'+chapaImgs.map(function(o){ return '<div class="piso-opcion" onclick="elegirChapa(this,\''+kEy+'\',\''+o.val+'\')" ondblclick="abrirCot(\'assets/img/cot/'+o.img+'\')">'+'<img src="assets/img/cot/'+o.img+'" alt="'+o.val+'">'+'<span>'+o.val+'</span>'+'</div>'; }).join('')+'</div>'; };
     var esChapa=cat.slug==='exterior'&&(item==='Techos'||item==='Esquineros / Cenefas');
     var esParedes=cat.slug==='exterior'&&item==='Paredes';
     var esContramarcos=cat.slug==='exterior'&&item==='Contramarcos';
