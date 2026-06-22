@@ -247,6 +247,15 @@ function deseleccionarPiso(input,kE){
     DATOS[kE]=input.value; guardar();
   }
 }
+function elegirChapa(el,kE,val){
+  var choice=el.closest('.choice');
+  var chip=choice.querySelector('.chip-btn');
+  el.closest('.piso-opciones').querySelectorAll('.piso-opcion').forEach(function(o){ o.classList.remove('seleccionado'); });
+  if(DATOS[kE]===val){ DATOS[kE]=''; if(chip) chip.classList.remove('seleccionado'); guardar(); return; }
+  el.classList.add('seleccionado');
+  if(chip) chip.classList.add('seleccionado');
+  DATOS[kE]=val; guardar();
+}
 function elegirPiso(el,kE,val){
   var choice=el.closest('.choice');
   var chip=choice.querySelector('.chip-btn');
@@ -388,6 +397,8 @@ function renderRubro(i){
     var chipHtml=extra
       ? '<span class="'+chipCls+'">'+statusTxt+'</span>'
       : '<button type="button" class="'+chipCls+' chip-btn" data-ke="'+kE+'" data-kc="'+kC+'" onclick="seleccionarBase(this,\''+kE+'\',\''+kC+'\')">'+checkSvg+statusTxt+'</button>';
+    var chapaOpts=[{val:'Rojo',img:'chapa-rojo.jpg'},{val:'Gris',img:'chapa-gris.jpg'},{val:'Negro',img:'chapa-negro.jpg'}];
+    var chapaHtml=function(kEy){ return '<div class="input-label">Color de chapa</div><div class="piso-opciones">'+chapaOpts.map(function(o){ return '<div class="piso-opcion" onclick="elegirChapa(this,\''+kEy+'\',\''+o.val+'\')" ondblclick="abrirCot(\'assets/img/cot/'+o.img+'\')">'+'<img src="assets/img/cot/'+o.img+'" alt="'+o.val+'">'+'<span>'+o.val+'</span>'+'</div>'; }).join('')+'</div>'; };
     var esChapa=cat.slug==='exterior'&&(item==='Techos'||item==='Esquineros / Cenefas');
     var esParedes=cat.slug==='exterior'&&item==='Paredes';
     var esContramarcos=cat.slug==='exterior'&&item==='Contramarcos';
@@ -396,10 +407,9 @@ function renderRubro(i){
     var kMaterial=keyFor(cat.slug,item,'material');
     var inputHtml;
     if(esChapa){
-      inputHtml='<div><div class="input-label">Color de chapa</div><select data-key="'+kE+'"><option value="">— Seleccionar color —</option><option>Rojo</option><option>Gris</option><option>Negro</option></select></div>';
+      inputHtml='<div>'+chapaHtml(kE)+'</div>';
     } else if(esParedes){
-      inputHtml='<div><div class="input-label">Color de chapa</div><select data-key="'+kE+'"><option value="">— Seleccionar color —</option><option>Rojo</option><option>Gris</option><option>Negro</option></select></div>'
-        +'<div><div class="input-label">Entablado pino impregnado vertical</div><select data-key="'+kPino+'"><option value="">— Seleccionar —</option><option>Sí</option><option>No</option></select></div>';
+      inputHtml='<div>'+chapaHtml(kE)+'<div class="input-label" style="margin-top:0.8rem">Entablado pino impregnado vertical</div><select data-key="'+kPino+'"><option value="">— Seleccionar —</option><option>Sí</option><option>No</option></select></div>';
     } else if(esContramarcos){
       inputHtml='<div><div class="input-label">Material</div><select data-key="'+kMaterial+'"><option value="">— Seleccionar material —</option><option>Chapa</option><option>Pino impregnado</option></select></div>'
         +'<div><div class="input-label">Color</div><input data-key="'+kE+'" placeholder="Seleccionar color..."></div>';
@@ -454,9 +464,17 @@ function renderRubro(i){
   document.addEventListener('change',function(e){
     if(e.target.closest('[data-type="condicion"]')) actualizarConteo();
   });
-  // restaurar selección de pisos
+  // restaurar selección de pisos y chapas
   document.querySelectorAll('#rubro-page .piso-opcion').forEach(function(el){
-    var kE=el.closest('.choice-main').querySelector('input[data-key]').dataset.key;
+    var kE=el.closest('.choice-main').querySelector('input[data-key]') ? el.closest('.choice-main').querySelector('input[data-key]').dataset.key : null;
+    if(!kE){ // selector de chapa sin input (Techos, Esquineros)
+      var choice=el.closest('.choice');
+      var chip=choice ? choice.querySelector('.chip-btn') : null;
+      var val=el.querySelector('span').textContent;
+      var ke2=chip ? chip.dataset.ke : null;
+      if(ke2 && DATOS[ke2]===val){ el.classList.add('seleccionado'); if(chip) chip.classList.add('seleccionado'); }
+      return;
+    }
     if(DATOS[kE]===el.querySelector('span').textContent){
       el.classList.add('seleccionado');
       var chip=el.closest('.choice').querySelector('.chip-btn');
