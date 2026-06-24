@@ -391,7 +391,7 @@ function renderRubro(i){
     var extra=isExtra(base);
     var thumbs=''; if(cot){(Array.isArray(cot)?cot:[cot]).forEach(function(im){thumbs+='<img class="cot-thumb" src="assets/img/cot/'+im+'" alt="Opción cotizada" onclick="abrirCot(this.src)">';});}
     var esSelectorColor=cat.slug==='exterior'&&(item==='Techos'||item==='Esquineros / Cenefas'||item==='Paredes');
-    var baseTxt=esSelectorColor?base.replace(/\(varios colores\)/i,'elegir color'):base;
+    var baseTxt=esSelectorColor?base.replace(/\(varios colores\)/i,'(elegir color)'):base;
     var statusTxt=extra?(base.toLowerCase().includes('no incluido')?'⚠ No incluido':'⚠ A cotizar según proyecto'):('Opción base: '+baseTxt);
     var checkSvg='<span class="chip-check"><svg viewBox="0 0 24 24" fill="none" stroke="#0d0b09" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>';
     var estadoHtml=MODO_NEXO?'<div><div class="input-label">Estado</div><select data-key="'+kC+'" data-type="condicion" data-cat="'+cat.slug+'"><option>A definir</option><option>Mantener opción cotizada</option><option>Evaluar alternativa</option><option>Requiere recotización</option><option>Definido</option></select></div>':'';
