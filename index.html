@@ -254,6 +254,8 @@ function elegirChapa(el,kE,val){
   if(DATOS[kE]===val){ DATOS[kE]=''; if(chip) chip.classList.remove('seleccionado'); guardar(); return; }
   el.classList.add('seleccionado');
   if(chip) chip.classList.add('seleccionado');
+  var input=choice.querySelector('input[data-key="'+kE+'"]');
+  if(input){ input.value=''; }
   DATOS[kE]=val; guardar();
 }
 function elegirPiso(el,kE,val){
@@ -417,7 +419,7 @@ function renderRubro(i){
     var kMaterial=keyFor(cat.slug,item,'material');
     var inputHtml;
     if(esChapa){
-      inputHtml='<div>'+chapaHtml(kE)+'</div>';
+      inputHtml='<div>'+chapaHtml(kE)+(item==='Techos'?'<div style="margin-top:0.5rem"><input data-key="'+kE+'" placeholder="Cambiar por..." oninput="deseleccionarPiso(this,\''+kE+'\')"></div>':'')+'</div>';
     } else if(esParedes){
       inputHtml='<div>'+chapaHtml(kE)+'<div class="input-label" style="margin-top:0.8rem">Entablado pino impregnado vertical</div><select data-key="'+kPino+'"><option value="">— Seleccionar —</option><option>Sí</option><option>No</option></select></div>';
     } else if(esContramarcos){
@@ -490,6 +492,12 @@ function renderRubro(i){
       var chip=el.closest('.choice').querySelector('.chip-btn');
       if(chip) chip.classList.add('seleccionado');
     }
+  });
+  // si un color quedó seleccionado, el campo libre "Cambiar por..." debe estar vacío
+  document.querySelectorAll('#rubro-page .piso-opcion.seleccionado').forEach(function(el){
+    var choice=el.closest('.choice');
+    var input=choice ? choice.querySelector('input[data-key]') : null;
+    if(input) input.value='';
   });
   // restaurar estado de chips seleccionados
   document.querySelectorAll('#rubro-page .chip-btn').forEach(function(btn){
