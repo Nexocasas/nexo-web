@@ -99,9 +99,9 @@
   .choice-title { font-size:1.15rem; font-weight:400; color:var(--text); }
   .choice-base-row { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:0.5rem; }
   .choice-status-inc { display:inline-flex; align-items:center; gap:7px; font-size:0.68rem; color:var(--amber); background:rgba(201,170,130,0.1); border:1px solid rgba(201,170,130,0.25); padding:3px 9px 3px 7px; border-radius:4px; line-height:1.4; font-family:inherit; }
-  .choice-status-inc.chip-btn { cursor:pointer; transition:background .15s, border-color .15s, color .15s; }
-  .choice-status-inc.chip-btn:hover { background:rgba(201,170,130,0.2); border-color:rgba(201,170,130,0.5); }
-  .choice-status-inc.chip-btn.seleccionado { background:rgba(201,170,130,0.15); border-color:rgba(201,170,130,0.4); color:var(--amber); }
+  .choice-status-inc.chip-btn { cursor:pointer; background:transparent; border-color:transparent; transition:background .15s, border-color .15s, color .15s; }
+  .choice-status-inc.chip-btn:hover { background:rgba(201,170,130,0.08); border-color:rgba(201,170,130,0.3); }
+  .choice-status-inc.chip-btn.seleccionado { background:rgba(201,170,130,0.18); border-color:rgba(201,170,130,0.55); color:var(--amber); }
   .chip-check { width:14px; height:14px; flex-shrink:0; border:1.5px solid var(--amber); border-radius:3px; display:inline-flex; align-items:center; justify-content:center; }
   .chip-check svg { width:9px; height:9px; opacity:0; transition:opacity .15s; }
   .seleccionado .chip-check { background:var(--amber); }
@@ -390,7 +390,9 @@ function renderRubro(i){
     var ph=(item.includes('Horno')||item.includes('Heladera')||item.includes('Lavarropas')||item.includes('Lavavajillas')||item.includes('Microondas'))?'Especificar modelo/dimensiones':((item.includes('Puerta de ba')||item.includes('Puerta de dorm'))?'Corrediza / De Abrir':(base.toLowerCase().includes('no incluido')?'Incluír / detallar...':((base.toLowerCase().includes('a cotizar')||base.toLowerCase().includes('a definir')||item.includes('Ubicación'))?'Detallar...':'Cambiar por...')));
     var extra=isExtra(base);
     var thumbs=''; if(cot){(Array.isArray(cot)?cot:[cot]).forEach(function(im){thumbs+='<img class="cot-thumb" src="assets/img/cot/'+im+'" alt="Opción cotizada" onclick="abrirCot(this.src)">';});}
-    var statusTxt=extra?(base.toLowerCase().includes('no incluido')?'⚠ No incluido':'⚠ A cotizar según proyecto'):('Opción base: '+base);
+    var esSelectorColor=cat.slug==='exterior'&&(item==='Techos'||item==='Esquineros / Cenefas'||item==='Paredes');
+    var baseTxt=esSelectorColor?base.replace(/\(varios colores\)/i,'elegir color'):base;
+    var statusTxt=extra?(base.toLowerCase().includes('no incluido')?'⚠ No incluido':'⚠ A cotizar según proyecto'):('Opción base: '+baseTxt);
     var checkSvg='<span class="chip-check"><svg viewBox="0 0 24 24" fill="none" stroke="#0d0b09" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>';
     var estadoHtml=MODO_NEXO?'<div><div class="input-label">Estado</div><select data-key="'+kC+'" data-type="condicion" data-cat="'+cat.slug+'"><option>A definir</option><option>Mantener opción cotizada</option><option>Evaluar alternativa</option><option>Requiere recotización</option><option>Definido</option></select></div>':'';
     var chipCls=extra?'choice-status-extra':'choice-status-inc';
