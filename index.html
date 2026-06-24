@@ -407,6 +407,8 @@ function renderRubro(i){
     var esParedes=cat.slug==='exterior'&&item==='Paredes';
     var esContramarcos=cat.slug==='exterior'&&item==='Contramarcos';
     var esPiso=cat.slug==='interior'&&item==='Piso';
+    // Si el item tiene selector visual de opciones, no mostrar la imagen de referencia general
+    if(esChapa||esParedes||esPiso) thumbs='';
     var kPino=keyFor(cat.slug,item,'pino');
     var kMaterial=keyFor(cat.slug,item,'material');
     var inputHtml;
