@@ -421,7 +421,7 @@ function renderRubro(i){
     if(esChapa){
       inputHtml='<div>'+chapaHtml(kE)+(item==='Techos'?'<div style="margin-top:0.5rem"><input data-key="'+kE+'" placeholder="Cambiar por..." oninput="deseleccionarPiso(this,\''+kE+'\')"></div>':'')+'</div>';
     } else if(esParedes){
-      inputHtml='<div>'+chapaHtml(kE)+'<div class="input-label" style="margin-top:0.8rem">Entablado pino impregnado vertical</div><select data-key="'+kPino+'"><option value="">— Seleccionar —</option><option>Sí</option><option>No</option></select></div>';
+      inputHtml='<div>'+chapaHtml(kE)+'<div style="margin-top:0.5rem"><input data-key="'+kE+'" placeholder="Cambiar por..." oninput="deseleccionarPiso(this,\''+kE+'\')"></div></div>';
     } else if(esContramarcos){
       inputHtml='<div><div class="input-label">Material</div><select data-key="'+kMaterial+'"><option value="">— Seleccionar material —</option><option>Chapa</option><option>Pino impregnado</option></select></div>'
         +'<div><div class="input-label">Color</div><input data-key="'+kE+'" placeholder="Seleccionar color..."></div>';
