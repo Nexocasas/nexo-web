@@ -251,6 +251,7 @@
       .carrusel-imagenes { min-height: 280px; height: 60vw; }
       .carrusel-info { padding: 2rem 1.5rem; }
       .objetos-grid { grid-template-columns: repeat(2, 1fr); }
+      #muebles-scroll { grid-auto-columns: 100%; }
       .objetos-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
       .nexo-banner { grid-template-columns: 1fr; }
       .nexo-banner-img { min-height: 280px; }
@@ -526,7 +527,8 @@
     const M_MAX   = M_TOTAL - M_VIS; // 7
 
     function getColW() {
-      // ancho de una columna incluyendo gap
+      const isMobile = window.innerWidth <= 900;
+      if (isMobile) return mScroll.clientWidth;
       const gap = parseFloat(getComputedStyle(mScroll).gap) || 20;
       return (mScroll.clientWidth - gap * (M_VIS - 1)) / M_VIS + gap;
     }
