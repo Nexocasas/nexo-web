@@ -304,8 +304,8 @@
     </div>
   </div>
 
-  <!-- CARRUSEL MUEBLES grilla 3 columnas -->
-  <div id="muebles" style="background:var(--arena); padding: 6rem 4rem;">
+  <!-- CARRUSEL MUEBLES -->
+  <div id="muebles" style="background:var(--arena); padding:6rem 4rem;">
     <div style="margin-bottom:2.5rem;">
       <p class="seccion-eyebrow">Muebles</p>
       <h2 class="seccion-titulo">Diseño que se usa todos los días</h2>
@@ -313,33 +313,30 @@
 
     <div style="position:relative;">
       <!-- Flecha izquierda -->
-      <button onclick="moverMuebles(-1)" aria-label="Anterior" style="position:absolute;left:-2rem;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;border:none;background:var(--blanco);box-shadow:0 2px 12px rgba(0,0,0,0.15);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--negro);">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 19l-7-7 7-7"/></svg>
+      <button id="m-prev" onclick="scrollMuebles(-1)" aria-label="Anterior" style="position:absolute;left:-1.75rem;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;border:none;background:var(--blanco);box-shadow:0 2px 16px rgba(0,0,0,0.18);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--negro);opacity:0.4;transition:opacity 0.2s;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 19l-7-7 7-7"/></svg>
       </button>
       <!-- Flecha derecha -->
-      <button onclick="moverMuebles(1)" aria-label="Siguiente" style="position:absolute;right:-2rem;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;border:none;background:var(--blanco);box-shadow:0 2px 12px rgba(0,0,0,0.15);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--negro);">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>
+      <button id="m-next" onclick="scrollMuebles(1)" aria-label="Siguiente" style="position:absolute;right:-1.75rem;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;border:none;background:var(--blanco);box-shadow:0 2px 16px rgba(0,0,0,0.18);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--negro);transition:opacity 0.2s;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
       </button>
 
-      <!-- Ventana: recorta el track -->
-      <div style="overflow:hidden;">
-        <!-- Track: 10 items, cada uno ocupa 1/3 del contenedor -->
-        <div id="muebles-track" style="display:grid; grid-template-columns:repeat(10, calc(100%/3)); gap:1.25rem; transition:transform 0.5s cubic-bezier(.4,0,.2,1); will-change:transform;">
-          <div><img src="assets/img/muebles/mueble_1.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Literas madera"></div>
-          <div><img src="assets/img/muebles/mueble_3.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Cocina negra"></div>
-          <div><img src="assets/img/muebles/mueble_4.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Placard negro"></div>
-          <div><img src="assets/img/muebles/mueble_7.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Mesa hormigón"></div>
-          <div><img src="assets/img/muebles/mueble_9.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Cocina madera"></div>
-          <div><img src="assets/img/muebles/mueble_10.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Mesa exterior"></div>
-          <div><img src="assets/img/muebles/mueble_11.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Living madera"></div>
-          <div><img src="assets/img/muebles/mueble_12.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Cocina abierta"></div>
-          <div><img src="assets/img/muebles/mueble_14.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Mesa industrial"></div>
-          <div><img src="assets/img/muebles/mueble_15.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Mesa comedor"></div>
-        </div>
+      <!-- Track scroll-snap -->
+      <div id="muebles-scroll" style="display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 2 * 1.25rem) / 3);gap:1.25rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;" onscroll="onMueblesScroll()">
+        <div style="scroll-snap-align:start;"><img src="assets/img/muebles/mueble_1.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Literas madera"></div>
+        <div style="scroll-snap-align:start;"><img src="assets/img/muebles/mueble_3.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Cocina negra"></div>
+        <div style="scroll-snap-align:start;"><img src="assets/img/muebles/mueble_4.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Placard negro"></div>
+        <div style="scroll-snap-align:start;"><img src="assets/img/muebles/mueble_7.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Mesa hormigón"></div>
+        <div style="scroll-snap-align:start;"><img src="assets/img/muebles/mueble_9.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Cocina madera"></div>
+        <div style="scroll-snap-align:start;"><img src="assets/img/muebles/mueble_10.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Mesa exterior"></div>
+        <div style="scroll-snap-align:start;"><img src="assets/img/muebles/mueble_11.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Living madera"></div>
+        <div style="scroll-snap-align:start;"><img src="assets/img/muebles/mueble_12.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Cocina abierta"></div>
+        <div style="scroll-snap-align:start;"><img src="assets/img/muebles/mueble_14.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Mesa industrial"></div>
+        <div style="scroll-snap-align:start;"><img src="assets/img/muebles/mueble_15.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Mesa comedor"></div>
       </div>
     </div>
 
-    <!-- Dots: 8 posiciones (10 items - 3 visibles + 1) -->
+    <!-- Dots -->
     <div id="muebles-dots" style="display:flex;gap:0.5rem;margin-top:1.5rem;justify-content:center;">
       <button onclick="irMuebles(0)" class="dot activo-dot"></button>
       <button onclick="irMuebles(1)" class="dot"></button>
@@ -519,30 +516,45 @@
   </footer>
 
   <script>
-    // Carrusel muebles — grilla 3 columnas, avanza de a 1
-    let muebleActual = 0;
-    const muebleTotal = 10;
-    const muebleMax = 7; // 10 - 3
+    // ── CARRUSEL MUEBLES (scroll-snap nativo) ──
+    const mScroll = document.getElementById('muebles-scroll');
+    const mDots   = document.querySelectorAll('#muebles-dots .dot');
+    const mPrev   = document.getElementById('m-prev');
+    const mNext   = document.getElementById('m-next');
+    const M_TOTAL = 10;
+    const M_VIS   = 3;
+    const M_MAX   = M_TOTAL - M_VIS; // 7
+
+    function getColW() {
+      // ancho de una columna incluyendo gap
+      const gap = parseFloat(getComputedStyle(mScroll).gap) || 20;
+      return (mScroll.clientWidth - gap * (M_VIS - 1)) / M_VIS + gap;
+    }
+
+    function currentIndex() {
+      return Math.round(mScroll.scrollLeft / getColW());
+    }
+
+    function scrollMuebles(dir) {
+      const idx = Math.max(0, Math.min(currentIndex() + dir, M_MAX));
+      mScroll.scrollTo({ left: idx * getColW(), behavior: 'smooth' });
+    }
 
     function irMuebles(idx) {
-      muebleActual = Math.min(idx, muebleMax);
-      actualizarMuebles();
+      mScroll.scrollTo({ left: idx * getColW(), behavior: 'smooth' });
     }
 
-    function moverMuebles(dir) {
-      muebleActual = Math.max(0, Math.min(muebleActual + dir, muebleMax));
-      actualizarMuebles();
+    function onMueblesScroll() {
+      const idx = currentIndex();
+      mDots.forEach((d, i) => d.classList.toggle('activo-dot', i === idx));
+      mPrev.style.opacity = idx === 0 ? '0.3' : '1';
+      mNext.style.opacity = idx >= M_MAX ? '0.3' : '1';
     }
 
-    function actualizarMuebles() {
-      const track = document.getElementById('muebles-track');
-      const colW = track.offsetWidth / 10; // ancho de una columna
-      const gap = 20; // 1.25rem ≈ 20px
-      track.style.transform = `translateX(-${muebleActual * (colW + gap)}px)`;
-      document.querySelectorAll('#muebles-dots .dot').forEach((d, i) => {
-        d.classList.toggle('activo-dot', i === muebleActual);
-      });
-    }
+    // Ocultar scrollbar horizontal
+    mScroll.style.msOverflowStyle = 'none';
+    mScroll.addEventListener('scroll', onMueblesScroll, { passive: true });
+    onMueblesScroll();
 
     // Carrusel casas con proyectos
     const estado = {
