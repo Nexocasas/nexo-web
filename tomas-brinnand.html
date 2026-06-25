@@ -251,7 +251,7 @@
       .carrusel-imagenes { min-height: 280px; height: 60vw; }
       .carrusel-info { padding: 2rem 1.5rem; }
       .objetos-grid { grid-template-columns: repeat(2, 1fr); }
-      #muebles-scroll { grid-auto-columns: 100%; }
+      #objetos-scroll { grid-auto-columns: 100%; }
       .objetos-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
       .nexo-banner { grid-template-columns: 1fr; }
       .nexo-banner-img { min-height: 280px; }
@@ -350,7 +350,7 @@
     </div>
   </div>
 
-  <!-- OBJETOS GRILLA -->
+  <!-- OBJETOS CARRUSEL -->
   <section class="objetos" id="objetos">
     <div class="objetos-header">
       <div>
@@ -359,51 +359,43 @@
       </div>
       <a href="#contacto" class="btn-primario">Consultar</a>
     </div>
-    <div class="objetos-grid">
-      <div class="objeto-card">
-        <div class="objeto-img-wrap"><img class="objeto-img" src="assets/img/objetos/objeto_1.jpg" alt="Banqueta tres patas"></div>
-        <div class="objeto-info"><p class="objeto-nombre">Banqueta tres patas</p></div>
+
+    <div style="position:relative;">
+      <!-- Flecha izquierda -->
+      <button id="o-prev" onclick="scrollObjetos(-1)" aria-label="Anterior" style="position:absolute;left:-1.75rem;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;border:none;background:var(--blanco);box-shadow:0 2px 16px rgba(0,0,0,0.18);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--negro);opacity:0.3;transition:opacity 0.2s;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 19l-7-7 7-7"/></svg>
+      </button>
+      <!-- Flecha derecha -->
+      <button id="o-next" onclick="scrollObjetos(1)" aria-label="Siguiente" style="position:absolute;right:-1.75rem;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;border:none;background:var(--blanco);box-shadow:0 2px 16px rgba(0,0,0,0.18);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--negro);transition:opacity 0.2s;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+
+      <div id="objetos-scroll" style="display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 2 * 1.25rem) / 3);gap:1.25rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;" onscroll="onObjetosScroll()">
+        <div style="scroll-snap-align:start;background:var(--blanco);border-radius:3px;overflow:hidden;"><img src="assets/img/objetos/objeto_1.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Banqueta tres patas"><div style="padding:1rem 1.25rem;"><p style="font-family:var(--fuente-display);font-weight:400;font-size:1rem;color:var(--negro);">Banqueta tres patas</p></div></div>
+        <div style="scroll-snap-align:start;background:var(--blanco);border-radius:3px;overflow:hidden;"><img src="assets/img/objetos/objeto_2.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Cómoda tejida"><div style="padding:1rem 1.25rem;"><p style="font-family:var(--fuente-display);font-weight:400;font-size:1rem;color:var(--negro);">Cómoda tejida</p></div></div>
+        <div style="scroll-snap-align:start;background:var(--blanco);border-radius:3px;overflow:hidden;"><img src="assets/img/objetos/objeto_3.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Bowl torneado"><div style="padding:1rem 1.25rem;"><p style="font-family:var(--fuente-display);font-weight:400;font-size:1rem;color:var(--negro);">Bowl torneado</p></div></div>
+        <div style="scroll-snap-align:start;background:var(--blanco);border-radius:3px;overflow:hidden;"><img src="assets/img/objetos/objeto_4.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Escritorio y silla"><div style="padding:1rem 1.25rem;"><p style="font-family:var(--fuente-display);font-weight:400;font-size:1rem;color:var(--negro);">Escritorio y silla</p></div></div>
+        <div style="scroll-snap-align:start;background:var(--blanco);border-radius:3px;overflow:hidden;"><img src="assets/img/objetos/objeto_5.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Detalle tejido"><div style="padding:1rem 1.25rem;"><p style="font-family:var(--fuente-display);font-weight:400;font-size:1rem;color:var(--negro);">Detalle tejido</p></div></div>
+        <div style="scroll-snap-align:start;background:var(--blanco);border-radius:3px;overflow:hidden;"><img src="assets/img/objetos/objeto_6.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Estantería modular"><div style="padding:1rem 1.25rem;"><p style="font-family:var(--fuente-display);font-weight:400;font-size:1rem;color:var(--negro);">Estantería modular</p></div></div>
+        <div style="scroll-snap-align:start;background:var(--blanco);border-radius:3px;overflow:hidden;"><img src="assets/img/objetos/objeto_7.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Aparador madera recuperada"><div style="padding:1rem 1.25rem;"><p style="font-family:var(--fuente-display);font-weight:400;font-size:1rem;color:var(--negro);">Aparador madera recuperada</p></div></div>
+        <div style="scroll-snap-align:start;background:var(--blanco);border-radius:3px;overflow:hidden;"><img src="assets/img/objetos/objeto_8.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Mesa ratona"><div style="padding:1rem 1.25rem;"><p style="font-family:var(--fuente-display);font-weight:400;font-size:1rem;color:var(--negro);">Mesa ratona</p></div></div>
+        <div style="scroll-snap-align:start;background:var(--blanco);border-radius:3px;overflow:hidden;"><img src="assets/img/objetos/objeto_9.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Familia de banquetas"><div style="padding:1rem 1.25rem;"><p style="font-family:var(--fuente-display);font-weight:400;font-size:1rem;color:var(--negro);">Familia de banquetas</p></div></div>
+        <div style="scroll-snap-align:start;background:var(--blanco);border-radius:3px;overflow:hidden;"><img src="assets/img/objetos/objeto_10.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Silla tapizada"><div style="padding:1rem 1.25rem;"><p style="font-family:var(--fuente-display);font-weight:400;font-size:1rem;color:var(--negro);">Silla tapizada</p></div></div>
+        <div style="scroll-snap-align:start;background:var(--blanco);border-radius:3px;overflow:hidden;"><img src="assets/img/objetos/objeto_11.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Lámpara Patagonia"><div style="padding:1rem 1.25rem;"><p style="font-family:var(--fuente-display);font-weight:400;font-size:1rem;color:var(--negro);">Lámpara Patagonia</p></div></div>
       </div>
-      <div class="objeto-card">
-        <div class="objeto-img-wrap"><img class="objeto-img" src="assets/img/objetos/objeto_2.jpg" alt="Cómoda con cajones de tela"></div>
-        <div class="objeto-info"><p class="objeto-nombre">Cómoda tejida</p></div>
-      </div>
-      <div class="objeto-card">
-        <div class="objeto-img-wrap"><img class="objeto-img" src="assets/img/objetos/objeto_3.jpg" alt="Bowl torneado en madera"></div>
-        <div class="objeto-info"><p class="objeto-nombre">Bowl torneado</p></div>
-      </div>
-      <div class="objeto-card">
-        <div class="objeto-img-wrap"><img class="objeto-img" src="assets/img/objetos/objeto_4.jpg" alt="Escritorio y silla de madera"></div>
-        <div class="objeto-info"><p class="objeto-nombre">Escritorio y silla</p></div>
-      </div>
-      <div class="objeto-card">
-        <div class="objeto-img-wrap"><img class="objeto-img" src="assets/img/objetos/objeto_5.jpg" alt="Detalle lateral tejido en madera"></div>
-        <div class="objeto-info"><p class="objeto-nombre">Detalle tejido</p></div>
-      </div>
-      <div class="objeto-card">
-        <div class="objeto-img-wrap"><img class="objeto-img" src="assets/img/objetos/objeto_6.jpg" alt="Estantería modular madera"></div>
-        <div class="objeto-info"><p class="objeto-nombre">Estantería modular</p></div>
-      </div>
-      <div class="objeto-card">
-        <div class="objeto-img-wrap"><img class="objeto-img" src="assets/img/objetos/objeto_7.jpg" alt="Aparador madera recuperada"></div>
-        <div class="objeto-info"><p class="objeto-nombre">Aparador madera recuperada</p></div>
-      </div>
-      <div class="objeto-card">
-        <div class="objeto-img-wrap"><img class="objeto-img" src="assets/img/objetos/objeto_8.jpg" alt="Mesa ratona roja con patas de madera"></div>
-        <div class="objeto-info"><p class="objeto-nombre">Mesa ratona</p></div>
-      </div>
-      <div class="objeto-card">
-        <div class="objeto-img-wrap"><img class="objeto-img" src="assets/img/objetos/objeto_9.jpg" alt="Banquetas en proceso de taller"></div>
-        <div class="objeto-info"><p class="objeto-nombre">Familia de banquetas</p></div>
-      </div>
-      <div class="objeto-card">
-        <div class="objeto-img-wrap"><img class="objeto-img" src="assets/img/objetos/objeto_10.jpg" alt="Silla con asiento tapizado"></div>
-        <div class="objeto-info"><p class="objeto-nombre">Silla tapizada</p></div>
-      </div>
-      <div class="objeto-card">
-        <div class="objeto-img-wrap"><img class="objeto-img" src="assets/img/objetos/objeto_11.jpg" alt="Lámpara de madera con montaña"></div>
-        <div class="objeto-info"><p class="objeto-nombre">Lámpara Patagonia</p></div>
-      </div>
+    </div>
+
+    <!-- Dots: 11 items - 3 visibles = 8 posiciones -->
+    <div id="objetos-dots" style="display:flex;gap:0.5rem;margin-top:1.5rem;justify-content:center;">
+      <button onclick="irObjetos(0)" class="dot activo-dot"></button>
+      <button onclick="irObjetos(1)" class="dot"></button>
+      <button onclick="irObjetos(2)" class="dot"></button>
+      <button onclick="irObjetos(3)" class="dot"></button>
+      <button onclick="irObjetos(4)" class="dot"></button>
+      <button onclick="irObjetos(5)" class="dot"></button>
+      <button onclick="irObjetos(6)" class="dot"></button>
+      <button onclick="irObjetos(7)" class="dot"></button>
+      <button onclick="irObjetos(8)" class="dot"></button>
     </div>
   </section>
 
@@ -557,6 +549,36 @@
     mScroll.style.msOverflowStyle = 'none';
     mScroll.addEventListener('scroll', onMueblesScroll, { passive: true });
     onMueblesScroll();
+
+    // ── CARRUSEL OBJETOS ──
+    const oScroll = document.getElementById('objetos-scroll');
+    const oDots   = document.querySelectorAll('#objetos-dots .dot');
+    const oPrev   = document.getElementById('o-prev');
+    const oNext   = document.getElementById('o-next');
+    const O_TOTAL = 11;
+    const O_VIS   = 3;
+    const O_MAX   = O_TOTAL - O_VIS;
+
+    function getColWO() {
+      if (window.innerWidth <= 900) return oScroll.clientWidth;
+      const gap = parseFloat(getComputedStyle(oScroll).gap) || 20;
+      return (oScroll.clientWidth - gap * (O_VIS - 1)) / O_VIS + gap;
+    }
+    function currentIndexO() { return Math.round(oScroll.scrollLeft / getColWO()); }
+    function scrollObjetos(dir) {
+      const idx = Math.max(0, Math.min(currentIndexO() + dir, O_MAX));
+      oScroll.scrollTo({ left: idx * getColWO(), behavior: 'smooth' });
+    }
+    function irObjetos(idx) { oScroll.scrollTo({ left: idx * getColWO(), behavior: 'smooth' }); }
+    function onObjetosScroll() {
+      const idx = currentIndexO();
+      oDots.forEach((d, i) => d.classList.toggle('activo-dot', i === idx));
+      oPrev.style.opacity = idx === 0 ? '0.3' : '1';
+      oNext.style.opacity = idx >= O_MAX ? '0.3' : '1';
+    }
+    oScroll.style.msOverflowStyle = 'none';
+    oScroll.addEventListener('scroll', onObjetosScroll, { passive: true });
+    onObjetosScroll();
 
     // Carrusel casas con proyectos
     const estado = {
