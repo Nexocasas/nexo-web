@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tomás Brinnand • Carpintería en madera</title>
+  <meta name="description" content="Carpintero en San Martín de los Andes. Casas, muebles y objetos de madera hechos con experiencia y dedicación en la Patagonia argentina.">
+  <link rel="stylesheet" href="https://use.typekit.net/gvc0wtt.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --negro: #1a1814;
+      --carbon: #2d2b27;
+      --madera: #8B6F47;
+      --madera-claro: #C4A882;
+      --arena: #F0EBE3;
+      --blanco: #FAFAF8;
+      --gris: #7a7570;
+      --gris-claro: #e8e4df;
+      --fuente-display: 'scale-variable', Georgia, serif;
+      --fuente-body: 'DM Sans', system-ui, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--fuente-body); background: var(--blanco); color: var(--negro); font-size: 16px; line-height: 1.6; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 3rem;
+      background: rgba(26,24,20,0.96); backdrop-filter: blur(8px);
+    }
+    .nav-logo { font-family: var(--fuente-display); font-size: 1.15rem; color: var(--blanco); text-decoration: none; }
+    .nav-logo span { color: var(--madera-claro); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(250,250,248,0.65); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--madera-claro); }
+    .nav-links .nexo-link { color: var(--madera-claro); border: 1px solid var(--madera); padding: 0.3rem 0.75rem; border-radius: 2px; }
+    .nav-links .nexo-link:hover { background: var(--madera); color: var(--blanco); }
+    .nav-hamburguesa { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .nav-hamburguesa span { display: block; width: 22px; height: 1.5px; background: var(--blanco); }
+
+    /* ── HERO ── */
+    .hero { min-height: 100vh; background: var(--negro); display: grid; grid-template-columns: 1fr 1fr; padding-top: 5rem; overflow: hidden; }
+    .hero-content { display: flex; flex-direction: column; justify-content: center; padding: 4rem 3rem 4rem 4rem; }
+    .hero-eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--madera-claro); margin-bottom: 1.5rem; }
+    .hero-titulo { font-family: var(--fuente-display); font-weight: 400; font-size: clamp(2.8rem, 5vw, 4.5rem); color: var(--blanco); line-height: 1.1; margin-bottom: 0.5rem; }
+    .hero-titulo em { font-style: italic; color: var(--madera-claro); }
+    .hero-subtitulo { font-family: var(--fuente-display); font-weight: 400; font-size: clamp(1.2rem, 2vw, 1.8rem); color: var(--gris); font-style: italic; margin-bottom: 2rem; }
+    .hero-descripcion { font-size: 1rem; color: rgba(250,250,248,0.6); max-width: 38ch; line-height: 1.7; margin-bottom: 2.5rem; }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primario { display: inline-block; padding: 0.85rem 2rem; background: var(--madera); color: var(--blanco); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: background 0.2s; cursor: pointer; border: none; font-family: var(--fuente-body); }
+    .btn-primario:hover { background: var(--madera-claro); color: var(--negro); }
+    .btn-secundario { display: inline-block; padding: 0.85rem 2rem; border: 1px solid rgba(250,250,248,0.25); color: rgba(250,250,248,0.7); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.2s; }
+    .btn-secundario:hover { border-color: var(--madera-claro); color: var(--madera-claro); }
+    .hero-imagen { position: relative; overflow: hidden; }
+    .hero-imagen img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-imagen-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, var(--negro) 0%, transparent 40%); }
+
+    /* ── STRIP ── */
+    .intro-strip { background: var(--madera); padding: 1.5rem 4rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+    .intro-strip p { font-family: var(--fuente-display); font-weight: 400; font-style: italic; font-size: 1.05rem; color: var(--blanco); }
+    .intro-strip .datos { display: flex; gap: 3rem; }
+    .dato { text-align: center; }
+    .dato-numero { font-family: var(--fuente-display); font-weight: 400; font-size: 2rem; color: var(--blanco); line-height: 1; }
+    .dato-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.7); }
+
+    /* ── SECCIONES BASE ── */
+    section { padding: 6rem 4rem; }
+    .seccion-eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--madera); margin-bottom: 1rem; }
+    .seccion-titulo { font-family: var(--fuente-display); font-weight: 400; font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.15; margin-bottom: 1.5rem; }
+
+    /* ── CARRUSEL ── */
+    .carrusel-section { background: var(--negro); padding: 0; }
+    .carrusel-section.claro { background: var(--arena); }
+
+    .carrusel-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 600px;
+    }
+    .carrusel-section.claro .carrusel-wrap { grid-template-columns: 1fr 1fr; }
+
+    /* Panel de imágenes */
+    .carrusel-imagenes {
+      position: relative;
+      overflow: hidden;
+    }
+    .carrusel-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    .carrusel-slide.activo { opacity: 1; }
+    .carrusel-slide img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Contador sobre la imagen */
+    .carrusel-contador {
+      position: absolute;
+      bottom: 1.5rem; left: 1.5rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.6);
+      z-index: 2;
+    }
+
+    /* Panel de info */
+    .carrusel-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 4rem;
+    }
+    .carrusel-section.claro .carrusel-info { background: var(--arena); }
+    .carrusel-section:not(.claro) .carrusel-info { background: var(--carbon); }
+
+    .carrusel-proyectos { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+    .proyecto-item {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .carrusel-section:not(.claro) .proyecto-item { border-bottom-color: rgba(255,255,255,0.08); }
+    .proyecto-item:first-child { border-top: 1px solid rgba(0,0,0,0.08); }
+    .carrusel-section:not(.claro) .proyecto-item:first-child { border-top-color: rgba(255,255,255,0.08); }
+
+    .proyecto-item.activo .proyecto-nombre { color: var(--madera); }
+    .carrusel-section:not(.claro) .proyecto-item.activo .proyecto-nombre { color: var(--madera-claro); }
+
+    .proyecto-num {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      color: var(--gris);
+      margin-bottom: 0.4rem;
+    }
+    .proyecto-nombre {
+      font-family: var(--fuente-display);
+      font-weight: 400;
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      color: var(--negro);
+      transition: color 0.2s;
+      margin-bottom: 0.35rem;
+      line-height: 1.3;
+    }
+    .carrusel-section:not(.claro) .proyecto-nombre { color: var(--blanco); }
+
+    .proyecto-desc {
+      font-size: 0.88rem;
+      color: var(--gris);
+      line-height: 1.6;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.3s;
+      opacity: 0;
+    }
+    .carrusel-section:not(.claro) .proyecto-desc { color: rgba(250,250,248,0.5); }
+    .proyecto-item.activo .proyecto-desc { max-height: 120px; opacity: 1; }
+
+    /* Flechas */
+    .carrusel-nav {
+      display: flex;
+      gap: 0.75rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+    .carrusel-section:not(.claro) .carrusel-nav { border-top-color: rgba(255,255,255,0.08); }
+
+    .carrusel-btn {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--gris-claro);
+      background: transparent;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+      color: var(--negro);
+    }
+    .carrusel-section:not(.claro) .carrusel-btn { border-color: rgba(255,255,255,0.2); color: var(--blanco); }
+    .carrusel-btn:hover { background: var(--madera); border-color: var(--madera); color: var(--blanco); }
+    .carrusel-btn svg { width: 18px; height: 18px; }
+
+    /* ── OBJETOS GRILLA ── */
+    .objetos { background: var(--arena); }
+    .objetos-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 2.5rem; }
+    .objetos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+    .objeto-card { overflow: hidden; border-radius: 3px; cursor: pointer; background: var(--blanco); }
+    .objeto-card:hover .objeto-img { transform: scale(1.04); }
+    .objeto-img-wrap { overflow: hidden; }
+    .objeto-img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; transition: transform 0.4s; }
+    .objeto-info { padding: 1rem 1.25rem; }
+    .objeto-nombre { font-family: var(--fuente-display); font-weight: 400; font-size: 1rem; color: var(--negro); }
+
+    /* ── NEXO BANNER ── */
+    .nexo-banner { background: var(--negro); display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; padding: 0; }
+    .nexo-banner-img { position: relative; min-height: 520px; }
+    .nexo-banner-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.65; }
+    .nexo-banner-content { padding: 5rem 4rem; display: flex; flex-direction: column; justify-content: center; }
+    .nexo-tag { display: inline-block; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--negro); background: var(--madera-claro); padding: 0.35rem 0.75rem; margin-bottom: 2rem; border-radius: 1px; width: fit-content; }
+    .nexo-banner-titulo { font-family: var(--fuente-display); font-weight: 400; font-size: clamp(2.2rem, 4vw, 3.5rem); color: var(--blanco); line-height: 1.1; margin-bottom: 1.5rem; }
+    .nexo-banner-texto { color: rgba(250,250,248,0.6); font-size: 1rem; line-height: 1.7; margin-bottom: 2rem; max-width: 45ch; }
+    .nexo-features { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-bottom: 2.5rem; }
+    .nexo-feature { display: flex; align-items: flex-start; gap: 0.6rem; }
+    .nexo-feature-dot { width: 6px; height: 6px; background: var(--madera-claro); border-radius: 50%; margin-top: 0.55rem; flex-shrink: 0; }
+    .nexo-feature span { font-size: 0.88rem; color: rgba(250,250,248,0.7); }
+
+    /* ── HISTORIA ── */
+    .historia { background: var(--blanco); }
+    .historia-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+    .historia-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 3px; }
+    .historia-texto { font-size: 1.05rem; color: var(--carbon); line-height: 1.8; }
+    .historia-cita { font-family: var(--fuente-display); font-weight: 400; font-size: 1.45rem; font-style: italic; color: var(--madera); border-left: 3px solid var(--madera-claro); padding-left: 1.5rem; margin: 2rem 0; line-height: 1.4; }
+
+    /* ── CONTACTO ── */
+    .contacto { background: var(--carbon); text-align: center; }
+    .contacto-datos { display: flex; justify-content: center; gap: 3rem; margin-top: 3rem; flex-wrap: wrap; }
+    .contacto-item { color: rgba(250,250,248,0.5); font-size: 0.85rem; }
+    .contacto-item strong { display: block; color: var(--madera-claro); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.4rem; }
+
+    footer { background: var(--negro); padding: 2rem 4rem; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.06); }
+    footer p { font-size: 0.78rem; color: rgba(250,250,248,0.3); }
+    footer a { font-size: 0.78rem; color: var(--madera); text-decoration: none; }
+
+    /* ── DOTS MUEBLES ── */
+    .dot { width: 8px; height: 8px; border-radius: 50%; border: none; background: var(--gris-claro); cursor: pointer; transition: background 0.2s, transform 0.2s; padding: 0; }
+    .dot.activo-dot { background: var(--madera); transform: scale(1.3); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.25rem 1.5rem; }
+      .nav-links { display: none; }
+      .nav-hamburguesa { display: flex; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-imagen { height: 50vh; }
+      .hero-imagen-overlay { background: linear-gradient(0deg, var(--negro) 0%, transparent 60%); }
+      .hero-content { padding: 3rem 1.5rem 2rem; }
+      .intro-strip { flex-direction: column; padding: 2rem 1.5rem; text-align: center; }
+      .intro-strip .datos { justify-content: center; }
+      section { padding: 4rem 1.5rem; }
+      .carrusel-wrap { grid-template-columns: 1fr; }
+      .carrusel-imagenes { min-height: 280px; height: 60vw; }
+      .carrusel-info { padding: 2rem 1.5rem; }
+      .objetos-grid { grid-template-columns: repeat(2, 1fr); }
+      .objetos-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .nexo-banner { grid-template-columns: 1fr; }
+      .nexo-banner-img { min-height: 280px; }
+      .nexo-banner-content { padding: 3rem 1.5rem; }
+      .historia-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .historia-img { aspect-ratio: 4/3; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#inicio" class="nav-logo">Tomás <span>Brinnand</span></a>
+    <ul class="nav-links">
+      <li><a href="#casas">Casas</a></li>
+      <li><a href="#muebles">Muebles</a></li>
+      <li><a href="#objetos">Objetos</a></li>
+      <li><a href="#historia">Historia</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+      <li><a href="#nexo" class="nexo-link">Nexo Casas</a></li>
+    </ul>
+    <button class="nav-hamburguesa" aria-label="Menú"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-content">
+      <p class="hero-eyebrow">San Martín de los Andes, Patagonia</p>
+      <h1 class="hero-titulo">Cosas y casas<br><em>de madera</em></h1>
+      <p class="hero-subtitulo">Carpintería de autor</p>
+      <p class="hero-descripcion">Diseñador industrial reconvertido en carpintero patagónico. Desde 2016 construyo casas, muebles y objetos con madera, experiencia y un taller propio en San Martín de los Andes.</p>
+      <div class="hero-ctas">
+        <a href="#casas" class="btn-primario">Ver trabajos</a>
+        <a href="#contacto" class="btn-secundario">Contactar</a>
+      </div>
+    </div>
+    <div class="hero-imagen">
+      <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?w=1200&q=80" alt="Taller de carpintería">
+      <div class="hero-imagen-overlay"></div>
+    </div>
+  </section>
+
+  <!-- STRIP -->
+  <div class="intro-strip">
+    <p>"Construyo cada pieza como si fuera la última. Y también la siguiente."</p>
+    <div class="datos">
+      <div class="dato"><div class="dato-numero">+10</div><div class="dato-label">años de oficio</div></div>
+      <div class="dato"><div class="dato-numero">SMA</div><div class="dato-label">Patagonia</div></div>
+      <div class="dato"><div class="dato-numero">100%</div><div class="dato-label">Taller propio</div></div>
+    </div>
+  </div>
+
+  <!-- CARRUSEL CASAS -->
+  <div class="carrusel-section" id="casas">
+    <div class="carrusel-wrap">
+
+      <div class="carrusel-imagenes" id="casas-imgs">
+        <div class="carrusel-slide activo">
+          <img src="https://images.unsplash.com/photo-1542621334-a254cf47733d?w=1200&q=80" alt="Casa Paula González">
+        </div>
+        <div class="carrusel-slide">
+          <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=1200&q=80" alt="Taller San Martín de los Andes">
+        </div>
+        <div class="carrusel-slide">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80" alt="Casa Daniel Ephraim">
+        </div>
+        <div class="carrusel-slide">
+          <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80" alt="Casa Elio Bulvarella">
+        </div>
+        <div class="carrusel-contador" id="casas-contador">1 / 4</div>
+      </div>
+
+      <div class="carrusel-info">
+        <div style="margin-bottom:2rem;">
+          <p class="seccion-eyebrow">Casas</p>
+          <h2 class="seccion-titulo" style="color:var(--blanco);">Cada casa,<br>una historia</h2>
+        </div>
+
+        <div class="carrusel-proyectos" id="casas-proyectos">
+          <div class="proyecto-item activo" onclick="irA('casas',0)">
+            <p class="proyecto-num">01</p>
+            <p class="proyecto-nombre">Casa Paula González</p>
+            <p class="proyecto-desc">En colaboración con el Arq. Gustavo Peruzzotti. Casa de madera con sistema Balloon Frame en San Martín de los Andes, terminaciones interiores y mobiliario a medida.</p>
+          </div>
+          <div class="proyecto-item" onclick="irA('casas',1)">
+            <p class="proyecto-num">02</p>
+            <p class="proyecto-nombre">Taller propio — San Martín de los Andes</p>
+            <p class="proyecto-desc">El espacio donde todo se construye. Un taller equipado para trabajar madera con precisión y escala, en el corazón de la Patagonia.</p>
+          </div>
+          <div class="proyecto-item" onclick="irA('casas',2)">
+            <p class="proyecto-num">03</p>
+            <p class="proyecto-nombre">Casa Daniel Ephraim</p>
+            <p class="proyecto-desc">Proyecto conjunto con el Arq. Martín Gaite. Construcción completa en madera con revestimientos interiores, cocina y mobiliario integrado.</p>
+          </div>
+          <div class="proyecto-item" onclick="irA('casas',3)">
+            <p class="proyecto-num">04</p>
+            <p class="proyecto-nombre">Casa Elio Bulvarella</p>
+            <p class="proyecto-desc">En colaboración con el Arq. Gustavo Peruzzotti. Vivienda unifamiliar de madera con diseño de interiores y equipamiento completo.</p>
+          </div>
+        </div>
+
+        <div class="carrusel-nav">
+          <button class="carrusel-btn" onclick="mover('casas',-1)" aria-label="Anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button class="carrusel-btn" onclick="mover('casas',1)" aria-label="Siguiente">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CARRUSEL MUEBLES visual puro -->
+  <div id="muebles" style="background:var(--arena); padding: 6rem 4rem;">
+    <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:2.5rem; flex-wrap:wrap; gap:1rem;">
+      <div>
+        <p class="seccion-eyebrow">Muebles</p>
+        <h2 class="seccion-titulo">Diseño que se usa todos los días</h2>
+      </div>
+      <div style="display:flex; gap:0.75rem;">
+        <button class="carrusel-btn" onclick="moverMuebles(-1)" aria-label="Anterior" style="border-color:var(--gris-claro); color:var(--negro);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button class="carrusel-btn" onclick="moverMuebles(1)" aria-label="Siguiente" style="border-color:var(--gris-claro); color:var(--negro);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Track de imágenes -->
+    <div style="overflow:hidden; border-radius:3px;">
+      <div id="muebles-track" style="display:flex; transition: transform 0.5s cubic-bezier(.4,0,.2,1);">
+        <div style="min-width:100%; aspect-ratio:16/7; flex-shrink:0;">
+          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1400&q=80" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Mobiliario de diseño">
+        </div>
+        <div style="min-width:100%; aspect-ratio:16/7; flex-shrink:0;">
+          <img src="https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=1400&q=80" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Estantería madera">
+        </div>
+        <div style="min-width:100%; aspect-ratio:16/7; flex-shrink:0;">
+          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1400&q=80" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Cocina madera">
+        </div>
+        <div style="min-width:100%; aspect-ratio:16/7; flex-shrink:0;">
+          <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1400&q=80" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Revestimiento interior">
+        </div>
+        <div style="min-width:100%; aspect-ratio:16/7; flex-shrink:0;">
+          <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1400&q=80" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Mesa de madera">
+        </div>
+        <div style="min-width:100%; aspect-ratio:16/7; flex-shrink:0;">
+          <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1400&q=80" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Interior de madera">
+        </div>
+      </div>
+    </div>
+
+    <!-- Dots -->
+    <div id="muebles-dots" style="display:flex; gap:0.5rem; margin-top:1.5rem; justify-content:center;">
+      <button onclick="irMuebles(0)" class="dot activo-dot"></button>
+      <button onclick="irMuebles(1)" class="dot"></button>
+      <button onclick="irMuebles(2)" class="dot"></button>
+      <button onclick="irMuebles(3)" class="dot"></button>
+      <button onclick="irMuebles(4)" class="dot"></button>
+      <button onclick="irMuebles(5)" class="dot"></button>
+    </div>
+  </div>
+
+  <!-- OBJETOS GRILLA -->
+  <section class="objetos" id="objetos">
+    <div class="objetos-header">
+      <div>
+        <p class="seccion-eyebrow">Objetos</p>
+        <h2 class="seccion-titulo">Piezas únicas de madera</h2>
+      </div>
+      <a href="#contacto" class="btn-primario">Consultar</a>
+    </div>
+    <div class="objetos-grid">
+      <div class="objeto-card">
+        <div class="objeto-img-wrap"><img class="objeto-img" src="https://images.unsplash.com/photo-1611486212557-88be5ff6f941?w=600&q=80" alt="Objeto madera"></div>
+        <div class="objeto-info"><p class="objeto-nombre">Colección Patagonia</p></div>
+      </div>
+      <div class="objeto-card">
+        <div class="objeto-img-wrap"><img class="objeto-img" src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600&q=80" alt="Objeto artesanal"></div>
+        <div class="objeto-info"><p class="objeto-nombre">Pequeño formato</p></div>
+      </div>
+      <div class="objeto-card">
+        <div class="objeto-img-wrap"><img class="objeto-img" src="https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&q=80" alt="Pieza artesanal"></div>
+        <div class="objeto-info"><p class="objeto-nombre">Diseño y artesanía</p></div>
+      </div>
+      <div class="objeto-card">
+        <div class="objeto-img-wrap"><img class="objeto-img" src="https://images.unsplash.com/photo-1574180566232-aaad1b5b8450?w=600&q=80" alt="Objeto de madera"></div>
+        <div class="objeto-info"><p class="objeto-nombre">Piezas de autor</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEXO BANNER -->
+  <section class="nexo-banner" id="nexo">
+    <div class="nexo-banner-img">
+      <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?w=1200&q=80" alt="Nexo Casas Modulares">
+    </div>
+    <div class="nexo-banner-content">
+      <span class="nexo-tag">Proyecto</span>
+      <h2 class="nexo-banner-titulo">Nexo Casas</h2>
+      <p class="nexo-banner-texto">Casas modulares hechas en la Patagonia, para la Patagonia. Fabricadas en nuestro taller, ensambladas en tu terreno en 60 días.</p>
+      <div class="nexo-features">
+        <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Listas en 60 días</span></div>
+        <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>100% taller propio</span></div>
+        <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Movibles y ampliables</span></div>
+        <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>20 a 80 m²</span></div>
+        <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Diseño personalizado</span></div>
+        <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Bajo impacto ambiental</span></div>
+      </div>
+      <a href="#contacto" class="btn-primario">Conocer Nexo Casas →</a>
+    </div>
+  </section>
+
+  <!-- HISTORIA -->
+  <section class="historia" id="historia">
+    <div class="historia-inner">
+      <img class="historia-img" src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80" alt="Tomás Brinnand en su taller">
+      <div>
+        <p class="seccion-eyebrow">Historia</p>
+        <h2 class="seccion-titulo">¿Cómo empezó todo esto?</h2>
+        <blockquote class="historia-cita">Quizás con unos cubos y retazos de madera que me regalaron mis tías a los 4 o 5 años.</blockquote>
+        <p class="historia-texto">Diseñador Industrial de formación, carpintero por vocación. Pasé por talleres Waldorf, aviones a escala y la construcción de casas de madera, hasta que en 2016 me mudé a San Martín de los Andes para refundar mi carrera en la Patagonia.</p>
+        <p class="historia-texto" style="margin-top:1rem;">Desde entonces construyo casas con sistema Balloon Frame y equipo integralmente espacios con mobiliario a medida para casas y comercios.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="contacto" id="contacto">
+    <p class="seccion-eyebrow" style="color:var(--madera-claro);">Contacto</p>
+    <h2 class="seccion-titulo" style="color:var(--blanco); margin:0 auto 1rem;">¿Tenés un proyecto en mente?</h2>
+    <p style="color:rgba(250,250,248,0.5); max-width:50ch; margin:0 auto 2.5rem; line-height:1.7;">Escribinos y contanos qué querés construir. Trabajamos en San Martín de los Andes y toda la Patagonia.</p>
+    <a href="https://wa.me/5491159081591" class="btn-primario">Escribir por WhatsApp</a>
+    <div class="contacto-datos">
+      <div class="contacto-item"><strong>WhatsApp</strong>+54 9 11 5908 1591</div>
+      <div class="contacto-item"><strong>Email</strong>tomasbrinnand1979@gmail.com</div>
+      <div class="contacto-item"><strong>Instagram</strong>@nexo.casas</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Tomás Brinnand · San Martín de los Andes, Patagonia</p>
+    <a href="#nexo">Nexo Casas →</a>
+  </footer>
+
+  <script>
+    // Carrusel muebles visual
+    let muebleActual = 0;
+    const muebleTotal = 6;
+
+    function irMuebles(idx) {
+      muebleActual = idx;
+      actualizarMuebles();
+    }
+
+    function moverMuebles(dir) {
+      muebleActual = (muebleActual + dir + muebleTotal) % muebleTotal;
+      actualizarMuebles();
+    }
+
+    function actualizarMuebles() {
+      document.getElementById('muebles-track').style.transform = `translateX(-${muebleActual * 100}%)`;
+      document.querySelectorAll('#muebles-dots .dot').forEach((d, i) => {
+        d.classList.toggle('activo-dot', i === muebleActual);
+      });
+    }
+
+    // Carrusel casas con proyectos
+    const estado = {
+      casas: { actual: 0, total: 4 }
+    };
+
+    function irA(id, idx) {
+      const e = estado[id];
+      e.actual = idx;
+      actualizar(id);
+    }
+
+    function mover(id, dir) {
+      const e = estado[id];
+      e.actual = (e.actual + dir + e.total) % e.total;
+      actualizar(id);
+    }
+
+    function actualizar(id) {
+      const { actual, total } = estado[id];
+      document.querySelectorAll(`#${id}-imgs .carrusel-slide`).forEach((s, i) => {
+        s.classList.toggle('activo', i === actual);
+      });
+      document.querySelectorAll(`#${id}-proyectos .proyecto-item`).forEach((p, i) => {
+        p.classList.toggle('activo', i === actual);
+      });
+      document.getElementById(`${id}-contador`).textContent = `${actual + 1} / ${total}`;
+    }
+  </script>
+</body>
+</html>
