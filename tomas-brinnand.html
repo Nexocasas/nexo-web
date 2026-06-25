@@ -266,12 +266,12 @@
   <nav>
     <a href="#inicio" class="nav-logo">Tomás <span>Brinnand</span></a>
     <ul class="nav-links">
-      <li><a href="#casas">Casas</a></li>
       <li><a href="#muebles">Muebles</a></li>
       <li><a href="#objetos">Objetos</a></li>
+      <li><a href="#nexo" class="nexo-link">Nexo Casas</a></li>
+      <li><a href="#casas">Casas</a></li>
       <li><a href="#historia">Historia</a></li>
       <li><a href="#contacto">Contacto</a></li>
-      <li><a href="#nexo" class="nexo-link">Nexo Casas</a></li>
     </ul>
     <button class="nav-hamburguesa" aria-label="Menú"><span></span><span></span><span></span></button>
   </nav>
@@ -304,68 +304,6 @@
     </div>
   </div>
 
-  <!-- CARRUSEL CASAS -->
-  <div class="carrusel-section" id="casas">
-    <div class="carrusel-wrap">
-
-      <div class="carrusel-imagenes" id="casas-imgs">
-        <div class="carrusel-slide activo">
-          <img src="https://images.unsplash.com/photo-1542621334-a254cf47733d?w=1200&q=80" alt="Casa Paula González">
-        </div>
-        <div class="carrusel-slide">
-          <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=1200&q=80" alt="Taller San Martín de los Andes">
-        </div>
-        <div class="carrusel-slide">
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80" alt="Casa Daniel Ephraim">
-        </div>
-        <div class="carrusel-slide">
-          <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80" alt="Casa Elio Bulvarella">
-        </div>
-        <div class="carrusel-contador" id="casas-contador">1 / 4</div>
-      </div>
-
-      <div class="carrusel-info">
-        <div style="margin-bottom:2rem;">
-          <p class="seccion-eyebrow">Casas</p>
-          <h2 class="seccion-titulo" style="color:var(--blanco);">Cada casa,<br>una historia</h2>
-        </div>
-
-        <div class="carrusel-proyectos" id="casas-proyectos">
-          <div class="proyecto-item activo" onclick="irA('casas',0)">
-            <p class="proyecto-num">01</p>
-            <p class="proyecto-nombre">Casa Paula González</p>
-            <p class="proyecto-desc">En colaboración con el Arq. Gustavo Peruzzotti. Casa de madera con sistema Balloon Frame en San Martín de los Andes, terminaciones interiores y mobiliario a medida.</p>
-          </div>
-          <div class="proyecto-item" onclick="irA('casas',1)">
-            <p class="proyecto-num">02</p>
-            <p class="proyecto-nombre">Taller propio — San Martín de los Andes</p>
-            <p class="proyecto-desc">El espacio donde todo se construye. Un taller equipado para trabajar madera con precisión y escala, en el corazón de la Patagonia.</p>
-          </div>
-          <div class="proyecto-item" onclick="irA('casas',2)">
-            <p class="proyecto-num">03</p>
-            <p class="proyecto-nombre">Casa Daniel Ephraim</p>
-            <p class="proyecto-desc">Proyecto conjunto con el Arq. Martín Gaite. Construcción completa en madera con revestimientos interiores, cocina y mobiliario integrado.</p>
-          </div>
-          <div class="proyecto-item" onclick="irA('casas',3)">
-            <p class="proyecto-num">04</p>
-            <p class="proyecto-nombre">Casa Elio Bulvarella</p>
-            <p class="proyecto-desc">En colaboración con el Arq. Gustavo Peruzzotti. Vivienda unifamiliar de madera con diseño de interiores y equipamiento completo.</p>
-          </div>
-        </div>
-
-        <div class="carrusel-nav">
-          <button class="carrusel-btn" onclick="mover('casas',-1)" aria-label="Anterior">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 19l-7-7 7-7"/></svg>
-          </button>
-          <button class="carrusel-btn" onclick="mover('casas',1)" aria-label="Siguiente">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg>
-          </button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
   <!-- CARRUSEL MUEBLES visual puro -->
   <div id="muebles" style="background:var(--arena); padding: 6rem 4rem;">
     <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:2.5rem; flex-wrap:wrap; gap:1rem;">
@@ -382,8 +320,6 @@
         </button>
       </div>
     </div>
-
-    <!-- Track de imágenes -->
     <div style="overflow:hidden; border-radius:3px;">
       <div id="muebles-track" style="display:flex; transition: transform 0.5s cubic-bezier(.4,0,.2,1);">
         <div style="min-width:100%; aspect-ratio:16/7; flex-shrink:0;">
@@ -406,8 +342,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Dots -->
     <div id="muebles-dots" style="display:flex; gap:0.5rem; margin-top:1.5rem; justify-content:center;">
       <button onclick="irMuebles(0)" class="dot activo-dot"></button>
       <button onclick="irMuebles(1)" class="dot"></button>
@@ -467,6 +401,66 @@
       <a href="#contacto" class="btn-primario">Conocer Nexo Casas →</a>
     </div>
   </section>
+
+  <!-- CARRUSEL CASAS -->
+  <div class="carrusel-section" id="casas">
+    <div class="carrusel-wrap">
+
+      <div class="carrusel-imagenes" id="casas-imgs">
+        <div class="carrusel-slide activo">
+          <img src="https://images.unsplash.com/photo-1542621334-a254cf47733d?w=1200&q=80" alt="Casa Paula González">
+        </div>
+        <div class="carrusel-slide">
+          <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=1200&q=80" alt="Taller San Martín de los Andes">
+        </div>
+        <div class="carrusel-slide">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80" alt="Casa Daniel Ephraim">
+        </div>
+        <div class="carrusel-slide">
+          <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80" alt="Casa Elio Bulvarella">
+        </div>
+        <div class="carrusel-contador" id="casas-contador">1 / 4</div>
+      </div>
+
+      <div class="carrusel-info">
+        <div style="margin-bottom:2rem;">
+          <p class="seccion-eyebrow">Casas</p>
+          <h2 class="seccion-titulo" style="color:var(--blanco);">Cada casa,<br>una historia</h2>
+        </div>
+        <div class="carrusel-proyectos" id="casas-proyectos">
+          <div class="proyecto-item activo" onclick="irA('casas',0)">
+            <p class="proyecto-num">01</p>
+            <p class="proyecto-nombre">Casa Paula González</p>
+            <p class="proyecto-desc">En colaboración con el Arq. Gustavo Peruzzotti. Casa de madera con sistema Balloon Frame en San Martín de los Andes, terminaciones interiores y mobiliario a medida.</p>
+          </div>
+          <div class="proyecto-item" onclick="irA('casas',1)">
+            <p class="proyecto-num">02</p>
+            <p class="proyecto-nombre">Taller propio — San Martín de los Andes</p>
+            <p class="proyecto-desc">El espacio donde todo se construye. Un taller equipado para trabajar madera con precisión y escala, en el corazón de la Patagonia.</p>
+          </div>
+          <div class="proyecto-item" onclick="irA('casas',2)">
+            <p class="proyecto-num">03</p>
+            <p class="proyecto-nombre">Casa Daniel Ephraim</p>
+            <p class="proyecto-desc">Proyecto conjunto con el Arq. Martín Gaite. Construcción completa en madera con revestimientos interiores, cocina y mobiliario integrado.</p>
+          </div>
+          <div class="proyecto-item" onclick="irA('casas',3)">
+            <p class="proyecto-num">04</p>
+            <p class="proyecto-nombre">Casa Elio Bulvarella</p>
+            <p class="proyecto-desc">En colaboración con el Arq. Gustavo Peruzzotti. Vivienda unifamiliar de madera con diseño de interiores y equipamiento completo.</p>
+          </div>
+        </div>
+        <div class="carrusel-nav">
+          <button class="carrusel-btn" onclick="mover('casas',-1)" aria-label="Anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button class="carrusel-btn" onclick="mover('casas',1)" aria-label="Siguiente">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
   <!-- HISTORIA -->
   <section class="historia" id="historia">
