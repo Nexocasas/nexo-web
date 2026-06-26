@@ -384,7 +384,7 @@
     <ul class="nav-links">
       <li><a href="#muebles">Muebles</a></li>
       <li><a href="#objetos">Objetos</a></li>
-      <li><a href="https://nexocasas.github.io/nexo-web/proyectos.html" target="_blank" class="nexo-link">Nexo Casas</a></li>
+      <li><a href="#" onclick="abrirNexo(); return false;" class="nexo-link">Nexo Casas</a></li>
       <li><a href="#casas">Construcciones</a></li>
       <li><a href="#historia">Historia</a></li>
       <li><a href="#contacto">Contacto</a></li>
@@ -645,6 +645,18 @@
     </div>
   </section>
 
+  <!-- PANEL NEXO CASAS -->
+  <div id="nexo-panel" style="display:none;position:fixed;inset:0;z-index:998;background:var(--negro);">
+    <div style="position:absolute;top:0;left:0;right:0;height:56px;background:var(--negro);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;border-bottom:1px solid rgba(255,255,255,0.08);z-index:1;">
+      <span style="font-family:var(--fuente-display);font-size:1rem;color:var(--blanco);">Nexo <span style="color:var(--madera-claro);">Casas</span></span>
+      <button onclick="cerrarNexo()" style="background:none;border:1px solid rgba(255,255,255,0.2);color:var(--blanco);cursor:pointer;padding:0.4rem 1rem;border-radius:2px;font-family:var(--fuente-body);font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;gap:0.5rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        Cerrar
+      </button>
+    </div>
+    <iframe id="nexo-iframe" src="" style="width:100%;height:100%;border:none;padding-top:56px;box-sizing:border-box;"></iframe>
+  </div>
+
   <footer>
     <p>© 2025 Tomás Brinnand · San Martín de los Andes, Patagonia</p>
     <a href="#nexo">Nexo Casas →</a>
@@ -805,10 +817,19 @@
       document.getElementById('lb-next').style.opacity = total <= 1 ? '0.2' : '1';
     }
 
+    // ── PANEL NEXO CASAS ──
+    function abrirNexo() {
+      document.getElementById('nexo-iframe').src = 'https://nexocasas.github.io/nexo-web/proyectos.html';
+      document.getElementById('nexo-panel').style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+    function cerrarNexo() {
+      document.getElementById('nexo-panel').style.display = 'none';
+      document.getElementById('nexo-iframe').src = '';
+      document.body.style.overflow = '';
+    }
     document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') cerrarLightbox();
-      if (e.key === 'ArrowLeft') moverLightbox(-1);
-      if (e.key === 'ArrowRight') moverLightbox(1);
+      if (e.key === 'Escape') { cerrarNexo(); cerrarLightbox(); }
     });
   </script>
 </body>
