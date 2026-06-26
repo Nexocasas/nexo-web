@@ -384,7 +384,7 @@
     <ul class="nav-links">
       <li><a href="#muebles">Muebles</a></li>
       <li><a href="#objetos">Objetos</a></li>
-      <li><a href="#" onclick="abrirNexo(); return false;" class="nexo-link">Nexo Casas</a></li>
+      <li><a href="#nexo" class="nexo-link">Nexo Casas</a></li>
       <li><a href="#casas">Construcciones</a></li>
       <li><a href="#historia">Historia</a></li>
       <li><a href="#contacto">Contacto</a></li>
@@ -598,23 +598,77 @@
   </div>
 
   <!-- NEXO BANNER -->
-  <section class="nexo-banner" id="nexo">
-    <div class="nexo-banner-img">
-      <img src="assets/img/nexo-facundo.jpg" alt="Casa Nexo — Casa Facundo">
-    </div>
-    <div class="nexo-banner-content">
-      <span class="nexo-tag">Proyecto</span>
-      <h2 class="nexo-banner-titulo">Nexo Casas</h2>
-      <p class="nexo-banner-texto">Casas modulares hechas en la Patagonia, para la Patagonia. Fabricadas en nuestro taller, ensambladas en tu terreno en plazos cortos y reales.</p>
-      <div class="nexo-features">
-        <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Plazos cortos y reales</span></div>
-        <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>100% taller propio</span></div>
-        <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Movibles y ampliables</span></div>
-        <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>20 a 80 m²</span></div>
-        <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Diseño personalizado</span></div>
-        <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Bajo impacto ambiental</span></div>
+  <section class="nexo-banner" id="nexo" style="padding:0; display:block;">
+    <!-- Header -->
+    <div style="background:var(--negro); padding:4rem 4rem 2.5rem;">
+      <div style="display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:1.5rem;">
+        <div>
+          <span class="nexo-tag">Proyecto</span>
+          <h2 class="nexo-banner-titulo">Nexo Casas</h2>
+          <p class="nexo-banner-texto" style="margin-bottom:0;">Casas modulares hechas en la Patagonia, para la Patagonia. Fabricadas en nuestro taller, ensambladas en tu terreno en plazos cortos y reales.</p>
+        </div>
+        <div class="nexo-features" style="margin-bottom:0; max-width:320px;">
+          <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Plazos cortos y reales</span></div>
+          <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>100% taller propio</span></div>
+          <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Movibles y ampliables</span></div>
+          <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>20 a 80 m²</span></div>
+          <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Diseño personalizado</span></div>
+          <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Bajo impacto ambiental</span></div>
+        </div>
       </div>
-      <a href="#contacto" class="btn-primario">Conocer Nexo Casas →</a>
+    </div>
+
+    <!-- Grilla de proyectos Nexo -->
+    <div style="background:var(--carbon); padding:2rem 4rem 4rem;">
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-bottom:2rem;">
+
+        <a href="https://nexocasas.github.io/nexo-web/proyectos.html" target="_blank" style="text-decoration:none; display:block; position:relative; overflow:hidden; border-radius:3px; background:var(--negro); cursor:pointer;">
+          <img src="https://nexocasas.github.io/nexo-web/proyectos/Casa%20Facundo/casa-facundo-portada.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;transition:transform 0.4s, opacity 0.3s;opacity:0.85;" onerror="this.src='assets/img/nexo-facundo.jpg'" alt="Casa Facundo">
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:1.25rem 1.5rem;background:linear-gradient(0deg,rgba(26,24,20,0.9) 0%,transparent 100%);">
+            <p style="font-size:0.62rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--madera-claro);margin-bottom:0.3rem;">Nexo Casas</p>
+            <p style="font-family:var(--fuente-display);font-weight:400;font-size:1rem;color:var(--blanco);">Casa Facundo</p>
+          </div>
+        </a>
+
+        <a href="https://nexocasas.github.io/nexo-web/proyectos.html" target="_blank" style="text-decoration:none; display:block; position:relative; overflow:hidden; border-radius:3px; background:var(--negro); cursor:pointer;">
+          <img src="https://nexocasas.github.io/nexo-web/proyectos/Casa%20GyF/Poertada%201.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;transition:transform 0.4s, opacity 0.3s;opacity:0.85;" alt="Casa G & F">
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:1.25rem 1.5rem;background:linear-gradient(0deg,rgba(26,24,20,0.9) 0%,transparent 100%);">
+            <p style="font-size:0.62rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--madera-claro);margin-bottom:0.3rem;">Nexo Casas</p>
+            <p style="font-family:var(--fuente-display);font-weight:400;font-size:1rem;color:var(--blanco);">Casa G & F</p>
+          </div>
+        </a>
+
+        <a href="https://nexocasas.github.io/nexo-web/proyectos.html" target="_blank" style="text-decoration:none; display:block; position:relative; overflow:hidden; border-radius:3px; background:var(--negro); cursor:pointer;">
+          <img src="https://nexocasas.github.io/nexo-web/proyectos/Casa%20Lu/Portada.png" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;transition:transform 0.4s, opacity 0.3s;opacity:0.85;" alt="Casa Lu">
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:1.25rem 1.5rem;background:linear-gradient(0deg,rgba(26,24,20,0.9) 0%,transparent 100%);">
+            <p style="font-size:0.62rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--madera-claro);margin-bottom:0.3rem;">Nexo Casas</p>
+            <p style="font-family:var(--fuente-display);font-weight:400;font-size:1rem;color:var(--blanco);">Casa Lu</p>
+          </div>
+        </a>
+
+        <a href="https://nexocasas.github.io/nexo-web/proyectos.html" target="_blank" style="text-decoration:none; display:block; position:relative; overflow:hidden; border-radius:3px; background:var(--negro); cursor:pointer;">
+          <img src="https://nexocasas.github.io/nexo-web/proyectos/Casa%20Luli/portada.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;transition:transform 0.4s, opacity 0.3s;opacity:0.85;" alt="Casa Luli">
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:1.25rem 1.5rem;background:linear-gradient(0deg,rgba(26,24,20,0.9) 0%,transparent 100%);">
+            <p style="font-size:0.62rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--madera-claro);margin-bottom:0.3rem;">Nexo Casas</p>
+            <p style="font-family:var(--fuente-display);font-weight:400;font-size:1rem;color:var(--blanco);">Casa Luli</p>
+          </div>
+        </a>
+
+        <a href="https://nexocasas.github.io/nexo-web/proyectos.html" target="_blank" style="text-decoration:none; display:block; position:relative; overflow:hidden; border-radius:3px; background:var(--negro); cursor:pointer;">
+          <img src="https://nexocasas.github.io/nexo-web/proyectos/Casa%20AyS/portada.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;transition:transform 0.4s, opacity 0.3s;opacity:0.85;" alt="Casa A & S">
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:1.25rem 1.5rem;background:linear-gradient(0deg,rgba(26,24,20,0.9) 0%,transparent 100%);">
+            <p style="font-size:0.62rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--madera-claro);margin-bottom:0.3rem;">Nexo Casas</p>
+            <p style="font-family:var(--fuente-display);font-weight:400;font-size:1rem;color:var(--blanco);">Casa A & S</p>
+          </div>
+        </a>
+
+        <!-- CTA card -->
+        <a href="https://nexocasas.github.io/nexo-web/proyectos.html" target="_blank" style="text-decoration:none; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:3px; border:1px solid rgba(255,255,255,0.12); gap:1rem; padding:2rem; cursor:pointer; transition:border-color 0.2s; background:transparent;">
+          <p style="font-family:var(--fuente-display);font-weight:400;font-size:1.1rem;color:var(--blanco);text-align:center;">Ver todos los proyectos</p>
+          <span style="display:inline-block;padding:0.65rem 1.5rem;background:var(--madera);color:var(--blanco);font-size:0.78rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;">Ver Nexo Casas →</span>
+        </a>
+
+      </div>
     </div>
   </section>
 
@@ -644,18 +698,6 @@
       <div class="contacto-item"><strong>Email</strong>tomasbrinnand1979@gmail.com</div>
     </div>
   </section>
-
-  <!-- PANEL NEXO CASAS -->
-  <div id="nexo-panel" style="display:none;position:fixed;inset:0;z-index:998;background:var(--negro);">
-    <div style="position:absolute;top:0;left:0;right:0;height:56px;background:var(--negro);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;border-bottom:1px solid rgba(255,255,255,0.08);z-index:1;">
-      <span style="font-family:var(--fuente-display);font-size:1rem;color:var(--blanco);">Nexo <span style="color:var(--madera-claro);">Casas</span></span>
-      <button onclick="cerrarNexo()" style="background:none;border:1px solid rgba(255,255,255,0.2);color:var(--blanco);cursor:pointer;padding:0.4rem 1rem;border-radius:2px;font-family:var(--fuente-body);font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;gap:0.5rem;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-        Cerrar
-      </button>
-    </div>
-    <iframe id="nexo-iframe" src="" style="width:100%;height:100%;border:none;padding-top:56px;box-sizing:border-box;"></iframe>
-  </div>
 
   <footer>
     <p>© 2025 Tomás Brinnand · San Martín de los Andes, Patagonia</p>
@@ -817,19 +859,10 @@
       document.getElementById('lb-next').style.opacity = total <= 1 ? '0.2' : '1';
     }
 
-    // ── PANEL NEXO CASAS ──
-    function abrirNexo() {
-      document.getElementById('nexo-iframe').src = 'https://nexocasas.github.io/nexo-web/proyectos.html';
-      document.getElementById('nexo-panel').style.display = 'block';
-      document.body.style.overflow = 'hidden';
-    }
-    function cerrarNexo() {
-      document.getElementById('nexo-panel').style.display = 'none';
-      document.getElementById('nexo-iframe').src = '';
-      document.body.style.overflow = '';
-    }
     document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') { cerrarNexo(); cerrarLightbox(); }
+      if (e.key === 'Escape') cerrarLightbox();
+      if (e.key === 'ArrowLeft') moverLightbox(-1);
+      if (e.key === 'ArrowRight') moverLightbox(1);
     });
   </script>
 </body>
