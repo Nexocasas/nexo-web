@@ -190,6 +190,92 @@
     .carrusel-btn:hover { background: var(--madera); border-color: var(--madera); color: var(--blanco); }
     .carrusel-btn svg { width: 18px; height: 18px; }
 
+    /* ── CONSTRUCCIONES ── */
+    .construcciones { background: var(--blanco); padding: 5rem 4rem; }
+    .construcciones-header { margin-bottom: 2.5rem; }
+    .proyectos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .proyecto-card {
+      cursor: pointer; overflow: hidden; border-radius: 3px;
+      position: relative; background: var(--negro);
+    }
+    .proyecto-card img {
+      width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block;
+      transition: transform 0.4s, opacity 0.3s;
+      opacity: 0.85;
+    }
+    .proyecto-card:hover img { transform: scale(1.04); opacity: 0.65; }
+    .proyecto-card-info {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 1.25rem 1.5rem;
+      background: linear-gradient(0deg, rgba(26,24,20,0.85) 0%, transparent 100%);
+    }
+    .proyecto-card-num {
+      font-size: 0.62rem; font-weight: 500; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--madera-claro); margin-bottom: 0.3rem;
+    }
+    .proyecto-card-nombre {
+      font-family: var(--fuente-display); font-weight: 400;
+      font-size: 1rem; color: var(--blanco); line-height: 1.3;
+    }
+    .proyecto-card-ver {
+      position: absolute; top: 1rem; right: 1rem;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,0.15); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.2s; color: var(--blanco);
+    }
+    .proyecto-card:hover .proyecto-card-ver { opacity: 1; }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: rgba(26,24,20,0.95); backdrop-filter: blur(6px);
+      align-items: center; justify-content: center;
+      padding: 2rem;
+    }
+    .lightbox.abierto { display: flex; }
+    .lightbox-inner {
+      position: relative; width: 100%; max-width: 900px;
+      display: flex; flex-direction: column; gap: 1.25rem;
+    }
+    .lightbox-header {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .lightbox-titulo {
+      font-family: var(--fuente-display); font-weight: 400;
+      font-size: 1.3rem; color: var(--blanco);
+    }
+    .lightbox-cerrar {
+      width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2);
+      background: transparent; cursor: pointer; color: var(--blanco);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .lightbox-cerrar:hover { background: var(--madera); border-color: var(--madera); }
+    .lightbox-imgs {
+      position: relative; overflow: hidden; border-radius: 3px;
+    }
+    .lightbox-slide {
+      display: none; position: relative;
+    }
+    .lightbox-slide.activo { display: block; }
+    .lightbox-slide img {
+      width: 100%; max-height: 70vh; object-fit: contain; display: block;
+      border-radius: 2px;
+    }
+    .lightbox-flechas {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .lightbox-btn {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2); background: transparent;
+      cursor: pointer; color: var(--blanco);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .lightbox-btn:hover { background: var(--madera); border-color: var(--madera); }
+    .lightbox-contador { font-size: 0.78rem; color: rgba(255,255,255,0.4); letter-spacing: 0.1em; }
+
     /* ── OBJETOS GRILLA ── */
     .objetos { background: var(--arena); }
     .objetos-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 2.5rem; }
@@ -251,6 +337,7 @@
       .carrusel-imagenes { min-height: 280px; height: 60vw; }
       .carrusel-info { padding: 2rem 1.5rem; }
       .objetos-grid { grid-template-columns: repeat(2, 1fr); }
+      .proyectos-grid { grid-template-columns: 1fr; }
       #objetos-scroll { grid-auto-columns: 100%; }
       .objetos-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
       .nexo-banner { grid-template-columns: 1fr; }
@@ -420,59 +507,76 @@
     </div>
   </section>
 
-  <!-- CARRUSEL CONSTRUCCIONES -->
-  <div class="carrusel-section claro" id="casas">
-    <div class="carrusel-wrap">
+  <!-- CONSTRUCCIONES -->
+  <section class="construcciones" id="casas">
+    <div class="construcciones-header">
+      <p class="seccion-eyebrow">Construcciones</p>
+      <h2 class="seccion-titulo">Cada casa, una historia</h2>
+    </div>
 
-      <div class="carrusel-imagenes" id="casas-imgs">
-        <div class="carrusel-slide activo">
-          <img src="https://images.unsplash.com/photo-1542621334-a254cf47733d?w=1200&q=80" alt="Casa Paula González">
+    <div class="proyectos-grid">
+      <div class="proyecto-card" onclick="abrirLightbox(0)">
+        <img src="https://images.unsplash.com/photo-1542621334-a254cf47733d?w=800&q=80" alt="Casa Paula González">
+        <div class="proyecto-card-info">
+          <p class="proyecto-card-num">01</p>
+          <p class="proyecto-card-nombre">Casa Paula González — Arq. Gustavo Peruzzotti</p>
         </div>
-        <div class="carrusel-slide">
-          <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=1200&q=80" alt="Taller San Martín de los Andes">
-        </div>
-        <div class="carrusel-slide">
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80" alt="Casa Daniel Ephraim">
-        </div>
-        <div class="carrusel-slide">
-          <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80" alt="Casa Elio Bulvarella">
-        </div>
-        <div class="carrusel-contador" id="casas-contador">1 / 4</div>
-      </div>
-
-      <div class="carrusel-info">
-        <div style="margin-bottom:2rem;">
-          <p class="seccion-eyebrow">Construcciones</p>
-          <h2 class="seccion-titulo">Cada casa,<br>una historia</h2>
-        </div>
-        <div class="carrusel-proyectos" id="casas-proyectos">
-          <div class="proyecto-item activo" onclick="irA('casas',0)">
-            <p class="proyecto-num">01</p>
-            <p class="proyecto-nombre">Casa Paula González — Arq. Gustavo Peruzzotti</p>
-          </div>
-          <div class="proyecto-item" onclick="irA('casas',1)">
-            <p class="proyecto-num">02</p>
-            <p class="proyecto-nombre">Taller propio — San Martín de los Andes</p>
-          </div>
-          <div class="proyecto-item" onclick="irA('casas',2)">
-            <p class="proyecto-num">03</p>
-            <p class="proyecto-nombre">Casa Daniel Ephraim — Arq. Martín Gaite</p>
-          </div>
-          <div class="proyecto-item" onclick="irA('casas',3)">
-            <p class="proyecto-num">04</p>
-            <p class="proyecto-nombre">Casa Elio Bulvarella — Arq. Gustavo Peruzzotti</p>
-          </div>
-        </div>
-        <div class="carrusel-nav">
-          <button class="carrusel-btn" onclick="mover('casas',-1)" aria-label="Anterior">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 19l-7-7 7-7"/></svg>
-          </button>
-          <button class="carrusel-btn" onclick="mover('casas',1)" aria-label="Siguiente">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg>
-          </button>
+        <div class="proyecto-card-ver">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
         </div>
       </div>
+      <div class="proyecto-card" onclick="abrirLightbox(1)">
+        <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=800&q=80" alt="Taller propio">
+        <div class="proyecto-card-info">
+          <p class="proyecto-card-num">02</p>
+          <p class="proyecto-card-nombre">Taller propio — San Martín de los Andes</p>
+        </div>
+        <div class="proyecto-card-ver">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+        </div>
+      </div>
+      <div class="proyecto-card" onclick="abrirLightbox(2)">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Casa Daniel Ephraim">
+        <div class="proyecto-card-info">
+          <p class="proyecto-card-num">03</p>
+          <p class="proyecto-card-nombre">Casa Daniel Ephraim — Arq. Martín Gaite</p>
+        </div>
+        <div class="proyecto-card-ver">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+        </div>
+      </div>
+      <div class="proyecto-card" onclick="abrirLightbox(3)">
+        <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80" alt="Casa Elio Bulvarella">
+        <div class="proyecto-card-info">
+          <p class="proyecto-card-num">04</p>
+          <p class="proyecto-card-nombre">Casa Elio Bulvarella — Arq. Gustavo Peruzzotti</p>
+        </div>
+        <div class="proyecto-card-ver">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="cerrarSiFondo(event)">
+    <div class="lightbox-inner">
+      <div class="lightbox-header">
+        <p class="lightbox-titulo" id="lightbox-titulo"></p>
+        <button class="lightbox-cerrar" onclick="cerrarLightbox()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="lightbox-imgs" id="lightbox-imgs"></div>
+      <div class="lightbox-flechas">
+        <button class="lightbox-btn" id="lb-prev" onclick="moverLightbox(-1)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <span class="lightbox-contador" id="lb-contador"></span>
+        <button class="lightbox-btn" id="lb-next" onclick="moverLightbox(1)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -580,33 +684,87 @@
     oScroll.addEventListener('scroll', onObjetosScroll, { passive: true });
     onObjetosScroll();
 
-    // Carrusel casas con proyectos
-    const estado = {
-      casas: { actual: 0, total: 4 }
-    };
 
-    function irA(id, idx) {
-      const e = estado[id];
-      e.actual = idx;
-      actualizar(id);
+    // ── LIGHTBOX CONSTRUCCIONES ──
+    const proyectos = [
+      {
+        nombre: 'Casa Paula González — Arq. Gustavo Peruzzotti',
+        fotos: [
+          'https://images.unsplash.com/photo-1542621334-a254cf47733d?w=1200&q=80',
+          'https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=1200&q=80',
+          'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80',
+        ]
+      },
+      {
+        nombre: 'Taller propio — San Martín de los Andes',
+        fotos: [
+          'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=1200&q=80',
+          'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80',
+        ]
+      },
+      {
+        nombre: 'Casa Daniel Ephraim — Arq. Martín Gaite',
+        fotos: [
+          'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80',
+          'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80',
+        ]
+      },
+      {
+        nombre: 'Casa Elio Bulvarella — Arq. Gustavo Peruzzotti',
+        fotos: [
+          'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80',
+          'https://images.unsplash.com/photo-1542621334-a254cf47733d?w=1200&q=80',
+        ]
+      },
+    ];
+
+    let lbActual = 0;
+    let lbProyecto = 0;
+
+    function abrirLightbox(idx) {
+      lbProyecto = idx;
+      lbActual = 0;
+      const p = proyectos[idx];
+      document.getElementById('lightbox-titulo').textContent = p.nombre;
+      const imgs = document.getElementById('lightbox-imgs');
+      imgs.innerHTML = p.fotos.map((f, i) =>
+        `<div class="lightbox-slide ${i === 0 ? 'activo' : ''}"><img src="${f}" alt="Foto ${i+1}"></div>`
+      ).join('');
+      actualizarLightbox();
+      document.getElementById('lightbox').classList.add('abierto');
+      document.body.style.overflow = 'hidden';
     }
 
-    function mover(id, dir) {
-      const e = estado[id];
-      e.actual = (e.actual + dir + e.total) % e.total;
-      actualizar(id);
+    function cerrarLightbox() {
+      document.getElementById('lightbox').classList.remove('abierto');
+      document.body.style.overflow = '';
     }
 
-    function actualizar(id) {
-      const { actual, total } = estado[id];
-      document.querySelectorAll(`#${id}-imgs .carrusel-slide`).forEach((s, i) => {
-        s.classList.toggle('activo', i === actual);
+    function cerrarSiFondo(e) {
+      if (e.target === document.getElementById('lightbox')) cerrarLightbox();
+    }
+
+    function moverLightbox(dir) {
+      const total = proyectos[lbProyecto].fotos.length;
+      lbActual = (lbActual + dir + total) % total;
+      document.querySelectorAll('.lightbox-slide').forEach((s, i) => {
+        s.classList.toggle('activo', i === lbActual);
       });
-      document.querySelectorAll(`#${id}-proyectos .proyecto-item`).forEach((p, i) => {
-        p.classList.toggle('activo', i === actual);
-      });
-      document.getElementById(`${id}-contador`).textContent = `${actual + 1} / ${total}`;
+      actualizarLightbox();
     }
+
+    function actualizarLightbox() {
+      const total = proyectos[lbProyecto].fotos.length;
+      document.getElementById('lb-contador').textContent = `${lbActual + 1} / ${total}`;
+      document.getElementById('lb-prev').style.opacity = total <= 1 ? '0.2' : '1';
+      document.getElementById('lb-next').style.opacity = total <= 1 ? '0.2' : '1';
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') cerrarLightbox();
+      if (e.key === 'ArrowLeft') moverLightbox(-1);
+      if (e.key === 'ArrowRight') moverLightbox(1);
+    });
   </script>
 </body>
 </html>
