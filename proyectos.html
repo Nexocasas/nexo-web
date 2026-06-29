@@ -159,7 +159,20 @@
     text-align: center;
     padding: 8rem 3.5rem 5rem;
     position: relative;
+    background-image: url('assets/img/nexo-hero-portada.jpg');
+    background-size: cover;
+    background-position: center top;
   }
+
+  .nexo-intro::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(13,11,9,0.55) 0%, rgba(13,11,9,0.92) 75%, rgba(13,11,9,1) 100%);
+    z-index: 0;
+  }
+
+  .nexo-intro > * { position: relative; z-index: 1; }
 
   .nexo-intro-logo {
     width: clamp(90px, 15vw, 160px);
