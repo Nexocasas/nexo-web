@@ -149,6 +149,132 @@
     margin: 0 auto;
   }
 
+  /* ── NEXO INTRO ── */
+  .nexo-intro {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 8rem 3.5rem 5rem;
+    position: relative;
+  }
+
+  .nexo-intro-logo {
+    width: clamp(180px, 30vw, 320px);
+    height: auto;
+    margin-bottom: 3rem;
+    opacity: 0.95;
+  }
+
+  .nexo-intro-eyebrow {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1.5rem;
+  }
+
+  .nexo-intro-titulo {
+    font-family: 'scale-variable', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.8rem);
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: 0.03em;
+    margin-bottom: 2rem;
+    max-width: 18ch;
+  }
+
+  .nexo-intro-titulo span { color: var(--amber); }
+
+  .nexo-intro-texto {
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: var(--muted);
+    max-width: 52ch;
+    font-weight: 300;
+    margin-bottom: 3.5rem;
+  }
+
+  .nexo-intro-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+    max-width: 700px;
+    width: 100%;
+    margin-bottom: 4rem;
+  }
+
+  .nexo-intro-feature {
+    padding: 1.5rem 1.25rem;
+    border-right: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .nexo-intro-feature:last-child { border-right: none; }
+
+  .nexo-intro-feature-num {
+    font-family: 'scale-variable', sans-serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--amber);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .nexo-intro-feature-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .nexo-scroll-hint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--muted);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .nexo-scroll-hint:hover { opacity: 0.6; }
+  .nexo-scroll-hint svg { animation: bounce 2s infinite; }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+  }
+
+  .nexo-divider {
+    padding: 2rem 3.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .nexo-divider-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .nexo-divider-texto {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
   /* ── HERO ── */
   #hero.activa {
     min-height: 100vh;
@@ -878,7 +1004,42 @@
   </button>
 </div>
 
-<!-- ═══ HERO ═══ -->
+<!-- ═══ NEXO INTRO ═══ -->
+<div class="nexo-intro" id="inicio">
+  <img src="assets/nexo-icono-blanco.png" class="nexo-intro-logo" alt="Nexo Casas">
+  <p class="nexo-intro-eyebrow">Taller de Casas · San Martín de los Andes</p>
+  <h1 class="nexo-intro-titulo">Casas modulares hechas en la <span>Patagonia</span></h1>
+  <p class="nexo-intro-texto">Nexo nació del cruce entre el oficio de la carpintería y el deseo de construir de otra manera. Fabricamos casas en nuestro taller de San Martín de los Andes y las ensamblamos en tu terreno en plazos cortos y reales. Cada casa es un proyecto a medida: vos elegís el programa, los materiales y el diseño.</p>
+
+  <div class="nexo-intro-features">
+    <div class="nexo-intro-feature">
+      <p class="nexo-intro-feature-num">20–80</p>
+      <p class="nexo-intro-feature-label">m² disponibles</p>
+    </div>
+    <div class="nexo-intro-feature">
+      <p class="nexo-intro-feature-num">100%</p>
+      <p class="nexo-intro-feature-label">Taller propio</p>
+    </div>
+    <div class="nexo-intro-feature">
+      <p class="nexo-intro-feature-num">SMA</p>
+      <p class="nexo-intro-feature-label">Patagonia argentina</p>
+    </div>
+  </div>
+
+  <div class="nexo-scroll-hint" onclick="document.getElementById('proyectos').scrollIntoView({behavior:'smooth'})">
+    <span>Ver proyectos</span>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</div>
+
+<!-- ═══ DIVISOR ═══ -->
+<div class="nexo-divider" id="proyectos">
+  <div class="nexo-divider-line"></div>
+  <span class="nexo-divider-texto">Nuestros proyectos</span>
+  <div class="nexo-divider-line"></div>
+</div>
+
+<!-- ═══ HERO (grilla de proyectos) ═══ -->
 <section id="hero" class="page activa">
   <div class="hero-top">
     <div>
