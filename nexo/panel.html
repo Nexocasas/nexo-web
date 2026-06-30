@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexo — Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../assets/favicon.png?v=3">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root { --bg:#0d0b09; --bg2:#141210; --text:#f0ece5; --amber:#c9aa82; --muted:rgba(240,236,229,0.45); --border:rgba(240,236,229,0.12); --warn:#d98b6a; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); }
+  .wrap { max-width:1200px; margin:0 auto; padding:2.5rem 1.6rem 5rem; }
+  h1 { font-weight:200; font-size:2rem; letter-spacing:-0.01em; }
+  .tag { font-size:0.6rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--amber); margin-bottom:0.8rem; }
+  input, button { font-family:inherit; font-size:0.9rem; }
+  input { background:var(--bg2); color:var(--text); border:1px solid var(--border); border-radius:6px; padding:0.7rem 0.9rem; outline:none; width:100%; }
+  input:focus { border-color:var(--amber); }
+  .btn { background:var(--amber); color:var(--bg); border:none; border-radius:6px; padding:0.7rem 1.2rem; font-weight:500; cursor:pointer; white-space:nowrap; }
+  .btn.ghost { background:transparent; color:var(--text); border:1px solid var(--border); }
+  .btn.sm { padding:0.45rem 0.8rem; font-size:0.72rem; }
+  /* gate */
+  #gate { max-width:340px; margin:18vh auto 0; text-align:center; }
+  #gate h1 { margin-bottom:1.6rem; }
+  #gate input { margin-bottom:0.8rem; text-align:center; }
+  .gate-msg { color:var(--warn); font-size:0.8rem; min-height:1.2em; margin-top:0.6rem; }
+  /* panel */
+  .topbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:2rem; }
+  .nuevo-box { display:flex; gap:0.6rem; background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:1rem; margin-bottom:2rem; }
+  .cli { border:1px solid var(--border); border-radius:8px; padding:1.1rem 1.3rem; margin-bottom:0.9rem; background:var(--bg2); }
+  .cli-head { display:flex; align-items:center; justify-content:space-between; gap:1rem; cursor:pointer; }
+  .cli-nombre { font-size:1.15rem; font-weight:400; }
+  .cli-meta { font-size:0.65rem; color:var(--muted); margin-top:3px; letter-spacing:0.05em; }
+.badge-nuevo { display:inline-block; font-size:0.58rem; letter-spacing:0.08em; text-transform:uppercase; background:rgba(201,170,130,0.15); color:var(--amber); border:1px solid rgba(201,170,130,0.4); border-radius:20px; padding:2px 9px; margin-left:8px; vertical-align:middle; }
+.dec.nuevo { background:rgba(201,170,130,0.07); border-radius:5px; padding-left:8px; margin-left:-8px; border-left:2px solid var(--amber); }
+.dec.nuevo .it { color:var(--amber); }
+.dec-tag-nuevo { font-size:0.52rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--amber); margin-left:6px; opacity:0.8; }
+  .cli-acciones { display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center; }
+  .cli-body { display:none; margin-top:1.2rem; padding-top:1.2rem; border-top:1px solid var(--border); }
+  .cli.abierto .cli-body { display:block; }
+  .link-row { display:flex; gap:0.5rem; align-items:center; margin:0.4rem 0; font-size:0.75rem; color:var(--muted); }
+  .link-row code { background:var(--bg); border:1px solid var(--border); border-radius:4px; padding:3px 8px; color:var(--amber); font-size:0.7rem; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .rubro-bloque { margin-top:1.2rem; }
+  .rubro-bloque h4 { font-size:0.6rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--amber); margin-bottom:0.5rem; }
+  .dec { font-size:0.82rem; padding:0.35rem 0; border-bottom:1px solid var(--border); }
+  .dec:last-child { border-bottom:none; }
+  .dec .it { color:var(--text); font-weight:500; }
+  .dec .val { color:var(--muted); }
+  .nota { font-size:0.78rem; color:var(--muted); font-style:italic; margin-top:0.5rem; }
+  .vacio { color:var(--muted); font-size:0.8rem; font-style:italic; }
+  .volver-btn { display:block; margin:1.6rem auto 0; background:transparent; color:var(--amber); border:1px solid rgba(201,170,130,0.35); border-radius:20px; padding:0.5rem 1.4rem; font-size:0.72rem; letter-spacing:0.08em; cursor:pointer; }
+  .volver-btn:hover { background:rgba(201,170,130,0.1); }
+  @media(min-width:900px){ .cli-body .bitacora-grid { columns:2; column-gap:2.5rem; } .rubro-bloque { break-inside:avoid; } }
+  .top-flotante { position:fixed; bottom:18px; right:18px; z-index:50; background:var(--amber); color:var(--bg); border:none; border-radius:24px; padding:0.65rem 1.2rem; font-size:0.72rem; font-weight:500; letter-spacing:0.05em; cursor:pointer; box-shadow:0 4px 16px rgba(0,0,0,0.4); opacity:0; pointer-events:none; transition:opacity .25s; }
+  .top-flotante.show { opacity:1; pointer-events:auto; }
+</style>
+</head>
+<body>
+
+<!-- GATE -->
+<div id="gate">
+  <p class="tag">Nexo · Taller de Casas</p>
+  <h1>Panel de clientes</h1>
+  <input id="pass" type="password" placeholder="Contraseña" onkeydown="if(event.key==='Enter')entrar()">
+  <button class="btn" style="width:100%" onclick="entrar()">Entrar</button>
+  <p class="gate-msg" id="gate-msg"></p>
+</div>
+
+<!-- PANEL -->
+<div class="wrap" id="panel" style="display:none">
+  <div class="topbar">
+    <div><p class="tag">Panel</p><h1>Clientes</h1></div>
+    <button class="btn ghost sm" onclick="toggleNuevo()">+ Nuevo cliente</button>
+  </div>
+  <div class="nuevo-box" id="nuevo-box" style="display:none">
+    <input id="nuevo-nombre" placeholder="Nombre del proyecto / cliente (ej. Casa Juli y Nico)">
+    <button class="btn" onclick="crear()">Crear link</button>
+  </div>
+  <div id="lista"></div>
+</div>
+
+<button class="top-flotante" id="top-flotante" onclick="irAlPanel()">↑ Panel</button>
+<script>
+const SB_URL='https://chplkjzxfqktftcefwsp.supabase.co';
+const SB_KEY='sb_publishable_v7pYtkEAR0bprUIw1QWiCw_GFdx0Tid';
+const SB=window.supabase.createClient(SB_URL,SB_KEY);
+const CATEGORIES = [{"slug": "exterior", "title": "Exterior", "desc": "Revestimientos, aberturas, cubierta, deck y expansión exterior.", "cover": "exterior_cover.jpg", "refs": ["exterior_ref_1.jpg", "exterior_ref_2.jpg", "exterior_ref_3.jpg"], "items": [["Techos", "Chapa prepintada sinusoidal (varios colores)"], ["Paredes", "Chapa prepintada sinusoidal (varios colores) / Entablonado pino impregnado vertical", "exterior-2.jpg"], ["Esquineros / Cenefas", "Chapa prepintada lisa (varios colores)", "exterior-3.jpg"], ["Aberturas", "PVC Negro", "exterior-4.jpg"], ["Contramarcos", "Marco cajón de pino impregnado pintado (varios colores)", "exterior-5.jpg"], ["Deck exterior", "A cotizar según proyecto"]]}, {"slug": "interior", "title": "Interior", "desc": "Revestimientos interiores, pisos, zócalos y terminaciones.", "cover": "interior_cover.jpg", "refs": ["interior_ref_1.jpg", "interior_ref_2.jpg", "interior_ref_3.jpg"], "items": [["Paredes", "Machimbre Eucalipto 1/2\"x5\""], ["Cielorraso", "Machimbre Eucalipto 1/2\"x5\""], ["Piso", "Vinílico SPC (ver catálogo de colores/texturas)"], ["Zócalos y contramarcos", "Eucalipto"]]}, {"slug": "cocina", "title": "Cocina", "desc": "Mesada, bacha, grifería, muebles, alzada y electrodomésticos.", "cover": "cocina_cover.jpg", "refs": ["cocina_ref_1.jpg", "cocina_ref_2.jpg", "cocina_ref_3.jpg"], "items": [["Mesada", "Negro Brasil x 3m", "cocina-1.jpg"], ["Alzada", "Machimbre Eucalipto c/chapón sobre anafe", "cocina-2.jpg"], ["Bacha", "Johnson ZZ 52/18", "cocina-3.jpg"], ["Grifería", "Fv Puelo Monocomando", "cocina-4.jpg"], ["Mueble bajo mesada", "Interiores Eucalipto - Frentes melamina. 3 Puertas/3 cajones/Especiero/Gabinete Heladera"], ["Mueble alacena", "Interiores Eucalipto - Frentes melamina. 5 puertas con estante regulable/Luz led bajo alacena"], ["Extractor", "Motor extractor (sin filtro)"], ["Horno / Anafe", "No incluido"], ["Heladera", "No incluido"], ["Lavavajillas", "No incluido"], ["Microondas", "No incluido"]]}, {"slug": "banos", "title": "Baños", "desc": "Artefactos, vanitory, ducha, bañera, mampara y revestimientos.", "cover": "banos_cover.jpg", "refs": ["banos_ref_1.jpg", "banos_ref_2.jpg", "banos_ref_3.jpg"], "items": [["Inodoro", "Roca Monaco", "banos-1.jpg"], ["Ducha / Bañadera", "Receptáculo de ducha acrílico Ferrum 140x70cm", "banos-2.jpg"], ["Lavatorio", "Bacha de apoyo Piazza A449 (46cm x 42cm)", "banos-3.jpg"], ["Mueble Vanitory", "Mueble de colgar de Eucalipto c/ 2 puertas.", "banos-4.jpg"], ["Griferías", "Kit FV Puelo ducha-bañadera c/transferencia + lavatorio bajo monocomando color negro / Bidet de mano frío-calor color negro", ["banos-5-ducha.jpg", "banos-5-lavatorio.jpg"]], ["Revestimiento cerámico", "Cerámico 60x60x3m² · Ducha completa + detrás de inodoro y vanitory hasta 1,20m", "banos-6.jpg"], ["Mampara / Cortina", "No incluido"], ["Toallero", "No incluido"], ["Accesorios (espejo, jaboneras, portarrollos)", "No incluido"]]}, {"slug": "lavadero", "title": "Lavadero", "desc": "Pileta, guardado, termotanque, lavarropas y conexiones.", "cover": "lavadero_cover.jpg", "refs": ["lavadero_ref_1.jpg", "lavadero_ref_2.jpg", "lavadero_ref_3.jpg"], "items": [["Mesada", "Tablero Eucalipto 30mm x 1,2m"], ["Pileta", "Mi pileta 46x37x24"], ["Grifería", "Fv Puelo monocomando"], ["Cerramiento", "2 puertas corredizas piso a techo (tipo placard) de Eucalipto"], ["Lavarropas", "No incluido"]]}, {"slug": "dormitorio", "title": "Dormitorio", "desc": "Placards, guardado, escritorios y mobiliario fijo.", "cover": "dormitorio_cover.jpg", "refs": ["dormitorio_ref_1.jpg", "dormitorio_ref_2.jpg", "dormitorio_ref_3.jpg"], "items": [["Placard", "Placard de melamina con 2 puertas corredizas. 4 cajones + barrales y estantes regulables"], ["Mesas de luz", "No incluido"]]}, {"slug": "puertas", "title": "Puertas", "desc": "Puertas exteriores, interiores, corredizas, vidriadas y herrajes.", "cover": "puertas_cover.jpg", "refs": ["puertas_ref_1.jpg", "puertas_ref_2.jpg", "puertas_ref_3.jpg"], "items": [["Puerta exterior", "Madera pintada (color según proyecto)"], ["Puerta interior baño", "Corrediza embutida de Euca"], ["Puerta interior dormitorio", "Corrediza de abrir de Euca"], ["Otras", "A definir según proyecto"]]}, {"slug": "calefaccion", "title": "Calefacción", "desc": "Sistema, ubicación de equipos, salidas y preinstalaciones.", "cover": "calefaccion_cover.jpg", "refs": ["calefaccion_ref_1.jpg", "calefaccion_ref_2.jpg", "calefaccion_ref_3.jpg"], "items": [["Sistema de calefacción", "A definir según proyecto"], ["Ubicación de equipos", "A definir"], ["Salidas / ventilaciones", "Según sistema elegido"], ["Preinstalaciones", "A cotizar si corresponde"]]}, {"slug": "equipamiento", "title": "Equipamiento", "desc": "Iluminación, cortinas, accesorios y mobiliario complementario.", "cover": "equipamiento_cover.jpg", "refs": ["equipamiento_ref_1.jpg", "equipamiento_ref_2.jpg", "equipamiento_ref_3.jpg"], "items": [["Artefactos de iluminación", "No incluidos / a definir"], ["Cortinas", "No incluidas"], ["Accesorios baño", "No incluidos"], ["Accesorios cocina", "No incluidos"], ["Mobiliario adicional", "A definir"]]}];
+const BASE_FORM = location.origin + location.pathname.replace(/panel\.html$/,'index.html');
+let PASS='';
+
+function keyFor(cat,item,suf){return(cat+'_'+item+'_'+suf).replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]+/g,'_');}
+
+async function entrar(passArg){
+  PASS=passArg||document.getElementById('pass').value;
+  const msg=document.getElementById('gate-msg'); msg.textContent='Verificando…';
+  const r=await SB.rpc('admin_listar',{p_pass:PASS});
+  if(r.error){ msg.textContent='Contraseña incorrecta'; localStorage.removeItem('nexo_pass'); return; }
+  localStorage.setItem('nexo_pass',PASS);
+  document.getElementById('gate').style.display='none';
+  document.getElementById('panel').style.display='block';
+  renderLista(r.data||[]);
+}
+window.addEventListener('DOMContentLoaded',function(){
+  var saved=localStorage.getItem('nexo_pass');
+  if(saved) entrar(saved);
+});
+async function recargar(){
+  const r=await SB.rpc('admin_listar',{p_pass:PASS});
+  if(!r.error) renderLista(r.data||[]);
+}
+function toggleNuevo(){ var b=document.getElementById('nuevo-box'); b.style.display=b.style.display==='none'?'flex':'none'; }
+function slug(s){ return s.toLowerCase().replace(/[áàä]/g,'a').replace(/[éèë]/g,'e').replace(/[íìï]/g,'i').replace(/[óòö]/g,'o').replace(/[úùü]/g,'u').replace(/ñ/g,'n').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); }
+async function crear(){
+  var nombre=document.getElementById('nuevo-nombre').value.trim();
+  if(!nombre) return;
+  var token=slug(nombre)+'-'+Math.random().toString(36).slice(2,7);
+  const r=await SB.rpc('admin_crear',{p_pass:PASS,p_nombre:nombre,p_token:token});
+  if(r.error){ alert('Error: '+r.error.message); return; }
+  document.getElementById('nuevo-nombre').value='';
+  toggleNuevo();
+  recargar();
+}
+function fecha(s){ try{ return new Date(s).toLocaleDateString('es-AR',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}); }catch(e){ return s; } }
+
+var FILAS=[];
+function renderLista(rows){
+  FILAS=rows;
+  var cont=document.getElementById('lista'); cont.innerHTML='';
+  if(!rows.length){ cont.innerHTML='<p class="vacio">Todavía no hay clientes. Creá el primero con "+ Nuevo cliente".</p>'; return; }
+  rows.forEach(function(row,idx){
+    var linkCli=BASE_FORM+'?c='+row.token;
+    var linkNexo=linkCli+'&nexo=1';
+    var visto=localStorage.getItem('visto_'+row.token);
+    var hayNuevo=!visto || (row.actualizado && new Date(row.actualizado)>new Date(visto));
+    var badge=hayNuevo?'<span class="badge-nuevo">● Cambios nuevos</span>':'';
+    var card=document.createElement('div'); card.className='cli';
+    card.innerHTML=
+      '<div class="cli-head" onclick="toggleCli(this,\''+row.token+'\',\''+row.actualizado+'\')">'+
+        '<div><div class="cli-nombre" id="nombre-'+row.token+'">'+row.nombre+badge+'</div><div class="cli-meta">Última actividad: '+fecha(row.actualizado)+'</div></div>'+
+        '<div class="cli-acciones">'+
+          '<button class="btn sm" onclick="event.stopPropagation();copiar(\''+linkCli+'\',this)">Copiar link cliente</button>'+
+          '<a class="btn ghost sm" href="'+linkNexo+'" target="_blank" onclick="event.stopPropagation()">Abrir</a>'+
+          '<button class="btn ghost sm" onclick="event.stopPropagation();imprimir('+idx+')">Imprimir / PDF</button>'+
+        '</div>'+
+      '</div>'+
+      '<div class="cli-body">'+
+        '<div class="link-row"><span>Link cliente:</span><code>'+linkCli+'</code></div>'+
+        bitacora(row.datos||{}, JSON.parse(localStorage.getItem('datos_'+row.token)||'{}'))+
+        '<button class="volver-btn" onclick="cerrarCli(this)">↑ Volver al listado</button>'+
+      '</div>';
+    cont.appendChild(card);
+  });
+}
+
+function bitacora(d, dAntes){
+  var html='';
+  var hayDatos=false;
+  dAntes=dAntes||{};
+  CATEGORIES.forEach(function(cat){
+    var lineas='';
+    cat.items.forEach(function(it){
+      var item=it[0];
+      var kE=keyFor(cat.slug,item,'eleccion'), kC=keyFor(cat.slug,item,'condicion');
+      var e=d[kE], c=d[kC];
+      if((e&&e.trim())||(c&&c!=='A definir')){
+        hayDatos=true;
+        var esNuevo=(d[kE]!==dAntes[kE])||(d[kC]!==dAntes[kC]);
+        var clsNuevo=esNuevo?' nuevo':'';
+        var tagNuevo=esNuevo?'<span class="dec-tag-nuevo">nuevo</span>':'';
+        var partes=[];
+        if(e&&e.trim()) partes.push('<span class="val">'+e+'</span>');
+        if(c&&c!=='A definir') partes.push('<span class="val">['+c+']</span>');
+        lineas+='<div class="dec'+clsNuevo+'"><span class="it">'+item+tagNuevo+'</span> — '+partes.join(' · ')+'</div>';
+      }
+    });
+    var extrasRaw=d['extras_'+cat.slug];
+    if(extrasRaw){ var extras; try{ extras=JSON.parse(extrasRaw); }catch(ex){ extras=[]; } extras.forEach(function(ex){ var kE=keyFor('x_'+cat.slug,ex.name,'eleccion'), kC=keyFor('x_'+cat.slug,ex.name,'condicion'); var e=d[kE], c=d[kC]; if((e&&e.trim())||(c&&c!=='A definir')){ hayDatos=true; var esNuevo=(d[kE]!==dAntes[kE])||(d[kC]!==dAntes[kC]); var clsNuevo=esNuevo?' nuevo':''; var tagNuevo=esNuevo?'<span class="dec-tag-nuevo">nuevo</span>':''; var partes=[]; if(e&&e.trim()) partes.push('<span class="val">'+e+'</span>'); if(c&&c!=='A definir') partes.push('<span class="val">['+c+']</span>'); lineas+='<div class="dec'+clsNuevo+'"><span class="it">'+ex.name+tagNuevo+'</span> — '+partes.join(' · ')+'</div>'; } }); }
+    var nc=d[cat.slug+'_comentario_cliente'], nn=d[cat.slug+'_comentario_nexo'];
+    var ncAntes=dAntes[cat.slug+'_comentario_cliente'], nnAntes=dAntes[cat.slug+'_comentario_nexo'];
+    if(lineas||((nc&&nc.trim())||(nn&&nn.trim()))){
+      hayDatos=true;
+      html+='<div class="rubro-bloque"><h4>'+cat.title+'</h4>'+lineas;
+      if(nc&&nc.trim()) html+='<p class="nota'+(nc!==ncAntes?' nuevo':'')+'">Cliente: '+nc+'</p>';
+      if(nn&&nn.trim()) html+='<p class="nota">Nexo: '+nn+'</p>';
+      html+='</div>';
+    }
+  });
+  return hayDatos?('<div class="bitacora-grid">'+html+'</div>'):'<p class="vacio" style="margin-top:1rem">El cliente todavía no cargó decisiones.</p>';
+}
+
+function estCls(v){ if(v==='Mantener opción cotizada'||v==='Definido')return 'def'; if(v==='Evaluar alternativa')return 'eval'; if(v==='Requiere recotización')return 'recot'; return 'adef'; }
+function imprimir(idx){
+  var row=FILAS[idx]; var d=row.datos||{};
+  var hoy=new Date().toLocaleDateString('es-AR',{day:'2-digit',month:'long',year:'numeric'});
+  var html='<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Tu Casa Nexo - '+row.nombre+'</title>'
+    +'<style>'
+    +'@page{margin:1.8cm 1.8cm 2.2cm 1.8cm}'
+    +'*{margin:0;padding:0;box-sizing:border-box}'
+    +'body{font-family:"DM Sans",Arial,sans-serif;color:#1a1410;font-size:12.5px;line-height:1.65}'
+    +'.head{display:flex;justify-content:space-between;align-items:center;padding-bottom:18px;margin-bottom:28px;border-bottom:3px solid #c9aa82}'
+    +'.head-left{display:flex;align-items:center;gap:16px}'
+    +'.logo{width:46px;opacity:0.88}'
+    +'.marca{font-size:9px;letter-spacing:2.8px;text-transform:uppercase;color:#a8866a;margin-bottom:4px}'
+    +'.doc-tipo{font-size:20px;font-weight:300;color:#1a1410;letter-spacing:-0.3px}'
+    +'.head-right{text-align:right}'
+    +'.fecha{font-size:9.5px;color:#a8866a;letter-spacing:0.08em;margin-bottom:6px}'
+    +'.cliente{font-size:26px;font-weight:600;letter-spacing:-0.5px;color:#1a1410;line-height:1.1}'
+    +'.rb{margin-bottom:22px;page-break-inside:avoid}'
+    +'.rb-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid #e8e0d8}'
+    +'.rb-bar{width:3px;height:16px;background:#c9aa82;border-radius:2px;flex-shrink:0}'
+    +'.rb-titulo{font-size:9.5px;letter-spacing:2.5px;text-transform:uppercase;color:#a8866a;font-weight:500}'
+    +'.dec{display:flex;align-items:baseline;gap:14px;padding:5px 0;border-bottom:1px solid #f2ece6}'
+    +'.dec:last-of-type{border-bottom:none}'
+    +'.it{font-weight:600;font-size:12px;min-width:175px;flex-shrink:0;color:#1a1410}'
+    +'.val{color:#5a4a3e;flex:1;font-size:12px}'
+    +'.est{font-size:9px;white-space:nowrap;padding:2px 9px;border-radius:10px;font-weight:500}'
+    +'.adef{color:#8c7d72;background:#efeae5}'
+    +'.def{color:#7a5c1e;background:#f5ead8}'
+    +'.eval{color:#7a5c1e;background:#f5ead8}'
+    +'.recot{color:#8b3a1e;background:#fae0d8}'
+    +'.nota{font-size:10.5px;color:#7a6a60;font-style:italic;margin-top:5px;padding-left:189px}'
+    +'.vacio{color:#7a6a60;font-style:italic}'
+    +'.footer{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-between;padding-top:8px;border-top:1px solid #e8e0d8;font-size:8px;color:#c9aa82;letter-spacing:2px;text-transform:uppercase}'
+    +'</style></head><body>'
+    +'<div class="head">'
+    +'<div class="head-left"><img class="logo" src="../assets/nexo-icono-negro.png"><div><p class="marca">Nexo · Taller de Casas</p><p class="doc-tipo">Tu Casa Nexo</p></div></div>'
+    +'<div class="head-right"><p class="fecha">Bitácora de proyecto · '+hoy+'</p><p class="cliente">'+row.nombre+'</p></div>'
+    +'</div>'
+    +'<div class="footer"><span>Nexo · Taller de Casas</span><span>Tu Casa Nexo</span></div>';
+  var hay=false;
+  CATEGORIES.forEach(function(cat){
+    var lineas='';
+    cat.items.forEach(function(it){
+      var item=it[0];
+      var kE=keyFor(cat.slug,item,'eleccion'), kC=keyFor(cat.slug,item,'condicion');
+      var e=d[kE], cnd=d[kC]||'A definir';
+      hay=true;
+      lineas+='<div class="dec"><span class="it">'+item+'</span><span class="val">'+(e&&e.trim()?e:'—')+'</span><span class="est '+estCls(cnd)+'">'+cnd+'</span></div>';
+    });
+    var extrasRaw=d['extras_'+cat.slug];
+    if(extrasRaw){ var extras; try{ extras=JSON.parse(extrasRaw); }catch(ex){ extras=[]; } extras.forEach(function(ex){ var kE=keyFor('x_'+cat.slug,ex.name,'eleccion'), kC=keyFor('x_'+cat.slug,ex.name,'condicion'); var e=d[kE], cnd=d[kC]||'A definir'; hay=true; lineas+='<div class="dec"><span class="it">'+ex.name+'</span><span class="val">'+(e&&e.trim()?e:'—')+'</span><span class="est '+estCls(cnd)+'">'+cnd+'</span></div>'; }); }
+    var nc=d[cat.slug+'_comentario_cliente'], nn=d[cat.slug+'_comentario_nexo'];
+    if(lineas||(nc&&nc.trim())||(nn&&nn.trim())){
+      hay=true;
+      html+='<div class="rb"><div class="rb-head"><div class="rb-bar"></div><span class="rb-titulo">'+cat.title+'</span></div>'+lineas;
+      if(nc&&nc.trim()) html+='<p class="nota">Cliente: '+nc+'</p>';
+      if(nn&&nn.trim()) html+='<p class="nota">Nexo: '+nn+'</p>';
+      html+='</div>';
+    }
+  });
+  if(!hay) html+='<p class="vacio">Sin decisiones registradas aún.</p>';
+  html+='</body></html>';
+  var w=window.open('','_blank');
+  w.document.write(html);
+  w.document.close();
+  setTimeout(function(){ w.print(); }, 400);
+}
+function irAlPanel(){ document.querySelectorAll('.cli.abierto').forEach(function(x){x.classList.remove('abierto');}); actualizarFlotante(); window.scrollTo({top:0,behavior:'smooth'}); }
+function actualizarFlotante(){ var b=document.getElementById('top-flotante'); if(b) b.classList.toggle('show', !!document.querySelector('.cli.abierto')); }
+function toggleCli(head,token,actualizado){ 
+  head.parentNode.classList.toggle('abierto'); 
+  if(head.parentNode.classList.contains('abierto') && token){
+    localStorage.setItem('visto_'+token, actualizado||new Date().toISOString());
+    var nombreEl=document.getElementById('nombre-'+token);
+    if(nombreEl){ var badge=nombreEl.querySelector('.badge-nuevo'); if(badge) badge.remove(); }
+    // guardar snapshot de datos actuales para comparar en la próxima visita
+    var row=FILAS.find(function(r){ return r.token===token; });
+    if(row) localStorage.setItem('datos_'+token, JSON.stringify(row.datos||{}));
+  }
+  actualizarFlotante(); 
+}
+function cerrarCli(btn){ var card=btn.closest('.cli'); card.classList.remove('abierto'); actualizarFlotante(); card.scrollIntoView({behavior:'smooth',block:'center'}); }
+function copiar(txt,btn){
+  navigator.clipboard.writeText(txt).then(function(){ var t=btn.textContent; btn.textContent='¡Copiado!'; setTimeout(function(){btn.textContent=t;},1500); });
+}
+</script>
+</body>
+</html>

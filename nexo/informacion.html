@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qué incluye y cómo seguimos · Nexo Casas</title>
+<meta name="description" content="Conocé en detalle qué incluye una casa Nexo y cuáles son los pasos del proceso, desde la reserva hasta la entrega.">
+<link rel="stylesheet" href="https://use.typekit.net/gvc0wtt.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --negro:#1a1814; --carbon:#2d2b27; --amber:#C4A882; --madera:#8B6F47;
+    --bg:#FAFAF8; --text:#1a1814; --muted:#7a7570; --border:#e8e4df;
+    --fd:'scale-variable',sans-serif; --fb:'DM Sans',sans-serif;
+  }
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--fb);background:var(--bg);color:var(--text);line-height:1.6;}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3.5rem;background:rgba(26,24,20,0.96);backdrop-filter:blur(8px);}
+  .nav-logo{display:flex;align-items:center;gap:0.6rem;text-decoration:none;cursor:pointer;}
+  .nav-logo img{height:22px;width:auto;}
+  .nav-logo span{font-family:var(--fd);font-size:1.05rem;font-weight:300;color:#FAFAF8;letter-spacing:0.04em;}
+  .nav-back{font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(250,250,248,0.6);text-decoration:none;display:flex;align-items:center;gap:0.4rem;transition:color 0.2s;}
+  .nav-back:hover{color:var(--amber);}
+
+  .header{padding:8rem 3.5rem 3rem;max-width:1100px;margin:0 auto;text-align:center;}
+  .header-eyebrow{font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--madera);margin-bottom:1.25rem;}
+  .header-titulo{font-family:var(--fd);font-weight:300;font-size:clamp(1.9rem,4vw,3.2rem);line-height:1.15;margin-bottom:1.25rem;}
+  .header-texto{font-size:0.92rem;color:var(--muted);max-width:60ch;margin:0 auto;line-height:1.8;}
+
+  .tabs{display:flex;justify-content:center;gap:0.75rem;padding:2rem 3.5rem 0;flex-wrap:wrap;}
+  .tab-btn{padding:0.65rem 1.5rem;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:var(--fb);font-size:0.78rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all 0.2s;}
+  .tab-btn.activo,.tab-btn:hover{background:var(--negro);color:#FAFAF8;border-color:var(--negro);}
+
+  .panel{display:none;max-width:1100px;margin:0 auto;padding:3rem 3.5rem 6rem;}
+  .panel.activo{display:block;}
+
+  .intro-nota{font-size:0.85rem;color:var(--muted);line-height:1.7;padding:1.25rem 0 1.75rem;border-bottom:1px solid var(--border);margin-bottom:2rem;}
+  .intro-nota strong{color:var(--text);}
+
+  .cat{margin-bottom:0; border-bottom:1px solid var(--border);}
+  .cat-header{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 0;cursor:pointer;}
+  .cat-titulo{font-family:var(--fd);font-weight:400;font-size:1.2rem;color:var(--text);margin-bottom:0;}
+  .cat-icono{font-size:1.4rem;font-weight:300;color:var(--madera);transition:transform 0.25s;flex-shrink:0;margin-left:1rem;}
+  .cat.abierto .cat-icono{transform:rotate(45deg);}
+  .cat-body{max-height:0;overflow:hidden;transition:max-height 0.35s ease;}
+  .cat.abierto .cat-body{max-height:2000px;}
+  .cat-body-inner{padding-bottom:1.5rem;}
+  .sub-titulo{font-size:0.7rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--madera);margin:1rem 0 0.5rem;}
+  .lista{list-style:none;padding:0;}
+  .lista li{font-size:0.86rem;color:var(--text);padding:0.4rem 0;padding-left:1.1rem;position:relative;line-height:1.5;}
+  .lista li::before{content:'';position:absolute;left:0;top:0.85rem;width:4px;height:4px;border-radius:50%;background:var(--madera);}
+  .nota-item{font-size:0.78rem;color:var(--muted);font-style:italic;margin-top:0.5rem;}
+  .opc-sub{font-size:0.82rem;color:var(--muted);margin-bottom:0.5rem;}
+
+  .cotizar-item{padding:1rem 0;border-bottom:1px solid var(--border);}
+  .cotizar-item:last-child{border-bottom:none;}
+  .cotizar-titulo{font-family:var(--fd);font-weight:400;font-size:1rem;margin-bottom:0.3rem;}
+  .cotizar-desc{font-size:0.82rem;color:var(--muted);}
+
+  .pasos{display:flex;flex-direction:column;gap:0;}
+  .paso{display:flex;align-items:center;gap:1.5rem;padding:1.75rem 0;border-bottom:1px solid var(--border);}
+  .paso:last-child{border-bottom:none;}
+  .paso-icono{width:48px;height:48px;flex-shrink:0;}
+  .paso-icono svg{width:100%;height:100%;}
+  .paso-icono svg path,.paso-icono svg polygon,.paso-icono svg rect{fill:var(--madera) !important;}
+  .paso-etapa{font-size:0.68rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.3rem;}
+  .paso-nombre{font-family:var(--fd);font-weight:400;font-size:1.1rem;color:var(--text);margin-bottom:0.2rem;}
+  .paso-desc{font-size:0.8rem;color:var(--muted);}
+
+  .cta-final{background:var(--negro);padding:4rem 3.5rem;text-align:center;}
+  .cta-final h3{font-family:var(--fd);font-weight:300;font-size:clamp(1.5rem,3vw,2.2rem);color:#FAFAF8;margin-bottom:1rem;}
+  .cta-final p{font-size:0.88rem;color:rgba(250,250,248,0.55);max-width:50ch;margin:0 auto 2rem;line-height:1.7;}
+  .cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+  .btn-amber{display:inline-block;padding:0.85rem 2rem;background:var(--amber);color:#1a1814;font-size:0.75rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;border-radius:2px;}
+  .btn-ghost{display:inline-block;padding:0.85rem 2rem;border:1px solid rgba(250,250,248,0.25);color:#FAFAF8;font-size:0.75rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;border-radius:2px;}
+
+  @media (max-width:700px){
+    nav{padding:1rem 1.25rem;}
+    .header{padding:6.5rem 1.25rem 2rem;}
+    .tabs{padding:1.5rem 1.25rem 0;}
+    .panel{padding:2rem 1.25rem 4rem;}
+    .paso{gap:1rem;}
+    .paso-icono{width:38px;height:38px;}
+    .cta-final{padding:3rem 1.25rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="proyectos.html" class="nav-logo">
+    <img src="../assets/nexo-icono-blanco.png" alt="Nexo">
+    <span>Nexo</span>
+  </a>
+  <a href="proyectos.html" class="nav-back">← Volver</a>
+</nav>
+
+<div class="header">
+  <p class="header-eyebrow">Tu Casa Nexo</p>
+  <h1 class="header-titulo">Todo lo que necesitás saber para dar el primer paso</h1>
+  <p class="header-texto">Conocé qué incluye una casa Nexo y cómo avanzamos juntos desde el primer contacto hasta la entrega.</p>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn activo" onclick="mostrarTab('incluye', this)">¿Qué incluye?</button>
+  <button class="tab-btn" onclick="mostrarTab('seguimos', this)">¿Cómo seguimos?</button>
+</div>
+
+<div class="panel activo" id="panel-incluye">
+  <p class="intro-nota">El siguiente listado es la <strong>base del cómputo</strong> de toda casa Nexo. <strong>Puede ajustarse según las personalizaciones del proyecto,</strong> a partir de las cuales se define el alcance final.</p>
+
+  <div class="cat" id="cat-1">
+      <div class="cat-header" onclick="toggleCat(1)">
+        <h3 class="cat-titulo">Estructura y Aislación</h3>
+        <span class="cat-icono">+</span>
+      </div>
+      <div class="cat-body">
+        <div class="cat-body-inner">
+    <p class="sub-titulo">En Taller</p>
+    <ul class="lista">
+      <li>Tabiquería de madera (Sistema Wood Frame)</li>
+      <li>Aislación térmica interior — Lana de vidrio 100mm</li>
+      <li>Membrana hidrófuga</li>
+    </ul>
+    <p class="sub-titulo">En Terreno</p>
+    <ul class="lista">
+      <li>Bases de fundación de hormigón (prefabricadas en taller)</li>
+      <li>Estructura de vigas de madera multilaminada para montaje</li>
+    </ul>
+  </div>
+      </div>
+    </div>
+
+  <div class="cat" id="cat-2">
+      <div class="cat-header" onclick="toggleCat(2)">
+        <h3 class="cat-titulo">Aberturas</h3>
+        <span class="cat-icono">+</span>
+      </div>
+      <div class="cat-body">
+        <div class="cat-body-inner">
+    <ul class="lista">
+      <li>PVC Negro marca Rehau con vidrios DVH</li>
+      <li>Puerta exterior de madera pintada (fabricada en taller)</li>
+      <li>Puertas interiores de machimbre de Eucalipto (fabricadas en taller)</li>
+    </ul>
+  </div>
+      </div>
+    </div>
+
+  <div class="cat" id="cat-3">
+      <div class="cat-header" onclick="toggleCat(3)">
+        <h3 class="cat-titulo">Revestimiento Exterior</h3>
+        <span class="cat-icono">+</span>
+      </div>
+      <div class="cat-body">
+        <div class="cat-body-inner">
+    <ul class="lista">
+      <li>Techos: Chapa sinusoidal prepintada / varios colores</li>
+      <li>Paredes: Chapa sinusoidal + Entablonado vertical 1"×6" Pino impregnado</li>
+      <li>Esquineros y contramarcos: chapa y pino impregnado pintado</li>
+    </ul>
+    <p class="nota-item">* No incluye canaletas.</p>
+  </div>
+      </div>
+    </div>
+
+  <div class="cat" id="cat-4">
+      <div class="cat-header" onclick="toggleCat(4)">
+        <h3 class="cat-titulo">Revestimiento Interior</h3>
+        <span class="cat-icono">+</span>
+      </div>
+      <div class="cat-body">
+        <div class="cat-body-inner">
+    <ul class="lista">
+      <li>Paredes y cielorraso: Machimbre de Eucalipto ½"×5"</li>
+      <li>Piso: Flotante vinílico SPC varios colores</li>
+      <li>Zócalos, contramarcos y terminaciones de Eucalipto</li>
+    </ul>
+  </div>
+      </div>
+    </div>
+
+  <div class="cat" id="cat-5">
+      <div class="cat-header" onclick="toggleCat(5)">
+        <h3 class="cat-titulo">Revestimiento Baños</h3>
+        <span class="cat-icono">+</span>
+      </div>
+      <div class="cat-body">
+        <div class="cat-body-inner">
+    <ul class="lista">
+      <li>Revestimiento cerámico 60×60, aprox. 3m² en ducha y detrás de artefactos</li>
+    </ul>
+  </div>
+      </div>
+    </div>
+
+  <div class="cat" id="cat-6">
+      <div class="cat-header" onclick="toggleCat(6)">
+        <h3 class="cat-titulo">Instalaciones</h3>
+        <span class="cat-icono">+</span>
+      </div>
+      <div class="cat-body">
+        <div class="cat-body-inner">
+    <p class="sub-titulo">Agua fría y caliente</p>
+    <ul class="lista"><li>Cocina, Baño y Lavadero · Termotanque eléctrico 90 lts</li></ul>
+    <p class="nota-item">* No incluye tanque de reserva.</p>
+    <p class="sub-titulo">Cloacal</p>
+    <ul class="lista"><li>Cocina, Baño y Lavadero</li></ul>
+    <p class="nota-item">* No incluye lecho nitrificante o conexión a red cloacal.</p>
+    <p class="sub-titulo">Eléctrica</p>
+    <ul class="lista">
+      <li>15 bocas de iluminación · 20 tomacorrientes / interruptores</li>
+      <li>Tablero con disyuntor + 3 térmicas · Iluminación exterior y LED bajo alacena</li>
+    </ul>
+    <p class="nota-item">* No incluye artefactos interiores. A determinar en proyecto.</p>
+  </div>
+      </div>
+    </div>
+
+  <div class="cat" id="cat-7">
+      <div class="cat-header" onclick="toggleCat(7)">
+        <h3 class="cat-titulo">Cocina</h3>
+        <span class="cat-icono">+</span>
+      </div>
+      <div class="cat-body">
+        <div class="cat-body-inner">
+    <p class="sub-titulo">Equipamiento</p>
+    <ul class="lista">
+      <li>Mesada Negro Brasil (3m × 0,60m) · Bacha Inox. Johnson R37</li>
+      <li>Grifería monocomando FV Puelo · Motor extractor 4"</li>
+      <li>Alzada de machimbre de Eucalipto</li>
+    </ul>
+    <p class="sub-titulo">Muebles</p>
+    <ul class="lista">
+      <li>Alacena: 6 puertas, estantes, LED bajo alacena</li>
+      <li>Bajo mesada: 3 cajones, especiero, 3 puertas, gabinete heladera</li>
+    </ul>
+    <p class="nota-item">* No incluye: cocina, heladera, microondas, lavavajillas.</p>
+  </div>
+      </div>
+    </div>
+
+  <div class="cat" id="cat-8">
+      <div class="cat-header" onclick="toggleCat(8)">
+        <h3 class="cat-titulo">Baño</h3>
+        <span class="cat-icono">+</span>
+      </div>
+      <div class="cat-body">
+        <div class="cat-body-inner">
+    <ul class="lista">
+      <li>Inodoro + Depósito + Tapa Roca Monaco</li>
+      <li>Bidet de mano monocomando</li>
+      <li>Kit griferías FV Puelo (Ducha + Lavatorio)</li>
+      <li>Receptáculo de ducha 140×70</li>
+      <li>Vanitory colgante de Eucalipto c/2 puertas y estante</li>
+    </ul>
+    <p class="nota-item">* No incluye mampara de ducha.</p>
+  </div>
+      </div>
+    </div>
+
+  <div class="cat" id="cat-9">
+      <div class="cat-header" onclick="toggleCat(9)">
+        <h3 class="cat-titulo">Lavadero</h3>
+        <span class="cat-icono">+</span>
+      </div>
+      <div class="cat-body">
+        <div class="cat-body-inner">
+    <ul class="lista">
+      <li>Mesada tablero Eucalipto 30mm · Pileta Mi Pileta 46×37×24</li>
+      <li>Grifería FV Puelo · Mueble placard 2 puertas corredizas piso a techo</li>
+    </ul>
+    <p class="nota-item">* No incluye lavarropas ni su conexión.</p>
+  </div>
+      </div>
+    </div>
+
+  <div class="cat" id="cat-10">
+      <div class="cat-header" onclick="toggleCat(10)">
+        <h3 class="cat-titulo">Opcionales</h3>
+        <span class="cat-icono">+</span>
+      </div>
+      <div class="cat-body">
+        <div class="cat-body-inner">
+    <p class="opc-sub">Consultar para cotizar.</p>
+    <ul class="lista">
+      <li>Colocación de artefactos de iluminación</li>
+      <li>Instalación de lavarropas y/o lavavajillas</li>
+      <li>Colocación de accesorios: barrales de cortinas, estanterías, espejos, portarrollos, toalleros, etc.</li>
+      <li>Limpieza final de obra</li>
+      <li>Expansiones exteriores: Deck, semicubierto</li>
+      <li>Parquización</li>
+    </ul>
+  </div>
+      </div>
+    </div>
+
+  <div class="cat" id="cat-11">
+      <div class="cat-header" onclick="toggleCat(11)">
+        <h3 class="cat-titulo">No incluido · A cotizar según lote y proyecto</h3>
+        <span class="cat-icono">+</span>
+      </div>
+      <div class="cat-body">
+        <div class="cat-body-inner">
+    <div class="cotizar-item">
+      <p class="cotizar-titulo">Movimiento de suelo</p>
+      <p class="cotizar-desc">Visitamos el terreno para evaluar la factibilidad del proyecto y cotizar las tareas necesarias.</p>
+    </div>
+    <div class="cotizar-item">
+      <p class="cotizar-titulo">Conexión a servicios</p>
+      <p class="cotizar-desc">Según disponibilidad en tu lote, evaluamos y cotizamos las tareas a realizar.</p>
+    </div>
+    <div class="cotizar-item">
+      <p class="cotizar-titulo">Traslado</p>
+      <p class="cotizar-desc">Una vez lista tu casa, cotizamos el transporte hasta el terreno.</p>
+    </div>
+    <div class="cotizar-item">
+      <p class="cotizar-titulo">Sistema de calefacción</p>
+      <p class="cotizar-desc">A definir según servicios disponibles, presupuesto y preferencias.</p>
+    </div>
+  </div>
+      </div>
+    </div>
+</div>
+
+<div class="panel" id="panel-seguimos">
+  <p class="intro-nota">Todo empieza con un <strong>primer contacto</strong> para armar tu cotización inicial. Después, con la reserva de tu lugar comenzamos la personalización del proyecto y avanzamos juntos paso a paso.</p>
+
+  <div class="pasos">
+    <div class="paso">
+      <div class="paso-icono"><img src="../assets/icono-dialogo.svg" style="width:100%;height:100%;filter:invert(58%) sepia(20%) saturate(600%) hue-rotate(355deg) brightness(95%);"></div>
+      <div>
+        <p class="paso-etapa">Etapa 0 · Primer contacto</p>
+        <p class="paso-nombre">Cotización inicial</p>
+        <p class="paso-desc">Te contactás con nuestro equipo y armamos juntos la cotización inicial de tu proyecto.</p>
+      </div>
+    </div>
+
+    <div class="paso">
+      <div class="paso-icono"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><g><path d="M47.24,167.39l-1.98-1.44-23.07-18.65-.06-1.47v-37.74l36.66-29.1,3.33,1.42.14,1.88.37,11.31,18.86-15.67,1.99,1.45,22.93,18.6.06,1.46v19.53l-1.11.97-58.13,47.43ZM27.75,144.57l19.37,15.66,53.73-43.85v-15.66l-19.22-15.59-20.93,17.39-3.37-1.44-.14-1.9-.38-11.45-29.06,23.06v33.77Z"/><polygon points="26.72 148.08 23.16 143.74 81.45 95.88 83.43 97.24 105.47 115.56 101.87 119.88 81.6 103.03 26.72 148.08"/><rect x="62.13" y="79.41" width="5.62" height="14.03" transform="translate(-43.13 83.68) rotate(-51.62)"/></g></svg></div>
+      <div>
+        <p class="paso-etapa">Etapa 1 · Anteproyecto</p>
+        <p class="paso-nombre">Reserva de lugar</p>
+        <p class="paso-desc">Con un anticipo reservás tu lugar en la agenda de producción.</p>
+      </div>
+    </div>
+
+    <div class="paso">
+      <div class="paso-icono"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><polygon points="154.41 141.84 125.78 141.84 125.78 135.28 147.85 135.28 147.85 123.12 154.41 123.12 154.41 141.84"/><polygon points="154.41 104.26 147.85 104.26 147.85 66.64 52.15 66.64 52.15 84.24 45.59 84.24 45.59 60.08 154.41 60.08 154.41 104.26"/><polygon points="103.37 141.84 45.59 141.84 45.59 104.26 52.15 104.26 52.15 135.28 103.37 135.28 103.37 141.84"/><rect x="78.3" y="63.36" width="6.56" height="40.89"/><rect x="100.09" y="63.36" width="6.56" height="59.75"/><rect x="125.78" y="80.96" width="28.15" height="6.56"/><rect x="78.3" y="123.12" width="6.56" height="16.97"/><polygon points="177.66 159.2 151.13 159.2 151.13 152.64 171.1 152.64 171.1 47.36 151.13 47.36 151.13 40.8 177.66 40.8 177.66 159.2"/><polygon points="48.87 159.2 22.34 159.2 22.34 40.8 48.87 40.8 48.87 47.36 28.9 47.36 28.9 152.64 48.87 152.64 48.87 159.2"/></svg></div>
+      <div>
+        <p class="paso-etapa">Etapa 2 · Proyecto</p>
+        <p class="paso-nombre">Personalización y definición</p>
+        <p class="paso-desc">Decisiones proyectuales · Definición de alcance final · Compra de materiales</p>
+      </div>
+    </div>
+
+    <div class="paso">
+      <div class="paso-icono"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path d="M159.83,154.31H40.17v-59.53l59.97-49.09,59.68,49.67v58.96ZM46.73,147.75h106.53v-49.33l-53.16-44.23-53.37,43.69v49.87Z"/></svg></div>
+      <div>
+        <p class="paso-etapa">Etapa 3 · Inicio de obra</p>
+        <p class="paso-nombre">Comienzo de fabricación</p>
+        <p class="paso-desc">Arranca la construcción de tu casa en nuestro taller de San Martín de los Andes.</p>
+      </div>
+    </div>
+
+    <div class="paso">
+      <div class="paso-icono"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path d="M159.83,154.31H40.17v-59.53l59.97-49.09,59.68,49.67v58.96ZM46.73,147.75h106.53v-49.33l-53.16-44.23-53.37,43.69v49.87Z"/><polygon points="138.47 151.03 131.91 151.03 131.91 114.21 101.15 88.67 68.54 115.04 68.54 151.03 61.98 151.03 61.98 111.91 101.21 80.19 138.47 111.13 138.47 151.03"/></svg></div>
+      <div>
+        <p class="paso-etapa">Etapa 4 · Avance de obra</p>
+        <p class="paso-nombre">Seguimiento del proceso</p>
+        <p class="paso-desc">Te mantenemos al tanto del avance con fotos y novedades del taller.</p>
+      </div>
+    </div>
+
+    <div class="paso">
+      <div class="paso-icono"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path d="M40.55,115.62l22.65,18.4,2.03,1.62,1.9-1.65,33.38-27.25,32.58,27.14,1.97,1.55,23.8-19.51,1.09-.94v-.61s.01,0,.01,0v-38.44s-1.21-.84-1.21-.84l-56.83-46.11-2.06-1.52-23.79,20.19s-.06.04-.08.06l-34.77,27.39c-.75.6-1.18,1.5-1.18,2.46v36.04c0,.69.23,1.34.63,1.87l-.12.14ZM65.14,127.67l-17.15-13.93,36.32-29.73,15.69-12.73,17.16,13.92-52.02,42.47ZM135.03,127.49l-29.67-24.72,16.67-13.61,29.98,24.4-16.99,13.92ZM81.08,51.47l18.96-16.1,53.77,43.62v28.09l-28.73-23.39.02-16.31-.02-1.5-23.1-18.74c-1.16-.94-2.84-.93-3.99.04l-16.92,14.3v-10.03ZM46.19,79.02l28.74-22.64v11.65c0,1.22.72,2.34,1.84,2.85l1.82.78,21.47-18.14,18.9,15.33v9.87s-16.94-13.74-16.94-13.74c-1.16-.97-2.85-.97-3.99-.02l-17.6,14.28-34.23,28.02v-28.24Z"/><polygon points="159.7 172.54 40.05 172.54 40.05 114.55 46.61 114.55 46.61 165.98 153.14 165.98 153.14 115.11 159.7 115.11 159.7 172.54"/><rect x="61.85" y="128.46" width="6.56" height="40.79"/><rect x="131.79" y="128.46" width="6.56" height="40.79"/></svg></div>
+      <div>
+        <p class="paso-etapa">Etapa 5 · Contraentrega</p>
+        <p class="paso-nombre">Traslado y entrega</p>
+        <p class="paso-desc">Tu casa llega a destino y se realiza el montaje final en el terreno.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-final">
+  <h3>¿Tenés un terreno y querés avanzar?</h3>
+  <p>Escribinos y te contamos los próximos pasos para tu Casa Nexo.</p>
+  <div class="cta-btns">
+    <a href="https://wa.me/5493512778244" target="_blank" class="btn-amber">Contactar</a>
+    <a href="proyectos.html#proyectos" class="btn-ghost">Ver proyectos</a>
+  </div>
+</div>
+
+<script>
+function mostrarTab(id, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('activo'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('activo'));
+  btn.classList.add('activo');
+  document.getElementById('panel-' + id).classList.add('activo');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleCat(idx) {
+  const cat = document.getElementById('cat-' + idx);
+  cat.classList.toggle('abierto');
+}
+</script>
+
+</body>
+</html>
