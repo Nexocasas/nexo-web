@@ -149,6 +149,11 @@
     margin: 0 auto;
   }
 
+  /* Ocultar portada al ver proyecto */
+  body.en-proyecto .nexo-intro,
+  body.en-proyecto .nexo-info,
+  body.en-proyecto .nexo-divider { display: none; }
+
   /* ── NEXO INFO SECTION ── */
   .nexo-info { background: var(--bg); padding: 5rem 3.5rem; max-width: 1300px; margin: 0 auto; }
   .nexo-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
@@ -1532,6 +1537,7 @@ function irAInicio() {
   document.getElementById('hero').classList.add('activa');
   document.getElementById('proyecto-page').classList.remove('activa');
   document.getElementById('nav-centro').classList.remove('visible');
+  document.body.classList.remove('en-proyecto');
   window.scrollTo({ top: 0 });
 }
 
@@ -1542,6 +1548,7 @@ function irAProyecto(idx) {
   document.getElementById('hero').classList.remove('activa');
   document.getElementById('proyecto-page').classList.add('activa');
   document.getElementById('nav-centro').classList.add('visible');
+  document.body.classList.add('en-proyecto');
   window.scrollTo({ top: 0 });
 }
 
