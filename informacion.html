@@ -39,8 +39,14 @@
   .intro-nota{font-size:0.85rem;color:var(--muted);line-height:1.7;padding:1.25rem 0 1.75rem;border-bottom:1px solid var(--border);margin-bottom:2rem;}
   .intro-nota strong{color:var(--text);}
 
-  .cat{margin-bottom:2.5rem;}
-  .cat-titulo{font-family:var(--fd);font-weight:400;font-size:1.2rem;margin-bottom:0.9rem;color:var(--text);}
+  .cat{margin-bottom:0; border-bottom:1px solid var(--border);}
+  .cat-header{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 0;cursor:pointer;}
+  .cat-titulo{font-family:var(--fd);font-weight:400;font-size:1.2rem;color:var(--text);margin-bottom:0;}
+  .cat-icono{font-size:1.4rem;font-weight:300;color:var(--madera);transition:transform 0.25s;flex-shrink:0;margin-left:1rem;}
+  .cat.abierto .cat-icono{transform:rotate(45deg);}
+  .cat-body{max-height:0;overflow:hidden;transition:max-height 0.35s ease;}
+  .cat.abierto .cat-body{max-height:2000px;}
+  .cat-body-inner{padding-bottom:1.5rem;}
   .sub-titulo{font-size:0.7rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--madera);margin:1rem 0 0.5rem;}
   .lista{list-style:none;padding:0;}
   .lista li{font-size:0.86rem;color:var(--text);padding:0.4rem 0;padding-left:1.1rem;position:relative;line-height:1.5;}
@@ -105,8 +111,13 @@
 <div class="panel activo" id="panel-incluye">
   <p class="intro-nota">El siguiente listado es la <strong>base del cómputo</strong> de toda casa Nexo. <strong>Puede ajustarse según las personalizaciones del proyecto,</strong> a partir de las cuales se define el alcance final.</p>
 
-  <div class="cat">
-    <h3 class="cat-titulo">Estructura y Aislación</h3>
+  <div class="cat" id="cat-1">
+      <div class="cat-header" onclick="toggleCat(1)">
+        <h3 class="cat-titulo">Estructura y Aislación</h3>
+        <span class="cat-icono">+</span>
+      </div>
+      <div class="cat-body">
+        <div class="cat-body-inner">
     <p class="sub-titulo">En Taller</p>
     <ul class="lista">
       <li>Tabiquería de madera (Sistema Wood Frame)</li>
@@ -119,18 +130,32 @@
       <li>Estructura de vigas de madera multilaminada para montaje</li>
     </ul>
   </div>
+      </div>
+    </div>
 
-  <div class="cat">
-    <h3 class="cat-titulo">Aberturas</h3>
+  <div class="cat" id="cat-2">
+      <div class="cat-header" onclick="toggleCat(2)">
+        <h3 class="cat-titulo">Aberturas</h3>
+        <span class="cat-icono">+</span>
+      </div>
+      <div class="cat-body">
+        <div class="cat-body-inner">
     <ul class="lista">
       <li>PVC Negro marca Rehau con vidrios DVH</li>
       <li>Puerta exterior de madera pintada (fabricada en taller)</li>
       <li>Puertas interiores de machimbre de Eucalipto (fabricadas en taller)</li>
     </ul>
   </div>
+      </div>
+    </div>
 
-  <div class="cat">
-    <h3 class="cat-titulo">Revestimiento Exterior</h3>
+  <div class="cat" id="cat-3">
+      <div class="cat-header" onclick="toggleCat(3)">
+        <h3 class="cat-titulo">Revestimiento Exterior</h3>
+        <span class="cat-icono">+</span>
+      </div>
+      <div class="cat-body">
+        <div class="cat-body-inner">
     <ul class="lista">
       <li>Techos: Chapa sinusoidal prepintada / varios colores</li>
       <li>Paredes: Chapa sinusoidal + Entablonado vertical 1"×6" Pino impregnado</li>
@@ -138,25 +163,46 @@
     </ul>
     <p class="nota-item">* No incluye canaletas.</p>
   </div>
+      </div>
+    </div>
 
-  <div class="cat">
-    <h3 class="cat-titulo">Revestimiento Interior</h3>
+  <div class="cat" id="cat-4">
+      <div class="cat-header" onclick="toggleCat(4)">
+        <h3 class="cat-titulo">Revestimiento Interior</h3>
+        <span class="cat-icono">+</span>
+      </div>
+      <div class="cat-body">
+        <div class="cat-body-inner">
     <ul class="lista">
       <li>Paredes y cielorraso: Machimbre de Eucalipto ½"×5"</li>
       <li>Piso: Flotante vinílico SPC varios colores</li>
       <li>Zócalos, contramarcos y terminaciones de Eucalipto</li>
     </ul>
   </div>
+      </div>
+    </div>
 
-  <div class="cat">
-    <h3 class="cat-titulo">Revestimiento Baños</h3>
+  <div class="cat" id="cat-5">
+      <div class="cat-header" onclick="toggleCat(5)">
+        <h3 class="cat-titulo">Revestimiento Baños</h3>
+        <span class="cat-icono">+</span>
+      </div>
+      <div class="cat-body">
+        <div class="cat-body-inner">
     <ul class="lista">
       <li>Revestimiento cerámico 60×60, aprox. 3m² en ducha y detrás de artefactos</li>
     </ul>
   </div>
+      </div>
+    </div>
 
-  <div class="cat">
-    <h3 class="cat-titulo">Instalaciones</h3>
+  <div class="cat" id="cat-6">
+      <div class="cat-header" onclick="toggleCat(6)">
+        <h3 class="cat-titulo">Instalaciones</h3>
+        <span class="cat-icono">+</span>
+      </div>
+      <div class="cat-body">
+        <div class="cat-body-inner">
     <p class="sub-titulo">Agua fría y caliente</p>
     <ul class="lista"><li>Cocina, Baño y Lavadero · Termotanque eléctrico 90 lts</li></ul>
     <p class="nota-item">* No incluye tanque de reserva.</p>
@@ -170,9 +216,16 @@
     </ul>
     <p class="nota-item">* No incluye artefactos interiores. A determinar en proyecto.</p>
   </div>
+      </div>
+    </div>
 
-  <div class="cat">
-    <h3 class="cat-titulo">Cocina</h3>
+  <div class="cat" id="cat-7">
+      <div class="cat-header" onclick="toggleCat(7)">
+        <h3 class="cat-titulo">Cocina</h3>
+        <span class="cat-icono">+</span>
+      </div>
+      <div class="cat-body">
+        <div class="cat-body-inner">
     <p class="sub-titulo">Equipamiento</p>
     <ul class="lista">
       <li>Mesada Negro Brasil (3m × 0,60m) · Bacha Inox. Johnson R37</li>
@@ -186,9 +239,16 @@
     </ul>
     <p class="nota-item">* No incluye: cocina, heladera, microondas, lavavajillas.</p>
   </div>
+      </div>
+    </div>
 
-  <div class="cat">
-    <h3 class="cat-titulo">Baño</h3>
+  <div class="cat" id="cat-8">
+      <div class="cat-header" onclick="toggleCat(8)">
+        <h3 class="cat-titulo">Baño</h3>
+        <span class="cat-icono">+</span>
+      </div>
+      <div class="cat-body">
+        <div class="cat-body-inner">
     <ul class="lista">
       <li>Inodoro + Depósito + Tapa Roca Monaco</li>
       <li>Bidet de mano monocomando</li>
@@ -198,18 +258,32 @@
     </ul>
     <p class="nota-item">* No incluye mampara de ducha.</p>
   </div>
+      </div>
+    </div>
 
-  <div class="cat">
-    <h3 class="cat-titulo">Lavadero</h3>
+  <div class="cat" id="cat-9">
+      <div class="cat-header" onclick="toggleCat(9)">
+        <h3 class="cat-titulo">Lavadero</h3>
+        <span class="cat-icono">+</span>
+      </div>
+      <div class="cat-body">
+        <div class="cat-body-inner">
     <ul class="lista">
       <li>Mesada tablero Eucalipto 30mm · Pileta Mi Pileta 46×37×24</li>
       <li>Grifería FV Puelo · Mueble placard 2 puertas corredizas piso a techo</li>
     </ul>
     <p class="nota-item">* No incluye lavarropas ni su conexión.</p>
   </div>
+      </div>
+    </div>
 
-  <div class="cat">
-    <h3 class="cat-titulo">Opcionales</h3>
+  <div class="cat" id="cat-10">
+      <div class="cat-header" onclick="toggleCat(10)">
+        <h3 class="cat-titulo">Opcionales</h3>
+        <span class="cat-icono">+</span>
+      </div>
+      <div class="cat-body">
+        <div class="cat-body-inner">
     <p class="opc-sub">Consultar para cotizar.</p>
     <ul class="lista">
       <li>Colocación de artefactos de iluminación</li>
@@ -220,9 +294,16 @@
       <li>Parquización</li>
     </ul>
   </div>
+      </div>
+    </div>
 
-  <div class="cat">
-    <h3 class="cat-titulo">No incluido · A cotizar según lote y proyecto</h3>
+  <div class="cat" id="cat-11">
+      <div class="cat-header" onclick="toggleCat(11)">
+        <h3 class="cat-titulo">No incluido · A cotizar según lote y proyecto</h3>
+        <span class="cat-icono">+</span>
+      </div>
+      <div class="cat-body">
+        <div class="cat-body-inner">
     <div class="cotizar-item">
       <p class="cotizar-titulo">Movimiento de suelo</p>
       <p class="cotizar-desc">Visitamos el terreno para evaluar la factibilidad del proyecto y cotizar las tareas necesarias.</p>
@@ -240,6 +321,8 @@
       <p class="cotizar-desc">A definir según servicios disponibles, presupuesto y preferencias.</p>
     </div>
   </div>
+      </div>
+    </div>
 </div>
 
 <div class="panel" id="panel-seguimos">
@@ -309,6 +392,11 @@ function mostrarTab(id, btn) {
   btn.classList.add('activo');
   document.getElementById('panel-' + id).classList.add('activo');
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleCat(idx) {
+  const cat = document.getElementById('cat-' + idx);
+  cat.classList.toggle('abierto');
 }
 </script>
 
