@@ -1011,9 +1011,15 @@
     <span style="font-family:'scale-variable',sans-serif;font-size:1.05rem;font-weight:300;color:var(--text);letter-spacing:0.04em;">Nexo</span>
   </div>
   <div class="nav-centro" id="nav-centro" onclick="irAInicio()" style="cursor:pointer;">Nuestros Proyectos</div>
-  <button class="hamburger" onclick="toggleMenu()" aria-label="Menú">
-    <span></span><span></span><span></span>
-  </button>
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <a href="../index.html" style="font-size:0.7rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,236,229,0.55);text-decoration:none;display:flex;align-items:center;gap:0.4rem;transition:color 0.2s;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='rgba(240,236,229,0.55)'">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Tomás Brinnand
+    </a>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
 <!-- ═══ MENU OVERLAY ═══ -->
