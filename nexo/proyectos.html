@@ -161,6 +161,19 @@
   .incluye-cat ul li { font-size: 0.78rem; color: var(--muted); padding: 0.3rem 0; padding-left: 0.9rem; position: relative; line-height: 1.5; border-bottom: 1px solid var(--border); }
   .incluye-cat ul li::before { content: ''; position: absolute; left: 0; top: 0.75rem; width: 3px; height: 3px; border-radius: 50%; background: var(--amber); opacity: 0.6; }
 
+  /* ── ACORDEÓN QUÉ INCLUYE ── */
+  .incluye-acordeon { border-top: 1px solid var(--border); }
+  .ia-item { border-bottom: 1px solid var(--border); cursor: pointer; }
+  .ia-header { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 0; }
+  .ia-titulo { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; color: var(--text); }
+  .ia-icono { font-size: 1.3rem; font-weight: 300; color: var(--amber); transition: transform 0.25s; line-height: 1; flex-shrink: 0; }
+  .ia-item.abierto .ia-icono { transform: rotate(45deg); }
+  .ia-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .ia-item.abierto .ia-body { max-height: 400px; }
+  .ia-lista { list-style: none; padding-bottom: 1.25rem; }
+  .ia-lista li { font-size: 0.8rem; color: var(--muted); padding: 0.35rem 0 0.35rem 1rem; position: relative; line-height: 1.5; }
+  .ia-lista li::before { content: ''; position: absolute; left: 0; top: 0.75rem; width: 3px; height: 3px; border-radius: 50%; background: var(--amber); opacity: 0.7; }
+
   /* ── PASOS ── */
   .pasos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
   .paso-item { display: flex; gap: 1.25rem; padding: 1.75rem; border: 1px solid var(--border); margin: -1px 0 0 -1px; }
@@ -1128,45 +1141,46 @@
   <div class="nexo-divider-line"></div>
 </div>
 
-<div class="nexo-info" style="padding-top:2rem;">
-  <p style="font-size:0.82rem;color:var(--muted);line-height:1.7;padding-bottom:1.5rem;border-bottom:1px solid var(--border);margin-bottom:2rem;">El siguiente listado es la <strong style="color:var(--text);">base del cómputo</strong> de toda casa Nexo. Puede ajustarse según las personalizaciones del proyecto, a partir de las cuales se define el alcance final.</p>
+<div class="nexo-info" style="padding-top:3rem;">
+  <h2 style="font-family:'scale-variable',sans-serif;font-weight:300;font-size:clamp(2rem,4vw,3.5rem);line-height:1.1;margin-bottom:0.75rem;">Todo lo que necesitás<br><span style="color:var(--amber);">para habitar.</span></h2>
+  <p style="font-size:0.85rem;color:var(--muted);max-width:58ch;line-height:1.75;margin-bottom:2.5rem;">El siguiente listado es la base del cómputo de toda casa Nexo. Puede ajustarse según las personalizaciones del proyecto.</p>
 
-  <div class="incluye-grid">
-    <div class="incluye-cat">
-      <h4>Estructura y Aislación</h4>
-      <ul><li>Tabiquería de madera (Wood Frame)</li><li>Aislación térmica — Lana de vidrio 100mm</li><li>Membrana hidrófuga</li><li>Bases de fundación de hormigón prefabricadas</li><li>Vigas de madera multilaminada</li></ul>
+  <div class="incluye-acordeon">
+    <div class="ia-item" onclick="toggleIA(this)">
+      <div class="ia-header"><span class="ia-titulo">Estructura y Aislación</span><span class="ia-icono">+</span></div>
+      <div class="ia-body"><ul class="ia-lista"><li>Tabiquería de madera (Wood Frame)</li><li>Aislación térmica — Lana de vidrio 100mm</li><li>Membrana hidrófuga</li><li>Bases de fundación de hormigón prefabricadas</li><li>Vigas de madera multilaminada</li></ul></div>
     </div>
-    <div class="incluye-cat">
-      <h4>Aberturas</h4>
-      <ul><li>PVC Negro Rehau con vidrios DVH</li><li>Puerta exterior de madera pintada</li><li>Puertas interiores de machimbre de Eucalipto</li></ul>
+    <div class="ia-item" onclick="toggleIA(this)">
+      <div class="ia-header"><span class="ia-titulo">Aberturas</span><span class="ia-icono">+</span></div>
+      <div class="ia-body"><ul class="ia-lista"><li>PVC Negro Rehau con vidrios DVH</li><li>Puerta exterior de madera pintada</li><li>Puertas interiores de machimbre de Eucalipto</li></ul></div>
     </div>
-    <div class="incluye-cat">
-      <h4>Revestimiento Exterior</h4>
-      <ul><li>Techos: Chapa sinusoidal prepintada</li><li>Paredes: Chapa sinusoidal + Entablonado pino</li><li>Esquineros y contramarcos</li></ul>
+    <div class="ia-item" onclick="toggleIA(this)">
+      <div class="ia-header"><span class="ia-titulo">Revestimiento Exterior</span><span class="ia-icono">+</span></div>
+      <div class="ia-body"><ul class="ia-lista"><li>Techos: Chapa sinusoidal prepintada</li><li>Paredes: Chapa sinusoidal + Entablonado pino</li><li>Esquineros y contramarcos</li></ul></div>
     </div>
-    <div class="incluye-cat">
-      <h4>Revestimiento Interior</h4>
-      <ul><li>Paredes y cielorraso: Machimbre de Eucalipto</li><li>Piso: Flotante vinílico SPC</li><li>Zócalos y terminaciones de Eucalipto</li></ul>
+    <div class="ia-item" onclick="toggleIA(this)">
+      <div class="ia-header"><span class="ia-titulo">Revestimiento Interior</span><span class="ia-icono">+</span></div>
+      <div class="ia-body"><ul class="ia-lista"><li>Paredes y cielorraso: Machimbre de Eucalipto</li><li>Piso: Flotante vinílico SPC</li><li>Zócalos y terminaciones de Eucalipto</li></ul></div>
     </div>
-    <div class="incluye-cat">
-      <h4>Instalaciones</h4>
-      <ul><li>Agua fría y caliente · Termotanque 90 lts</li><li>Instalación cloacal completa</li><li>Eléctrica: 15 bocas · 20 tomacorrientes · Tablero</li></ul>
+    <div class="ia-item" onclick="toggleIA(this)">
+      <div class="ia-header"><span class="ia-titulo">Instalaciones</span><span class="ia-icono">+</span></div>
+      <div class="ia-body"><ul class="ia-lista"><li>Agua fría y caliente · Termotanque 90 lts</li><li>Instalación cloacal completa</li><li>Eléctrica: 15 bocas · 20 tomacorrientes · Tablero</li></ul></div>
     </div>
-    <div class="incluye-cat">
-      <h4>Cocina</h4>
-      <ul><li>Mesada Negro Brasil · Bacha Inox</li><li>Grifería FV Puelo · Extractor</li><li>Alacena y bajo mesada completos</li></ul>
+    <div class="ia-item" onclick="toggleIA(this)">
+      <div class="ia-header"><span class="ia-titulo">Cocina</span><span class="ia-icono">+</span></div>
+      <div class="ia-body"><ul class="ia-lista"><li>Mesada Negro Brasil · Bacha Inox</li><li>Grifería FV Puelo · Extractor</li><li>Alacena y bajo mesada completos</li></ul></div>
     </div>
-    <div class="incluye-cat">
-      <h4>Baño</h4>
-      <ul><li>Inodoro + Bidet de mano</li><li>Kit griferías FV Puelo</li><li>Vanitory colgante de Eucalipto</li></ul>
+    <div class="ia-item" onclick="toggleIA(this)">
+      <div class="ia-header"><span class="ia-titulo">Baño</span><span class="ia-icono">+</span></div>
+      <div class="ia-body"><ul class="ia-lista"><li>Inodoro + Bidet de mano</li><li>Kit griferías FV Puelo</li><li>Vanitory colgante de Eucalipto</li></ul></div>
     </div>
-    <div class="incluye-cat">
-      <h4>Lavadero</h4>
-      <ul><li>Mesada Eucalipto · Pileta</li><li>Grifería FV Puelo</li><li>Placard piso a techo</li></ul>
+    <div class="ia-item" onclick="toggleIA(this)">
+      <div class="ia-header"><span class="ia-titulo">Lavadero</span><span class="ia-icono">+</span></div>
+      <div class="ia-body"><ul class="ia-lista"><li>Mesada Eucalipto · Pileta</li><li>Grifería FV Puelo</li><li>Placard piso a techo</li></ul></div>
     </div>
   </div>
 
-  <p style="font-size:0.78rem;color:var(--muted);margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);">No incluido y a cotizar según proyecto: movimiento de suelo · conexión a servicios · traslado · sistema de calefacción.</p>
+  <p style="font-size:0.75rem;color:var(--muted);opacity:0.7;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);">No incluido y a cotizar según proyecto: movimiento de suelo · conexión a servicios · traslado · sistema de calefacción.</p>
 </div>
 
 <!-- ═══ CÓMO SEGUIMOS ═══ -->
@@ -1674,7 +1688,11 @@ function cerrarMenu() {
   document.getElementById('menu-overlay').classList.remove('abierto');
 }
 
-function irAInicio() {
+function toggleIA(el) {
+  el.classList.toggle('abierto');
+}
+
+
   cerrarMenu();
   document.getElementById('hero').classList.add('activa');
   document.getElementById('proyecto-page').classList.remove('activa');
