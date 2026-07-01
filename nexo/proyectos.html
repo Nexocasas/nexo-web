@@ -1146,35 +1146,35 @@
   <p style="font-size:0.85rem;color:var(--muted);max-width:58ch;line-height:1.75;margin-bottom:2.5rem;">El siguiente listado es la base del cómputo de toda casa Nexo. Puede ajustarse según las personalizaciones del proyecto.</p>
 
   <div class="incluye-acordeon">
-    <div class="ia-item" onclick="toggleIA(this)">
+    <div class="ia-item">
       <div class="ia-header"><span class="ia-titulo">Estructura y Aislación</span><span class="ia-icono">+</span></div>
       <div class="ia-body"><ul class="ia-lista"><li>Tabiquería de madera (Wood Frame)</li><li>Aislación térmica — Lana de vidrio 100mm</li><li>Membrana hidrófuga</li><li>Bases de fundación de hormigón prefabricadas</li><li>Vigas de madera multilaminada</li></ul></div>
     </div>
-    <div class="ia-item" onclick="toggleIA(this)">
+    <div class="ia-item">
       <div class="ia-header"><span class="ia-titulo">Aberturas</span><span class="ia-icono">+</span></div>
       <div class="ia-body"><ul class="ia-lista"><li>PVC Negro Rehau con vidrios DVH</li><li>Puerta exterior de madera pintada</li><li>Puertas interiores de machimbre de Eucalipto</li></ul></div>
     </div>
-    <div class="ia-item" onclick="toggleIA(this)">
+    <div class="ia-item">
       <div class="ia-header"><span class="ia-titulo">Revestimiento Exterior</span><span class="ia-icono">+</span></div>
       <div class="ia-body"><ul class="ia-lista"><li>Techos: Chapa sinusoidal prepintada</li><li>Paredes: Chapa sinusoidal + Entablonado pino</li><li>Esquineros y contramarcos</li></ul></div>
     </div>
-    <div class="ia-item" onclick="toggleIA(this)">
+    <div class="ia-item">
       <div class="ia-header"><span class="ia-titulo">Revestimiento Interior</span><span class="ia-icono">+</span></div>
       <div class="ia-body"><ul class="ia-lista"><li>Paredes y cielorraso: Machimbre de Eucalipto</li><li>Piso: Flotante vinílico SPC</li><li>Zócalos y terminaciones de Eucalipto</li></ul></div>
     </div>
-    <div class="ia-item" onclick="toggleIA(this)">
+    <div class="ia-item">
       <div class="ia-header"><span class="ia-titulo">Instalaciones</span><span class="ia-icono">+</span></div>
       <div class="ia-body"><ul class="ia-lista"><li>Agua fría y caliente · Termotanque 90 lts</li><li>Instalación cloacal completa</li><li>Eléctrica: 15 bocas · 20 tomacorrientes · Tablero</li></ul></div>
     </div>
-    <div class="ia-item" onclick="toggleIA(this)">
+    <div class="ia-item">
       <div class="ia-header"><span class="ia-titulo">Cocina</span><span class="ia-icono">+</span></div>
       <div class="ia-body"><ul class="ia-lista"><li>Mesada Negro Brasil · Bacha Inox</li><li>Grifería FV Puelo · Extractor</li><li>Alacena y bajo mesada completos</li></ul></div>
     </div>
-    <div class="ia-item" onclick="toggleIA(this)">
+    <div class="ia-item">
       <div class="ia-header"><span class="ia-titulo">Baño</span><span class="ia-icono">+</span></div>
       <div class="ia-body"><ul class="ia-lista"><li>Inodoro + Bidet de mano</li><li>Kit griferías FV Puelo</li><li>Vanitory colgante de Eucalipto</li></ul></div>
     </div>
-    <div class="ia-item" onclick="toggleIA(this)">
+    <div class="ia-item">
       <div class="ia-header"><span class="ia-titulo">Lavadero</span><span class="ia-icono">+</span></div>
       <div class="ia-body"><ul class="ia-lista"><li>Mesada Eucalipto · Pileta</li><li>Grifería FV Puelo</li><li>Placard piso a techo</li></ul></div>
     </div>
@@ -1691,6 +1691,15 @@ function cerrarMenu() {
 function toggleIA(el) {
   el.classList.toggle('abierto');
 }
+
+// Inicializar acordeón cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.ia-item').forEach(function(item) {
+    item.querySelector('.ia-header').addEventListener('click', function() {
+      item.classList.toggle('abierto');
+    });
+  });
+});
 
 
   cerrarMenu();
