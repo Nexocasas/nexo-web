@@ -165,8 +165,8 @@
   .incluye-acordeon { border-top: 1px solid var(--border); }
   .ia-item { border-bottom: 1px solid var(--border); cursor: pointer; }
   .ia-header { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 0; }
-  .ia-titulo { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; color: var(--text); }
-  .ia-icono { font-size: 1.3rem; font-weight: 300; color: var(--amber); transition: transform 0.25s; line-height: 1; flex-shrink: 0; }
+  .ia-titulo { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; color: var(--text); pointer-events: none; }
+  .ia-icono { font-size: 1.3rem; font-weight: 300; color: var(--amber); transition: transform 0.25s; line-height: 1; flex-shrink: 0; pointer-events: none; }
   .ia-item.abierto .ia-icono { transform: rotate(45deg); }
   .ia-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
   .ia-item.abierto .ia-body { max-height: 400px; }
@@ -222,7 +222,7 @@
     text-align: center;
     padding: 8rem 3.5rem 5rem;
     position: relative;
-    background-image: url('assets/img/nexo-hero-portada.jpg');
+    background-image: url('../assets/img/nexo-hero-portada.jpg');
     background-size: cover;
     background-position: center top;
   }
