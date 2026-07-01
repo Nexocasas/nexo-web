@@ -52,25 +52,18 @@
       padding: 1.25rem 3rem;
       background: rgba(26,24,20,0.96); backdrop-filter: blur(8px);
     }
-    .nav-logo { font-family: var(--fuente-display); font-size: 1.15rem; color: var(--blanco); text-decoration: none; }
+    /* ── NAV ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 3rem; height: 56px; background: rgba(26,24,20,0.96); backdrop-filter: blur(8px); }
+    .nav-logo { font-family: var(--fuente-display); font-size: 1.1rem; color: var(--blanco); text-decoration: none; letter-spacing: 0.02em; }
     .nav-logo span { color: var(--madera-claro); }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(250,250,248,0.65); text-decoration: none; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--madera-claro); }
-    .nav-links .nexo-link { color: var(--madera-claro); border: 1px solid var(--madera); padding: 0.3rem 0.75rem; border-radius: 2px; }
-    .nav-links .nexo-link:hover { background: var(--madera); color: var(--blanco); }
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+    .nav-links a { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(250,250,248,0.6); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--blanco); }
+    .nav-puente { display: flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; padding: 0.4rem 1rem; border-radius: 2px; background: var(--madera); color: var(--blanco); transition: background 0.2s; white-space: nowrap; }
+    .nav-puente:hover { background: var(--madera-claro); color: var(--negro); }
+    .nav-puente img { height: 13px; width: auto; }
     .nav-hamburguesa { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
     .nav-hamburguesa span { display: block; width: 22px; height: 1.5px; background: var(--blanco); }
-
-    .nav-links .nav-nexo-btn {
-      display: inline-flex; align-items: center;
-      background: var(--madera); color: var(--blanco) !important;
-      padding: 0.35rem 0.9rem; border-radius: 2px;
-      font-size: 0.72rem !important; letter-spacing: 0.1em;
-      transition: background 0.2s !important;
-    }
-    .nav-links .nav-nexo-btn:hover { background: var(--madera-claro); color: var(--negro) !important; }
-    .nav-links .nav-nexo-btn img { filter: brightness(10); }
 
     /* ── HERO ── */
     .hero { min-height: 100vh; background: var(--negro); display: grid; grid-template-columns: 1fr 1fr; padding-top: 5rem; overflow: hidden; }
@@ -397,10 +390,10 @@
       <li><a href="#construcciones">Construcciones</a></li>
       <li><a href="#historia">Historia</a></li>
       <li><a href="#contacto">Contacto</a></li>
-      <li><a href="nexo/proyectos.html" class="nav-nexo-btn">
-        <img src="assets/nexo-icono-blanco.png" style="height:14px;width:auto;vertical-align:middle;margin-right:0.4rem;" alt="">Nexo Casas
-      </a></li>
     </ul>
+    <a href="nexo/proyectos.html" class="nav-puente">
+      <img src="assets/nexo-icono-blanco.png" alt="">Nexo Casas
+    </a>
     <button class="nav-hamburguesa" aria-label="Menú"><span></span><span></span><span></span></button>
   </nav>
 
