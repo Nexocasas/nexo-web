@@ -154,6 +154,35 @@
   body.en-proyecto .nexo-info,
   body.en-proyecto .nexo-divider { display: none; }
 
+  /* ── QUÉ INCLUYE ── */
+  .incluye-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+  .incluye-cat h4 { font-family: 'scale-variable', sans-serif; font-weight: 300; font-size: 0.95rem; color: var(--amber); margin-bottom: 0.75rem; letter-spacing: 0.04em; }
+  .incluye-cat ul { list-style: none; }
+  .incluye-cat ul li { font-size: 0.78rem; color: var(--muted); padding: 0.3rem 0; padding-left: 0.9rem; position: relative; line-height: 1.5; border-bottom: 1px solid var(--border); }
+  .incluye-cat ul li::before { content: ''; position: absolute; left: 0; top: 0.75rem; width: 3px; height: 3px; border-radius: 50%; background: var(--amber); opacity: 0.6; }
+
+  /* ── PASOS ── */
+  .pasos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .paso-item { display: flex; gap: 1.25rem; padding: 1.75rem; border: 1px solid var(--border); margin: -1px 0 0 -1px; }
+  .paso-num { font-family: 'scale-variable', sans-serif; font-weight: 300; font-size: 1.8rem; color: var(--amber); opacity: 0.5; line-height: 1; flex-shrink: 0; width: 2.5rem; }
+  .paso-nombre { font-family: 'scale-variable', sans-serif; font-weight: 300; font-size: 0.95rem; color: var(--text); margin-bottom: 0.4rem; }
+  .paso-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── OCULTAR cuando está en proyecto ── */
+  body.en-proyecto .nexo-intro,
+  body.en-proyecto .nexo-info,
+  body.en-proyecto .nexo-divider,
+  body.en-proyecto #contacto { display: none; }
+
+  @media (max-width: 900px) {
+    .incluye-grid { grid-template-columns: repeat(2, 1fr); }
+    .pasos-grid { grid-template-columns: 1fr; }
+    #contacto { padding: 4rem 1.5rem; }
+  }
+  @media (max-width: 600px) {
+    .incluye-grid { grid-template-columns: 1fr; }
+  }
+
   /* ── NEXO INFO SECTION ── */
   .nexo-info { background: var(--bg); padding: 5rem 3.5rem; max-width: 1300px; margin: 0 auto; }
   .nexo-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
@@ -1010,7 +1039,12 @@
     <img src="../assets/nexo-icono-blanco.png" style="height:20px;width:auto;" alt="Nexo">
     <span style="font-family:'scale-variable',sans-serif;font-size:1.1rem;font-weight:300;color:var(--text);letter-spacing:0.04em;">Nexo</span>
   </div>
-  <div class="nav-centro" id="nav-centro" onclick="irAInicio()" style="cursor:pointer;">Nuestros Proyectos</div>
+  <div class="nav-centro" id="nav-centro" onclick="irAInicio()" style="cursor:pointer;display:flex;gap:1.5rem;align-items:center;">
+    <a href="#proyectos" onclick="irAInicio()" style="font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">Proyectos</a>
+    <a href="#incluye" onclick="irAInicio()" style="font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">Qué incluye</a>
+    <a href="#seguimos" onclick="irAInicio()" style="font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">Cómo seguimos</a>
+    <a href="#contacto" onclick="irAInicio()" style="font-size:0.72rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">Contacto</a>
+  </div>
   <div style="display:flex;align-items:center;gap:1.5rem;">
     <a href="../index.html" style="display:flex;align-items:center;gap:0.45rem;font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(240,236,229,0.55);text-decoration:none;transition:color 0.2s;white-space:nowrap;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='rgba(240,236,229,0.55)'">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7-7"/></svg>
@@ -1039,17 +1073,17 @@
   </button>
 </div>
 
-<!-- ═══ NEXO INTRO ═══ -->
+<!-- ═══ HERO ═══ -->
 <div class="nexo-intro" id="inicio">
   <img src="../assets/nexo-logo-blanco.svg" class="nexo-intro-logo" alt="Nexo Casas">
   <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
-    <a href="informacion.html" style="display:inline-block;padding:0.85rem 2rem;background:var(--amber);color:#1a1814;font-size:0.75rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;border-radius:2px;font-family:'DM Sans',sans-serif;">Cotizar</a>
-    <a href="https://wa.me/5493512778244" target="_blank" style="display:inline-block;padding:0.85rem 2rem;border:1px solid rgba(240,236,229,0.3);color:var(--text);font-size:0.75rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;border-radius:2px;font-family:'DM Sans',sans-serif;">Contactar</a>
+    <a href="#contacto" style="display:inline-block;padding:0.85rem 2rem;background:var(--amber);color:#1a1814;font-size:0.75rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;border-radius:2px;font-family:'DM Sans',sans-serif;">Cotizar</a>
+    <a href="#proyectos" style="display:inline-block;padding:0.85rem 2rem;border:1px solid rgba(240,236,229,0.3);color:var(--text);font-size:0.75rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;border-radius:2px;font-family:'DM Sans',sans-serif;">Ver proyectos</a>
   </div>
 </div>
 
-<!-- ═══ SECCIÓN INFO ═══ -->
-<div class="nexo-info">
+<!-- ═══ INFO ═══ -->
+<div class="nexo-info" id="info">
   <div class="nexo-info-grid">
     <div>
       <h2 style="font-family:'scale-variable',sans-serif;font-size:clamp(1.8rem,3vw,3rem);font-weight:300;line-height:1.15;margin-bottom:1.5rem;">Casas modulares hechas en la <span style="color:var(--amber);">Patagonia</span></h2>
@@ -1076,27 +1110,129 @@
   </div>
 </div>
 
-<!-- ═══ DIVISOR ═══ -->
+<!-- ═══ PROYECTOS ═══ -->
 <div class="nexo-divider" id="proyectos">
   <div class="nexo-divider-line"></div>
   <span class="nexo-divider-texto">Nuestros proyectos</span>
   <div class="nexo-divider-line"></div>
 </div>
 
-<!-- ═══ HERO (grilla de proyectos) ═══ -->
 <section id="hero" class="page activa">
-  <div class="hero-top">
-    <div>
-      <p class="hero-etiqueta">Taller de Casas</p>
-      <h1 class="hero-titulo">Nuestros</h1>
-      <h1 class="hero-titulo-acc">PROYECTOS</h1>
-    </div>
-    <p class="hero-desc">Trabajos realizados, opciones incluidas y desarrollos a medida. Una selección de imágenes pensadas como referencia e inspiración para proyectar, en conjunto, nuevas formas de habitar.</p>
-  </div>
-  <div class="cards-grid" id="cards-grid">
-    <!-- renderizado por JS -->
-  </div>
+  <div class="cards-grid" id="cards-grid"></div>
 </section>
+
+<!-- ═══ QUÉ INCLUYE ═══ -->
+<div class="nexo-divider" id="incluye">
+  <div class="nexo-divider-line"></div>
+  <span class="nexo-divider-texto">Qué incluye</span>
+  <div class="nexo-divider-line"></div>
+</div>
+
+<div class="nexo-info" style="padding-top:2rem;">
+  <p style="font-size:0.82rem;color:var(--muted);line-height:1.7;padding-bottom:1.5rem;border-bottom:1px solid var(--border);margin-bottom:2rem;">El siguiente listado es la <strong style="color:var(--text);">base del cómputo</strong> de toda casa Nexo. Puede ajustarse según las personalizaciones del proyecto, a partir de las cuales se define el alcance final.</p>
+
+  <div class="incluye-grid">
+    <div class="incluye-cat">
+      <h4>Estructura y Aislación</h4>
+      <ul><li>Tabiquería de madera (Wood Frame)</li><li>Aislación térmica — Lana de vidrio 100mm</li><li>Membrana hidrófuga</li><li>Bases de fundación de hormigón prefabricadas</li><li>Vigas de madera multilaminada</li></ul>
+    </div>
+    <div class="incluye-cat">
+      <h4>Aberturas</h4>
+      <ul><li>PVC Negro Rehau con vidrios DVH</li><li>Puerta exterior de madera pintada</li><li>Puertas interiores de machimbre de Eucalipto</li></ul>
+    </div>
+    <div class="incluye-cat">
+      <h4>Revestimiento Exterior</h4>
+      <ul><li>Techos: Chapa sinusoidal prepintada</li><li>Paredes: Chapa sinusoidal + Entablonado pino</li><li>Esquineros y contramarcos</li></ul>
+    </div>
+    <div class="incluye-cat">
+      <h4>Revestimiento Interior</h4>
+      <ul><li>Paredes y cielorraso: Machimbre de Eucalipto</li><li>Piso: Flotante vinílico SPC</li><li>Zócalos y terminaciones de Eucalipto</li></ul>
+    </div>
+    <div class="incluye-cat">
+      <h4>Instalaciones</h4>
+      <ul><li>Agua fría y caliente · Termotanque 90 lts</li><li>Instalación cloacal completa</li><li>Eléctrica: 15 bocas · 20 tomacorrientes · Tablero</li></ul>
+    </div>
+    <div class="incluye-cat">
+      <h4>Cocina</h4>
+      <ul><li>Mesada Negro Brasil · Bacha Inox</li><li>Grifería FV Puelo · Extractor</li><li>Alacena y bajo mesada completos</li></ul>
+    </div>
+    <div class="incluye-cat">
+      <h4>Baño</h4>
+      <ul><li>Inodoro + Bidet de mano</li><li>Kit griferías FV Puelo</li><li>Vanitory colgante de Eucalipto</li></ul>
+    </div>
+    <div class="incluye-cat">
+      <h4>Lavadero</h4>
+      <ul><li>Mesada Eucalipto · Pileta</li><li>Grifería FV Puelo</li><li>Placard piso a techo</li></ul>
+    </div>
+  </div>
+
+  <p style="font-size:0.78rem;color:var(--muted);margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);">No incluido y a cotizar según proyecto: movimiento de suelo · conexión a servicios · traslado · sistema de calefacción.</p>
+</div>
+
+<!-- ═══ CÓMO SEGUIMOS ═══ -->
+<div class="nexo-divider" id="seguimos">
+  <div class="nexo-divider-line"></div>
+  <span class="nexo-divider-texto">Cómo seguimos</span>
+  <div class="nexo-divider-line"></div>
+</div>
+
+<div class="nexo-info" style="padding-top:2rem;">
+  <div class="pasos-grid">
+    <div class="paso-item">
+      <p class="paso-num">00</p>
+      <div>
+        <p class="paso-nombre">Cotización inicial</p>
+        <p class="paso-desc">Te contactás con nuestro equipo y armamos juntos la cotización inicial de tu proyecto.</p>
+      </div>
+    </div>
+    <div class="paso-item">
+      <p class="paso-num">01</p>
+      <div>
+        <p class="paso-nombre">Reserva de lugar</p>
+        <p class="paso-desc">Con un anticipo reservás tu lugar en la agenda de producción.</p>
+      </div>
+    </div>
+    <div class="paso-item">
+      <p class="paso-num">02</p>
+      <div>
+        <p class="paso-nombre">Personalización y definición</p>
+        <p class="paso-desc">Decisiones proyectuales · Alcance final · Compra de materiales.</p>
+      </div>
+    </div>
+    <div class="paso-item">
+      <p class="paso-num">03</p>
+      <div>
+        <p class="paso-nombre">Comienzo de fabricación</p>
+        <p class="paso-desc">Arranca la construcción de tu casa en nuestro taller de San Martín de los Andes.</p>
+      </div>
+    </div>
+    <div class="paso-item">
+      <p class="paso-num">04</p>
+      <div>
+        <p class="paso-nombre">Seguimiento del proceso</p>
+        <p class="paso-desc">Te mantenemos al tanto del avance con fotos y novedades del taller.</p>
+      </div>
+    </div>
+    <div class="paso-item">
+      <p class="paso-num">05</p>
+      <div>
+        <p class="paso-nombre">Traslado y entrega</p>
+        <p class="paso-desc">Tu casa llega a destino y se realiza el montaje final en el terreno.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONTACTO ═══ -->
+<div id="contacto" style="background:var(--bg2);padding:5rem 3.5rem;text-align:center;">
+  <p style="font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--amber);margin-bottom:1.25rem;">¿Tenés un terreno?</p>
+  <h2 style="font-family:'scale-variable',sans-serif;font-weight:300;font-size:clamp(1.8rem,3.5vw,3rem);line-height:1.15;margin-bottom:1.25rem;">Hablemos de tu Casa Nexo</h2>
+  <p style="font-size:0.88rem;color:var(--muted);max-width:52ch;margin:0 auto 2.5rem;line-height:1.8;">Escribinos y armamos juntos la cotización inicial. Sin compromiso.</p>
+  <a href="https://wa.me/5493512778244" target="_blank" style="display:inline-block;padding:0.95rem 2.5rem;background:var(--amber);color:#1a1814;font-size:0.78rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;border-radius:2px;font-family:'DM Sans',sans-serif;">Escribir por WhatsApp</a>
+  <div style="margin-top:1.5rem;">
+    <a href="../index.html" style="font-size:0.7rem;color:var(--muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">← Volver a Tomás Brinnand</a>
+  </div>
+</div>
 
 <!-- ═══ LIGHTBOX ═══ -->
 <div class="lightbox" id="lightbox" onclick="cerrarLightbox(event)">
