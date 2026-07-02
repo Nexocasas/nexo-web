@@ -186,6 +186,26 @@
   .incluye-cat ul li { font-size: 0.78rem; color: var(--muted); padding: 0.3rem 0; padding-left: 0.9rem; position: relative; line-height: 1.5; border-bottom: 1px solid var(--border); }
   .incluye-cat ul li::before { content: ''; position: absolute; left: 0; top: 0.75rem; width: 3px; height: 3px; border-radius: 50%; background: var(--amber); opacity: 0.6; }
 
+  /* ── ACORDEÓN SOBRE FONDO BLANCO ── */
+  .cat { margin-bottom:0; border-bottom:1px solid #e8e4df; }
+  .cat-header { display:flex; align-items:center; justify-content:space-between; padding:1.25rem 0; cursor:pointer; }
+  .cat-titulo { font-family:'scale-variable',sans-serif; font-weight:400; font-size:1.1rem; color:#1a1814; margin-bottom:0; }
+  .cat-icono { font-size:1.4rem; font-weight:300; color:#8B6F47; transition:transform 0.25s; flex-shrink:0; margin-left:1rem; pointer-events:none; }
+  .cat.abierto .cat-icono { transform:rotate(45deg); }
+  .cat-body { max-height:0; overflow:hidden; transition:max-height 0.35s ease; }
+  .cat.abierto .cat-body { max-height:2000px; }
+  .cat-body-inner { padding-bottom:1.5rem; }
+  .sub-titulo { font-size:0.7rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#8B6F47; margin:1rem 0 0.5rem; }
+  .lista { list-style:none; padding:0; }
+  .lista li { font-size:0.86rem; color:#1a1814; padding:0.4rem 0 0.4rem 1.1rem; position:relative; line-height:1.5; border-bottom:1px solid #e8e4df; }
+  .lista li::before { content:''; position:absolute; left:0; top:0.85rem; width:4px; height:4px; border-radius:50%; background:#8B6F47; }
+  .nota-item { font-size:0.78rem; color:#7a7570; font-style:italic; margin-top:0.5rem; }
+  .opc-sub { font-size:0.82rem; color:#7a7570; margin-bottom:0.5rem; }
+  .cotizar-item { padding:1rem 0; border-bottom:1px solid #e8e4df; }
+  .cotizar-item:last-child { border-bottom:none; }
+  .cotizar-titulo { font-family:'scale-variable',sans-serif; font-weight:400; font-size:1rem; color:#1a1814; margin-bottom:0.3rem; }
+  .cotizar-desc { font-size:0.82rem; color:#7a7570; }
+
   /* ── ACORDEÓN QUÉ INCLUYE ── */
   .incluye-acordeon { border-top: 1px solid var(--border); }
   .ia-item { border-bottom: 1px solid var(--border); cursor: pointer; }
@@ -1176,46 +1196,23 @@
   <div class="nexo-divider-line"></div>
 </div>
 
-<div class="nexo-info" style="padding-top:3rem;">
-  <h2 style="font-family:'scale-variable',sans-serif;font-weight:300;font-size:clamp(2rem,4vw,3.5rem);line-height:1.1;margin-bottom:0.75rem;">Todo lo que necesitás<br><span style="color:var(--amber);">para habitar.</span></h2>
-  <p style="font-size:0.85rem;color:var(--muted);max-width:58ch;line-height:1.75;margin-bottom:2.5rem;">El siguiente listado es la base del cómputo de toda casa Nexo. Puede ajustarse según las personalizaciones del proyecto.</p>
+<div style="background:#FAFAF8; color:#1a1814; padding:3rem 3.5rem 5rem; max-width:1300px; margin:0 auto;">
+  <h2 style="font-family:'scale-variable',sans-serif;font-weight:300;font-size:clamp(2rem,4vw,3.5rem);line-height:1.1;margin-bottom:0.75rem;color:#1a1814;">Todo lo que necesitás<br><span style="color:#8B6F47;">para habitar.</span></h2>
+  <p style="font-size:0.85rem;color:#7a7570;max-width:58ch;line-height:1.75;margin-bottom:2.5rem;">El siguiente listado es la <strong style="color:#1a1814;">base del cómputo</strong> de toda casa Nexo. <strong style="color:#1a1814;">Puede ajustarse según las personalizaciones del proyecto,</strong> a partir de las cuales se define el alcance final.</p>
 
-  <div class="incluye-acordeon">
-    <div class="ia-item">
-      <div class="ia-header" onclick="toggleIA(this.parentElement)"><span class="ia-titulo">Estructura y Aislación</span><span class="ia-icono">+</span></div>
-      <div class="ia-body"><ul class="ia-lista"><li>Tabiquería de madera (Wood Frame)</li><li>Aislación térmica — Lana de vidrio 100mm</li><li>Membrana hidrófuga</li><li>Bases de fundación de hormigón prefabricadas</li><li>Vigas de madera multilaminada</li></ul></div>
-    </div>
-    <div class="ia-item">
-      <div class="ia-header" onclick="toggleIA(this.parentElement)"><span class="ia-titulo">Aberturas</span><span class="ia-icono">+</span></div>
-      <div class="ia-body"><ul class="ia-lista"><li>PVC Negro Rehau con vidrios DVH</li><li>Puerta exterior de madera pintada</li><li>Puertas interiores de machimbre de Eucalipto</li></ul></div>
-    </div>
-    <div class="ia-item">
-      <div class="ia-header" onclick="toggleIA(this.parentElement)"><span class="ia-titulo">Revestimiento Exterior</span><span class="ia-icono">+</span></div>
-      <div class="ia-body"><ul class="ia-lista"><li>Techos: Chapa sinusoidal prepintada</li><li>Paredes: Chapa sinusoidal + Entablonado pino</li><li>Esquineros y contramarcos</li></ul></div>
-    </div>
-    <div class="ia-item">
-      <div class="ia-header" onclick="toggleIA(this.parentElement)"><span class="ia-titulo">Revestimiento Interior</span><span class="ia-icono">+</span></div>
-      <div class="ia-body"><ul class="ia-lista"><li>Paredes y cielorraso: Machimbre de Eucalipto</li><li>Piso: Flotante vinílico SPC</li><li>Zócalos y terminaciones de Eucalipto</li></ul></div>
-    </div>
-    <div class="ia-item">
-      <div class="ia-header" onclick="toggleIA(this.parentElement)"><span class="ia-titulo">Instalaciones</span><span class="ia-icono">+</span></div>
-      <div class="ia-body"><ul class="ia-lista"><li>Agua fría y caliente · Termotanque 90 lts</li><li>Instalación cloacal completa</li><li>Eléctrica: 15 bocas · 20 tomacorrientes · Tablero</li></ul></div>
-    </div>
-    <div class="ia-item">
-      <div class="ia-header" onclick="toggleIA(this.parentElement)"><span class="ia-titulo">Cocina</span><span class="ia-icono">+</span></div>
-      <div class="ia-body"><ul class="ia-lista"><li>Mesada Negro Brasil · Bacha Inox</li><li>Grifería FV Puelo · Extractor</li><li>Alacena y bajo mesada completos</li></ul></div>
-    </div>
-    <div class="ia-item">
-      <div class="ia-header" onclick="toggleIA(this.parentElement)"><span class="ia-titulo">Baño</span><span class="ia-icono">+</span></div>
-      <div class="ia-body"><ul class="ia-lista"><li>Inodoro + Bidet de mano</li><li>Kit griferías FV Puelo</li><li>Vanitory colgante de Eucalipto</li></ul></div>
-    </div>
-    <div class="ia-item">
-      <div class="ia-header" onclick="toggleIA(this.parentElement)"><span class="ia-titulo">Lavadero</span><span class="ia-icono">+</span></div>
-      <div class="ia-body"><ul class="ia-lista"><li>Mesada Eucalipto · Pileta</li><li>Grifería FV Puelo</li><li>Placard piso a techo</li></ul></div>
-    </div>
+  <div style="border-top:1px solid #e8e4df;">
+    <div class="cat" id="qcat-1"><div class="cat-header" onclick="toggleCat2(1)"><h3 class="cat-titulo">Estructura y Aislación</h3><span class="cat-icono">+</span></div><div class="cat-body"><div class="cat-body-inner"><p class="sub-titulo">En Taller</p><ul class="lista"><li>Tabiquería de madera (Sistema Wood Frame)</li><li>Aislación térmica interior — Lana de vidrio 100mm</li><li>Membrana hidrófuga</li></ul><p class="sub-titulo">En Terreno</p><ul class="lista"><li>Bases de fundación de hormigón (prefabricadas en taller)</li><li>Estructura de vigas de madera multilaminada para montaje</li></ul></div></div></div>
+    <div class="cat" id="qcat-2"><div class="cat-header" onclick="toggleCat2(2)"><h3 class="cat-titulo">Aberturas</h3><span class="cat-icono">+</span></div><div class="cat-body"><div class="cat-body-inner"><ul class="lista"><li>PVC Negro marca Rehau con vidrios DVH</li><li>Puerta exterior de madera pintada (fabricada en taller)</li><li>Puertas interiores de machimbre de Eucalipto (fabricadas en taller)</li></ul></div></div></div>
+    <div class="cat" id="qcat-3"><div class="cat-header" onclick="toggleCat2(3)"><h3 class="cat-titulo">Revestimiento Exterior</h3><span class="cat-icono">+</span></div><div class="cat-body"><div class="cat-body-inner"><ul class="lista"><li>Techos: Chapa sinusoidal prepintada / varios colores</li><li>Paredes: Chapa sinusoidal + Entablonado vertical 1"×6" Pino impregnado</li><li>Esquineros y contramarcos: chapa y pino impregnado pintado</li></ul><p class="nota-item">* No incluye canaletas.</p></div></div></div>
+    <div class="cat" id="qcat-4"><div class="cat-header" onclick="toggleCat2(4)"><h3 class="cat-titulo">Revestimiento Interior</h3><span class="cat-icono">+</span></div><div class="cat-body"><div class="cat-body-inner"><ul class="lista"><li>Paredes y cielorraso: Machimbre de Eucalipto ½"×5"</li><li>Piso: Flotante vinílico SPC varios colores</li><li>Zócalos, contramarcos y terminaciones de Eucalipto</li></ul></div></div></div>
+    <div class="cat" id="qcat-5"><div class="cat-header" onclick="toggleCat2(5)"><h3 class="cat-titulo">Revestimiento Baños</h3><span class="cat-icono">+</span></div><div class="cat-body"><div class="cat-body-inner"><ul class="lista"><li>Revestimiento cerámico 60×60, aprox. 3m² en ducha y detrás de artefactos</li></ul></div></div></div>
+    <div class="cat" id="qcat-6"><div class="cat-header" onclick="toggleCat2(6)"><h3 class="cat-titulo">Instalaciones</h3><span class="cat-icono">+</span></div><div class="cat-body"><div class="cat-body-inner"><p class="sub-titulo">Agua fría y caliente</p><ul class="lista"><li>Cocina, Baño y Lavadero · Termotanque eléctrico 90 lts</li></ul><p class="nota-item">* No incluye tanque de reserva.</p><p class="sub-titulo">Cloacal</p><ul class="lista"><li>Cocina, Baño y Lavadero</li></ul><p class="nota-item">* No incluye lecho nitrificante o conexión a red cloacal.</p><p class="sub-titulo">Eléctrica</p><ul class="lista"><li>15 bocas de iluminación · 20 tomacorrientes / interruptores</li><li>Tablero con disyuntor + 3 térmicas · Iluminación exterior y LED bajo alacena</li></ul><p class="nota-item">* No incluye artefactos interiores. A determinar en proyecto.</p></div></div></div>
+    <div class="cat" id="qcat-7"><div class="cat-header" onclick="toggleCat2(7)"><h3 class="cat-titulo">Cocina</h3><span class="cat-icono">+</span></div><div class="cat-body"><div class="cat-body-inner"><p class="sub-titulo">Equipamiento</p><ul class="lista"><li>Mesada Negro Brasil (3m × 0,60m) · Bacha Inox. Johnson R37</li><li>Grifería monocomando FV Puelo · Motor extractor 4"</li><li>Alzada de machimbre de Eucalipto</li></ul><p class="sub-titulo">Muebles</p><ul class="lista"><li>Alacena: 6 puertas, estantes, LED bajo alacena</li><li>Bajo mesada: 3 cajones, especiero, 3 puertas, gabinete heladera</li></ul><p class="nota-item">* No incluye: cocina, heladera, microondas, lavavajillas.</p></div></div></div>
+    <div class="cat" id="qcat-8"><div class="cat-header" onclick="toggleCat2(8)"><h3 class="cat-titulo">Baño</h3><span class="cat-icono">+</span></div><div class="cat-body"><div class="cat-body-inner"><ul class="lista"><li>Inodoro + Depósito + Tapa Roca Monaco</li><li>Bidet de mano monocomando</li><li>Kit griferías FV Puelo (Ducha + Lavatorio)</li><li>Receptáculo de ducha 140×70</li><li>Vanitory colgante de Eucalipto c/2 puertas y estante</li></ul><p class="nota-item">* No incluye mampara de ducha.</p></div></div></div>
+    <div class="cat" id="qcat-9"><div class="cat-header" onclick="toggleCat2(9)"><h3 class="cat-titulo">Lavadero</h3><span class="cat-icono">+</span></div><div class="cat-body"><div class="cat-body-inner"><ul class="lista"><li>Mesada tablero Eucalipto 30mm · Pileta Mi Pileta 46×37×24</li><li>Grifería FV Puelo · Mueble placard 2 puertas corredizas piso a techo</li></ul><p class="nota-item">* No incluye lavarropas ni su conexión.</p></div></div></div>
+    <div class="cat" id="qcat-10"><div class="cat-header" onclick="toggleCat2(10)"><h3 class="cat-titulo">Opcionales</h3><span class="cat-icono">+</span></div><div class="cat-body"><div class="cat-body-inner"><p class="opc-sub">Consultar para cotizar.</p><ul class="lista"><li>Colocación de artefactos de iluminación</li><li>Instalación de lavarropas y/o lavavajillas</li><li>Colocación de accesorios: barrales de cortinas, estanterías, espejos, portarrollos, toalleros, etc.</li><li>Limpieza final de obra</li><li>Expansiones exteriores: Deck, semicubierto</li><li>Parquización</li></ul></div></div></div>
+    <div class="cat" id="qcat-11"><div class="cat-header" onclick="toggleCat2(11)"><h3 class="cat-titulo">No incluido · A cotizar según lote y proyecto</h3><span class="cat-icono">+</span></div><div class="cat-body"><div class="cat-body-inner"><div class="cotizar-item"><p class="cotizar-titulo">Movimiento de suelo</p><p class="cotizar-desc">Visitamos el terreno para evaluar la factibilidad del proyecto y cotizar las tareas necesarias.</p></div><div class="cotizar-item"><p class="cotizar-titulo">Conexión a servicios</p><p class="cotizar-desc">Según disponibilidad en tu lote, evaluamos y cotizamos las tareas a realizar.</p></div><div class="cotizar-item"><p class="cotizar-titulo">Traslado</p><p class="cotizar-desc">Una vez lista tu casa, cotizamos el transporte hasta el terreno.</p></div><div class="cotizar-item"><p class="cotizar-titulo">Sistema de calefacción</p><p class="cotizar-desc">A definir según servicios disponibles, presupuesto y preferencias.</p></div></div></div></div>
   </div>
-
-  <p style="font-size:0.75rem;color:var(--muted);opacity:0.7;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);">No incluido y a cotizar según proyecto: movimiento de suelo · conexión a servicios · traslado · sistema de calefacción.</p>
 </div>
 
 <!-- ═══ CÓMO SEGUIMOS ═══ -->
@@ -1721,6 +1718,11 @@ function toggleMenu() {
 }
 function cerrarMenu() {
   document.getElementById('menu-overlay').classList.remove('abierto');
+}
+
+function toggleCat2(idx) {
+  const el = document.getElementById('qcat-' + idx);
+  if (el) el.classList.toggle('abierto');
 }
 
 function toggleDropdown() {
