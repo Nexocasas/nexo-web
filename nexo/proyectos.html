@@ -93,10 +93,89 @@
   }
   .nav-dropdown-item:hover { background: rgba(240,236,229,0.06); color: var(--text); }
 
+  /* ── HAMBURGUESA MOBILE ── */
+  .nav-hamburguesa-mobile {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .nav-hamburguesa-mobile span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--text);
+    transition: all 0.3s;
+  }
+
+  /* Menú mobile */
+  .nav-mobile-menu {
+    display: none;
+    position: fixed;
+    top: 56px; left: 0; right: 0; bottom: 0;
+    background: var(--bg);
+    z-index: 150;
+    flex-direction: column;
+    padding: 2rem 2rem;
+    overflow-y: auto;
+  }
+  .nav-mobile-menu.abierto { display: flex; }
+  .nav-mobile-item {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(240,236,229,0.6);
+    text-decoration: none;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+    background: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    text-align: left;
+    width: 100%;
+    transition: color 0.2s;
+  }
+  .nav-mobile-item:hover { color: var(--text); }
+  .nav-mobile-item.por-tomas {
+    color: var(--amber);
+    margin-top: 1rem;
+    border-bottom: none;
+    font-size: 0.78rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .nav-mobile-sub {
+    padding: 0.65rem 0 0.65rem 1.25rem;
+    font-size: 0.8rem;
+    color: rgba(240,236,229,0.5);
+    letter-spacing: 0.04em;
+    text-transform: none;
+    border-bottom: 1px solid rgba(240,236,229,0.06);
+    background: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    text-align: left;
+    width: 100%;
+    transition: color 0.2s;
+  }
+  .nav-mobile-sub:hover { color: var(--text); }
+
   @media (max-width: 768px) {
     .nav { padding: 0 1.5rem; }
     .nav-links { display: none; }
-    .nav-por span { display: none; }
+    .nav-por { display: none; }
+    .nav-hamburguesa-mobile { display: flex; }
   }
 
   /* ── MENU OVERLAY (desactivado) ── */
@@ -1156,7 +1235,30 @@
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7-7"/></svg>
     <span>por Tomás Brinnand</span>
   </a>
+
+  <!-- Hamburguesa mobile -->
+  <button class="nav-hamburguesa-mobile" onclick="toggleNavMobile()" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Menú mobile -->
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <span style="font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">Proyectos</span>
+  <button class="nav-mobile-sub" onclick="irAProyecto(0);cerrarNavMobile()">Casa Facundo</button>
+  <button class="nav-mobile-sub" onclick="irAProyecto(1);cerrarNavMobile()">Casa G &amp; F</button>
+  <button class="nav-mobile-sub" onclick="irAProyecto(2);cerrarNavMobile()">Casa Lu</button>
+  <button class="nav-mobile-sub" onclick="irAProyecto(3);cerrarNavMobile()">Casa Luli</button>
+  <button class="nav-mobile-sub" onclick="irAProyecto(4);cerrarNavMobile()">Taller P &amp; F</button>
+  <button class="nav-mobile-sub" onclick="irAProyecto(5);cerrarNavMobile()">Casa A &amp; S</button>
+  <a href="#incluye" class="nav-mobile-item" onclick="irAInicio('incluye');cerrarNavMobile()">Qué incluye</a>
+  <a href="#seguimos" class="nav-mobile-item" onclick="irAInicio('seguimos');cerrarNavMobile()">Cómo seguimos</a>
+  <a href="#contacto" class="nav-mobile-item" onclick="irAInicio('contacto');cerrarNavMobile()">Contacto</a>
+  <a href="../index.html" class="nav-mobile-item por-tomas">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7-7"/></svg>
+    por Tomás Brinnand
+  </a>
+</div>
 
 <!-- ═══ MENU OVERLAY ═══ -->
 <div class="menu-overlay" id="menu-overlay">
@@ -1757,6 +1859,13 @@ function mostrarTab2(id, btn) {
 function toggleCat2(idx) {
   const el = document.getElementById('qcat-' + idx);
   if (el) el.classList.toggle('abierto');
+}
+
+function toggleNavMobile() {
+  document.getElementById('nav-mobile-menu').classList.toggle('abierto');
+}
+function cerrarNavMobile() {
+  document.getElementById('nav-mobile-menu').classList.remove('abierto');
 }
 
 function toggleDropdown() {
