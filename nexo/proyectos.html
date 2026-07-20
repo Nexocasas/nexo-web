@@ -655,15 +655,26 @@
   }
 
   .plano-section {
+    background: #FAFAF8;
+    padding: 3rem 3.5rem 4rem;
+    margin-top: 2rem;
+  }
+
+  .plano-section-inner {
     display: grid;
     grid-template-columns: 3fr 1fr;
     gap: 1px;
-    padding: 0 3.5rem 3rem;
+    max-width: 1300px;
+    margin: 0 auto;
   }
 
   .plano-label {
     grid-column: 1 / -1;
-    margin-bottom: 4px;
+    margin-bottom: 1rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #8B6F47;
   }
 
   .plano-img {
@@ -679,14 +690,14 @@
     grid-template-columns: 1fr;
     gap: 1px;
     margin-top: 0;
-    background: var(--border);
+    background: #e8e4df;
   }
 
   .plano-spec {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: var(--bg);
+    background: #FAFAF8;
     padding: 1.2rem;
   }
 
@@ -694,7 +705,7 @@
     font-size: 0.56rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: #7a7570;
     margin-bottom: 0.45rem;
   }
 
@@ -702,7 +713,7 @@
     font-family: 'scale-variable', sans-serif;
     font-size: clamp(1.5rem, 2.4vw, 2.35rem);
     line-height: 1;
-    color: var(--text);
+    color: #1a1814;
     font-weight: 250;
   }
 
@@ -1001,13 +1012,17 @@
     }
 
     .plano-section {
+      padding: 2rem 1.2rem 3rem;
+    }
+
+    .plano-section-inner {
       display: block;
-      padding: 0 1.2rem 2rem;
     }
 
     .plano-img {
       aspect-ratio: 1.15;
       object-fit: contain;
+      width: 100%;
     }
 
     .plano-specs {
@@ -2006,20 +2021,7 @@ function renderProyecto(idx) {
         </div>
       </div>
 
-      ${p.plano ? `
-      <div class="plano-section">
-        <p class="sec-label plano-label">PLANO</p>
-        <img class="plano-img" src="${encodeURI(p.plano.src)}" alt="Plano de ${p.nombre}" loading="lazy">
-        <div class="plano-specs">
-          ${p.plano.specs.map(spec => `
-            <div class="plano-spec">
-              <p class="plano-spec-label">${spec.label}</p>
-              <p class="plano-spec-value">${spec.value}</p>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-      ` : ''}
+      ${p.plano ? `` : ''}
   `;
 
   // SECCIONES
@@ -2068,6 +2070,26 @@ function renderProyecto(idx) {
       html += `<div class="sep"></div>`;
     }
   });
+
+  // PLANO AL FINAL
+  if (p.plano) {
+    html += `
+      <div class="plano-section">
+        <div class="plano-section-inner">
+          <p class="plano-label">Plano</p>
+          <img class="plano-img" src="${encodeURI(p.plano.src)}" alt="Plano de ${p.nombre}" loading="lazy">
+          <div class="plano-specs">
+            ${p.plano.specs.map(spec => `
+              <div class="plano-spec">
+                <p class="plano-spec-label">${spec.label}</p>
+                <p class="plano-spec-value">${spec.value}</p>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+  }
 
   // BOTTOM NAV
   const prev = idx > 0 ? proyectos[idx - 1].nombre : null;
