@@ -448,16 +448,16 @@
 
     <div style="position:relative;">
       <!-- Flecha izquierda -->
-      <button id="m-prev" onclick="scrollMuebles(-1)" aria-label="Anterior" style="position:absolute;left:-1.75rem;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;border:none;background:var(--blanco);box-shadow:0 2px 16px rgba(0,0,0,0.18);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--negro);opacity:0.4;transition:opacity 0.2s;">
+      <button id="m-prev" aria-label="Anterior" style="position:absolute;left:-1.75rem;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;border:none;background:var(--blanco);box-shadow:0 2px 16px rgba(0,0,0,0.18);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--negro);opacity:0.4;transition:opacity 0.2s;">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 19l-7-7 7-7"/></svg>
       </button>
       <!-- Flecha derecha -->
-      <button id="m-next" onclick="scrollMuebles(1)" aria-label="Siguiente" style="position:absolute;right:-1.75rem;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;border:none;background:var(--blanco);box-shadow:0 2px 16px rgba(0,0,0,0.18);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--negro);transition:opacity 0.2s;">
+      <button id="m-next" aria-label="Siguiente" style="position:absolute;right:-1.75rem;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;border:none;background:var(--blanco);box-shadow:0 2px 16px rgba(0,0,0,0.18);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--negro);transition:opacity 0.2s;">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
       </button>
 
       <!-- Track scroll-snap -->
-      <div id="muebles-scroll" style="display:grid;grid-auto-flow:column;gap:1.25rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;" onscroll="onMueblesScroll()">
+      <div id="muebles-scroll" style="display:grid;grid-auto-flow:column;gap:1.25rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;">
         <div style="scroll-snap-align:start;"><img src="assets/img/muebles/mueble_1.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Literas madera"></div>
         <div style="scroll-snap-align:start;"><img src="assets/img/muebles/mueble_3.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Cocina negra"></div>
         <div style="scroll-snap-align:start;"><img src="assets/img/muebles/mueble_4.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:2px;" alt="Placard negro"></div>
@@ -472,16 +472,7 @@
     </div>
 
     <!-- Dots -->
-    <div id="muebles-dots" style="display:flex;gap:0.5rem;margin-top:1.5rem;justify-content:center;">
-      <button onclick="irMuebles(0)" class="dot activo-dot"></button>
-      <button onclick="irMuebles(1)" class="dot"></button>
-      <button onclick="irMuebles(2)" class="dot"></button>
-      <button onclick="irMuebles(3)" class="dot"></button>
-      <button onclick="irMuebles(4)" class="dot"></button>
-      <button onclick="irMuebles(5)" class="dot"></button>
-      <button onclick="irMuebles(6)" class="dot"></button>
-      <button onclick="irMuebles(7)" class="dot"></button>
-    </div>
+    <div id="muebles-dots" style="display:flex;gap:0.5rem;margin-top:1.5rem;justify-content:center;"></div>
   </div>
 
   <!-- OBJETOS CARRUSEL -->
@@ -496,15 +487,15 @@
 
     <div style="position:relative;">
       <!-- Flecha izquierda -->
-      <button id="o-prev" onclick="scrollObjetos(-1)" aria-label="Anterior" style="position:absolute;left:-1.75rem;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;border:none;background:var(--blanco);box-shadow:0 2px 16px rgba(0,0,0,0.18);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--negro);opacity:0.3;transition:opacity 0.2s;">
+      <button id="o-prev" aria-label="Anterior" style="position:absolute;left:-1.75rem;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;border:none;background:var(--blanco);box-shadow:0 2px 16px rgba(0,0,0,0.18);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--negro);opacity:0.3;transition:opacity 0.2s;">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 19l-7-7 7-7"/></svg>
       </button>
       <!-- Flecha derecha -->
-      <button id="o-next" onclick="scrollObjetos(1)" aria-label="Siguiente" style="position:absolute;right:-1.75rem;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;border:none;background:var(--blanco);box-shadow:0 2px 16px rgba(0,0,0,0.18);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--negro);transition:opacity 0.2s;">
+      <button id="o-next" aria-label="Siguiente" style="position:absolute;right:-1.75rem;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;border:none;background:var(--blanco);box-shadow:0 2px 16px rgba(0,0,0,0.18);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--negro);transition:opacity 0.2s;">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
       </button>
 
-      <div id="objetos-scroll" style="display:grid;grid-auto-flow:column;gap:1.25rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;" onscroll="onObjetosScroll()">
+      <div id="objetos-scroll" style="display:grid;grid-auto-flow:column;gap:1.25rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;">
         <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/objetos/objeto_1.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Banqueta tres patas"></div>
         <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/objetos/objeto_2.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Cómoda tejida"></div>
         <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/objetos/objeto_3.jpg"  style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Bowl torneado"></div>
@@ -520,17 +511,7 @@
     </div>
 
     <!-- Dots: 11 items - 3 visibles = 8 posiciones -->
-    <div id="objetos-dots" style="display:flex;gap:0.5rem;margin-top:1.5rem;justify-content:center;">
-      <button onclick="irObjetos(0)" class="dot activo-dot"></button>
-      <button onclick="irObjetos(1)" class="dot"></button>
-      <button onclick="irObjetos(2)" class="dot"></button>
-      <button onclick="irObjetos(3)" class="dot"></button>
-      <button onclick="irObjetos(4)" class="dot"></button>
-      <button onclick="irObjetos(5)" class="dot"></button>
-      <button onclick="irObjetos(6)" class="dot"></button>
-      <button onclick="irObjetos(7)" class="dot"></button>
-      <button onclick="irObjetos(8)" class="dot"></button>
-    </div>
+    <div id="objetos-dots" style="display:flex;gap:0.5rem;margin-top:1.5rem;justify-content:center;"></div>
   </section>
 
   <!-- NEXO -->
@@ -549,10 +530,10 @@
       </div>
 
       <div class="nexo-carrusel-wrap">
-        <button id="n-prev" onclick="scrollNexo(-1)" aria-label="Anterior" style="position:absolute;left:-1.75rem;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;border:none;background:var(--blanco);box-shadow:0 2px 16px rgba(0,0,0,0.28);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--negro);opacity:0.4;transition:opacity 0.2s;">
+        <button id="n-prev" aria-label="Anterior" style="position:absolute;left:-1.75rem;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;border:none;background:var(--blanco);box-shadow:0 2px 16px rgba(0,0,0,0.28);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--negro);opacity:0.4;transition:opacity 0.2s;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 19l-7-7 7-7"/></svg>
         </button>
-        <button id="n-next" onclick="scrollNexo(1)" aria-label="Siguiente" style="position:absolute;right:-1.75rem;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;border:none;background:var(--blanco);box-shadow:0 2px 16px rgba(0,0,0,0.28);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--negro);transition:opacity 0.2s;">
+        <button id="n-next" aria-label="Siguiente" style="position:absolute;right:-1.75rem;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;border:none;background:var(--blanco);box-shadow:0 2px 16px rgba(0,0,0,0.28);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--negro);transition:opacity 0.2s;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
         </button>
         <div id="nexo-scroll" style="display:grid;grid-auto-flow:column;gap:1.25rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;">
@@ -560,16 +541,11 @@
           <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/interior_cover.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — interior cocina"></div>
           <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/exterior_ref_1.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — exterior"></div>
           <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/interior_ref_4.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — interior con ventanas al bosque"></div>
-          <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/exterior_ref_2.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — exterior con montañas"></div>
-          <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/interior_ref_1.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — interior"></div>
+          <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/nexo-gyf-exterior.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — exterior Casa GyF"></div>
+          <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/nexo-luli-interior.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — interior Casa Luli"></div>
         </div>
       </div>
-      <div id="nexo-dots" style="display:flex;gap:0.5rem;margin-top:1.5rem;justify-content:center;">
-        <button onclick="irNexo(0)" class="dot activo-dot"></button>
-        <button onclick="irNexo(1)" class="dot"></button>
-        <button onclick="irNexo(2)" class="dot"></button>
-        <button onclick="irNexo(3)" class="dot"></button>
-      </div>
+      <div id="nexo-dots" style="display:flex;gap:0.5rem;margin-top:1.5rem;justify-content:center;"></div>
 
       <div class="nexo-desc">
         <p class="nexo-banner-texto">Casas modulares hechas en la Patagonia, para la Patagonia. Fabricadas en nuestro taller, ensambladas en tu terreno en plazos cortos y reales.</p>
@@ -701,108 +677,78 @@
   </footer>
 
   <script>
-    // ── CARRUSEL MUEBLES (scroll-snap nativo) ──
-    const mScroll = document.getElementById('muebles-scroll');
-    const mDots   = document.querySelectorAll('#muebles-dots .dot');
-    const mPrev   = document.getElementById('m-prev');
-    const mNext   = document.getElementById('m-next');
-    const M_TOTAL = 10;
-    const M_VIS   = 3;
-    const M_MAX   = M_TOTAL - M_VIS; // 7
+    // ── CARRUSELES (flechas + dots dinámicos + autoplay) ──
+    function initCarrusel(scrollId, prevId, nextId, dotsId, autoplayMs) {
+      const scroll = document.getElementById(scrollId);
+      if (!scroll) return;
+      const prev = document.getElementById(prevId);
+      const next = document.getElementById(nextId);
+      const dotsWrap = document.getElementById(dotsId);
+      const total = scroll.children.length;
 
-    function getColW() {
-      const isMobile = window.innerWidth <= 900;
-      if (isMobile) return mScroll.clientWidth;
-      const gap = parseFloat(getComputedStyle(mScroll).gap) || 20;
-      return (mScroll.clientWidth - gap * (M_VIS - 1)) / M_VIS + gap;
+      function colW() {
+        const gap = parseFloat(getComputedStyle(scroll).gap) || 0;
+        const first = scroll.firstElementChild;
+        const w = first ? first.getBoundingClientRect().width : scroll.clientWidth;
+        return w + gap;
+      }
+      function visibles() { return Math.max(1, Math.round(scroll.clientWidth / colW())); }
+      function maxIdx() { return Math.max(0, total - visibles()); }
+      function idxActual() { return Math.round(scroll.scrollLeft / colW()); }
+      function irA(i) {
+        i = Math.max(0, Math.min(i, maxIdx()));
+        scroll.scrollTo({ left: i * colW(), behavior: 'smooth' });
+      }
+
+      function armarDots() {
+        if (!dotsWrap) return;
+        dotsWrap.innerHTML = '';
+        const n = maxIdx() + 1;
+        for (let i = 0; i < n; i++) {
+          const b = document.createElement('button');
+          b.className = 'dot' + (i === idxActual() ? ' activo-dot' : '');
+          b.setAttribute('aria-label', 'Ir a ' + (i + 1));
+          (function(k) { b.addEventListener('click', function() { pausar(); irA(k); }); })(i);
+          dotsWrap.appendChild(b);
+        }
+      }
+      function actualizar() {
+        const i = idxActual();
+        if (dotsWrap) {
+          const ds = dotsWrap.children;
+          for (let k = 0; k < ds.length; k++) ds[k].classList.toggle('activo-dot', k === i);
+        }
+        if (prev) prev.style.opacity = i <= 0 ? '0.3' : '1';
+        if (next) next.style.opacity = i >= maxIdx() ? '0.3' : '1';
+      }
+
+      let timer = null, reanudar = null;
+      function tick() { const i = idxActual(); irA(i >= maxIdx() ? 0 : i + 1); }
+      function play() { if (autoplayMs && !timer && maxIdx() > 0) timer = setInterval(tick, autoplayMs); }
+      function stop() { if (timer) { clearInterval(timer); timer = null; } }
+      function pausar() { stop(); clearTimeout(reanudar); reanudar = setTimeout(play, 6000); }
+
+      if (prev) prev.addEventListener('click', function() { pausar(); irA(idxActual() - 1); });
+      if (next) next.addEventListener('click', function() { pausar(); irA(idxActual() + 1); });
+      scroll.addEventListener('mouseenter', stop);
+      scroll.addEventListener('mouseleave', play);
+      scroll.addEventListener('touchstart', pausar, { passive: true });
+      scroll.addEventListener('scroll', actualizar, { passive: true });
+      let rtimer = null;
+      window.addEventListener('resize', function() {
+        clearTimeout(rtimer);
+        rtimer = setTimeout(function() { armarDots(); actualizar(); }, 200);
+      });
+
+      scroll.style.msOverflowStyle = 'none';
+      armarDots();
+      actualizar();
+      play();
     }
 
-    function currentIndex() {
-      return Math.round(mScroll.scrollLeft / getColW());
-    }
-
-    function scrollMuebles(dir) {
-      const idx = Math.max(0, Math.min(currentIndex() + dir, M_MAX));
-      mScroll.scrollTo({ left: idx * getColW(), behavior: 'smooth' });
-    }
-
-    function irMuebles(idx) {
-      mScroll.scrollTo({ left: idx * getColW(), behavior: 'smooth' });
-    }
-
-    function onMueblesScroll() {
-      const idx = currentIndex();
-      mDots.forEach((d, i) => d.classList.toggle('activo-dot', i === idx));
-      mPrev.style.opacity = idx === 0 ? '0.3' : '1';
-      mNext.style.opacity = idx >= M_MAX ? '0.3' : '1';
-    }
-
-    // Ocultar scrollbar horizontal
-    mScroll.style.msOverflowStyle = 'none';
-    mScroll.addEventListener('scroll', onMueblesScroll, { passive: true });
-    onMueblesScroll();
-
-    // ── CARRUSEL OBJETOS ──
-    const oScroll = document.getElementById('objetos-scroll');
-    const oDots   = document.querySelectorAll('#objetos-dots .dot');
-    const oPrev   = document.getElementById('o-prev');
-    const oNext   = document.getElementById('o-next');
-    const O_TOTAL = 11;
-    const O_VIS   = 3;
-    const O_MAX   = O_TOTAL - O_VIS;
-
-    function getColWO() {
-      if (window.innerWidth <= 900) return oScroll.clientWidth;
-      const gap = parseFloat(getComputedStyle(oScroll).gap) || 20;
-      return (oScroll.clientWidth - gap * (O_VIS - 1)) / O_VIS + gap;
-    }
-    function currentIndexO() { return Math.round(oScroll.scrollLeft / getColWO()); }
-    function scrollObjetos(dir) {
-      const idx = Math.max(0, Math.min(currentIndexO() + dir, O_MAX));
-      oScroll.scrollTo({ left: idx * getColWO(), behavior: 'smooth' });
-    }
-    function irObjetos(idx) { oScroll.scrollTo({ left: idx * getColWO(), behavior: 'smooth' }); }
-    function onObjetosScroll() {
-      const idx = currentIndexO();
-      oDots.forEach((d, i) => d.classList.toggle('activo-dot', i === idx));
-      oPrev.style.opacity = idx === 0 ? '0.3' : '1';
-      oNext.style.opacity = idx >= O_MAX ? '0.3' : '1';
-    }
-    oScroll.style.msOverflowStyle = 'none';
-    oScroll.addEventListener('scroll', onObjetosScroll, { passive: true });
-    onObjetosScroll();
-
-    // ── CARRUSEL NEXO ──
-    const nScroll = document.getElementById('nexo-scroll');
-    const nDots   = document.querySelectorAll('#nexo-dots .dot');
-    const nPrev   = document.getElementById('n-prev');
-    const nNext   = document.getElementById('n-next');
-    const N_VIS   = 3;
-    const N_TOTAL = nScroll ? nScroll.querySelectorAll('img').length : 0;
-    const N_MAX   = Math.max(0, N_TOTAL - N_VIS);
-
-    function getColWN() {
-      if (window.innerWidth <= 900) return nScroll.clientWidth;
-      const gap = parseFloat(getComputedStyle(nScroll).gap) || 20;
-      return (nScroll.clientWidth - gap * (N_VIS - 1)) / N_VIS + gap;
-    }
-    function currentIndexN() { return Math.round(nScroll.scrollLeft / getColWN()); }
-    function scrollNexo(dir) {
-      const idx = Math.max(0, Math.min(currentIndexN() + dir, N_MAX));
-      nScroll.scrollTo({ left: idx * getColWN(), behavior: 'smooth' });
-    }
-    function irNexo(idx) { nScroll.scrollTo({ left: idx * getColWN(), behavior: 'smooth' }); }
-    function onNexoScroll() {
-      const idx = currentIndexN();
-      nDots.forEach(function(d, i) { d.classList.toggle('activo-dot', i === idx); });
-      if (nPrev) nPrev.style.opacity = idx === 0 ? '0.3' : '1';
-      if (nNext) nNext.style.opacity = idx >= N_MAX ? '0.3' : '1';
-    }
-    if (nScroll) {
-      nScroll.style.msOverflowStyle = 'none';
-      nScroll.addEventListener('scroll', onNexoScroll, { passive: true });
-      onNexoScroll();
-    }
+    initCarrusel('muebles-scroll', 'm-prev', 'm-next', 'muebles-dots', 4500);
+    initCarrusel('objetos-scroll', 'o-prev', 'o-next', 'objetos-dots', 4500);
+    initCarrusel('nexo-scroll', 'n-prev', 'n-next', 'nexo-dots', 4500);
 
 
     // ── LIGHTBOX CONSTRUCCIONES ──
