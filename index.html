@@ -310,8 +310,10 @@
     .objeto-nombre { font-family: var(--fuente-display); font-weight: 400; font-size: 1rem; color: var(--negro); }
 
     /* ── NEXO ── */
-    .nexo-seccion { background: var(--negro); padding: 0; }
-    .nexo-inner { padding: 6rem 4rem; }
+    .nexo-seccion { background: var(--blanco); padding: 0; }
+    .nexo-encabezado { background: var(--blanco); padding: 6rem 4rem 1rem; }
+    .nexo-oscuro { background: var(--negro); }
+    .nexo-inner { padding: 2rem 4rem 6rem; }
     .nexo-titulo-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem; }
     .nexo-logo-img { height: 3rem; width: auto; }
     .nexo-subtitulo { font-family: var(--fuente-display); font-weight: 400; font-size: 1.1rem; color: var(--madera-claro); margin-top: 0.2rem; }
@@ -386,7 +388,8 @@
       .nexo-banner { grid-template-columns: 1fr; }
       .nexo-banner-img { min-height: 280px; }
       .nexo-banner-content { padding: 3rem 1.5rem; }
-      .nexo-inner { padding: 4rem 1.5rem; }
+      .nexo-encabezado { padding: 4rem 1.5rem 0.75rem; }
+      .nexo-inner { padding: 1.5rem 1.5rem 4rem; }
       #nexo-scroll { grid-auto-columns: 100%; }
       .historia-img { max-width: 280px; }
       footer { flex-direction: column; gap: 0.5rem; text-align: center; }
@@ -532,8 +535,11 @@
 
   <!-- NEXO -->
   <section class="nexo-seccion" id="nexo">
+    <div class="nexo-encabezado">
+      <p class="seccion-eyebrow">Nexo Casas</p>
+    </div>
+    <div class="nexo-oscuro">
     <div class="nexo-inner">
-      <p class="seccion-eyebrow" style="color:var(--madera-claro);">Nexo Casas</p>
       <div class="nexo-titulo-row">
         <img src="assets/nexo-icono-blanco.png" class="nexo-logo-img" alt="Logo Nexo Casas">
         <div>
@@ -551,11 +557,11 @@
         </button>
         <div id="nexo-scroll" style="display:grid;grid-auto-flow:column;gap:1.25rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;">
           <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/nexo-facundo.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — exterior"></div>
-          <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/exterior_cover.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — exterior"></div>
+          <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/interior_cover.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — interior cocina"></div>
           <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/exterior_ref_1.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — exterior"></div>
+          <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/interior_ref_4.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — interior con ventanas al bosque"></div>
           <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/exterior_ref_2.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — exterior con montañas"></div>
-          <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/exterior_ref_3.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — exterior gris"></div>
-          <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/exterior_ref_5.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — acceso"></div>
+          <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/interior_ref_1.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — interior"></div>
         </div>
       </div>
       <div id="nexo-dots" style="display:flex;gap:0.5rem;margin-top:1.5rem;justify-content:center;">
@@ -575,6 +581,7 @@
         </div>
         <a href="nexo/proyectos.html" target="_blank" class="btn-primario">Ver proyectos →</a>
       </div>
+    </div>
     </div>
   </section>
 
