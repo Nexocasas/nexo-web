@@ -310,8 +310,14 @@
     .objeto-nombre { font-family: var(--fuente-display); font-weight: 400; font-size: 1rem; color: var(--negro); }
 
     /* ── NEXO ── */
-    .nexo-seccion { background: var(--negro); }
-    .nexo-header { padding: 6rem 4rem 2.5rem; }
+    .nexo-seccion { background: var(--negro); padding: 0; }
+    .nexo-inner { padding: 6rem 4rem; }
+    .nexo-titulo-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem; }
+    .nexo-logo-img { height: 3rem; width: auto; }
+    .nexo-subtitulo { font-family: var(--fuente-display); font-weight: 400; font-size: 1.1rem; color: var(--madera-claro); margin-top: 0.2rem; }
+    .nexo-carrusel-wrap { position: relative; }
+    #nexo-scroll { grid-auto-columns: calc((100% - 2 * 1.25rem) / 3); }
+    .nexo-desc { margin-top: 2.5rem; max-width: 60ch; }
     .nexo-banner { background: var(--negro); display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; padding: 0; }
     .nexo-banner-img { position: relative; min-height: 520px; }
     .nexo-banner-img img { width: 100%; height: 100%; object-fit: cover; }
@@ -374,13 +380,14 @@
       #muebles { padding: 4rem 1.5rem; }
       #objetos { padding: 4rem 1.5rem; }
       .construcciones { padding: 4rem 1.5rem; }
-      #m-prev, #o-prev { left: 0.25rem; }
-      #m-next, #o-next { right: 0.25rem; }
+      #m-prev, #o-prev, #n-prev { left: 0.25rem; }
+      #m-next, #o-next, #n-next { right: 0.25rem; }
       .objetos-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
       .nexo-banner { grid-template-columns: 1fr; }
       .nexo-banner-img { min-height: 280px; }
       .nexo-banner-content { padding: 3rem 1.5rem; }
-      .nexo-header { padding: 4rem 1.5rem 1.5rem; }
+      .nexo-inner { padding: 4rem 1.5rem; }
+      #nexo-scroll { grid-auto-columns: 100%; }
       .historia-img { max-width: 280px; }
       footer { flex-direction: column; gap: 0.5rem; text-align: center; }
     }
@@ -525,28 +532,49 @@
 
   <!-- NEXO -->
   <section class="nexo-seccion" id="nexo">
-    <div class="nexo-header">
+    <div class="nexo-inner">
       <p class="seccion-eyebrow" style="color:var(--madera-claro);">Nexo Casas</p>
-    </div>
-    <div class="nexo-banner">
-    <div class="nexo-banner-img">
-      <img src="assets/img/nexo-facundo.jpg" alt="Casa Nexo — Casa Facundo">
-    </div>
-    <div class="nexo-banner-content">
-      <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.4rem;">
-        <img src="assets/nexo-icono-blanco.png" style="height:2.8rem; width:auto;" alt="Logo Nexo Casas">
-        <h2 class="nexo-banner-titulo" style="margin-bottom:0;">Nexo</h2>
+      <div class="nexo-titulo-row">
+        <img src="assets/nexo-icono-blanco.png" class="nexo-logo-img" alt="Logo Nexo Casas">
+        <div>
+          <h2 class="seccion-titulo" style="color:var(--blanco); margin:0;">Nexo</h2>
+          <p class="nexo-subtitulo">Taller de Casas</p>
+        </div>
       </div>
-      <p style="font-family:var(--fuente-display); font-weight:400; font-style:normal; font-size:1.1rem; color:var(--madera-claro); margin-bottom:1.5rem;">Taller de Casas</p>
-      <p class="nexo-banner-texto">Casas modulares hechas en la Patagonia, para la Patagonia. Fabricadas en nuestro taller, ensambladas en tu terreno en plazos cortos y reales.</p>
-      <div class="nexo-features">
-        <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Construidas 100% en taller</span></div>
-        <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Opciones desde 40 hasta 100 m²</span></div>
-        <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Diseño personalizado</span></div>
-        <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Bajo impacto sobre tu terreno</span></div>
+
+      <div class="nexo-carrusel-wrap">
+        <button id="n-prev" onclick="scrollNexo(-1)" aria-label="Anterior" style="position:absolute;left:-1.75rem;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;border:none;background:var(--blanco);box-shadow:0 2px 16px rgba(0,0,0,0.28);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--negro);opacity:0.4;transition:opacity 0.2s;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button id="n-next" onclick="scrollNexo(1)" aria-label="Siguiente" style="position:absolute;right:-1.75rem;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;border:none;background:var(--blanco);box-shadow:0 2px 16px rgba(0,0,0,0.28);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--negro);transition:opacity 0.2s;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+        <div id="nexo-scroll" style="display:grid;grid-auto-flow:column;gap:1.25rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;">
+          <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/nexo-facundo.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — exterior"></div>
+          <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/exterior_cover.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — exterior"></div>
+          <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/exterior_ref_1.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — exterior"></div>
+          <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/exterior_ref_2.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — exterior con montañas"></div>
+          <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/exterior_ref_3.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — exterior gris"></div>
+          <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/exterior_ref_5.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — acceso"></div>
+        </div>
       </div>
-      <a href="nexo/proyectos.html" target="_blank" class="btn-primario">Ver proyectos →</a>
-    </div>
+      <div id="nexo-dots" style="display:flex;gap:0.5rem;margin-top:1.5rem;justify-content:center;">
+        <button onclick="irNexo(0)" class="dot activo-dot"></button>
+        <button onclick="irNexo(1)" class="dot"></button>
+        <button onclick="irNexo(2)" class="dot"></button>
+        <button onclick="irNexo(3)" class="dot"></button>
+      </div>
+
+      <div class="nexo-desc">
+        <p class="nexo-banner-texto">Casas modulares hechas en la Patagonia, para la Patagonia. Fabricadas en nuestro taller, ensambladas en tu terreno en plazos cortos y reales.</p>
+        <div class="nexo-features">
+          <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Construidas 100% en taller</span></div>
+          <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Opciones desde 40 hasta 100 m²</span></div>
+          <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Diseño personalizado</span></div>
+          <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Bajo impacto sobre tu terreno</span></div>
+        </div>
+        <a href="nexo/proyectos.html" target="_blank" class="btn-primario">Ver proyectos →</a>
+      </div>
     </div>
   </section>
 
@@ -737,6 +765,38 @@
     oScroll.addEventListener('scroll', onObjetosScroll, { passive: true });
     onObjetosScroll();
 
+    // ── CARRUSEL NEXO ──
+    const nScroll = document.getElementById('nexo-scroll');
+    const nDots   = document.querySelectorAll('#nexo-dots .dot');
+    const nPrev   = document.getElementById('n-prev');
+    const nNext   = document.getElementById('n-next');
+    const N_VIS   = 3;
+    const N_TOTAL = nScroll ? nScroll.querySelectorAll('img').length : 0;
+    const N_MAX   = Math.max(0, N_TOTAL - N_VIS);
+
+    function getColWN() {
+      if (window.innerWidth <= 900) return nScroll.clientWidth;
+      const gap = parseFloat(getComputedStyle(nScroll).gap) || 20;
+      return (nScroll.clientWidth - gap * (N_VIS - 1)) / N_VIS + gap;
+    }
+    function currentIndexN() { return Math.round(nScroll.scrollLeft / getColWN()); }
+    function scrollNexo(dir) {
+      const idx = Math.max(0, Math.min(currentIndexN() + dir, N_MAX));
+      nScroll.scrollTo({ left: idx * getColWN(), behavior: 'smooth' });
+    }
+    function irNexo(idx) { nScroll.scrollTo({ left: idx * getColWN(), behavior: 'smooth' }); }
+    function onNexoScroll() {
+      const idx = currentIndexN();
+      nDots.forEach(function(d, i) { d.classList.toggle('activo-dot', i === idx); });
+      if (nPrev) nPrev.style.opacity = idx === 0 ? '0.3' : '1';
+      if (nNext) nNext.style.opacity = idx >= N_MAX ? '0.3' : '1';
+    }
+    if (nScroll) {
+      nScroll.style.msOverflowStyle = 'none';
+      nScroll.addEventListener('scroll', onNexoScroll, { passive: true });
+      onNexoScroll();
+    }
+
 
     // ── LIGHTBOX CONSTRUCCIONES ──
     const proyectos = [
@@ -838,6 +898,7 @@
       }
       engancharGaleria(document.getElementById('muebles-scroll'), 'Muebles');
       engancharGaleria(document.getElementById('objetos-scroll'), 'Objetos');
+      engancharGaleria(document.getElementById('nexo-scroll'), 'Nexo Casas');
     })();
 
     document.addEventListener('keydown', e => {
