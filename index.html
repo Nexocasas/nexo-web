@@ -351,6 +351,7 @@
     @media (max-width: 900px) {
       nav { padding: 1.25rem 1.5rem; }
       .nav-links { display: none; }
+      nav.nav-abierto .nav-links { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(26,24,20,0.98); backdrop-filter: blur(8px); padding: 1.25rem 1.5rem 1.75rem; gap: 1.4rem; border-top: 1px solid rgba(255,255,255,0.08); }
       .nav-hamburguesa { display: flex; }
       .hero { grid-template-columns: 1fr; min-height: auto; }
       .hero-imagen { height: 50vh; }
@@ -384,17 +385,15 @@
 
   <nav>
     <a href="#inicio" class="nav-logo">Tomás <span>Brinnand</span></a>
-    <ul class="nav-links">
+    <ul class="nav-links" onclick="this.closest('nav').classList.remove('nav-abierto')">
       <li><a href="#muebles">Muebles</a></li>
       <li><a href="#objetos">Objetos</a></li>
+      <li><a href="#nexo">Nexo Casas</a></li>
+      <li><a href="#construcciones">Construcción</a></li>
       <li><a href="#historia">Historia</a></li>
-      <li><a href="#construcciones">Construcciones</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
-    <a href="nexo/proyectos.html" class="nav-puente">
-      <img src="assets/nexo-icono-blanco.png" alt="">Nexo Casas
-    </a>
-    <button class="nav-hamburguesa" aria-label="Menú"><span></span><span></span><span></span></button>
+    <button class="nav-hamburguesa" aria-label="Menú" onclick="this.closest('nav').classList.toggle('nav-abierto')"><span></span><span></span><span></span></button>
   </nav>
 
   <!-- HERO -->
