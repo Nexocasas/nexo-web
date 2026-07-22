@@ -252,7 +252,6 @@
     max-width: 1300px;
     margin: 0 auto;
   }
-  #hero { max-width: 1500px; }
 
   /* Ocultar portada al ver proyecto */
   body.en-proyecto .nexo-intro,
@@ -565,7 +564,7 @@
   .cards-grid {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: calc((100% - 2px) / 2);
+    grid-auto-columns: calc((100% - 2 * 2px) / 3);
     gap: 2px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
@@ -585,7 +584,7 @@
     position: relative;
     overflow: hidden;
     cursor: pointer;
-    aspect-ratio: 4/5;
+    aspect-ratio: 3/4;
     background: var(--bg2);
     scroll-snap-align: start;
   }
