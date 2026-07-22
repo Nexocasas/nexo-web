@@ -359,12 +359,15 @@
   .nexo-info-dato.br { border-right: 1px solid var(--border); }
   .nexo-info-dato.bb { border-bottom: 1px solid var(--border); }
   .nexo-info-num { font-family: 'scale-variable', sans-serif; font-size: 2rem; font-weight: 300; color: var(--amber); line-height: 1; margin-bottom: 0.4rem; }
+  .nexo-info-inf { font-size: 3rem; line-height: 0.66; }
   .nexo-info-label { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
 
   @media (max-width: 700px) {
     .nexo-info { padding: 3rem 1.5rem; }
     .nexo-info-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     .nexo-info-datos { grid-template-columns: 1fr 1fr; }
+    .nexo-info-num { font-size: 1.4rem; }
+    .nexo-info-inf { font-size: 2.1rem; }
   }
 
   /* ── NEXO INTRO ── */
@@ -1305,20 +1308,20 @@
     </div>
     <div class="nexo-info-datos">
       <div class="nexo-info-dato br bb">
-        <p class="nexo-info-num">20–80</p>
-        <p class="nexo-info-label">m² disponibles</p>
+        <p class="nexo-info-num" style="white-space:nowrap;">40–100 m²</p>
+        <p class="nexo-info-label">tipologías posibles</p>
       </div>
       <div class="nexo-info-dato bb">
         <p class="nexo-info-num">100%</p>
-        <p class="nexo-info-label">Taller propio</p>
+        <p class="nexo-info-label">construidas en taller</p>
       </div>
       <div class="nexo-info-dato br">
         <p class="nexo-info-num">SMA</p>
         <p class="nexo-info-label">Patagonia argentina</p>
       </div>
       <div class="nexo-info-dato">
-        <p class="nexo-info-num">∞</p>
-        <p class="nexo-info-label">Diseño a medida</p>
+        <p class="nexo-info-num nexo-info-inf">∞</p>
+        <p class="nexo-info-label">Diseño personalizado</p>
       </div>
     </div>
   </div>
