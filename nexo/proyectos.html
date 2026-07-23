@@ -1617,7 +1617,7 @@ const proyectos = [
   },
   {
     nombre: 'Casa G & F',
-    tag: 'PROYECTO 60M²',
+    tag: 'PROYECTO 35M²',
     desc: 'Casa de 60m² para dos. Diseño abierto con cocina integrada, baño equipado con bañadera de depósito embutido y lavadero incorporado. Fachada combinada en chapa y madera.',
     heroFotos: [
       BASE + 'Casa GyF/Poertada 1.jpg',
@@ -1726,7 +1726,7 @@ const proyectos = [
   },
   {
     nombre: 'Casa Luli',
-    tag: 'PROYECTO 40M²',
+    tag: 'PROYECTO 35M²',
     desc: 'Casa de 40m² con hall frío, living-comedor y cocina integrados, habitación con vestidor y baño con revestimientos a medida.',
     heroFotos: [
       BASE + 'Casa Luli/Portada .jpg',
@@ -1767,7 +1767,7 @@ const proyectos = [
   },
   {
     nombre: 'Taller P & F',
-    tag: 'PROYECTO 40M²',
+    tag: 'PROYECTO 30M²',
     desc: 'Taller-vivienda monoambiente de 40m². Interior totalmente resuelto en madera con ambientes integrados y soluciones de almacenamiento.',
     heroFotos: [
       BASE + 'Taller PyF/portada 1.jpg',
@@ -1789,7 +1789,7 @@ const proyectos = [
   },
   {
     nombre: 'Casa A & S',
-    tag: 'PROYECTO 40M²',
+    tag: 'PROYECTO 60M²',
     desc: 'Casa de fachada combinada en chapa y madera. Cocina en terciado fenólico ranurado, baño completo, lavadero equipado y carpintería interior corrediza vidriada.',
     heroFotos: [
       BASE + 'Casa AyS/casa-ays-exterior-chapa-madera.jpeg',
@@ -2046,6 +2046,42 @@ function irAProyecto(idx) {
   document.body.classList.add('en-proyecto');
   window.scrollTo({ top: 0 });
 }
+
+// ─── SWIPE PARA VOLVER (deslizar de izq a der dentro de un proyecto) ──────────
+(function() {
+  let sx = 0, sy = 0, activo = false;
+  function enScrollHorizontal(node) {
+    while (node && node !== document.body && node.nodeType === 1) {
+      if (node.scrollWidth - node.clientWidth > 6) {
+        const ox = getComputedStyle(node).overflowX;
+        if (ox === 'auto' || ox === 'scroll') return true;
+      }
+      node = node.parentElement;
+    }
+    return false;
+  }
+  document.addEventListener('touchstart', function(e) {
+    activo = false;
+    if (!document.body.classList.contains('en-proyecto')) return;
+    const lb = document.getElementById('lightbox');
+    if (lb && lb.classList.contains('abierto')) return;
+    if (!e.touches || e.touches.length !== 1) return;
+    if (enScrollHorizontal(e.target)) return;
+    sx = e.touches[0].clientX;
+    sy = e.touches[0].clientY;
+    activo = true;
+  }, { passive: true });
+  document.addEventListener('touchend', function(e) {
+    if (!activo) return;
+    activo = false;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - sx;
+    const dy = t.clientY - sy;
+    if (dx > 80 && Math.abs(dy) < 55 && dx > Math.abs(dy) * 1.5) {
+      irAInicio();
+    }
+  }, { passive: true });
+})();
 
 // ─── CARRUSEL ────────────────────────────────────────────────────────────────
 function scrollCarrusel(id, dir) {
