@@ -51,7 +51,7 @@
   .plano-tap-hint { position:absolute; bottom:8px; right:10px; background:rgba(13,5,2,0.55); color:white; font-size:10px; letter-spacing:0.5px; padding:4px 10px; border-radius:20px; pointer-events:none; }
   .lightbox { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(13,5,2,0.95); z-index:1000; align-items:center; justify-content:center; }
   .lightbox.activo { display:flex; }
-  .lightbox img { max-width:100%; max-height:100%; object-fit:contain; touch-action:pinch-zoom; }
+  .lightbox img { max-width:100%; max-height:100%; object-fit:contain; touch-action:none; transform-origin:center center; will-change:transform; -webkit-user-select:none; user-select:none; -webkit-user-drag:none; cursor:grab; }
   .lightbox-cerrar { position:fixed; top:16px; right:16px; width:36px; height:36px; background:rgba(255,255,255,0.15); border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:22px; cursor:pointer; z-index:1001; line-height:1; }
 
   .seccion { padding:22px 20px; border-bottom:1px solid var(--linea); }
@@ -265,10 +265,11 @@ document.addEventListener("DOMContentLoaded", () => {
   set("cfg-paso-obra",     "Inicio de obra · " + CONFIG.pasoObra);
   set("cfg-paso-avance",   "Avance de obra · " + CONFIG.pasoAvance);
   set("cfg-paso-entrega",  CONFIG.pasoEntrega);
+  const PLANO_VER = "?v=2"; // subir este número si se reemplazan las imágenes de planos (evita caché)
   const planoEl = document.getElementById("cfg-plano");
-  if (planoEl) planoEl.src = CONFIG.plano;
+  if (planoEl) planoEl.src = CONFIG.plano + PLANO_VER;
   const planoLb = document.getElementById("cfg-plano-lb");
-  if (planoLb) planoLb.src = CONFIG.planoAmpliado || CONFIG.plano;
+  if (planoLb) planoLb.src = (CONFIG.planoAmpliado || CONFIG.plano) + PLANO_VER;
 });
 
   // Rubros accordion
@@ -320,7 +321,7 @@ document.addEventListener("DOMContentLoaded", () => {
 </div>
 
 <!-- LIGHTBOX -->
-<div class="lightbox" id="plano-lightbox" onclick="cerrarPlano()">
+<div class="lightbox" id="plano-lightbox">
   <div class="lightbox-cerrar" onclick="cerrarPlano()">×</div>
   <img id="cfg-plano-lb" src="" alt="Plano de referencia">
 </div>
@@ -474,11 +475,113 @@ document.addEventListener("DOMContentLoaded", () => {
 function abrirPlano() {
   document.getElementById('plano-lightbox').classList.add('activo');
   document.body.style.overflow = 'hidden';
+  if (window._resetPlanoZoom) window._resetPlanoZoom();
 }
 function cerrarPlano() {
   document.getElementById('plano-lightbox').classList.remove('activo');
   document.body.style.overflow = '';
 }
+
+// ── ZOOM + PAN del plano en el lightbox (doble-tap, pinch, arrastrar) ──
+(function() {
+  const lb  = document.getElementById('plano-lightbox');
+  const img = document.getElementById('cfg-plano-lb');
+  if (!lb || !img) return;
+  const MIN = 1, MAX = 4;
+  let scale = 1, tx = 0, ty = 0;
+
+  function apply(smooth) {
+    img.style.transition = smooth ? 'transform .2s ease' : 'none';
+    img.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')';
+    img.style.cursor = scale > 1 ? 'grab' : 'default';
+  }
+  function reset() { scale = 1; tx = 0; ty = 0; apply(false); }
+  window._resetPlanoZoom = reset;
+
+  function clamp() {
+    const vw = lb.clientWidth, vh = lb.clientHeight;
+    const sw = img.offsetWidth * scale, sh = img.offsetHeight * scale;
+    const maxX = Math.max(0, (sw - vw) / 2);
+    const maxY = Math.max(0, (sh - vh) / 2);
+    tx = Math.max(-maxX, Math.min(maxX, tx));
+    ty = Math.max(-maxY, Math.min(maxY, ty));
+  }
+  function zoomHacia(nueva, cx, cy, smooth) {
+    nueva = Math.max(MIN, Math.min(MAX, nueva));
+    const rect = lb.getBoundingClientRect();
+    const ox = cx - rect.left - rect.width / 2;
+    const oy = cy - rect.top - rect.height / 2;
+    const k = nueva / scale;
+    tx = (tx - ox) * k + ox;
+    ty = (ty - oy) * k + oy;
+    scale = nueva;
+    clamp();
+    apply(smooth);
+  }
+  function toggleZoom(cx, cy) {
+    if (scale > 1.05) reset();
+    else zoomHacia(2.5, cx, cy, true);
+  }
+
+  const dist = (a, b) => Math.hypot(b.clientX - a.clientX, b.clientY - a.clientY);
+  const mid  = (a, b) => ({ x: (a.clientX + b.clientX) / 2, y: (a.clientY + b.clientY) / 2 });
+
+  let sTx = 0, sTy = 0, sX = 0, sY = 0, sDist = 0, sScale = 1, pMid = null, movido = false, lastTap = 0;
+
+  img.addEventListener('touchstart', function(e) {
+    if (e.touches.length === 1) {
+      sX = e.touches[0].clientX; sY = e.touches[0].clientY;
+      sTx = tx; sTy = ty; movido = false;
+    } else if (e.touches.length === 2) {
+      sDist = dist(e.touches[0], e.touches[1]);
+      sScale = scale; pMid = mid(e.touches[0], e.touches[1]);
+      sTx = tx; sTy = ty;
+    }
+  }, { passive: false });
+
+  img.addEventListener('touchmove', function(e) {
+    if (e.touches.length === 2 && sDist) {
+      e.preventDefault();
+      const d = dist(e.touches[0], e.touches[1]);
+      const m = mid(e.touches[0], e.touches[1]);
+      const rect = lb.getBoundingClientRect();
+      const ox = pMid.x - rect.left - rect.width / 2;
+      const oy = pMid.y - rect.top - rect.height / 2;
+      const ns = Math.max(MIN, Math.min(MAX, sScale * (d / sDist)));
+      tx = (sTx - ox) * (ns / sScale) + ox + (m.x - pMid.x);
+      ty = (sTy - oy) * (ns / sScale) + oy + (m.y - pMid.y);
+      scale = ns; clamp(); apply(false);
+    } else if (e.touches.length === 1 && scale > 1.01) {
+      e.preventDefault();
+      const t = e.touches[0];
+      tx = sTx + (t.clientX - sX);
+      ty = sTy + (t.clientY - sY);
+      if (Math.abs(t.clientX - sX) > 6 || Math.abs(t.clientY - sY) > 6) movido = true;
+      clamp(); apply(false);
+    }
+  }, { passive: false });
+
+  img.addEventListener('touchend', function(e) {
+    if (e.touches.length > 0) return;
+    sDist = 0;
+    if (!movido) {
+      const now = Date.now();
+      if (now - lastTap < 300) { toggleZoom(sX, sY); lastTap = 0; }
+      else lastTap = now;
+    }
+  });
+
+  // Desktop: doble-click, rueda y arrastrar
+  img.addEventListener('dblclick', function(e) { e.preventDefault(); toggleZoom(e.clientX, e.clientY); });
+  img.addEventListener('wheel', function(e) { e.preventDefault(); zoomHacia(scale * (e.deltaY < 0 ? 1.2 : 1 / 1.2), e.clientX, e.clientY, false); }, { passive: false });
+  let mDown = false, mX = 0, mY = 0, mTx = 0, mTy = 0;
+  img.addEventListener('mousedown', function(e) { if (scale > 1) { mDown = true; mX = e.clientX; mY = e.clientY; mTx = tx; mTy = ty; img.style.cursor = 'grabbing'; e.preventDefault(); } });
+  window.addEventListener('mousemove', function(e) { if (mDown) { tx = mTx + (e.clientX - mX); ty = mTy + (e.clientY - mY); clamp(); apply(false); } });
+  window.addEventListener('mouseup', function() { if (mDown) { mDown = false; img.style.cursor = 'grab'; } });
+
+  // Cerrar solo al tocar el fondo (no la imagen)
+  lb.addEventListener('click', function(e) { if (e.target === lb) cerrarPlano(); });
+})();
 function toggle(cuerpoId, iconoId) {
   document.getElementById(cuerpoId).classList.toggle('abierto');
   document.getElementById(iconoId).classList.toggle('abierto');
