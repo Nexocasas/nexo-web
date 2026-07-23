@@ -198,6 +198,9 @@ const CONFIG = {
   // Opciones: "assets/planos/plano-40m2.jpg"
   //           "assets/planos/plano-65m2.jpg"
   plano: "assets/planos/plano-40m2.jpg",
+  // Versión enmarcada (carátula + logo) que se muestra SOLO al ampliar en el lightbox.
+  // La miniatura usa "plano" (dibujo limpio). Si se deja vacío, el lightbox usa el mismo.
+  planoAmpliado: "assets/planos/plano-40m2-marco.jpg",
 
 };
 /* ═══════════════════════════════════════════════════════ */
@@ -265,7 +268,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const planoEl = document.getElementById("cfg-plano");
   if (planoEl) planoEl.src = CONFIG.plano;
   const planoLb = document.getElementById("cfg-plano-lb");
-  if (planoLb) planoLb.src = CONFIG.plano;
+  if (planoLb) planoLb.src = CONFIG.planoAmpliado || CONFIG.plano;
 });
 
   // Rubros accordion
