@@ -1345,7 +1345,7 @@
 </div>
 
 <!-- ═══ PROYECTOS ═══ -->
-<div class="nexo-divider" id="proyectos">
+<div class="nexo-divider" id="proyectos" style="scroll-margin-top:70px;">
   <div class="nexo-divider-line"></div>
   <span class="nexo-divider-texto">Nuestros proyectos</span>
   <div class="nexo-divider-line"></div>
@@ -2078,7 +2078,7 @@ function irAProyecto(idx) {
     const dx = t.clientX - sx;
     const dy = t.clientY - sy;
     if (dx > 80 && Math.abs(dy) < 55 && dx > Math.abs(dy) * 1.5) {
-      irAInicio();
+      irAInicio('proyectos');
     }
   }, { passive: true });
 })();
