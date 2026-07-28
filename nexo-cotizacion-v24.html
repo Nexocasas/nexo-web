@@ -265,7 +265,7 @@ document.addEventListener("DOMContentLoaded", () => {
   set("cfg-paso-obra",     "Inicio de obra · " + CONFIG.pasoObra);
   set("cfg-paso-avance",   "Avance de obra · " + CONFIG.pasoAvance);
   set("cfg-paso-entrega",  CONFIG.pasoEntrega);
-  const PLANO_VER = "?v=2"; // subir este número si se reemplazan las imágenes de planos (evita caché)
+  const PLANO_VER = "?v=3"; // subir este número si se reemplazan las imágenes de planos (evita caché)
   const planoEl = document.getElementById("cfg-plano");
   if (planoEl) planoEl.src = CONFIG.plano + PLANO_VER;
   const planoLb = document.getElementById("cfg-plano-lb");
