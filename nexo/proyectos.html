@@ -1229,6 +1229,100 @@
     from { opacity: 0; transform: translateY(12px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+
+  /* ══ COTIZACIONES ══════════════════════════════════════════════ */
+  #cotizaciones-lista { max-width: 1300px; margin: 0 auto; padding-bottom: 1rem; }
+  .cot-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    padding: 0 3.5rem 3rem;
+  }
+  .cot-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg2);
+    cursor: pointer;
+    overflow: hidden;
+    border: none;
+    text-align: left;
+    font: inherit;
+    color: inherit;
+    padding: 0;
+  }
+  .cot-card-plano {
+    aspect-ratio: 4/3;
+    background: #FAFAF8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    overflow: hidden;
+  }
+  .cot-card-plano img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    mix-blend-mode: multiply;
+    transition: transform 0.6s ease;
+  }
+  .cot-card:hover .cot-card-plano img { transform: scale(1.04); }
+  .cot-card-texto { padding: 1.4rem 1.5rem 1.6rem; display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; }
+  .cot-card-tag { font-size: 0.52rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.45rem; }
+  .cot-card-nombre { font-family: 'scale-variable', sans-serif; font-size: clamp(1.2rem, 2vw, 1.8rem); font-weight: 300; letter-spacing: 0.03em; line-height: 1.1; }
+  .cot-card-amb { font-size: 0.78rem; color: var(--muted); margin-top: 0.45rem; font-weight: 300; }
+  .cot-card-ver { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); white-space: nowrap; transition: color 0.2s; }
+  .cot-card:hover .cot-card-ver { color: var(--amber); }
+
+  /* detalle */
+  #cotizacion-page { display: none; padding-top: 61px; }
+  body.en-cotizacion #cotizacion-page { display: block; }
+  body.en-cotizacion .nexo-intro,
+  body.en-cotizacion .nexo-info,
+  body.en-cotizacion .nexo-divider,
+  body.en-cotizacion #hero,
+  body.en-cotizacion #cotizaciones-lista,
+  body.en-cotizacion .nexo-casas-info .header { display: none; }
+  .cot-det-head { max-width: 1300px; margin: 0 auto; padding: 2.5rem 3.5rem 2rem; }
+  .cot-volver { background: none; border: none; color: var(--muted); font: inherit; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; padding: 0; margin-bottom: 2rem; }
+  .cot-volver:hover { color: var(--text); }
+  .cot-det-nombre { font-family: 'scale-variable', sans-serif; font-size: clamp(2.6rem, 5vw, 4.5rem); font-weight: 200; line-height: 1; letter-spacing: 0.03em; }
+  .cot-det-amb { font-size: 0.9rem; color: var(--muted); margin-top: 0.9rem; font-weight: 300; }
+  #cotizacion-page .plano-section { margin-top: 0; }
+  #cotizacion-page .plano-img { cursor: zoom-in; mix-blend-mode: multiply; background: transparent; }
+  .cot-ampliar { font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: #7a7570; margin-top: 0.75rem; grid-column: 1 / -1; }
+  .cot-precio { max-width: 1300px; margin: 0 auto; padding: 3.5rem 3.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .cot-precio-label { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+  .cot-precio-valor { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: clamp(2.6rem, 6vw, 4.2rem); letter-spacing: -0.03em; line-height: 1; }
+  .cot-precio-valor.consultar { font-family: 'scale-variable', sans-serif; font-weight: 300; letter-spacing: 0.02em; font-size: clamp(1.8rem, 3.5vw, 2.6rem); }
+  .cot-precio-nota { font-size: 0.82rem; color: var(--muted); margin-top: 1rem; line-height: 1.7; font-weight: 300; }
+  .cot-wa { display: inline-block; margin-top: 1.75rem; padding: 0.9rem 2rem; background: var(--amber); color: #1a1814; font-size: 0.74rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; border-radius: 2px; }
+  .cot-pagos { border-top: 1px solid var(--border); }
+  .cot-pago { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+  .cot-pago-etapa { font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.3rem; }
+  .cot-pago-nombre { font-size: 0.92rem; font-weight: 500; }
+  .cot-pago-monto { font-size: 0.92rem; font-weight: 600; text-align: right; white-space: nowrap; }
+  .cot-pago-monto small { display: block; font-size: 0.68rem; font-weight: 400; color: var(--muted); margin-top: 0.2rem; }
+
+  @media (max-width: 768px) {
+    .cot-grid {
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: 86%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      padding: 0 1.2rem 2.5rem;
+    }
+    .cot-grid::-webkit-scrollbar { display: none; }
+    .cot-card { scroll-snap-align: start; }
+    .cot-card-texto { padding: 1.1rem 1.2rem 1.3rem; }
+    .cot-card-nombre { font-size: 1.3rem; }
+    #cotizacion-page { padding-top: 52px; }
+    .cot-det-head { padding: 1.75rem 1.2rem 1.5rem; }
+    .cot-precio { grid-template-columns: 1fr; gap: 2.25rem; padding: 2.5rem 1.2rem; }
+  }
 </style>
 </head>
 <body>
@@ -1259,6 +1353,7 @@
         <button class="nav-dropdown-item" onclick="irAProyecto(6);cerrarDropdown()">Casa Marco</button>
       </div>
     </li>
+    <li><a href="#cotizaciones" onclick="irAInicio('cotizaciones')">Cotizaciones</a></li>
     <li><a href="#incluye" onclick="irAInicio('incluye')">Tu Casa Nexo</a></li>
     <li><a href="#contacto" onclick="irAInicio('contacto')">Contacto</a></li>
   </ul>
@@ -1285,6 +1380,7 @@
   <button class="nav-mobile-sub" onclick="irAProyecto(4);cerrarNavMobile()">Taller P &amp; F</button>
   <button class="nav-mobile-sub" onclick="irAProyecto(5);cerrarNavMobile()">Casa A &amp; S</button>
   <button class="nav-mobile-sub" onclick="irAProyecto(6);cerrarNavMobile()">Casa Marco</button>
+  <a href="#cotizaciones" class="nav-mobile-item" onclick="irAInicio('cotizaciones');cerrarNavMobile()">Cotizaciones</a>
   <a href="#incluye" class="nav-mobile-item" onclick="irAInicio('incluye');cerrarNavMobile()">Tu Casa Nexo</a>
   <a href="#contacto" class="nav-mobile-item" onclick="irAInicio('contacto');cerrarNavMobile()">Contacto</a>
   <a href="../index.html" class="nav-mobile-item por-tomas">
@@ -1368,12 +1464,34 @@
   <div class="cards-dots" id="cards-dots"></div>
 </section>
 
+<!-- ═══ COTIZACIONES ═══ -->
+<div class="nexo-divider" id="cotizaciones" style="scroll-margin-top:56px;">
+  <div class="nexo-divider-line"></div>
+  <span class="nexo-divider-texto">Cotizaciones</span>
+  <div class="nexo-divider-line"></div>
+</div>
+
+<section id="cotizaciones-lista">
+  <div class="hero-top">
+    <div>
+      <p class="hero-etiqueta">Anteproyectos</p>
+      <h1 class="hero-titulo">Opciones de</h1>
+      <h1 class="hero-titulo-acc">COTIZACIÓN</h1>
+    </div>
+    <p class="hero-desc">Tres tipologías de base para empezar a proyectar tu casa. Entrá en cada una para ver el plano, el precio, qué incluye y cómo seguimos.</p>
+  </div>
+  <div class="cot-grid" id="cot-grid"></div>
+</section>
+
 <!-- ═══ QUÉ INCLUYE + CÓMO SEGUIMOS ═══ -->
 <div class="nexo-divider" id="incluye" style="scroll-margin-top:56px;">
   <div class="nexo-divider-line"></div>
   <span class="nexo-divider-texto">Tu Casa Nexo</span>
   <div class="nexo-divider-line"></div>
 </div>
+
+<!-- ═══ DETALLE DE COTIZACIÓN (renderizado por JS) ═══ -->
+<section id="cotizacion-page"></section>
 
 <div style="background:#FAFAF8;" class="nexo-casas-info">
   <div class="header">
@@ -1922,6 +2040,50 @@ const proyectos = [
   },
 ];
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   COTIZACIONES — editar solo este bloque
+   · precio: "USD 60.000" (o dejar "" para mostrar "Precio a consultar")
+   · Para sumar una opción, copiá un bloque { ... } y cambiale los datos.
+   · El id se usa en el link directo: proyectos.html#cotizacion-<id>
+   ═══════════════════════════════════════════════════════════════════════════ */
+const COTIZACIONES = [
+  {
+    id: '40',
+    nombre: 'Casa 40 m²',
+    m2: '40',
+    dormitorios: '1',
+    banos: '1',
+    ambientes: '1 Dormitorio · 1 Baño',
+    plano: '../assets/planos/plano-40m2.jpg',
+    planoAmpliado: '../assets/planos/plano-40m2-marco.jpg',
+    precio: 'USD 60.000',
+  },
+  {
+    id: '65',
+    nombre: 'Casa 65 m²',
+    m2: '65',
+    dormitorios: '2',
+    banos: '1',
+    ambientes: '2 Dormitorios · 1 Baño',
+    plano: '../assets/planos/plano-65m2.jpg',
+    planoAmpliado: '',
+    precio: '',   // ← completar, ej: 'USD 85.000'
+  },
+  {
+    id: '100',
+    nombre: 'Casa 100 m²',
+    m2: '100',
+    dormitorios: '2',
+    banos: '1 + toilette',
+    ambientes: '2 Dormitorios · Baño completo · Toilette · Lavadero',
+    plano: '../assets/planos/plano-100m2.jpg',
+    planoAmpliado: '',
+    precio: '',   // ← completar, ej: 'USD 120.000'
+  },
+];
+const COT_WHATSAPP = '5493512778244';
+/* ═══════════════════════════════════════════════════════════════════════════ */
+
 // ─── ESTADO ─────────────────────────────────────────────────────────────────
 let proyectoActual = 0;
 let salidoDePortada = false;
@@ -1997,6 +2159,121 @@ function initCardsCarrusel() {
 }
 initCardsCarrusel();
 
+// ─── COTIZACIONES: TARJETAS ──────────────────────────────────────────────────
+function renderCotizaciones() {
+  const grid = document.getElementById('cot-grid');
+  if (!grid) return;
+  grid.innerHTML = COTIZACIONES.map((c, i) => `
+    <button class="cot-card" onclick="irACotizacion(${i})">
+      <div class="cot-card-plano"><img src="${encodeURI(c.plano)}" alt="Plano ${attr(c.nombre)}" loading="lazy"></div>
+      <div class="cot-card-texto">
+        <div>
+          <p class="cot-card-tag">Anteproyecto</p>
+          <p class="cot-card-nombre">${c.nombre}</p>
+          <p class="cot-card-amb">${c.ambientes}</p>
+        </div>
+        <span class="cot-card-ver">Ver →</span>
+      </div>
+    </button>
+  `).join('');
+}
+
+// ─── COTIZACIONES: DETALLE ───────────────────────────────────────────────────
+function cotMonto(precio, pct) {
+  const n = parseInt(String(precio).replace(/\D/g, ''), 10);
+  if (!n) return '';
+  const moneda = (String(precio).match(/^[^\d]+/) || ['USD '])[0].trim();
+  return moneda + ' ' + Math.round(n * pct).toLocaleString('es-AR');
+}
+
+function renderCotizacion(idx) {
+  const c = COTIZACIONES[idx];
+  const page = document.getElementById('cotizacion-page');
+  const planoGrande = encodeURI(c.planoAmpliado || c.plano);
+  const msg = encodeURIComponent(`Hola! Me interesa la opción ${c.nombre} (${c.ambientes}). ¿Me pasan más info?`);
+  const anticipo = cotMonto(c.precio, 0.05);
+
+  page.innerHTML = `
+    <div class="fade-in">
+      <div class="cot-det-head">
+        <button class="cot-volver" onclick="irAInicio('cotizaciones')">← Todas las cotizaciones</button>
+        <p class="proyecto-tag">[&nbsp;Cotización · Anteproyecto&nbsp;]</p>
+        <h2 class="cot-det-nombre">${c.nombre}</h2>
+        <p class="cot-det-amb">${c.ambientes}</p>
+      </div>
+
+      <div class="plano-section">
+        <div class="plano-section-inner">
+          <p class="plano-label">Plano de referencia</p>
+          <img class="plano-img" src="${encodeURI(c.plano)}" alt="Plano ${attr(c.nombre)}"
+               data-src="${planoGrande}" data-seccion="Plano de referencia"
+               data-proyecto="${attr(c.nombre)}" data-desc="${attr(c.ambientes)}"
+               data-grupo="cot-plano" onclick="abrirLightbox(this)">
+          <div class="plano-specs">
+            <div class="plano-spec"><p class="plano-spec-label">Superficie</p><p class="plano-spec-value">${c.m2} m²</p></div>
+            <div class="plano-spec"><p class="plano-spec-label">Dormitorios</p><p class="plano-spec-value">${c.dormitorios}</p></div>
+            <div class="plano-spec"><p class="plano-spec-label">Baños</p><p class="plano-spec-value">${c.banos}</p></div>
+          </div>
+          <p class="cot-ampliar">Tocá el plano para ampliar · Es de referencia y puede ajustarse durante el proyecto.</p>
+        </div>
+      </div>
+
+      <div class="cot-precio">
+        <div>
+          <p class="cot-precio-label">Total · Materiales + mano de obra</p>
+          ${c.precio
+            ? `<p class="cot-precio-valor">${c.precio}</p>
+               <p class="cot-precio-nota">Entrega llave en mano · Exento de IVA<br>Solicitar factura si corresponde.</p>`
+            : `<p class="cot-precio-valor consultar">Precio a consultar</p>
+               <p class="cot-precio-nota">Escribinos y te pasamos la cotización de esta opción.</p>`}
+          <a class="cot-wa" href="https://wa.me/${COT_WHATSAPP}?text=${msg}" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+        </div>
+        <div>
+          <p class="cot-precio-label">Forma de pago</p>
+          <div class="cot-pagos">
+            <div class="cot-pago"><div><p class="cot-pago-etapa">Anteproyecto</p><p class="cot-pago-nombre">Reserva de lugar</p></div><p class="cot-pago-monto">${anticipo || '5%'}${anticipo ? '<small>Anticipo 5%</small>' : '<small>Anticipo</small>'}</p></div>
+            <div class="cot-pago"><div><p class="cot-pago-etapa">Inicio de obra</p><p class="cot-pago-nombre">1° pago mano de obra</p></div><p class="cot-pago-monto">33%</p></div>
+            <div class="cot-pago"><div><p class="cot-pago-etapa">Avance de obra</p><p class="cot-pago-nombre">2° pago mano de obra</p></div><p class="cot-pago-monto">33%</p></div>
+            <div class="cot-pago"><div><p class="cot-pago-etapa">Contraentrega</p><p class="cot-pago-nombre">3° pago mano de obra</p></div><p class="cot-pago-monto">Saldo final</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function irACotizacion(idx) {
+  if (!COTIZACIONES[idx]) return;
+  renderCotizacion(idx);
+  document.getElementById('proyecto-page').classList.remove('activa');
+  document.getElementById('hero').classList.add('activa');
+  document.body.classList.remove('en-proyecto');
+  document.body.classList.add('en-cotizacion');
+  // Mostrar "¿Qué incluye?" abierto por defecto
+  const tabIncluye = document.querySelector('.tab-btn2');
+  if (tabIncluye) mostrarTab2('incluye2', tabIncluye);
+  try { history.replaceState(null, '', '#cotizacion-' + COTIZACIONES[idx].id); } catch (e) {}
+  window.scrollTo({ top: 0 });
+}
+
+function salirDeCotizacion() {
+  if (!document.body.classList.contains('en-cotizacion')) return;
+  document.body.classList.remove('en-cotizacion');
+  try { history.replaceState(null, '', location.pathname); } catch (e) {}
+}
+
+renderCotizaciones();
+
+// Link directo: proyectos.html#cotizacion-40
+function abrirCotizacionDesdeHash() {
+  const m = location.hash.match(/^#cotizacion-(.+)$/);
+  if (!m) return;
+  const idx = COTIZACIONES.findIndex(c => c.id === decodeURIComponent(m[1]));
+  if (idx >= 0) irACotizacion(idx);
+}
+abrirCotizacionDesdeHash();
+window.addEventListener('hashchange', abrirCotizacionDesdeHash);
+
 // ─── NAV ─────────────────────────────────────────────────────────────────────
 function toggleMenu() {
   document.getElementById('menu-overlay').classList.toggle('abierto');
@@ -2041,6 +2318,7 @@ function toggleIA(el) {
 
 function irAInicio(seccion) {
   cerrarMenu();
+  salirDeCotizacion();
   document.getElementById('hero').classList.add('activa');
   document.getElementById('proyecto-page').classList.remove('activa');
   document.body.classList.remove('en-proyecto');
@@ -2055,6 +2333,7 @@ function irAInicio(seccion) {
 }
 
 function irAProyecto(idx) {
+  salirDeCotizacion();
   salidoDePortada = true;
   proyectoActual = idx;
   renderProyecto(idx);
@@ -2080,7 +2359,8 @@ function irAProyecto(idx) {
   }
   document.addEventListener('touchstart', function(e) {
     activo = false;
-    if (!document.body.classList.contains('en-proyecto')) return;
+    if (!document.body.classList.contains('en-proyecto') &&
+        !document.body.classList.contains('en-cotizacion')) return;
     const lb = document.getElementById('lightbox');
     if (lb && lb.classList.contains('abierto')) return;
     if (!e.touches || e.touches.length !== 1) return;
@@ -2096,7 +2376,7 @@ function irAProyecto(idx) {
     const dx = t.clientX - sx;
     const dy = t.clientY - sy;
     if (dx > 80 && Math.abs(dy) < 55 && dx > Math.abs(dy) * 1.5) {
-      irAInicio('proyectos');
+      irAInicio(document.body.classList.contains('en-cotizacion') ? 'cotizaciones' : 'proyectos');
     }
   }, { passive: true });
 })();

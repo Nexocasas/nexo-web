@@ -1,0 +1,2295 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexo — Nuestros Proyectos</title>
+<link rel="stylesheet" href="https://use.typekit.net/gvc0wtt.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../assets/favicon.png?v=3">
+<style>
+  :root {
+    --bg:     #0d0b09;
+    --bg2:    #141210;
+    --text:   #f0ece5;
+    --amber:  #c9aa82;
+    --muted:  rgba(240,236,229,0.72);
+    --border: rgba(240,236,229,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    padding: 0 3rem;
+    background: rgba(13,11,9,0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+  }
+  .nav-logo img { height: 20px; width: auto; }
+  .nav-logo span { font-family: 'scale-variable', sans-serif; font-size: 1.1rem; font-weight: 300; color: var(--text); letter-spacing: 0.04em; }
+  .nav-links { display: flex; gap: 1.75rem; align-items: center; list-style: none; }
+  .nav-links a { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(240,236,229,0.6); text-decoration: none; transition: color 0.2s; white-space: nowrap; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-por { display: flex; align-items: center; gap: 0.45rem; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(240,236,229,0.45); text-decoration: none; transition: color 0.2s; white-space: nowrap; }
+  .nav-por:hover { color: var(--amber); }
+
+  /* Dropdown proyectos */
+  .nav-dropdown { position: relative; }
+  .nav-dropdown-btn { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(240,236,229,0.6); background: none; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s; padding: 0; }
+  .nav-dropdown-btn:hover, .nav-dropdown.abierto .nav-dropdown-btn { color: var(--text); }
+  .nav-dropdown-btn svg { transition: transform 0.2s; }
+  .nav-dropdown.abierto .nav-dropdown-btn svg { transform: rotate(180deg); }
+  .nav-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 1rem);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    min-width: 200px;
+    padding: 0.5rem 0;
+    z-index: 200;
+  }
+  .nav-dropdown.abierto .nav-dropdown-menu { display: block; }
+  .nav-dropdown-item {
+    display: block;
+    padding: 0.65rem 1.25rem;
+    font-size: 0.78rem;
+    color: rgba(240,236,229,0.7);
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.02em;
+    transition: background 0.15s, color 0.15s;
+  }
+  .nav-dropdown-item:hover { background: rgba(240,236,229,0.06); color: var(--text); }
+
+  /* ── HAMBURGUESA MOBILE ── */
+  .nav-hamburguesa-mobile {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .nav-hamburguesa-mobile span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--text);
+    transition: all 0.3s;
+  }
+
+  /* Menú mobile */
+  .nav-mobile-menu {
+    display: none;
+    position: fixed;
+    top: 56px; left: 0; right: 0; bottom: 0;
+    background: var(--bg);
+    z-index: 150;
+    flex-direction: column;
+    padding: 2rem 2rem;
+    overflow-y: auto;
+  }
+  .nav-mobile-menu.abierto { display: flex; }
+  .nav-mobile-item {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(240,236,229,0.6);
+    text-decoration: none;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+    background: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    text-align: left;
+    width: 100%;
+    transition: color 0.2s;
+  }
+  .nav-mobile-item:hover { color: var(--text); }
+  .nav-mobile-item.por-tomas {
+    color: var(--amber);
+    margin-top: 1rem;
+    border-bottom: none;
+    font-size: 0.78rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .nav-mobile-sub {
+    padding: 0.65rem 0 0.65rem 1.25rem;
+    font-size: 0.8rem;
+    color: rgba(240,236,229,0.5);
+    letter-spacing: 0.04em;
+    text-transform: none;
+    border-bottom: 1px solid rgba(240,236,229,0.06);
+    background: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    text-align: left;
+    width: 100%;
+    transition: color 0.2s;
+  }
+  .nav-mobile-sub:hover { color: var(--text); }
+
+  @media (max-width: 768px) {
+    .nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .nav-por { display: none; }
+    .nav-hamburguesa-mobile { display: flex; }
+  }
+
+  /* ── MENU OVERLAY (desactivado) ── */
+  .menu-overlay { display: none !important; }
+  .menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s;
+  }
+  .menu-overlay.abierto {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .menu-close {
+    position: absolute;
+    top: 1.4rem;
+    right: 2.5rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 1.8rem;
+    font-weight: 200;
+    line-height: 1;
+    padding: 4px;
+  }
+
+  .menu-subtitulo {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3.5rem;
+  }
+
+  .menu-item {
+    display: block;
+    font-size: clamp(1.3rem, 2.8vw, 2rem);
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    text-decoration: none;
+    padding: 0.65rem 0;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: inherit;
+    transition: opacity 0.2s;
+    text-align: center;
+  }
+  .menu-item:hover { opacity: 0.75; }
+
+  .menu-icon-bottom {
+    margin-top: 3.5rem;
+    opacity: 0.85;
+  }
+  .menu-icon-bottom svg { width: 36px; height: auto; fill: var(--text); }
+
+  /* ── PAGES ── */
+  .page { display: none; }
+  .page.activa { display: block; }
+
+  #hero, #proyecto-page {
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  /* Ocultar portada al ver proyecto */
+  body.en-proyecto .nexo-intro,
+  body.en-proyecto .nexo-info,
+  body.en-proyecto .nexo-divider { display: none; }
+
+  /* ── QUÉ INCLUYE ── */
+  .incluye-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+  .incluye-cat h4 { font-family: 'scale-variable', sans-serif; font-weight: 300; font-size: 0.95rem; color: var(--amber); margin-bottom: 0.75rem; letter-spacing: 0.04em; }
+  .incluye-cat ul { list-style: none; }
+  .incluye-cat ul li { font-size: 0.78rem; color: var(--muted); padding: 0.3rem 0; padding-left: 0.9rem; position: relative; line-height: 1.5; border-bottom: 1px solid var(--border); }
+  .incluye-cat ul li::before { content: ''; position: absolute; left: 0; top: 0.75rem; width: 3px; height: 3px; border-radius: 50%; background: var(--amber); opacity: 0.6; }
+
+
+  /* ── DE informacion.html ── */
+  .header{padding:4rem 3.5rem 2rem;max-width:1100px;margin:0 auto;text-align:center;}
+  .header-eyebrow{font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;color:#8B6F47;margin-bottom:1.25rem;}
+  .header-titulo{font-family:'scale-variable',sans-serif;font-weight:300;font-size:clamp(1.9rem,4vw,3.2rem);line-height:1.15;color:#1a1814;margin-bottom:1.25rem;}
+  .header-texto{font-size:0.92rem;color:#7a7570;max-width:60ch;margin:0 auto;line-height:1.8;}
+  .tabs2{display:flex;justify-content:center;gap:0.75rem;padding:1.5rem 3.5rem 0;flex-wrap:wrap;background:#FAFAF8;}
+  .tab-btn2{padding:0.65rem 1.5rem;border:1px solid #e8e4df;background:transparent;color:#7a7570;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all 0.2s;}
+  .tab-btn2.activo,.tab-btn2:hover{background:#1a1814;color:#FAFAF8;border-color:#1a1814;}
+  .panel2{display:none;max-width:1100px;margin:0 auto;padding:2.5rem 3.5rem 5rem;background:#FAFAF8;color:#1a1814;}
+  .panel2.activo{display:block;}
+  .intro-nota2{font-size:0.85rem;color:#7a7570;line-height:1.7;padding:1.25rem 0 1.75rem;border-bottom:1px solid #e8e4df;margin-bottom:2rem;}
+  .intro-nota2 strong{color:#1a1814;}
+  /* pasos */
+  .pasos2{display:flex;flex-direction:column;gap:0;}
+  .paso2{display:flex;align-items:center;gap:1.5rem;padding:1.75rem 0;border-bottom:1px solid #e8e4df;}
+  .paso2:last-child{border-bottom:none;}
+  .paso2-icono{width:48px;height:48px;flex-shrink:0;}
+  .paso2-icono img{width:100%;height:100%;object-fit:contain;}
+  .paso2-etapa{font-size:0.68rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#7a7570;margin-bottom:0.3rem;}
+  .paso2-nombre{font-family:'scale-variable',sans-serif;font-weight:400;font-size:1.1rem;color:#1a1814;margin-bottom:0.2rem;}
+  .paso2-desc{font-size:0.8rem;color:#7a7570;}
+  @media(max-width:700px){
+    .header{padding:3rem 1.25rem 1.5rem;}
+    .tabs2{padding:1rem 1.25rem 0;}
+    .panel2{padding:2rem 1.25rem 4rem;}
+    .paso2{gap:1rem;}
+    .paso2-icono{width:38px;height:38px;}
+  }
+
+  /* ── ACORDEÓN SOBRE FONDO BLANCO ── */
+  .cat { margin-bottom:0; border-bottom:1px solid #e8e4df; }
+  .cat-header { display:flex; align-items:center; justify-content:space-between; padding:1.25rem 0; cursor:pointer; }
+  .cat-titulo { font-family:'scale-variable',sans-serif; font-weight:400; font-size:1.1rem; color:#1a1814; margin-bottom:0; }
+  .cat-icono { font-size:1.4rem; font-weight:300; color:#8B6F47; transition:transform 0.25s; flex-shrink:0; margin-left:1rem; pointer-events:none; }
+  .cat.abierto .cat-icono { transform:rotate(45deg); }
+  .cat-body { max-height:0; overflow:hidden; transition:max-height 0.35s ease; }
+  .cat.abierto .cat-body { max-height:2000px; }
+  .cat-body-inner { padding-bottom:1.5rem; }
+  .sub-titulo { font-size:0.7rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#8B6F47; margin:1rem 0 0.5rem; }
+  .lista { list-style:none; padding:0; }
+  .lista li { font-size:0.86rem; color:#1a1814; padding:0.4rem 0 0.4rem 1.1rem; position:relative; line-height:1.5; border-bottom:1px solid #e8e4df; }
+  .lista li::before { content:''; position:absolute; left:0; top:0.85rem; width:4px; height:4px; border-radius:50%; background:#8B6F47; }
+  .nota-item { font-size:0.78rem; color:#7a7570; font-style:italic; margin-top:0.5rem; }
+  .opc-sub { font-size:0.82rem; color:#7a7570; margin-bottom:0.5rem; }
+  .cotizar-item { padding:1rem 0; border-bottom:1px solid #e8e4df; }
+  .cotizar-item:last-child { border-bottom:none; }
+  .cotizar-titulo { font-family:'scale-variable',sans-serif; font-weight:400; font-size:1rem; color:#1a1814; margin-bottom:0.3rem; }
+  .cotizar-desc { font-size:0.82rem; color:#7a7570; }
+
+  /* ── ACORDEÓN QUÉ INCLUYE ── */
+  .incluye-acordeon { border-top: 1px solid var(--border); }
+  .ia-item { border-bottom: 1px solid var(--border); cursor: pointer; }
+  .ia-header { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 0; }
+  .ia-titulo { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; color: var(--text); pointer-events: none; }
+  .ia-icono { font-size: 1.3rem; font-weight: 300; color: var(--amber); transition: transform 0.25s; line-height: 1; flex-shrink: 0; pointer-events: none; }
+  .ia-item.abierto .ia-icono { transform: rotate(45deg); }
+  .ia-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+  .ia-item.abierto .ia-body { max-height: 400px; }
+  .ia-lista { list-style: none; padding-bottom: 1.25rem; }
+  .ia-lista li { font-size: 0.8rem; color: var(--muted); padding: 0.35rem 0 0.35rem 1rem; position: relative; line-height: 1.5; }
+  .ia-lista li::before { content: ''; position: absolute; left: 0; top: 0.75rem; width: 3px; height: 3px; border-radius: 50%; background: var(--amber); opacity: 0.7; }
+
+  /* ── PASOS ── */
+  .pasos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .paso-item { display: flex; gap: 1.25rem; padding: 1.75rem; border: 1px solid var(--border); margin: -1px 0 0 -1px; }
+  .paso-num { font-family: 'scale-variable', sans-serif; font-weight: 300; font-size: 1.8rem; color: var(--amber); opacity: 0.5; line-height: 1; flex-shrink: 0; width: 2.5rem; }
+  .paso-nombre { font-family: 'scale-variable', sans-serif; font-weight: 300; font-size: 0.95rem; color: var(--text); margin-bottom: 0.4rem; }
+  .paso-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── OCULTAR cuando está en proyecto ── */
+  body.en-proyecto .nexo-intro,
+  body.en-proyecto .nexo-info,
+  body.en-proyecto .nexo-divider,
+  body.en-proyecto .nexo-casas-info,
+  body.en-proyecto #contacto { display: none; }
+
+  @media (max-width: 900px) {
+    .incluye-grid { grid-template-columns: repeat(2, 1fr); }
+    .pasos-grid { grid-template-columns: 1fr; }
+    #contacto { padding: 4rem 1.5rem; }
+  }
+  @media (max-width: 600px) {
+    .incluye-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── NEXO INFO SECTION ── */
+  .nexo-info { background: var(--bg); padding: 5rem 3.5rem; max-width: 1300px; margin: 0 auto; }
+  .nexo-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .nexo-info-datos { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--border); }
+  .nexo-info-dato { padding: 1.75rem 1.5rem; }
+  .nexo-info-dato.br { border-right: 1px solid var(--border); }
+  .nexo-info-dato.bb { border-bottom: 1px solid var(--border); }
+  .nexo-info-num { font-family: 'scale-variable', sans-serif; font-size: 2rem; font-weight: 300; color: var(--amber); line-height: 1; margin-bottom: 0.4rem; }
+  .nexo-info-inf { font-size: 3rem; line-height: 0.66; }
+  .nexo-info-label { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+
+  @media (max-width: 700px) {
+    .nexo-info { padding: 3rem 1.5rem; }
+    .nexo-info-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .nexo-info-datos { grid-template-columns: 1fr 1fr; }
+    .nexo-info-num { font-size: 1.4rem; }
+    .nexo-info-inf { font-size: 2.1rem; }
+  }
+
+  /* ── NEXO INTRO ── */
+  .nexo-intro {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 8rem 3.5rem 5rem;
+    position: relative;
+    background-image: url('../assets/img/nexo-hero-portada.jpg');
+    background-size: cover;
+    background-position: center top;
+  }
+
+  .nexo-intro::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(13,11,9,0.55) 0%, rgba(13,11,9,0.92) 75%, rgba(13,11,9,1) 100%);
+    z-index: 0;
+  }
+
+  .nexo-intro > * { position: relative; z-index: 1; }
+
+  .nexo-intro-logo {
+    width: clamp(180px, 30vw, 320px);
+    height: auto;
+    margin-bottom: 3rem;
+    opacity: 0.95;
+  }
+
+  .nexo-intro-eyebrow {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1.5rem;
+  }
+
+  .nexo-intro-titulo {
+    font-family: 'scale-variable', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.8rem);
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: 0.03em;
+    margin-bottom: 2rem;
+    max-width: 18ch;
+  }
+
+  .nexo-intro-titulo span { color: var(--amber); }
+
+  .nexo-intro-texto {
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: var(--muted);
+    max-width: 52ch;
+    font-weight: 300;
+    margin-bottom: 3.5rem;
+  }
+
+  .nexo-intro-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+    max-width: 700px;
+    width: 100%;
+    margin-bottom: 4rem;
+  }
+
+  .nexo-intro-feature {
+    padding: 1.5rem 1.25rem;
+    border-right: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .nexo-intro-feature:last-child { border-right: none; }
+
+  .nexo-intro-feature-num {
+    font-family: 'scale-variable', sans-serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--amber);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .nexo-intro-feature-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .nexo-scroll-hint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--muted);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .nexo-scroll-hint:hover { opacity: 0.6; }
+  .nexo-scroll-hint svg { animation: bounce 2s infinite; }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+  }
+
+  .nexo-divider {
+    padding: 2rem 3.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .nexo-divider-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .nexo-divider-texto {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* ── HERO ── */
+  #hero.activa {
+    min-height: 100vh;
+    padding-top: 61px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-top {
+    padding: 3.5rem 3.5rem 2.5rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .hero-etiqueta {
+    font-size: 0.58rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1rem;
+  }
+
+  .hero-titulo {
+    font-family: 'scale-variable', sans-serif;
+    font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: 0.03em;
+  }
+
+  .hero-titulo-acc {
+    font-family: 'scale-variable', sans-serif;
+    font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+    font-weight: 300;
+    color: var(--amber);
+    line-height: 1;
+    letter-spacing: 0.06em;
+  }
+
+  .hero-desc {
+    font-size: 0.8rem;
+    line-height: 1.8;
+    color: var(--muted);
+    max-width: 38ch;
+    font-weight: 300;
+    text-align: right;
+  }
+
+  /* ── CARDS GRID ── */
+  .cards-carrusel { position: relative; padding: 0 3.5rem 2rem; }
+  .cards-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% - 2 * 2px) / 3);
+    gap: 2px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .cards-grid::-webkit-scrollbar { display: none; }
+  .cards-arrow { position: absolute; top: 45%; transform: translateY(-50%); z-index: 10; width: 46px; height: 46px; border-radius: 50%; border: none; background: rgba(255,255,255,0.92); color: #1a1814; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 16px rgba(0,0,0,0.35); transition: opacity 0.2s; }
+  .cards-arrow.prev { left: 0.75rem; }
+  .cards-arrow.next { right: 0.75rem; }
+  .cards-dots { display: flex; justify-content: center; gap: 0.5rem; padding: 0 0 3rem; }
+  .cards-dot { width: 8px; height: 8px; border-radius: 50%; border: none; background: rgba(240,236,229,0.28); cursor: pointer; padding: 0; transition: background 0.2s, transform 0.2s; }
+  .cards-dot.activo { background: var(--amber); transform: scale(1.3); }
+
+  .card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    aspect-ratio: 3/4;
+    background: var(--bg2);
+    scroll-snap-align: start;
+  }
+
+  .card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease, opacity 0.3s;
+  }
+  .card:hover img {
+    transform: scale(1.04);
+    opacity: 0.75;
+  }
+
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(13,11,9,0.8) 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  .card-texto {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
+  }
+
+  .card-tag {
+    font-size: 0.52rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.4rem;
+  }
+
+  .card-nombre {
+    font-family: 'scale-variable', sans-serif;
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    color: var(--text);
+    line-height: 1.1;
+  }
+
+  /* ── PROYECTO PAGE ── */
+  #proyecto-page {
+    padding-top: 61px;
+    min-height: 100vh;
+  }
+
+  .proyecto-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    padding: 2.5rem 3.5rem 2.5rem;
+    align-items: start;
+  }
+
+  .proyecto-tag {
+    font-size: 0.58rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.8rem;
+  }
+
+  .proyecto-nombre {
+    font-family: 'scale-variable', sans-serif;
+    font-size: clamp(2.8rem, 5vw, 5rem);
+    font-weight: 200;
+    line-height: 1;
+    letter-spacing: 0.03em;
+  }
+
+  .proyecto-desc {
+    font-size: 0.82rem;
+    line-height: 1.85;
+    color: var(--muted);
+    font-weight: 300;
+    padding-top: 0.5rem;
+  }
+
+  .plano-section {
+    background: #FAFAF8;
+    padding: 3rem 3.5rem 4rem;
+    margin-top: 2rem;
+  }
+
+  .plano-section-inner {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 1px;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .plano-label {
+    grid-column: 1 / -1;
+    margin-bottom: 1rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #8B6F47;
+  }
+
+  .plano-img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: #f4f1ec;
+    object-fit: contain;
+  }
+
+  .plano-specs {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    margin-top: 0;
+    background: #e8e4df;
+  }
+
+  .plano-spec {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #FAFAF8;
+    padding: 1.2rem;
+  }
+
+  .plano-spec-label {
+    font-size: 0.56rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #7a7570;
+    margin-bottom: 0.45rem;
+  }
+
+  .plano-spec-value {
+    font-family: 'scale-variable', sans-serif;
+    font-size: clamp(1.5rem, 2.4vw, 2.35rem);
+    line-height: 1;
+    color: #1a1814;
+    font-weight: 250;
+  }
+
+  /* cover portada del proyecto */
+  .proyecto-cover {
+    position: relative;
+    width: 100%;
+    height: 85vh;
+    overflow: hidden;
+  }
+
+  .proyecto-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* cover está bien acá, es la portada hero */
+    display: block;
+  }
+
+  .proyecto-cover-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(13,11,9,0.75) 0%, rgba(13,11,9,0.1) 50%, transparent 100%);
+  }
+
+  .proyecto-cover-texto {
+    position: absolute;
+    bottom: 3rem;
+    left: 3.5rem;
+  }
+
+  .proyecto-cover-texto .proyecto-tag {
+    margin-bottom: 0.6rem;
+  }
+
+  .proyecto-cover-texto .proyecto-nombre {
+    color: var(--text);
+  }
+
+  /* ── SECCIONES ── */
+  .seccion {
+    padding: 0 3.5rem 2.5rem;
+  }
+
+  .sec-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--amber);
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+  }
+
+  /* grids tipo masonry (proporción natural) */
+  .foto-grid {
+    column-gap: 4px;
+  }
+  .foto-grid.trio   { columns: 3; }
+  .foto-grid.solo   { columns: 1; }
+  .foto-grid.cuatro { columns: 2; }
+
+  .foto-grid img, .foto-grid video {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 4px;
+    break-inside: avoid;
+    transition: opacity 0.3s;
+  }
+  .foto-grid img:hover { opacity: 0.85; }
+
+  /* grilla2: asimétrico 2fr 3fr (derecha más ancha), misma altura */
+  .foto-grid.grilla2 {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: 4px;
+    columns: unset;
+  }
+  .foto-grid.grilla2 img,
+  .foto-grid.grilla2 video {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 0;
+  }
+
+  /* featured-vid: asimétrico 3fr 2fr, misma altura */
+  .foto-grid.featured-vid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 4px;
+    columns: unset;
+  }
+  .foto-grid.featured-vid img,
+  .foto-grid.featured-vid video {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 0;
+  }
+
+  /* trio-grid: CSS grid 3 columnas, altura igualada */
+  .foto-grid.trio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4px;
+    columns: unset;
+  }
+  .foto-grid.trio-grid img,
+  .foto-grid.trio-grid video {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 0;
+    break-inside: unset;
+  }
+
+  /* duo: CSS grid con altura igualada */
+  .foto-grid.duo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    columns: unset;
+  }
+  .foto-grid.duo img,
+  .foto-grid.duo video {
+    width: 100%;
+    height: 100%;
+    max-height: 800px;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 0;
+    break-inside: unset;
+  }
+
+  .sep {
+    height: 1px;
+    background: var(--border);
+    margin: 0 3.5rem 2.5rem;
+  }
+
+  /* ── BOTTOM NAV ── */
+  .bottom-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 3.5rem 3rem;
+    border-top: 1px solid var(--border);
+    margin-top: 1rem;
+  }
+
+  .btn-nav {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+    min-width: 120px;
+  }
+  .btn-nav:hover { color: var(--text); }
+  .btn-nav.oculto { opacity: 0; pointer-events: none; }
+  .btn-nav.der { justify-content: flex-end; }
+
+  .bottom-icon svg { width: 28px; height: auto; fill: var(--text); opacity: 0.85; }
+
+  /* ── CARRUSEL WRAP + FLECHAS ── */
+  .carrusel-wrap {
+    position: relative;
+  }
+
+  .carrusel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(13,11,9,0.6);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.25s;
+    backdrop-filter: blur(4px);
+  }
+  .carrusel-wrap:hover .carrusel-btn { opacity: 1; }
+  .carrusel-btn:hover { background: rgba(13,11,9,0.85); }
+  .carrusel-btn.izq { left: 0.5rem; }
+  .carrusel-btn.der { right: 0.5rem; }
+
+  @media (max-width: 768px) {
+    .carrusel-btn { display: none; }
+  }
+
+  /* ── CARRUSEL (desktop, +3 fotos) ── */
+  .foto-grid.carrusel {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    columns: unset !important;
+    grid-template-columns: unset !important;
+    gap: 4px;
+  }
+  .foto-grid.carrusel::-webkit-scrollbar { display: none; }
+
+  .foto-grid.carrusel img,
+  .foto-grid.carrusel video {
+    flex: 0 0 32% !important;
+    width: 32% !important;
+    height: auto !important;
+    aspect-ratio: 3/4 !important;
+    object-fit: cover !important;
+    scroll-snap-align: start;
+    margin-bottom: 0 !important;
+    max-height: none !important;
+    break-inside: unset !important;
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+
+    /* nav */
+    .nav {
+      padding: 1rem 1.2rem;
+    }
+    .nav-logo svg { height: 14px; }
+    .nav-centro { display: none; }
+
+    /* menu overlay */
+    .menu-close { top: 1rem; right: 1.2rem; }
+    .menu-item { font-size: 1.2rem; padding: 0.5rem 0; }
+
+    /* hero */
+    #hero { padding-top: 52px; }
+
+    .hero-top {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 2rem 1.2rem 1.5rem;
+    }
+
+    .hero-titulo, .hero-titulo-acc {
+      font-size: clamp(2.2rem, 10vw, 3rem);
+    }
+
+    .hero-desc {
+      text-align: left;
+      max-width: 100%;
+    }
+
+    /* cards grid */
+    .cards-carrusel { padding: 0 1.2rem 1.5rem; }
+    .cards-grid {
+      grid-auto-columns: 90%;
+      gap: 2px;
+    }
+    .cards-arrow { display: none; }
+
+    .card { aspect-ratio: 4/5; }
+
+    .card-nombre { font-size: 1.3rem; }
+
+    /* proyecto cover */
+    .proyecto-cover { height: 60vh; }
+    .proyecto-cover-texto { left: 1.2rem; bottom: 1.5rem; }
+    .proyecto-nombre { font-size: clamp(2rem, 8vw, 3rem); }
+
+    /* proyecto header */
+    .proyecto-header {
+      grid-template-columns: 1fr;
+      padding: 1.5rem 1.2rem;
+      gap: 0.75rem;
+    }
+
+    .plano-section {
+      padding: 2rem 1.2rem 3rem;
+    }
+
+    .plano-section-inner {
+      display: block;
+    }
+
+    .plano-img {
+      aspect-ratio: 1.15;
+      object-fit: contain;
+      width: 100%;
+    }
+
+    .plano-specs {
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 1px;
+    }
+
+    .plano-spec {
+      padding: 0.9rem 0.45rem;
+    }
+
+    .plano-spec-label {
+      font-size: 0.48rem;
+      letter-spacing: 0.14em;
+    }
+
+    .plano-spec-value {
+      font-size: 1.35rem;
+    }
+
+    /* secciones */
+    .seccion { padding: 0 1.2rem 2rem; }
+    .sep { margin: 0 1.2rem 2rem; }
+
+    /* foto grids → carrusel horizontal */
+    .foto-grid,
+    .foto-grid.duo,
+    .foto-grid.trio,
+    .foto-grid.trio-grid,
+    .foto-grid.cuatro,
+    .foto-grid.solo,
+    .foto-grid.featured-vid,
+    .foto-grid.grilla2 {
+      display: flex !important;
+      flex-direction: row !important;
+      overflow-x: scroll;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      columns: unset !important;
+      grid-template-columns: unset !important;
+      gap: 6px;
+    }
+    .foto-grid::-webkit-scrollbar { display: none; }
+
+    .foto-grid img,
+    .foto-grid video {
+      flex: 0 0 78vw !important;
+      width: 78vw !important;
+      height: auto !important;
+      aspect-ratio: 3/4 !important;
+      object-fit: cover !important;
+      scroll-snap-align: start;
+      margin-bottom: 0 !important;
+      max-height: none !important;
+      break-inside: unset !important;
+    }
+
+    .foto-grid.carrusel img,
+    .foto-grid.carrusel video {
+      flex-basis: 78vw !important;
+      width: 78vw !important;
+    }
+
+    /* bottom nav */
+    .bottom-nav {
+      padding: 1.5rem 1.2rem 2rem;
+    }
+    .btn-nav { font-size: 0.55rem; min-width: 80px; }
+    .bottom-icon svg { width: 22px; }
+  }
+
+  /* ── LIGHTBOX ── */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    background: rgba(13,11,9,0.96);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    padding: 2rem;
+  }
+  .lightbox.abierto {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .lb-close {
+    position: absolute;
+    top: 1.4rem;
+    right: 2rem;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 2rem;
+    font-weight: 200;
+    cursor: pointer;
+    line-height: 1;
+    z-index: 1;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .lb-close:hover { opacity: 1; }
+
+  .lb-img-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 0;
+    position: relative;
+  }
+
+  .lb-img-wrap img {
+    max-width: 100%;
+    max-height: 75vh;
+    object-fit: contain;
+    display: block;
+    border: none;
+  }
+
+  .lb-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 1.8rem;
+    cursor: pointer;
+    opacity: 0.4;
+    transition: opacity 0.2s;
+    padding: 1rem;
+    line-height: 1;
+  }
+  .lb-arrow:hover { opacity: 1; }
+  .lb-arrow.prev { left: 0; }
+  .lb-arrow.next { right: 0; }
+  .lb-arrow.oculto { opacity: 0; pointer-events: none; }
+
+  .lb-info {
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+
+  .lb-seccion {
+    font-size: 0.58rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.4rem;
+  }
+
+  .lb-proyecto {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+
+  .lb-desc {
+    font-size: 0.92rem;
+    color: var(--text);
+    font-weight: 300;
+    max-width: 50ch;
+  }
+
+  .lb-contador {
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    color: rgba(240,236,229,0.25);
+    margin-top: 0.6rem;
+  }
+
+  /* ── FADE IN ── */
+  .fade-in {
+    animation: fadeIn 0.5s ease forwards;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="nav">
+  <!-- Logo -->
+  <a class="nav-logo" onclick="irAInicio()" href="#inicio">
+    <img src="../assets/nexo-icono-blanco.png" alt="Nexo">
+    <span>Nexo</span>
+  </a>
+
+  <!-- Links centrales -->
+  <ul class="nav-links" id="nav-centro">
+    <!-- Dropdown Proyectos -->
+    <li class="nav-dropdown" id="nav-dropdown">
+      <button class="nav-dropdown-btn" onclick="toggleDropdown()">
+        Nuestros Proyectos
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="nav-dropdown-menu">
+        <button class="nav-dropdown-item" onclick="irAProyecto(0);cerrarDropdown()">Casa Facundo</button>
+        <button class="nav-dropdown-item" onclick="irAProyecto(1);cerrarDropdown()">Casa G &amp; F</button>
+        <button class="nav-dropdown-item" onclick="irAProyecto(2);cerrarDropdown()">Casa Lu</button>
+        <button class="nav-dropdown-item" onclick="irAProyecto(3);cerrarDropdown()">Casa Luli</button>
+        <button class="nav-dropdown-item" onclick="irAProyecto(4);cerrarDropdown()">Taller P &amp; F</button>
+        <button class="nav-dropdown-item" onclick="irAProyecto(5);cerrarDropdown()">Casa A &amp; S</button>
+        <button class="nav-dropdown-item" onclick="irAProyecto(6);cerrarDropdown()">Casa Marco</button>
+      </div>
+    </li>
+    <li><a href="#incluye" onclick="irAInicio('incluye')">Tu Casa Nexo</a></li>
+    <li><a href="#contacto" onclick="irAInicio('contacto')">Contacto</a></li>
+  </ul>
+
+  <!-- Por Tomás -->
+  <a href="../index.html" class="nav-por">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7-7"/></svg>
+    <span>por Tomás Brinnand</span>
+  </a>
+
+  <!-- Hamburguesa mobile -->
+  <button class="nav-hamburguesa-mobile" onclick="toggleNavMobile()" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Menú mobile -->
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <span style="font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">Proyectos</span>
+  <button class="nav-mobile-sub" onclick="irAProyecto(0);cerrarNavMobile()">Casa Facundo</button>
+  <button class="nav-mobile-sub" onclick="irAProyecto(1);cerrarNavMobile()">Casa G &amp; F</button>
+  <button class="nav-mobile-sub" onclick="irAProyecto(2);cerrarNavMobile()">Casa Lu</button>
+  <button class="nav-mobile-sub" onclick="irAProyecto(3);cerrarNavMobile()">Casa Luli</button>
+  <button class="nav-mobile-sub" onclick="irAProyecto(4);cerrarNavMobile()">Taller P &amp; F</button>
+  <button class="nav-mobile-sub" onclick="irAProyecto(5);cerrarNavMobile()">Casa A &amp; S</button>
+  <button class="nav-mobile-sub" onclick="irAProyecto(6);cerrarNavMobile()">Casa Marco</button>
+  <a href="#incluye" class="nav-mobile-item" onclick="irAInicio('incluye');cerrarNavMobile()">Tu Casa Nexo</a>
+  <a href="#contacto" class="nav-mobile-item" onclick="irAInicio('contacto');cerrarNavMobile()">Contacto</a>
+  <a href="../index.html" class="nav-mobile-item por-tomas">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7-7"/></svg>
+    por Tomás Brinnand
+  </a>
+</div>
+
+<!-- ═══ MENU OVERLAY ═══ -->
+<div class="menu-overlay" id="menu-overlay">
+  <button class="menu-close" onclick="cerrarMenu()">×</button>
+  <p class="menu-subtitulo">Nuestros Proyectos</p>
+  <button class="menu-item" onclick="irAProyecto(0); cerrarMenu()">Casa Facundo</button>
+  <button class="menu-item" onclick="irAProyecto(1); cerrarMenu()">Casa G &amp; F</button>
+  <button class="menu-item" onclick="irAProyecto(2); cerrarMenu()">Casa Lu</button>
+  <button class="menu-item" onclick="irAProyecto(3); cerrarMenu()">Casa Luli</button>
+  <button class="menu-item" onclick="irAProyecto(4); cerrarMenu()">Taller P &amp; F</button>
+  <button class="menu-item" onclick="irAProyecto(5); cerrarMenu()">Casa A &amp; S</button>
+  <button class="menu-item" onclick="irAProyecto(6); cerrarMenu()">Casa Marco</button>
+  <button class="menu-icon-bottom" onclick="cerrarMenu(); irAInicio()" style="background:none;border:none;cursor:pointer;padding:0;">
+    <svg viewBox="0 0 249.03 217.91" xmlns="http://www.w3.org/2000/svg">
+      <path d="M21.8,167.82l39.14,31.78,3.51,2.8,3.29-2.85,57.66-47.07,56.28,46.89,3.41,2.67,41.12-33.7,1.88-1.62v-1.06s.02,0,.02,0v-63.62l-.02-2.79-2.07-1.44L127.84,18.13l-3.56-2.62-41.11,34.89s-.1.06-.15.1l-60.07,47.32c-1.3,1.04-2.04,2.59-2.04,4.25v62.27c0,1.19.4,2.31,1.09,3.23l-.2.25ZM64.29,188.63l-29.64-24.07,62.75-51.36,27.11-22,29.65,24.06-89.88,73.37ZM185.04,188.33l-51.26-42.7,28.81-23.52,51.8,42.16-29.35,24.06ZM91.83,56.99l32.76-27.81,92.9,75.37v48.53l-49.64-40.4.04-28.18-.04-2.58-39.9-32.37c-2.01-1.63-4.9-1.6-6.89.07l-29.23,24.71v-17.32ZM31.55,104.58l49.66-39.11v20.12c0,2.11,1.24,4.04,3.19,4.92l3.14,1.36,37.08-31.35,32.65,26.49-.02,17.06-29.25-23.73c-2.01-1.67-4.92-1.68-6.9-.04l-30.4,24.66-59.14,48.41v-48.79Z"/>
+    </svg>
+  </button>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<div class="nexo-intro" id="inicio">
+  <img src="../assets/nexo-logo-blanco.svg" class="nexo-intro-logo" alt="Nexo Casas">
+</div>
+
+<!-- ═══ INFO ═══ -->
+<div class="nexo-info" id="info">
+  <div class="nexo-info-grid">
+    <div>
+      <h2 style="font-family:'scale-variable',sans-serif;font-size:clamp(1.8rem,3vw,3rem);font-weight:300;line-height:1.15;margin-bottom:1.5rem;">Casas modulares hechas en la <span style="color:var(--amber);">Patagonia</span></h2>
+      <p style="font-size:0.88rem;line-height:1.85;color:var(--muted);font-weight:300;">Nexo nació del cruce entre el oficio de la carpintería y el deseo de construir de otra manera. Fabricamos casas en nuestro taller de San Martín de los Andes y las ensamblamos en tu terreno en plazos cortos y reales. Cada casa es un proyecto a medida: vos elegís el programa, los materiales y el diseño.</p>
+    </div>
+    <div class="nexo-info-datos">
+      <div class="nexo-info-dato br bb">
+        <p class="nexo-info-num" style="white-space:nowrap;">40–100 m²</p>
+        <p class="nexo-info-label">tipologías posibles</p>
+      </div>
+      <div class="nexo-info-dato bb">
+        <p class="nexo-info-num">100%</p>
+        <p class="nexo-info-label">construidas en taller</p>
+      </div>
+      <div class="nexo-info-dato br">
+        <p class="nexo-info-num">SMA</p>
+        <p class="nexo-info-label">Patagonia argentina</p>
+      </div>
+      <div class="nexo-info-dato">
+        <p class="nexo-info-num nexo-info-inf">∞</p>
+        <p class="nexo-info-label">Diseño personalizado</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROYECTOS ═══ -->
+<div class="nexo-divider" id="proyectos" style="scroll-margin-top:70px;">
+  <div class="nexo-divider-line"></div>
+  <span class="nexo-divider-texto">Nuestros proyectos</span>
+  <div class="nexo-divider-line"></div>
+</div>
+
+<section id="hero" class="page activa">
+  <div class="hero-top">
+    <div>
+      <p class="hero-etiqueta">Taller de Casas</p>
+      <h1 class="hero-titulo">Nuestros</h1>
+      <h1 class="hero-titulo-acc">PROYECTOS</h1>
+    </div>
+    <p class="hero-desc">Trabajos realizados, opciones incluidas y desarrollos a medida. Una selección de imágenes pensadas como referencia e inspiración para proyectar, en conjunto, nuevas formas de habitar.</p>
+  </div>
+  <div class="cards-carrusel">
+    <button class="cards-arrow prev" id="cards-prev" aria-label="Anterior"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 19l-7-7 7-7"/></svg></button>
+    <button class="cards-arrow next" id="cards-next" aria-label="Siguiente"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></button>
+    <div class="cards-grid" id="cards-grid"></div>
+  </div>
+  <div class="cards-dots" id="cards-dots"></div>
+</section>
+
+<!-- ═══ QUÉ INCLUYE + CÓMO SEGUIMOS ═══ -->
+<div class="nexo-divider" id="incluye" style="scroll-margin-top:56px;">
+  <div class="nexo-divider-line"></div>
+  <span class="nexo-divider-texto">Tu Casa Nexo</span>
+  <div class="nexo-divider-line"></div>
+</div>
+
+<div style="background:#FAFAF8;" class="nexo-casas-info">
+  <div class="header">
+    <p class="header-eyebrow">Tu Casa Nexo</p>
+    <h1 class="header-titulo">Todo lo que necesitás saber para dar el primer paso</h1>
+    <p class="header-texto">Conocé qué incluye una casa Nexo y cómo avanzamos juntos desde el primer contacto hasta la entrega.</p>
+  </div>
+
+  <div class="tabs2">
+    <button class="tab-btn2 activo" onclick="mostrarTab2('incluye2', this)">¿Qué incluye?</button>
+    <button class="tab-btn2" onclick="mostrarTab2('seguimos2', this)">¿Cómo seguimos?</button>
+  </div>
+
+  <!-- PANEL QUÉ INCLUYE -->
+  <div class="panel2 activo" id="panel-incluye2">
+    <p class="intro-nota2">El siguiente listado es la <strong>base del cómputo</strong> de toda casa Nexo. <strong>Puede ajustarse según las personalizaciones del proyecto,</strong> a partir de las cuales se define el alcance final.</p>
+    <div style="border-top:1px solid #e8e4df;">
+      <div class="cat" id="qcat-1"><div class="cat-header" onclick="toggleCat2(1)"><h3 class="cat-titulo">Estructura y Aislación</h3><span class="cat-icono">+</span></div><div class="cat-body"><div class="cat-body-inner"><p class="sub-titulo">En Taller</p><ul class="lista"><li>Tabiquería de madera (Sistema Wood Frame)</li><li>Aislación térmica interior — Lana de vidrio 100mm</li><li>Membrana hidrófuga</li></ul><p class="sub-titulo">En Terreno</p><ul class="lista"><li>Bases de fundación de hormigón (prefabricadas en taller)</li><li>Estructura de vigas de madera multilaminada para montaje</li></ul></div></div></div>
+      <div class="cat" id="qcat-6"><div class="cat-header" onclick="toggleCat2(6)"><h3 class="cat-titulo">Instalaciones</h3><span class="cat-icono">+</span></div><div class="cat-body"><div class="cat-body-inner"><p class="sub-titulo">Sanitaria</p><ul class="lista"><li>Cocina y Baño completos</li><li>Instalación p/Lavarropas</li><li>Termotanque a gas 80lts</li></ul><p class="nota-item">* No incluye tanque de reserva de agua.</p><p class="nota-item">* No incluye lecho nitrificante o conexión a red cloacal.</p><p class="nota-item">* No incluye Lavarropas.</p><p class="sub-titulo">Eléctrica</p><ul class="lista"><li>15 bocas de iluminación · 20 tomacorrientes / interruptores</li><li>Tablero con disyuntor + 3 térmicas · Iluminación exterior y LED bajo alacena</li></ul><p class="nota-item">* No incluye artefactos interiores. A determinar en proyecto.</p></div></div></div>
+      <div class="cat" id="qcat-2"><div class="cat-header" onclick="toggleCat2(2)"><h3 class="cat-titulo">Aberturas</h3><span class="cat-icono">+</span></div><div class="cat-body"><div class="cat-body-inner"><ul class="lista"><li>Ventanas PVC marca Rehau con vidrios DVH</li><li>Puerta exterior de madera pintada (fabricada en taller)</li><li>Puertas interiores de machimbre de Eucalipto (fabricadas en taller)</li></ul></div></div></div>
+      <div class="cat" id="qcat-3"><div class="cat-header" onclick="toggleCat2(3)"><h3 class="cat-titulo">Revestimiento Exterior</h3><span class="cat-icono">+</span></div><div class="cat-body"><div class="cat-body-inner"><ul class="lista"><li>Techos: Chapa sinusoidal prepintada / varios colores</li><li>Paredes: Chapa sinusoidal + Entablonado vertical 1"×6" Pino impregnado</li><li>Esquineros y contramarcos: chapa y pino impregnado pintado</li></ul><p class="nota-item">* No incluye canaletas.</p></div></div></div>
+      <div class="cat" id="qcat-4"><div class="cat-header" onclick="toggleCat2(4)"><h3 class="cat-titulo">Revestimiento Interior</h3><span class="cat-icono">+</span></div><div class="cat-body"><div class="cat-body-inner"><ul class="lista"><li>Paredes y cielorraso: Machimbre de Eucalipto ½"×5"</li><li>Piso: Flotante vinílico SPC varios colores</li><li>Zócalos, contramarcos y terminaciones de Eucalipto</li><li>Baño: cerámico 60×60 en receptáculo de ducha (3m² aprox)</li></ul></div></div></div>
+      
+      
+      <div class="cat" id="qcat-7"><div class="cat-header" onclick="toggleCat2(7)"><h3 class="cat-titulo">Cocina</h3><span class="cat-icono">+</span></div><div class="cat-body"><div class="cat-body-inner"><p class="sub-titulo">Equipamiento</p><ul class="lista"><li>Mesada granito Negro Brasil (3m lineales)</li><li>Bacha Acero Inox. Johnson R37</li><li>Grifería Monocomando FV Puelo Negro</li><li>Extractor motor exterior 4" (Sin filtro de grasas)</li><li>Revestimiento de alzada machimbre de Eucalipto c/chapón negro detrás de anafe</li></ul><p class="sub-titulo">Muebles</p><ul class="lista"><li>Alacena: 6 puertas, estantes, LED bajo alacena</li><li>Bajo mesada: 3 cajones, especiero, 3 puertas, gabinete heladera</li></ul><p class="nota-item">* No incluye: cocina, heladera, microondas, lavavajillas.</p></div></div></div>
+      <div class="cat" id="qcat-8"><div class="cat-header" onclick="toggleCat2(8)"><h3 class="cat-titulo">Baño</h3><span class="cat-icono">+</span></div><div class="cat-body"><div class="cat-body-inner"><ul class="lista"><li>Inodoro + Depósito + Tapa Roca Monaco</li><li>Bidet de mano monocomando</li><li>Kit griferías FV Puelo (Ducha + Lavatorio)</li><li>Receptáculo de ducha 140×70</li><li>Vanitory colgante de Eucalipto c/2 puertas y estante</li></ul><p class="nota-item">* No incluye mampara de ducha.</p></div></div></div>
+      <div class="cat" id="qcat-12"><div class="cat-header" onclick="toggleCat2(12)"><h3 class="cat-titulo">Dormitorio</h3><span class="cat-icono">+</span></div><div class="cat-body"><div class="cat-body-inner"><p class="sub-titulo">Placard</p><ul class="lista"><li>De melamina con 4 puertas de abrir c/barral y estantes regulables - 4 cajones</li></ul><p class="sub-titulo">Guardado</p><ul class="lista"><li>Acceso a buhardilla sobre entrepiso del baño</li></ul></div></div></div>
+      
+      <div class="cat" id="qcat-10"><div class="cat-header" onclick="toggleCat2(10)"><h3 class="cat-titulo">Opcionales</h3><span class="cat-icono">+</span></div><div class="cat-body"><div class="cat-body-inner"><p class="opc-sub">Consultar para cotizar.</p><ul class="lista"><li>Colocación de artefactos de iluminación</li><li>Instalación de lavarropas y/o lavavajillas</li><li>Colocación de accesorios: barrales de cortinas, estanterías, espejos, portarrollos, toalleros, etc.</li><li>Limpieza final de obra</li><li>Expansiones exteriores: Deck, semicubierto</li><li>Parquización</li></ul></div></div></div>
+      <div class="cat" id="qcat-11"><div class="cat-header" onclick="toggleCat2(11)"><h3 class="cat-titulo">No incluido · A cotizar según lote y proyecto</h3><span class="cat-icono">+</span></div><div class="cat-body"><div class="cat-body-inner"><div class="cotizar-item"><p class="cotizar-titulo">Movimiento de suelo</p><p class="cotizar-desc">Visitamos el terreno para evaluar la factibilidad del proyecto y cotizar las tareas necesarias.</p></div><div class="cotizar-item"><p class="cotizar-titulo">Conexión a servicios</p><p class="cotizar-desc">Según disponibilidad en tu lote, evaluamos y cotizamos las tareas a realizar.</p></div><div class="cotizar-item"><p class="cotizar-titulo">Traslado</p><p class="cotizar-desc">Una vez lista tu casa, cotizamos el transporte hasta el terreno.</p></div><div class="cotizar-item"><p class="cotizar-titulo">Sistema de calefacción</p><p class="cotizar-desc">A definir según servicios disponibles, presupuesto y preferencias.</p></div></div></div></div>
+    </div>
+  </div>
+
+  <!-- PANEL CÓMO SEGUIMOS -->
+  <div class="panel2" id="panel-seguimos2">
+    <p class="intro-nota2">Todo empieza con un <strong>primer contacto</strong> para armar tu cotización inicial. Después, con la reserva de tu lugar comenzamos la personalización del proyecto y avanzamos juntos paso a paso.</p>
+    <div class="pasos2">
+      <div class="paso2">
+        <div class="paso2-icono"><img src="../assets/icono-dialogo.svg" style="filter:invert(58%) sepia(20%) saturate(600%) hue-rotate(355deg) brightness(95%);" alt=""></div>
+        <div><p class="paso2-etapa">Etapa 0 · Primer contacto</p><p class="paso2-nombre">Cotización inicial</p><p class="paso2-desc">Te contactás con nuestro equipo y armamos juntos la cotización inicial de tu proyecto.</p></div>
+      </div>
+      <div class="paso2">
+        <div class="paso2-icono"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><g fill="#8B6F47"><path d="M47.24,167.39l-1.98-1.44-23.07-18.65-.06-1.47v-37.74l36.66-29.1,3.33,1.42.14,1.88.37,11.31,18.86-15.67,1.99,1.45,22.93,18.6.06,1.46v19.53l-1.11.97-58.13,47.43ZM27.75,144.57l19.37,15.66,53.73-43.85v-15.66l-19.22-15.59-20.93,17.39-3.37-1.44-.14-1.9-.38-11.45-29.06,23.06v33.77Z"/><polygon points="26.72 148.08 23.16 143.74 81.45 95.88 83.43 97.24 105.47 115.56 101.87 119.88 81.6 103.03 26.72 148.08"/><rect x="62.13" y="79.41" width="5.62" height="14.03" transform="translate(-43.13 83.68) rotate(-51.62)"/></g></svg></div>
+        <div><p class="paso2-etapa">Etapa 1 · Anteproyecto</p><p class="paso2-nombre">Reserva de lugar</p><p class="paso2-desc">Con un anticipo reservás tu lugar en la agenda de producción.</p></div>
+      </div>
+      <div class="paso2">
+        <div class="paso2-icono"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><g fill="#8B6F47"><polygon points="154.41 141.84 125.78 141.84 125.78 135.28 147.85 135.28 147.85 123.12 154.41 123.12 154.41 141.84"/><polygon points="154.41 104.26 147.85 104.26 147.85 66.64 52.15 66.64 52.15 84.24 45.59 84.24 45.59 60.08 154.41 60.08 154.41 104.26"/><polygon points="103.37 141.84 45.59 141.84 45.59 104.26 52.15 104.26 52.15 135.28 103.37 135.28 103.37 141.84"/><rect x="78.3" y="63.36" width="6.56" height="40.89"/><rect x="100.09" y="63.36" width="6.56" height="59.75"/><rect x="125.78" y="80.96" width="28.15" height="6.56"/><rect x="78.3" y="123.12" width="6.56" height="16.97"/><polygon points="177.66 159.2 151.13 159.2 151.13 152.64 171.1 152.64 171.1 47.36 151.13 47.36 151.13 40.8 177.66 40.8 177.66 159.2"/><polygon points="48.87 159.2 22.34 159.2 22.34 40.8 48.87 40.8 48.87 47.36 28.9 47.36 28.9 152.64 48.87 152.64 48.87 159.2"/></g></svg></div>
+        <div><p class="paso2-etapa">Etapa 2 · Proyecto</p><p class="paso2-nombre">Personalización y definición</p><p class="paso2-desc">Decisiones proyectuales · Definición de alcance final · Compra de materiales</p></div>
+      </div>
+      <div class="paso2">
+        <div class="paso2-icono"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path fill="#8B6F47" d="M159.83,154.31H40.17v-59.53l59.97-49.09,59.68,49.67v58.96ZM46.73,147.75h106.53v-49.33l-53.16-44.23-53.37,43.69v49.87Z"/></svg></div>
+        <div><p class="paso2-etapa">Etapa 3 · Inicio de obra</p><p class="paso2-nombre">Comienzo de fabricación</p><p class="paso2-desc">Arranca la construcción de tu casa en nuestro taller de San Martín de los Andes.</p></div>
+      </div>
+      <div class="paso2">
+        <div class="paso2-icono"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><g fill="#8B6F47"><path d="M159.83,154.31H40.17v-59.53l59.97-49.09,59.68,49.67v58.96ZM46.73,147.75h106.53v-49.33l-53.16-44.23-53.37,43.69v49.87Z"/><polygon points="138.47 151.03 131.91 151.03 131.91 114.21 101.15 88.67 68.54 115.04 68.54 151.03 61.98 151.03 61.98 111.91 101.21 80.19 138.47 111.13 138.47 151.03"/></g></svg></div>
+        <div><p class="paso2-etapa">Etapa 4 · Avance de obra</p><p class="paso2-nombre">Seguimiento del proceso</p><p class="paso2-desc">Te mantenemos al tanto del avance con fotos y novedades del taller.</p></div>
+      </div>
+      <div class="paso2">
+        <div class="paso2-icono"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><g fill="#8B6F47"><path d="M40.55,115.62l22.65,18.4,2.03,1.62,1.9-1.65,33.38-27.25,32.58,27.14,1.97,1.55,23.8-19.51,1.09-.94v-38.44s-1.21-.84-1.21-.84l-56.83-46.11-2.06-1.52-23.79,20.19-.08.06-34.77,27.39c-.75.6-1.18,1.5-1.18,2.46v36.04c0,.69.23,1.34.63,1.87l-.12.14ZM65.14,127.67l-17.15-13.93,36.32-29.73,15.69-12.73,17.16,13.92-52.02,42.47ZM135.03,127.49l-29.67-24.72,16.67-13.61,29.98,24.4-16.99,13.92ZM81.08,51.47l18.96-16.1,53.77,43.62v28.09l-28.73-23.39.02-16.31-.02-1.5-23.1-18.74c-1.16-.94-2.84-.93-3.99.04l-16.92,14.3v-10.03ZM46.19,79.02l28.74-22.64v11.65c0,1.22.72,2.34,1.84,2.85l1.82.78,21.47-18.14,18.9,15.33v9.87s-16.94-13.74-16.94-13.74c-1.16-.97-2.85-.97-3.99-.02l-17.6,14.28-34.23,28.02v-28.24Z"/><polygon points="159.7 172.54 40.05 172.54 40.05 114.55 46.61 114.55 46.61 165.98 153.14 165.98 153.14 115.11 159.7 115.11 159.7 172.54"/><rect x="61.85" y="128.46" width="6.56" height="40.79"/><rect x="131.79" y="128.46" width="6.56" height="40.79"/></g></svg></div>
+        <div><p class="paso2-etapa">Etapa 5 · Contraentrega</p><p class="paso2-nombre">Traslado y entrega</p><p class="paso2-desc">Tu casa llega a destino y se realiza el montaje final en el terreno.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONTACTO ═══ -->
+<div id="contacto" style="background:var(--bg2);padding:5rem 3.5rem;text-align:center;">
+  <p style="font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--amber);margin-bottom:1.25rem;">¿Tenés un terreno?</p>
+  <h2 style="font-family:'scale-variable',sans-serif;font-weight:300;font-size:clamp(1.8rem,3.5vw,3rem);line-height:1.15;margin-bottom:1.25rem;">Hablemos de tu Casa Nexo</h2>
+  <p style="font-size:0.88rem;color:var(--muted);max-width:52ch;margin:0 auto 2.5rem;line-height:1.8;">Escribinos y armamos juntos la cotización inicial. Sin compromiso.</p>
+  <a href="https://wa.me/5493512778244" target="_blank" style="display:inline-block;padding:0.95rem 2.5rem;background:var(--amber);color:#1a1814;font-size:0.78rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;border-radius:2px;font-family:'DM Sans',sans-serif;">Escribir por WhatsApp</a>
+  <div style="margin-top:1.5rem;">
+    <a href="../index.html" style="font-size:0.7rem;color:var(--muted);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">← Volver a Tomás Brinnand</a>
+  </div>
+</div>
+
+<!-- ═══ LIGHTBOX ═══ -->
+<div class="lightbox" id="lightbox" onclick="cerrarLightbox(event)">
+  <button class="lb-close" onclick="cerrarLightbox()">×</button>
+  <div class="lb-img-wrap">
+    <button class="lb-arrow prev" id="lb-prev" onclick="event.stopPropagation(); navLightbox(-1)">‹</button>
+    <img id="lb-img" src="" alt="">
+    <button class="lb-arrow next" id="lb-next" onclick="event.stopPropagation(); navLightbox(1)">›</button>
+  </div>
+  <div class="lb-info">
+    <p class="lb-seccion" id="lb-seccion"></p>
+    <p class="lb-proyecto" id="lb-proyecto"></p>
+    <p class="lb-desc" id="lb-desc"></p>
+    <p class="lb-contador" id="lb-contador"></p>
+  </div>
+</div>
+
+<!-- ═══ PROYECTO PAGE (renderizado por JS) ═══ -->
+<section id="proyecto-page" class="page"></section>
+
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+const descripciones = {
+  'Interior 1.png': 'Bow window',
+  'Interior 2.jpeg': 'Revestimiento interior de Eucalipto',
+  'Interior 3.jpeg': 'Detalles interiores',
+  'Cocina 1.jpeg': 'Mueble de Eucaliptus, luz led bajo alacena',
+  'Cocina 2.jpeg': 'Horno empotrado, heladera penalizada',
+  'Cocina 3.jpg': 'Mueble de Eucaliptus, mesada negro Brasil',
+  'Baño 1.jpg': 'Indoro con mochila embutida',
+  'Baño 2.jpeg': 'Detalles',
+  'exterior.jpg': 'Revestimiento exterior',
+  'exterior 2.jpg': 'Revestimiento exterior',
+  'interior 1.jpg': 'Revestimiento Eucalipto y piso vinilico SPC',
+  'iNTERIOR 2.MOV': 'Revestimiento Eucalipto y piso vinilico',
+  'baño.png': 'Baño personalizado',
+  'baño 2.jpg': 'Box de ducha',
+  'Cocina 1.jpg': 'Mueble de euca y  alacena vidriado',
+  'Cocina 2.MOV': '',
+  'Cocina 3.jpg': 'Luz led bajo alacena',
+  'Cocina 4.jpg': 'Mesada negro brasil',
+  'LAVADERO.jpg': 'Puerta corrediza vidriada',
+  'LAVADERO 2.jpg': 'Equipamiento',
+  'portada 2.jpg': 'Revestimiento exterior de chapa',
+  'portada 3-3.jpg': 'Puerta ventana corrediza',
+  'Placard 1.jpg': 'Placard abierto',
+  'placard 2.jpg': 'Placard abierto',
+  'baño 1.jpg': 'Antebaño',
+  'Copia de Baños_ Deposito embutido y Bañadera-3.jpg': 'Deposito embutido y bañera',
+  'hall frio cocina living 1.JPG': 'Hall frio con espacio de guardado',
+  'hall frio cocina living 2.jpeg': 'Puerta de abrir vidriada / heladera penalizada',
+  'hall frio cocina living 3.jpg': 'Chapon detrás de anafe / luz led bajo alacena',
+  'hall frio cocina living 4.JPG': 'Mueble de cocina Euca / heladera penalizada',
+  'hall frio cocina living 5.JPG': 'Living con Bow window',
+  'portada 1.JPG': 'Bow window sin guardado',
+  'baño 1.JPG': 'Personalizado',
+  'baño 2.JPG': 'Personalizado',
+  'habitacion vestidor.JPG': 'Bow window piso a techo',
+  'habitacion vestidor 2.JPG': 'Detalles',
+  'habitacion vestidor 3.jpg': 'Vestidor',
+  'habitacion vestidor 4.jpeg': 'Detalles',
+  'Interior 1.jpg': 'Revestimiento interior de Eucalipto / Piso Vinílico',
+  'interior 2.jpeg': 'Revestimiento interior de Eucalipto / Piso Vinílico',
+  'interior 3.jpg': 'Revestimiento interior de Eucalipto / Piso Vinílico',
+  'interior 4.jpeg': 'Revestimiento interior de Eucalipto / Piso Vinílico',
+  'interior 5.jpg': 'Revestimiento interior de Eucalipto / Piso Vinílico',
+  'Revestimientos_ Exterior Chapa + Madera.jpeg': 'Revestimiento exterior Chapa Sinusoidal y Pino impregnado',
+  'Revestimientos_ Exterior Madera.jpeg': 'Pino impregnado y contramarcos',
+  'Revestimientos_ Interior piso madera.jpeg': 'Revestimiento interior Piso de madera',
+  'Revestimientos_ Interior piso madera (1).jpeg': 'Revestimiento interior Piso de madera',
+  'interior Detalles.jpeg': 'Revestimiento interior Piso de madera',
+  'interior_ Bow window con cajoneras.jpeg': 'Bow Window con cajonera',
+  'Interior Puertas_ Corrediza aplicada vidriada  (1).jpeg': 'Puerta corrediza aplicada vidriada',
+  'Interior Puertas_ Corrediza aplicada vidriada.jpg': 'Puerta corrediza aplicada vidriada',
+  'Cocina_ alacena de fenolico ranurado  2.jpeg': 'Alacena de terciado Fenolico ranurado',
+  'Cocina_ mueble bajo mesada fenolico ranurado.jpeg': 'Mueble de terciado Fenolico ranurado / horno empotrado',
+  'Cocina_ Mueble en terciado fenolico ranurado.jpeg': 'Mueble de terciado Fenolico ranurado / horno empotrado',
+  'Cocina_ Mueble en terciado fenolico ranurado(1).jpeg': 'Mueble de terciado Fenolico ranurado / horno empotrado',
+  'Cocina_ Mueble en terciado fenólico ranurado.jpeg': 'Mueble de terciado Fenolico ranurado / horno empotrado',
+  'Cocina Detalles .jpeg': 'Detalles',
+  'baños 4.m..jpg': 'Baño personalizado',
+  'Baños_ Revestimientos cotizados.jpeg': 'Revestimiento cotizado',
+  'Baños_ Vanitory y revestimientos cotizados.jpeg': 'Vanitory de Eucalipto',
+  'Lavadero_ Equipamiento.jpeg': 'Equipamiento de lavadero',
+  'Lavadero_ Mueble bajo mesada Euca.jpeg': 'mueble bajo mesada de Euca',
+  'Lavadero_Mueble bajo mesada Euca.jpeg': 'Mueble bajo mesada de Euca'
+};
+
+const descripcionAliases = {
+  'casa-facundo-bano-1.jpg': 'Baño 1.jpg',
+  'casa-facundo-bano-2.jpeg': 'Baño 2.jpeg',
+  'casa-gyf-bano-1.png': 'baño.png',
+  'casa-gyf-bano-2.jpg': 'baño 2.jpg',
+  'casa-lu-bano-1.jpg': 'baño 1.jpg',
+  'casa-lu-bano-deposito-embutido-banadera.jpg': 'Copia de Baños_ Deposito embutido y Bañadera-3.jpg',
+  'casa-luli-bano-1.JPG': 'baño 1.JPG',
+  'casa-luli-bano-2.JPG': 'baño 2.JPG',
+  'casa-ays-exterior-chapa-madera.jpeg': 'Revestimientos_ Exterior Chapa + Madera.jpeg',
+  'casa-ays-exterior-madera.jpeg': 'Revestimientos_ Exterior Madera.jpeg',
+  'casa-ays-interior-piso-madera-1.jpeg': 'Revestimientos_ Interior piso madera.jpeg',
+  'casa-ays-interior-piso-madera-2.jpeg': 'Revestimientos_ Interior piso madera (1).jpeg',
+  'casa-ays-interior-detalles.jpeg': 'interior Detalles.jpeg',
+  'casa-ays-interior-bow-window-cajoneras.jpeg': 'interior_ Bow window con cajoneras.jpeg',
+  'casa-ays-puerta-corrediza-vidriada-1.jpeg': 'Interior Puertas_ Corrediza aplicada vidriada  (1).jpeg',
+  'casa-ays-puerta-corrediza-vidriada-2.jpg': 'Interior Puertas_ Corrediza aplicada vidriada.jpg',
+  'casa-ays-cocina-alacena-fenolico-ranurado.jpeg': 'Cocina_ alacena de fenolico ranurado  2.jpeg',
+  'casa-ays-cocina-bajo-mesada-fenolico-ranurado.jpeg': 'Cocina_ mueble bajo mesada fenolico ranurado.jpeg',
+  'casa-ays-cocina-mueble-fenolico-ranurado-1.jpeg': 'Cocina_ Mueble en terciado fenolico ranurado.jpeg',
+  'casa-ays-cocina-mueble-fenolico-ranurado-2.jpeg': 'Cocina_ Mueble en terciado fenolico ranurado(1).jpeg',
+  'casa-ays-cocina-mueble-fenolico-ranurado-3.jpeg': 'Cocina_ Mueble en terciado fenólico ranurado.jpeg',
+  'casa-ays-cocina-detalles.jpeg': 'Cocina Detalles .jpeg',
+  'casa-ays-bano-4.jpg': 'baños 4.m..jpg',
+  'casa-ays-bano-revestimientos-cotizados.jpeg': 'Baños_ Revestimientos cotizados.jpeg',
+  'casa-ays-bano-vanitory-revestimientos.jpeg': 'Baños_ Vanitory y revestimientos cotizados.jpeg',
+  'casa-ays-lavadero-equipamiento.jpeg': 'Lavadero_ Equipamiento.jpeg',
+  'casa-ays-lavadero-mueble-bajo-mesada-euca-1.jpeg': 'Lavadero_ Mueble bajo mesada Euca.jpeg',
+  'casa-ays-lavadero-mueble-bajo-mesada-euca-2.jpeg': 'Lavadero_Mueble bajo mesada Euca.jpeg'
+};
+
+const BASE = '../proyectos/';
+
+const proyectos = [
+  {
+    nombre: 'Casa Facundo',
+    tag: 'PROYECTO 40M²',
+    desc: 'Vivienda compacta de 40m² con revestimiento en chapa negra y madera. Interior íntegramente revestido en pino que aporta calidez y continuidad espacial a cada ambiente.',
+    heroFotos: [
+      BASE + 'Casa Facundo/casa-facundo-portada.jpg',
+      BASE + 'Casa Facundo/Portada 2.jpg',
+    ],
+    secciones: [
+      {
+        label: 'EXTERIOR',
+        layout: 'duo',
+        fotos: [
+          BASE + 'Casa Facundo/casa-facundo-exterior-1.jpg',
+          BASE + 'Casa Facundo/casa-facundo-exterior-2.jpg',
+        ]
+      },
+      {
+        label: 'INTERIOR',
+        layout: 'trio',
+        fotos: [
+          BASE + 'Casa Facundo/Interior 1.png',
+          BASE + 'Casa Facundo/Interior 2.jpeg',
+          BASE + 'Casa Facundo/Interior 3.jpeg',
+        ]
+      },
+      {
+        label: 'COCINA',
+        layout: 'trio',
+        fotos: [
+          BASE + 'Casa Facundo/Cocina 1.jpeg',
+          BASE + 'Casa Facundo/Cocina 2.jpeg',
+          BASE + 'Casa Facundo/Cocina 3.jpg',
+        ]
+      },
+      {
+        label: 'BAÑO',
+        layout: 'duo',
+        fotos: [
+          BASE + 'Casa Facundo/casa-facundo-bano-1.jpg',
+          BASE + 'Casa Facundo/casa-facundo-bano-2.jpeg',
+        ]
+      }
+    ]
+  },
+  {
+    nombre: 'Casa G & F',
+    tag: 'PROYECTO 35M²',
+    desc: 'Casa de 60m² para dos. Diseño abierto con cocina integrada, baño equipado con bañadera de depósito embutido y lavadero incorporado. Fachada combinada en chapa y madera.',
+    heroFotos: [
+      BASE + 'Casa GyF/Poertada 1.jpg',
+      BASE + 'Casa GyF/exterior.jpg',
+    ],
+    plano: {
+      src: BASE + 'Casa GyF/planos.jpg',
+      specs: [
+        { label: 'Metros cuadrados', value: '35 m²' },
+        { label: 'Módulos', value: '3' },
+        { label: 'Ambientes', value: '3' },
+      ]
+    },
+    secciones: [
+      {
+        label: 'EXTERIOR',
+        layout: 'trio',
+        fotos: [
+          BASE + 'Casa GyF/exterior.jpg',
+          BASE + 'Casa GyF/exterior 2.jpg',
+          BASE + 'Casa GyF/casa-gyf-exterior-3.jpg',
+        ]
+      },
+      {
+        label: 'INTERIOR',
+        layout: 'trio-grid',
+        fotos: [
+          BASE + 'Casa GyF/interior 1.jpg',
+          BASE + 'Casa GyF/iNTERIOR 2.MOV',
+          BASE + 'Casa GyF/casa-gyf-interior-3.jpg',
+          BASE + 'Casa GyF/casa-gyf-interior-4.jpg',
+          BASE + 'Casa GyF/casa-gyf-interior-5.jpg',
+        ]
+      },
+      {
+        label: 'BAÑO',
+        layout: 'duo',
+        fotos: [
+          BASE + 'Casa GyF/casa-gyf-bano-1.png',
+          BASE + 'Casa GyF/casa-gyf-bano-2.jpg',
+        ]
+      },
+      {
+        label: 'COCINA',
+        layout: 'featured-vid',
+        fotos: [
+          BASE + 'Casa GyF/Cocina 1.jpg',
+          BASE + 'Casa GyF/Cocina 2.MOV',
+        ],
+        noSep: true,
+      },
+      {
+        label: '',
+        layout: 'duo',
+        positions: { 'Casa GyF/Cocina 4.jpg': 'bottom' },
+        fotos: [
+          BASE + 'Casa GyF/Cocina 3.jpg',
+          BASE + 'Casa GyF/Cocina 4.jpg',
+        ]
+      },
+      {
+        label: 'LAVADERO',
+        layout: 'duo',
+        objectPosition: 'bottom',
+        fotos: [
+          BASE + 'Casa GyF/LAVADERO.jpg',
+          BASE + 'Casa GyF/LAVADERO 2.jpg',
+        ]
+      }
+    ]
+  },
+  {
+    nombre: 'Casa Lu',
+    tag: 'PROYECTO 40M²',
+    desc: 'Proyecto de 40m² pensado para una persona. Amplio vestidor tipo walk-in, baño completo con opciones de revestimiento y espacios optimizados para la vida cotidiana.',
+    heroFotos: [
+      BASE + 'Casa Lu/Portada.png',
+      BASE + 'Casa Lu/portada 2.jpg',
+    ],
+    secciones: [
+      {
+        label: 'INTERIOR',
+        layout: 'trio',
+        fotos: [
+          BASE + 'Casa Lu/casa-lu-interior-1.png',
+          BASE + 'Casa Lu/casa-lu-interior-2.jpg',
+          BASE + 'Casa Lu/casa-lu-interior-3.jpg',
+        ]
+      },
+      {
+        label: 'COCINA',
+        layout: 'solo',
+        fotos: [
+          BASE + 'Casa Lu/casa-lu-cocina-1.png',
+        ]
+      },
+      {
+        label: 'BAÑO',
+        layout: 'duo',
+        fotos: [
+          BASE + 'Casa Lu/casa-lu-bano-1.jpg',
+          BASE + 'Casa Lu/casa-lu-bano-deposito-embutido-banadera.jpg',
+        ]
+      },
+      {
+        label: 'PLACARD',
+        layout: 'duo',
+        fotos: [
+          BASE + 'Casa Lu/Placard 1.jpg',
+          BASE + 'Casa Lu/placard 2.jpg',
+        ]
+      }
+    ]
+  },
+  {
+    nombre: 'Casa Luli',
+    tag: 'PROYECTO 35M²',
+    desc: 'Casa de 40m² con hall frío, living-comedor y cocina integrados, habitación con vestidor y baño con revestimientos a medida.',
+    heroFotos: [
+      BASE + 'Casa Luli/Portada .jpg',
+      BASE + 'Casa Luli/portada 2.jpeg',
+    ],
+    secciones: [
+      {
+        label: 'HALL FRÍO, COCINA Y LIVING',
+        layout: 'duo',
+        fotos: [
+          BASE + 'Casa Luli/hall frio cocina living 1.JPG',
+          BASE + 'Casa Luli/hall frio cocina living 2.jpeg',
+          BASE + 'Casa Luli/hall frio cocina living 3.jpg',
+          BASE + 'Casa Luli/hall frio cocina living 4.JPG',
+          BASE + 'Casa Luli/hall frio cocina living 5.JPG',
+          BASE + 'Casa Luli/portada 1.JPG',
+        ]
+      },
+      {
+        label: 'BAÑO',
+        layout: 'duo',
+        fotos: [
+          BASE + 'Casa Luli/casa-luli-bano-1.JPG',
+          BASE + 'Casa Luli/casa-luli-bano-2.JPG',
+        ]
+      },
+      {
+        label: 'DORMITORIO',
+        layout: 'duo',
+        fotos: [
+          BASE + 'Casa Luli/habitacion vestidor.JPG',
+          BASE + 'Casa Luli/habitacion vestidor 2.JPG',
+          BASE + 'Casa Luli/habitacion vestidor 3.jpg',
+          BASE + 'Casa Luli/habitacion vestidor 4.jpeg',
+        ]
+      }
+    ]
+  },
+  {
+    nombre: 'Taller P & F',
+    tag: 'PROYECTO 30M²',
+    desc: 'Taller-vivienda monoambiente de 40m². Interior totalmente resuelto en madera con ambientes integrados y soluciones de almacenamiento.',
+    heroFotos: [
+      BASE + 'Taller PyF/portada 1.jpg',
+      BASE + 'Taller PyF/Interior 1.jpg',
+    ],
+    secciones: [
+      {
+        label: 'INTERIOR',
+        layout: 'duo',
+        fotos: [
+          BASE + 'Taller PyF/Interior 1.jpg',
+          BASE + 'Taller PyF/interior 2.jpeg',
+          BASE + 'Taller PyF/interior 3.jpg',
+          BASE + 'Taller PyF/interior 4.jpeg',
+          BASE + 'Taller PyF/interior 5.jpg',
+        ]
+      }
+    ]
+  },
+  {
+    nombre: 'Casa A & S',
+    tag: 'PROYECTO 60M²',
+    desc: 'Casa de fachada combinada en chapa y madera. Cocina en terciado fenólico ranurado, baño completo, lavadero equipado y carpintería interior corrediza vidriada.',
+    heroFotos: [
+      BASE + 'Casa AyS/casa-ays-exterior-chapa-madera.jpeg',
+      BASE + 'Casa AyS/casa-ays-exterior-madera.jpeg',
+    ],
+    plano: {
+      src: BASE + 'Casa AyS/planos.jpg',
+      specs: [
+        { label: 'Metros cuadrados', value: '60 m²' },
+        { label: 'Módulos', value: '4' },
+        { label: 'Ambientes', value: '3' },
+      ]
+    },
+    secciones: [
+      {
+        label: 'EXTERIOR',
+        layout: 'trio',
+        fotos: [
+          BASE + 'Casa AyS/casa-ays-exterior-chapa-madera.jpeg',
+          BASE + 'Casa AyS/casa-ays-exterior-madera.jpeg',
+          BASE + 'Casa AyS/casa-ays-exterior-3.png',
+        ]
+      },
+      {
+        label: 'INTERIOR',
+        layout: 'trio-grid',
+        fotos: [
+          BASE + 'Casa AyS/casa-ays-interior-piso-madera-1.jpeg',
+          BASE + 'Casa AyS/casa-ays-interior-piso-madera-2.jpeg',
+          BASE + 'Casa AyS/casa-ays-interior-detalles.jpeg',
+          BASE + 'Casa AyS/casa-ays-interior-bow-window-cajoneras.jpeg',
+          BASE + 'Casa AyS/casa-ays-puerta-corrediza-vidriada-1.jpeg',
+          BASE + 'Casa AyS/casa-ays-puerta-corrediza-vidriada-2.jpg',
+        ]
+      },
+      {
+        label: 'COCINA',
+        layout: 'trio-grid',
+        fotos: [
+          BASE + 'Casa AyS/casa-ays-cocina-alacena-fenolico-ranurado.jpeg',
+          BASE + 'Casa AyS/casa-ays-cocina-bajo-mesada-fenolico-ranurado.jpeg',
+          BASE + 'Casa AyS/casa-ays-cocina-mueble-fenolico-ranurado-1.jpeg',
+          BASE + 'Casa AyS/casa-ays-cocina-mueble-fenolico-ranurado-2.jpeg',
+          BASE + 'Casa AyS/casa-ays-cocina-mueble-fenolico-ranurado-3.jpeg',
+          BASE + 'Casa AyS/casa-ays-cocina-detalles.jpeg',
+        ]
+      },
+      {
+        label: 'BAÑO',
+        layout: 'trio-grid',
+        fotos: [
+          BASE + 'Casa AyS/casa-ays-bano-4.jpg',
+          BASE + 'Casa AyS/casa-ays-bano-revestimientos-cotizados.jpeg',
+          BASE + 'Casa AyS/casa-ays-bano-vanitory-revestimientos.jpeg',
+        ]
+      },
+      {
+        label: 'LAVADERO',
+        layout: 'trio',
+        fotos: [
+          BASE + 'Casa AyS/casa-ays-lavadero-equipamiento.jpeg',
+          BASE + 'Casa AyS/casa-ays-lavadero-mueble-bajo-mesada-euca-1.jpeg',
+          BASE + 'Casa AyS/casa-ays-lavadero-mueble-bajo-mesada-euca-2.jpeg',
+        ]
+      },
+    ]
+  },
+  {
+    nombre: 'Casa Marco',
+    tag: 'PROYECTO 40M²',
+    desc: 'Vivienda de 40m² con fachada en chapa gris y carpintería de pino a la vista. Interior íntegramente revestido en madera, con ventanales tipo mirador que enmarcan el paisaje de montaña. Cocina negra integrada y baño completo.',
+    heroFotos: [
+      BASE + 'Casa Marco/marco-exterior-1.jpg',
+      BASE + 'Casa Marco/marco-exterior-2.jpg',
+    ],
+    plano: {
+      src: BASE + 'Casa Marco/planos.jpg',
+      specs: [
+        { label: 'Metros cuadrados', value: '40 m²' },
+        { label: 'Módulos', value: '4' },
+        { label: 'Ambientes', value: '3' },
+      ]
+    },
+    secciones: [
+      {
+        label: 'EXTERIOR',
+        layout: 'trio',
+        fotos: [
+          BASE + 'Casa Marco/marco-exterior-2.jpg',
+          BASE + 'Casa Marco/marco-exterior-1.jpg',
+          BASE + 'Casa Marco/marco-exterior-acceso.jpg',
+        ]
+      },
+      {
+        label: 'INTERIOR',
+        layout: 'trio',
+        fotos: [
+          BASE + 'Casa Marco/marco-interior-1.jpg',
+          BASE + 'Casa Marco/marco-interior-2.jpg',
+          BASE + 'Casa Marco/marco-interior-placard.jpg',
+        ]
+      },
+      {
+        label: 'COCINA',
+        layout: 'duo',
+        fotos: [
+          BASE + 'Casa Marco/marco-cocina-1.jpg',
+          BASE + 'Casa Marco/marco-cocina-2.jpg',
+        ]
+      },
+      {
+        label: 'BAÑO',
+        layout: 'duo',
+        fotos: [
+          BASE + 'Casa Marco/marco-bano-1.jpg',
+          BASE + 'Casa Marco/marco-bano-2.jpg',
+        ]
+      },
+    ]
+  },
+];
+
+// ─── ESTADO ─────────────────────────────────────────────────────────────────
+let proyectoActual = 0;
+let salidoDePortada = false;
+
+// ─── RENDER CARDS ────────────────────────────────────────────────────────────
+function renderCards() {
+  const grid = document.getElementById('cards-grid');
+  grid.innerHTML = proyectos.map((p, i) => `
+    <div class="card" onclick="irAProyecto(${i})">
+      <img src="${encodeURI(p.heroFotos[0])}" alt="${p.nombre}" loading="lazy">
+      <div class="card-overlay"></div>
+      <div class="card-texto">
+        <p class="card-tag">${p.tag}</p>
+        <p class="card-nombre">${p.nombre}</p>
+      </div>
+    </div>
+  `).join('');
+}
+
+renderCards();
+
+// ─── CARRUSEL DE PROYECTOS ───────────────────────────────────────────────────
+function initCardsCarrusel() {
+  const scroll = document.getElementById('cards-grid');
+  if (!scroll) return;
+  const prev = document.getElementById('cards-prev');
+  const next = document.getElementById('cards-next');
+  const dotsWrap = document.getElementById('cards-dots');
+  function colW() {
+    const gap = parseFloat(getComputedStyle(scroll).gap) || 0;
+    const first = scroll.firstElementChild;
+    return (first ? first.getBoundingClientRect().width : scroll.clientWidth) + gap;
+  }
+  function visibles() { return Math.max(1, Math.round(scroll.clientWidth / colW())); }
+  function maxIdx() { return Math.max(0, scroll.children.length - visibles()); }
+  function idxActual() { return Math.round(scroll.scrollLeft / colW()); }
+  function irA(i) { i = Math.max(0, Math.min(i, maxIdx())); scroll.scrollTo({ left: i * colW(), behavior: 'smooth' }); }
+  function armarDots() {
+    if (!dotsWrap) return;
+    dotsWrap.innerHTML = '';
+    const n = maxIdx() + 1;
+    for (let i = 0; i < n; i++) {
+      const b = document.createElement('button');
+      b.className = 'cards-dot' + (i === idxActual() ? ' activo' : '');
+      b.setAttribute('aria-label', 'Ir a ' + (i + 1));
+      (function(k){ b.addEventListener('click', function(){ irA(k); }); })(i);
+      dotsWrap.appendChild(b);
+    }
+  }
+  function actualizar() {
+    const i = idxActual();
+    if (dotsWrap) { const ds = dotsWrap.children; for (let k = 0; k < ds.length; k++) ds[k].classList.toggle('activo', k === i); }
+    if (prev) prev.style.opacity = i <= 0 ? '0.25' : '1';
+    if (next) next.style.opacity = i >= maxIdx() ? '0.25' : '1';
+  }
+  if (prev) prev.addEventListener('click', function(){ irA(idxActual() - 1); });
+  if (next) next.addEventListener('click', function(){ irA(idxActual() + 1); });
+  scroll.addEventListener('scroll', actualizar, { passive: true });
+  let rt = null;
+  window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(function(){ armarDots(); actualizar(); }, 200); });
+  armarDots();
+  actualizar();
+  requestAnimationFrame(function(){ armarDots(); actualizar(); });
+  window.addEventListener('load', function(){ armarDots(); actualizar(); });
+  if (window.ResizeObserver && scroll.firstElementChild) {
+    let roPend = false;
+    new ResizeObserver(function(){
+      if (roPend) return;
+      roPend = true;
+      requestAnimationFrame(function(){ roPend = false; armarDots(); actualizar(); });
+    }).observe(scroll.firstElementChild);
+  }
+}
+initCardsCarrusel();
+
+// ─── NAV ─────────────────────────────────────────────────────────────────────
+function toggleMenu() {
+  document.getElementById('menu-overlay').classList.toggle('abierto');
+}
+function cerrarMenu() {
+  document.getElementById('menu-overlay').classList.remove('abierto');
+}
+
+function mostrarTab2(id, btn) {
+  document.querySelectorAll('.tab-btn2').forEach(b => b.classList.remove('activo'));
+  document.querySelectorAll('.panel2').forEach(p => p.classList.remove('activo'));
+  btn.classList.add('activo');
+  document.getElementById('panel-' + id).classList.add('activo');
+}
+
+function toggleCat2(idx) {
+  const el = document.getElementById('qcat-' + idx);
+  if (el) el.classList.toggle('abierto');
+}
+
+function toggleNavMobile() {
+  document.getElementById('nav-mobile-menu').classList.toggle('abierto');
+}
+function cerrarNavMobile() {
+  document.getElementById('nav-mobile-menu').classList.remove('abierto');
+}
+
+function toggleDropdown() {
+  document.getElementById('nav-dropdown').classList.toggle('abierto');
+}
+function cerrarDropdown() {
+  document.getElementById('nav-dropdown').classList.remove('abierto');
+}
+// Cerrar dropdown al clickear fuera
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#nav-dropdown')) cerrarDropdown();
+});
+
+function toggleIA(el) {
+  el.classList.toggle('abierto');
+}
+
+function irAInicio(seccion) {
+  cerrarMenu();
+  document.getElementById('hero').classList.add('activa');
+  document.getElementById('proyecto-page').classList.remove('activa');
+  document.body.classList.remove('en-proyecto');
+  if (seccion) {
+    setTimeout(function() {
+      const el = document.getElementById(seccion);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 50);
+  } else {
+    window.scrollTo({ top: 0 });
+  }
+}
+
+function irAProyecto(idx) {
+  salidoDePortada = true;
+  proyectoActual = idx;
+  renderProyecto(idx);
+  document.getElementById('hero').classList.remove('activa');
+  document.getElementById('proyecto-page').classList.add('activa');
+  document.getElementById('nav-centro').classList.add('visible');
+  document.body.classList.add('en-proyecto');
+  window.scrollTo({ top: 0 });
+}
+
+// ─── SWIPE PARA VOLVER (deslizar de izq a der dentro de un proyecto) ──────────
+(function() {
+  let sx = 0, sy = 0, activo = false;
+  function enScrollHorizontal(node) {
+    while (node && node !== document.body && node.nodeType === 1) {
+      if (node.scrollWidth - node.clientWidth > 6) {
+        const ox = getComputedStyle(node).overflowX;
+        if (ox === 'auto' || ox === 'scroll') return true;
+      }
+      node = node.parentElement;
+    }
+    return false;
+  }
+  document.addEventListener('touchstart', function(e) {
+    activo = false;
+    if (!document.body.classList.contains('en-proyecto')) return;
+    const lb = document.getElementById('lightbox');
+    if (lb && lb.classList.contains('abierto')) return;
+    if (!e.touches || e.touches.length !== 1) return;
+    if (enScrollHorizontal(e.target)) return;
+    sx = e.touches[0].clientX;
+    sy = e.touches[0].clientY;
+    activo = true;
+  }, { passive: true });
+  document.addEventListener('touchend', function(e) {
+    if (!activo) return;
+    activo = false;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - sx;
+    const dy = t.clientY - sy;
+    if (dx > 80 && Math.abs(dy) < 55 && dx > Math.abs(dy) * 1.5) {
+      irAInicio('proyectos');
+    }
+  }, { passive: true });
+})();
+
+// ─── CARRUSEL ────────────────────────────────────────────────────────────────
+function scrollCarrusel(id, dir) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const itemW = el.querySelector('img, video')?.offsetWidth || 300;
+  el.scrollBy({ left: dir * (itemW + 4), behavior: 'smooth' });
+}
+
+// ─── LIGHTBOX ────────────────────────────────────────────────────────────────
+let lbFotos = [];
+let lbIdx = 0;
+
+function abrirLightbox(el) {
+  const src     = el.dataset.src;
+  const seccion = el.dataset.seccion;
+  const proyecto= el.dataset.proyecto;
+  const desc    = el.dataset.desc;
+  const grupo   = el.dataset.grupo;
+
+  lbFotos = Array.from(document.querySelectorAll(`img[data-grupo="${grupo}"]`));
+  lbIdx   = lbFotos.indexOf(el);
+
+  mostrarLightbox(src, seccion, proyecto, desc);
+}
+
+function mostrarLightbox(src, seccion, proyecto, desc) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb-seccion').textContent = seccion;
+  document.getElementById('lb-proyecto').textContent = proyecto;
+  document.getElementById('lb-desc').textContent = desc;
+  document.getElementById('lb-contador').textContent = `${lbIdx + 1} / ${lbFotos.length}`;
+  document.getElementById('lb-prev').classList.toggle('oculto', lbIdx === 0);
+  document.getElementById('lb-next').classList.toggle('oculto', lbIdx === lbFotos.length - 1);
+  document.getElementById('lightbox').classList.add('abierto');
+  document.body.style.overflow = 'hidden';
+}
+
+function navLightbox(dir) {
+  lbIdx = Math.max(0, Math.min(lbFotos.length - 1, lbIdx + dir));
+  const el = lbFotos[lbIdx];
+  mostrarLightbox(el.dataset.src, el.dataset.seccion, el.dataset.proyecto, el.dataset.desc);
+}
+
+function cerrarLightbox(e) {
+  if (e && e.target !== document.getElementById('lightbox') && !e.target.classList.contains('lb-close')) return;
+  document.getElementById('lightbox').classList.remove('abierto');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => {
+  const lb = document.getElementById('lightbox');
+  if (!lb.classList.contains('abierto')) return;
+  if (e.key === 'Escape') cerrarLightbox({ target: lb });
+  if (e.key === 'ArrowLeft')  navLightbox(-1);
+  if (e.key === 'ArrowRight') navLightbox(1);
+});
+
+// ─── RENDER ──────────────────────────────────────────────────────────────────
+function img(src, alt, cls) {
+  const el = document.createElement('img');
+  el.src = encodeURI(src);
+  el.alt = alt || '';
+  if (cls) el.className = cls;
+  el.loading = 'lazy';
+  return el;
+}
+
+function attr(texto) {
+  return String(texto)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function descripcionFoto(src) {
+  const filename = src.split('/').pop();
+  return descripciones[filename] || descripciones[descripcionAliases[filename]] || '';
+}
+
+function renderProyecto(idx) {
+  const p = proyectos[idx];
+  const page = document.getElementById('proyecto-page');
+
+  let html = `
+    <div class="fade-in">
+      <!-- COVER PORTADA -->
+      <div class="proyecto-cover">
+        <img src="${encodeURI(p.heroFotos[0])}" alt="${p.nombre}">
+        <div class="proyecto-cover-overlay"></div>
+        <div class="proyecto-cover-texto">
+          <p class="proyecto-tag">[&nbsp;${p.tag}&nbsp;]</p>
+          <h2 class="proyecto-nombre">${p.nombre}</h2>
+        </div>
+      </div>
+
+      ${p.plano ? `` : ''}
+  `;
+
+  // SECCIONES
+  p.secciones.forEach((sec, si) => {
+    const grupoId = `${idx}-${si}`;
+    const esCarrusel = sec.fotos.length > 3;
+    const carruselId = `c-${idx}-${si}`;
+    html += `
+      <div class="seccion">
+        ${sec.label ? `<p class="sec-label">${sec.label}</p>` : ''}
+        ${esCarrusel ? `<div class="carrusel-wrap">
+          <button class="carrusel-btn izq" onclick="scrollCarrusel('${carruselId}', -1)">&#8249;</button>
+          <button class="carrusel-btn der" onclick="scrollCarrusel('${carruselId}', 1)">&#8250;</button>` : ''}
+        <div id="${carruselId}" class="foto-grid ${sec.layout} ${esCarrusel ? 'carrusel' : ''}">
+          ${sec.fotos.map(f => {
+            const src = encodeURI(f);
+            const esVideo = /\.(mov|mp4|webm|ogg)$/i.test(f);
+            if (esVideo) {
+              return `<video
+                src="${src}"
+                autoplay loop muted playsinline
+                style="width:100%;display:block;"
+              ></video>`;
+            }
+            const fileKey = f.replace(BASE, '');
+            const pos = (sec.positions && sec.positions[fileKey]) || sec.objectPosition || 'center';
+            const descFoto = descripcionFoto(f);
+            return `<img
+              src="${src}"
+              alt="${sec.label}"
+              loading="lazy"
+              style="cursor:zoom-in;object-position:${pos}"
+              data-src="${src}"
+              data-seccion="${sec.label}"
+              data-proyecto="${attr(p.nombre)}"
+              data-desc="${attr(descFoto)}"
+              data-grupo="${grupoId}"
+              onclick="abrirLightbox(this)"
+            >`;
+          }).join('')}
+        </div>
+        ${esCarrusel ? `</div>` : ''}
+      </div>
+    `;
+    if (si < p.secciones.length - 1 && !sec.noSep) {
+      html += `<div class="sep"></div>`;
+    }
+  });
+
+  // PLANO AL FINAL
+  if (p.plano) {
+    html += `
+      <div class="plano-section">
+        <div class="plano-section-inner">
+          <p class="plano-label">Plano</p>
+          <img class="plano-img" src="${encodeURI(p.plano.src)}" alt="Plano de ${p.nombre}" loading="lazy">
+          <div class="plano-specs">
+            ${p.plano.specs.map(spec => `
+              <div class="plano-spec">
+                <p class="plano-spec-label">${spec.label}</p>
+                <p class="plano-spec-value">${spec.value}</p>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // BOTTOM NAV
+  const prev = idx > 0 ? proyectos[idx - 1].nombre : null;
+  const next = idx < proyectos.length - 1 ? proyectos[idx + 1].nombre : null;
+
+  html += `
+      <div class="bottom-nav">
+        <button class="btn-nav ${prev ? '' : 'oculto'}" onclick="irAProyecto(${idx - 1})">
+          ← &nbsp; ${prev || ''}
+        </button>
+        <button class="bottom-icon" onclick="irAInicio()" style="background:none;border:none;cursor:pointer;padding:0;">
+          <svg viewBox="0 0 249.03 217.91" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21.8,167.82l39.14,31.78,3.51,2.8,3.29-2.85,57.66-47.07,56.28,46.89,3.41,2.67,41.12-33.7,1.88-1.62v-1.06s.02,0,.02,0v-63.62l-.02-2.79-2.07-1.44L127.84,18.13l-3.56-2.62-41.11,34.89s-.1.06-.15.1l-60.07,47.32c-1.3,1.04-2.04,2.59-2.04,4.25v62.27c0,1.19.4,2.31,1.09,3.23l-.2.25ZM64.29,188.63l-29.64-24.07,62.75-51.36,27.11-22,29.65,24.06-89.88,73.37ZM185.04,188.33l-51.26-42.7,28.81-23.52,51.8,42.16-29.35,24.06ZM91.83,56.99l32.76-27.81,92.9,75.37v48.53l-49.64-40.4.04-28.18-.04-2.58-39.9-32.37c-2.01-1.63-4.9-1.6-6.89.07l-29.23,24.71v-17.32ZM31.55,104.58l49.66-39.11v20.12c0,2.11,1.24,4.04,3.19,4.92l3.14,1.36,37.08-31.35,32.65,26.49-.02,17.06-29.25-23.73c-2.01-1.67-4.92-1.68-6.9-.04l-30.4,24.66-59.14,48.41v-48.79Z"/>
+          </svg>
+        </button>
+        <button class="btn-nav der ${next ? '' : 'oculto'}" onclick="irAProyecto(${idx + 1})">
+          ${next || ''} &nbsp; →
+        </button>
+      </div>
+    </div>
+  `;
+
+  page.innerHTML = html;
+}
+</script>
+</body>
+</html>
