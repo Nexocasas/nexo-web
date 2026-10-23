@@ -340,8 +340,7 @@
   body.en-proyecto .nexo-info,
   body.en-proyecto .nexo-divider,
   body.en-proyecto .nexo-casas-info,
-  body.en-proyecto #cotizaciones-lista,
-  body.en-proyecto #cotizacion-page,
+  body.en-proyecto #modelos-lista,
   body.en-proyecto #contacto { display: none; }
 
   @media (max-width: 900px) {
@@ -1257,8 +1256,8 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* ══ COTIZACIONES ══════════════════════════════════════════════ */
-  #cotizaciones-lista { max-width: 1300px; margin: 0 auto; padding-bottom: 1rem; }
+  /* ══ NUESTROS MODELOS ═══════════════════════════════════════════ */
+  #modelos-lista { max-width: 1300px; margin: 0 auto; padding-bottom: 1rem; }
   .cot-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1302,35 +1301,35 @@
   .cot-card-ver { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); white-space: nowrap; transition: color 0.2s; }
   .cot-card:hover .cot-card-ver { color: var(--amber); }
 
-  /* detalle */
-  #cotizacion-page { display: none; padding-top: 61px; }
-  body.en-cotizacion #cotizacion-page { display: block; }
-  body.en-cotizacion .nexo-intro,
-  body.en-cotizacion .nexo-info,
-  body.en-cotizacion .nexo-divider,
-  body.en-cotizacion #hero,
-  body.en-cotizacion #cotizaciones-lista,
-  body.en-cotizacion .nexo-casas-info .header { display: none; }
-  .cot-det-head { max-width: 1300px; margin: 0 auto; padding: 2.5rem 3.5rem 2rem; }
-  .cot-volver { background: none; border: none; color: var(--muted); font: inherit; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; padding: 0; margin-bottom: 2rem; }
-  .cot-volver:hover { color: var(--text); }
-  .cot-det-nombre { font-family: 'scale-variable', sans-serif; font-size: clamp(2.6rem, 5vw, 4.5rem); font-weight: 200; line-height: 1; letter-spacing: 0.03em; }
-  .cot-det-amb { font-size: 0.9rem; color: var(--muted); margin-top: 0.9rem; font-weight: 300; }
-  #cotizacion-page .plano-section { margin-top: 0; }
-  #cotizacion-page .plano-img { cursor: zoom-in; mix-blend-mode: multiply; background: transparent; }
-  .cot-ampliar { font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: #7a7570; margin-top: 0.75rem; grid-column: 1 / -1; }
-  .cot-precio { max-width: 1300px; margin: 0 auto; padding: 3.5rem 3.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
-  .cot-precio-label { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
-  .cot-precio-valor { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: clamp(2.6rem, 6vw, 4.2rem); letter-spacing: -0.03em; line-height: 1; }
-  .cot-precio-valor.consultar { font-family: 'scale-variable', sans-serif; font-weight: 300; letter-spacing: 0.02em; font-size: clamp(1.8rem, 3.5vw, 2.6rem); }
-  .cot-precio-nota { font-size: 0.82rem; color: var(--muted); margin-top: 1rem; line-height: 1.7; font-weight: 300; }
-  .cot-wa { display: inline-block; margin-top: 1.75rem; padding: 0.9rem 2rem; background: var(--amber); color: #1a1814; font-size: 0.74rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; border-radius: 2px; }
-  .cot-pagos { border-top: 1px solid var(--border); }
-  .cot-pago { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
-  .cot-pago-etapa { font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.3rem; }
-  .cot-pago-nombre { font-size: 0.92rem; font-weight: 500; }
-  .cot-pago-monto { font-size: 0.92rem; font-weight: 600; text-align: right; white-space: nowrap; }
-  .cot-pago-monto small { display: block; font-size: 0.68rem; font-weight: 400; color: var(--muted); margin-top: 0.2rem; }
+  /* ── NUESTROS MODELOS: tarjeta con opciones deslizables ── */
+  .modelo-card { display: flex; flex-direction: column; background: var(--bg2); overflow: hidden; scroll-snap-align: start; min-width: 0; }
+  .modelo-plano { position: relative; aspect-ratio: 4/3; min-height: 0; overflow: hidden; background: #FAFAF8; }
+  .modelo-track {
+    display: flex; height: 100%;
+    overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .modelo-track::-webkit-scrollbar { display: none; }
+  .modelo-slide { flex: 0 0 100%; height: 100%; min-width: 0; overflow: hidden; scroll-snap-align: center; padding: 1.25rem; display: flex; align-items: center; justify-content: center; }
+  .modelo-slide img { width: 100%; height: 100%; object-fit: contain; display: block; mix-blend-mode: multiply; cursor: zoom-in; }
+  .modelo-flecha {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+    width: 34px; height: 34px; border-radius: 50%; border: none; cursor: pointer;
+    background: rgba(26,24,20,0.82); color: #f0ece5;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .modelo-flecha.prev { left: 0.6rem; }
+  .modelo-flecha.next { right: 0.6rem; }
+  .modelo-card:hover .modelo-flecha { opacity: 0.9; }
+  .modelo-card:hover .modelo-flecha.inactiva { opacity: 0; pointer-events: none; }
+  .modelo-texto { padding: 1.4rem 1.5rem 1.6rem; display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; }
+  .modelo-opcion { display: flex; flex-direction: column; align-items: flex-end; gap: 0.55rem; flex-shrink: 0; }
+  .modelo-opcion-nombre { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+  .modelo-dots { display: flex; gap: 0.4rem; }
+  .modelo-dot { width: 7px; height: 7px; border-radius: 50%; border: none; padding: 0; cursor: pointer; background: rgba(240,236,229,0.28); transition: background 0.2s, transform 0.2s; }
+  .modelo-dot.activo { background: var(--amber); transform: scale(1.25); }
+
 
   @media (max-width: 768px) {
     .cot-grid {
@@ -1344,11 +1343,10 @@
     }
     .cot-grid::-webkit-scrollbar { display: none; }
     .cot-card { scroll-snap-align: start; }
+    .modelo-texto { padding: 1.1rem 1.2rem 1.3rem; }
+    .modelo-flecha { display: none; }
     .cot-card-texto { padding: 1.1rem 1.2rem 1.3rem; }
     .cot-card-nombre { font-size: 1.3rem; }
-    #cotizacion-page { padding-top: 52px; }
-    .cot-det-head { padding: 1.75rem 1.2rem 1.5rem; }
-    .cot-precio { grid-template-columns: 1fr; gap: 2.25rem; padding: 2.5rem 1.2rem; }
   }
 </style>
 </head>
@@ -1380,7 +1378,7 @@
         <button class="nav-dropdown-item" onclick="irAProyecto(6);cerrarDropdown()">Casa Marco</button>
       </div>
     </li>
-    <li><a href="#cotizaciones" onclick="irAInicio('cotizaciones')">Cotizaciones</a></li>
+    <li><a href="#modelos" onclick="irAInicio('modelos')">Nuestros modelos</a></li>
     <li><a href="#incluye" onclick="irAInicio('incluye')">Tu Casa Nexo</a></li>
     <li><a href="#contacto" onclick="irAInicio('contacto')">Contacto</a></li>
   </ul>
@@ -1407,7 +1405,7 @@
   <button class="nav-mobile-sub" onclick="irAProyecto(4);cerrarNavMobile()">Taller P &amp; F</button>
   <button class="nav-mobile-sub" onclick="irAProyecto(5);cerrarNavMobile()">Casa A &amp; S</button>
   <button class="nav-mobile-sub" onclick="irAProyecto(6);cerrarNavMobile()">Casa Marco</button>
-  <a href="#cotizaciones" class="nav-mobile-item" onclick="irAInicio('cotizaciones');cerrarNavMobile()">Cotizaciones</a>
+  <a href="#modelos" class="nav-mobile-item" onclick="irAInicio('modelos');cerrarNavMobile()">Nuestros modelos</a>
   <a href="#incluye" class="nav-mobile-item" onclick="irAInicio('incluye');cerrarNavMobile()">Tu Casa Nexo</a>
   <a href="#contacto" class="nav-mobile-item" onclick="irAInicio('contacto');cerrarNavMobile()">Contacto</a>
   <a href="../index.html" class="nav-mobile-item por-tomas">
@@ -1491,23 +1489,23 @@
   <div class="cards-dots" id="cards-dots"></div>
 </section>
 
-<!-- ═══ COTIZACIONES ═══ -->
-<div class="nexo-divider" id="cotizaciones" style="scroll-margin-top:56px;">
+<!-- ═══ NUESTROS MODELOS ═══ -->
+<div class="nexo-divider" id="modelos" style="scroll-margin-top:56px;">
   <div class="nexo-divider-line"></div>
-  <span class="nexo-divider-texto">Cotizaciones</span>
+  <span class="nexo-divider-texto">Nuestros modelos</span>
   <div class="nexo-divider-line"></div>
 </div>
 
-<section id="cotizaciones-lista">
+<section id="modelos-lista">
   <div class="hero-top">
     <div>
-      <p class="hero-etiqueta">Anteproyectos</p>
-      <h1 class="hero-titulo">Opciones de</h1>
-      <h1 class="hero-titulo-acc">COTIZACIÓN</h1>
+      <p class="hero-etiqueta">Tipologías</p>
+      <h1 class="hero-titulo">Nuestros</h1>
+      <h1 class="hero-titulo-acc">MODELOS</h1>
     </div>
-    <p class="hero-desc">Tres tipologías de base para empezar a proyectar tu casa. Entrá en cada una para ver el plano, el precio, qué incluye y cómo seguimos.</p>
+    <p class="hero-desc">Tipologías de base para empezar a proyectar tu casa. Deslizá cada tarjeta para ver las distintas opciones de planta, y tocá el plano para verlo en grande.</p>
   </div>
-  <div class="cot-grid" id="cot-grid"></div>
+  <div class="cot-grid" id="modelos-grid"></div>
 </section>
 
 <!-- ═══ QUÉ INCLUYE + CÓMO SEGUIMOS ═══ -->
@@ -1517,8 +1515,6 @@
   <div class="nexo-divider-line"></div>
 </div>
 
-<!-- ═══ DETALLE DE COTIZACIÓN (renderizado por JS) ═══ -->
-<section id="cotizacion-page"></section>
 
 <div style="background:#FAFAF8;" class="nexo-casas-info">
   <div class="header">
@@ -2100,47 +2096,37 @@ const proyectos = [
 ];
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   COTIZACIONES — editar solo este bloque
-   · precio: "USD 60.000" (o dejar "" para mostrar "Precio a consultar")
-   · Para sumar una opción, copiá un bloque { ... } y cambiale los datos.
-   · El id se usa en el link directo: proyectos.html#cotizacion-<id>
+   NUESTROS MODELOS — editar solo este bloque
+   · Cada modelo es una tarjeta. Dentro de la tarjeta se desliza entre sus opciones.
+   · Para sumar una opción, copiá una línea { nombre: ..., plano: ... } y cambiale los datos.
+   · Los planos van en assets/planos/
    ═══════════════════════════════════════════════════════════════════════════ */
-const COTIZACIONES = [
+const MODELOS = [
   {
-    id: '40',
     nombre: 'Casa 40 m²',
-    m2: '40',
-    dormitorios: '1',
-    banos: '1',
     ambientes: '1 Dormitorio · 1 Baño',
-    plano: '../assets/planos/plano-40m2.jpg',
-    planoAmpliado: '../assets/planos/plano-40m2-marco.jpg',
-    precio: 'USD 60.000',
+    opciones: [
+      { nombre: 'Opción A', plano: '../assets/planos/modelo-40-a.jpg' },
+      { nombre: 'Opción B', plano: '../assets/planos/modelo-40-b.jpg' },
+      { nombre: 'Opción C', plano: '../assets/planos/modelo-40-c.jpg' },
+      { nombre: 'Opción D', plano: '../assets/planos/modelo-40-d.jpg' },
+    ],
   },
   {
-    id: '65',
     nombre: 'Casa 65 m²',
-    m2: '65',
-    dormitorios: '2',
-    banos: '1',
     ambientes: '2 Dormitorios · 1 Baño',
-    plano: '../assets/planos/plano-65m2.jpg',
-    planoAmpliado: '',
-    precio: '',   // ← completar, ej: 'USD 85.000'
+    opciones: [
+      { nombre: 'Opción A', plano: '../assets/planos/plano-65m2.jpg' },
+    ],
   },
   {
-    id: '100',
     nombre: 'Casa 100 m²',
-    m2: '100',
-    dormitorios: '2',
-    banos: '1 + toilette',
     ambientes: '2 Dormitorios · Baño completo · Toilette · Lavadero',
-    plano: '../assets/planos/plano-100m2.jpg',
-    planoAmpliado: '',
-    precio: '',   // ← completar, ej: 'USD 120.000'
+    opciones: [
+      { nombre: 'Opción A', plano: '../assets/planos/plano-100m2.jpg' },
+    ],
   },
 ];
-const COT_WHATSAPP = '5493512778244';
 /* ═══════════════════════════════════════════════════════════════════════════ */
 
 // ─── ESTADO ─────────────────────────────────────────────────────────────────
@@ -2218,120 +2204,84 @@ function initCardsCarrusel() {
 }
 initCardsCarrusel();
 
-// ─── COTIZACIONES: TARJETAS ──────────────────────────────────────────────────
-function renderCotizaciones() {
-  const grid = document.getElementById('cot-grid');
+// ─── NUESTROS MODELOS: TARJETAS CON OPCIONES ─────────────────────────────────
+const FLECHA_IZQ = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 19l-7-7 7-7"/></svg>';
+const FLECHA_DER = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>';
+
+function renderModelos() {
+  const grid = document.getElementById('modelos-grid');
   if (!grid) return;
-  grid.innerHTML = COTIZACIONES.map((c, i) => `
-    <button class="cot-card" onclick="irACotizacion(${i})">
-      <div class="cot-card-plano"><img src="${encodeURI(c.plano)}" alt="Plano ${attr(c.nombre)}" loading="lazy"></div>
-      <div class="cot-card-texto">
+  grid.innerHTML = MODELOS.map((m, i) => {
+    const varias = m.opciones.length > 1;
+    return `
+    <div class="modelo-card" data-modelo="${i}">
+      <div class="modelo-plano">
+        <div class="modelo-track">
+          ${m.opciones.map((o, k) => `
+            <div class="modelo-slide">
+              <img src="${encodeURI(o.plano)}" alt="Plano ${attr(m.nombre)} · ${attr(o.nombre)}" loading="lazy"
+                   data-src="${encodeURI(o.plano)}" data-seccion="${attr(o.nombre)}"
+                   data-proyecto="${attr(m.nombre)}" data-desc="${attr(m.ambientes)}"
+                   data-grupo="modelo-${i}" onclick="abrirLightbox(this)">
+            </div>`).join('')}
+        </div>
+        ${varias ? `
+          <button class="modelo-flecha prev" aria-label="Opción anterior">${FLECHA_IZQ}</button>
+          <button class="modelo-flecha next" aria-label="Opción siguiente">${FLECHA_DER}</button>` : ''}
+      </div>
+      <div class="modelo-texto">
         <div>
-          <p class="cot-card-tag">Anteproyecto</p>
-          <p class="cot-card-nombre">${c.nombre}</p>
-          <p class="cot-card-amb">${c.ambientes}</p>
+          <p class="cot-card-tag">Modelo</p>
+          <p class="cot-card-nombre">${m.nombre}</p>
+          <p class="cot-card-amb">${m.ambientes}</p>
         </div>
-        <span class="cot-card-ver">Ver →</span>
-      </div>
-    </button>
-  `).join('');
-}
-
-// ─── COTIZACIONES: DETALLE ───────────────────────────────────────────────────
-function cotMonto(precio, pct) {
-  const n = parseInt(String(precio).replace(/\D/g, ''), 10);
-  if (!n) return '';
-  const moneda = (String(precio).match(/^[^\d]+/) || ['USD '])[0].trim();
-  return moneda + ' ' + Math.round(n * pct).toLocaleString('es-AR');
-}
-
-function renderCotizacion(idx) {
-  const c = COTIZACIONES[idx];
-  const page = document.getElementById('cotizacion-page');
-  const planoGrande = encodeURI(c.planoAmpliado || c.plano);
-  const msg = encodeURIComponent(`Hola! Me interesa la opción ${c.nombre} (${c.ambientes}). ¿Me pasan más info?`);
-  const anticipo = cotMonto(c.precio, 0.05);
-
-  page.innerHTML = `
-    <div class="fade-in">
-      <div class="cot-det-head">
-        <button class="cot-volver" onclick="irAInicio('cotizaciones')">← Todas las cotizaciones</button>
-        <p class="proyecto-tag">[&nbsp;Cotización · Anteproyecto&nbsp;]</p>
-        <h2 class="cot-det-nombre">${c.nombre}</h2>
-        <p class="cot-det-amb">${c.ambientes}</p>
-      </div>
-
-      <div class="plano-section">
-        <div class="plano-section-inner">
-          <p class="plano-label">Plano de referencia</p>
-          <img class="plano-img" src="${encodeURI(c.plano)}" alt="Plano ${attr(c.nombre)}"
-               data-src="${planoGrande}" data-seccion="Plano de referencia"
-               data-proyecto="${attr(c.nombre)}" data-desc="${attr(c.ambientes)}"
-               data-grupo="cot-plano" onclick="abrirLightbox(this)">
-          <div class="plano-specs">
-            <div class="plano-spec"><p class="plano-spec-label">Superficie</p><p class="plano-spec-value">${c.m2} m²</p></div>
-            <div class="plano-spec"><p class="plano-spec-label">Dormitorios</p><p class="plano-spec-value">${c.dormitorios}</p></div>
-            <div class="plano-spec"><p class="plano-spec-label">Baños</p><p class="plano-spec-value">${c.banos}</p></div>
-          </div>
-          <p class="cot-ampliar">Tocá el plano para ampliar · Es de referencia y puede ajustarse durante el proyecto.</p>
+        <div class="modelo-opcion">
+          <p class="modelo-opcion-nombre"${varias ? '' : ' hidden'}>${attr(m.opciones[0].nombre)}</p>
+          ${varias ? `<div class="modelo-dots">${m.opciones.map((o, k) =>
+            `<button class="modelo-dot${k === 0 ? ' activo' : ''}" aria-label="${attr(o.nombre)}"></button>`).join('')}</div>` : ''}
         </div>
       </div>
+    </div>`;
+  }).join('');
 
-      <div class="cot-precio">
-        <div>
-          <p class="cot-precio-label">Total · Materiales + mano de obra</p>
-          ${c.precio
-            ? `<p class="cot-precio-valor">${c.precio}</p>
-               <p class="cot-precio-nota">Entrega llave en mano · Exento de IVA<br>Solicitar factura si corresponde.</p>`
-            : `<p class="cot-precio-valor consultar">Precio a consultar</p>
-               <p class="cot-precio-nota">Escribinos y te pasamos la cotización de esta opción.</p>`}
-          <a class="cot-wa" href="https://wa.me/${COT_WHATSAPP}?text=${msg}" target="_blank" rel="noopener">Consultar por WhatsApp</a>
-        </div>
-        <div>
-          <p class="cot-precio-label">Forma de pago</p>
-          <div class="cot-pagos">
-            <div class="cot-pago"><div><p class="cot-pago-etapa">Anteproyecto</p><p class="cot-pago-nombre">Reserva de lugar</p></div><p class="cot-pago-monto">${anticipo || '5%'}${anticipo ? '<small>Anticipo 5%</small>' : '<small>Anticipo</small>'}</p></div>
-            <div class="cot-pago"><div><p class="cot-pago-etapa">Inicio de obra</p><p class="cot-pago-nombre">1° pago mano de obra</p></div><p class="cot-pago-monto">33%</p></div>
-            <div class="cot-pago"><div><p class="cot-pago-etapa">Avance de obra</p><p class="cot-pago-nombre">2° pago mano de obra</p></div><p class="cot-pago-monto">33%</p></div>
-            <div class="cot-pago"><div><p class="cot-pago-etapa">Contraentrega</p><p class="cot-pago-nombre">3° pago mano de obra</p></div><p class="cot-pago-monto">Saldo final</p></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
+  grid.querySelectorAll('.modelo-card').forEach(card => {
+    const m = MODELOS[card.dataset.modelo];
+    const track = card.querySelector('.modelo-track');
+    const dots = card.querySelectorAll('.modelo-dot');
+    const nombre = card.querySelector('.modelo-opcion-nombre');
+    const prev = card.querySelector('.modelo-flecha.prev');
+    const next = card.querySelector('.modelo-flecha.next');
+    const actual = () => Math.round(track.scrollLeft / (track.clientWidth || 1));
+    const irA = k => {
+      k = Math.max(0, Math.min(m.opciones.length - 1, k));
+      track.scrollTo({ left: k * track.clientWidth, behavior: 'smooth' });
+    };
+    const actualizar = () => {
+      const k = actual();
+      dots.forEach((d, j) => d.classList.toggle('activo', j === k));
+      if (m.opciones[k]) nombre.textContent = m.opciones[k].nombre;
+      if (prev) prev.classList.toggle('inactiva', k <= 0);
+      if (next) next.classList.toggle('inactiva', k >= m.opciones.length - 1);
+    };
+    dots.forEach((d, j) => d.addEventListener('click', () => irA(j)));
+    if (prev) prev.addEventListener('click', e => { e.stopPropagation(); irA(actual() - 1); });
+    if (next) next.addEventListener('click', e => { e.stopPropagation(); irA(actual() + 1); });
+    track.addEventListener('scroll', () => requestAnimationFrame(actualizar), { passive: true });
+    actualizar();
+  });
 }
 
-function irACotizacion(idx) {
-  if (!COTIZACIONES[idx]) return;
-  renderCotizacion(idx);
-  document.getElementById('proyecto-page').classList.remove('activa');
-  document.getElementById('hero').classList.add('activa');
-  document.body.classList.remove('en-proyecto');
-  document.body.classList.add('en-cotizacion');
-  // Mostrar "¿Qué incluye?" abierto por defecto
-  const tabIncluye = document.querySelector('.tab-btn2');
-  if (tabIncluye) mostrarTab2('incluye2', tabIncluye);
-  try { history.replaceState(null, '', '#cotizacion-' + COTIZACIONES[idx].id); } catch (e) {}
-  window.scrollTo({ top: 0 });
-}
-
+// Se mantiene por compatibilidad (ya no hay página de detalle de cotización)
 function salirDeCotizacion() {
-  if (!document.body.classList.contains('en-cotizacion')) return;
   document.body.classList.remove('en-cotizacion');
-  try { history.replaceState(null, '', location.pathname); } catch (e) {}
 }
 
-renderCotizaciones();
+renderModelos();
 
-// Link directo: proyectos.html#cotizacion-40
-function abrirCotizacionDesdeHash() {
-  const m = location.hash.match(/^#cotizacion-(.+)$/);
-  if (!m) return;
-  const idx = COTIZACIONES.findIndex(c => c.id === decodeURIComponent(m[1]));
-  if (idx >= 0) irACotizacion(idx);
+// Links viejos (proyectos.html#cotizacion-40 o #cotizaciones) → llevan a Nuestros modelos
+if (/^#cotizacion/.test(location.hash)) {
+  setTimeout(() => { const el = document.getElementById('modelos'); if (el) el.scrollIntoView(); }, 300);
 }
-abrirCotizacionDesdeHash();
-window.addEventListener('hashchange', abrirCotizacionDesdeHash);
 
 // ─── NAV ─────────────────────────────────────────────────────────────────────
 function toggleMenu() {
@@ -2435,7 +2385,7 @@ function irAProyecto(idx) {
     const dx = t.clientX - sx;
     const dy = t.clientY - sy;
     if (dx > 80 && Math.abs(dy) < 55 && dx > Math.abs(dy) * 1.5) {
-      irAInicio(document.body.classList.contains('en-cotizacion') ? 'cotizaciones' : 'proyectos');
+      irAInicio('proyectos');
     }
   }, { passive: true });
 })();
