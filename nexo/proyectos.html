@@ -340,6 +340,8 @@
   body.en-proyecto .nexo-info,
   body.en-proyecto .nexo-divider,
   body.en-proyecto .nexo-casas-info,
+  body.en-proyecto #cotizaciones-lista,
+  body.en-proyecto #cotizacion-page,
   body.en-proyecto #contacto { display: none; }
 
   @media (max-width: 900px) {
@@ -733,6 +735,26 @@
     font-weight: 250;
   }
 
+  /* plano de proyecto: ancho completo, m² arriba a la derecha */
+  .plano-section--proyecto .plano-section-inner { display: block; }
+  .plano-section--proyecto .plano-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .plano-section--proyecto .plano-label { margin-bottom: 0; }
+  .plano-section--proyecto .plano-m2 { text-align: right; }
+  .plano-section--proyecto .plano-img {
+    width: 100%;
+    height: auto;
+    max-height: 90vh;
+    object-fit: contain;
+    background: transparent;
+    mix-blend-mode: multiply;
+  }
+
   /* cover portada del proyecto */
   .proyecto-cover {
     position: relative;
@@ -1058,6 +1080,11 @@
 
     .plano-spec-value {
       font-size: 1.35rem;
+    }
+
+    .plano-section--proyecto .plano-img {
+      aspect-ratio: auto;
+      height: auto;
     }
 
     /* secciones */
@@ -2559,21 +2586,21 @@ function renderProyecto(idx) {
     }
   });
 
-  // PLANO AL FINAL
+  // PLANO AL FINAL (a todo el ancho, solo m² arriba a la derecha)
   if (p.plano) {
+    const m2 = (p.plano.specs || []).find(sp => /metros|superficie|m²/i.test(sp.label));
     html += `
-      <div class="plano-section">
+      <div class="plano-section plano-section--proyecto">
         <div class="plano-section-inner">
-          <p class="plano-label">Plano</p>
-          <img class="plano-img" src="${encodeURI(p.plano.src)}" alt="Plano de ${p.nombre}" loading="lazy">
-          <div class="plano-specs">
-            ${p.plano.specs.map(spec => `
-              <div class="plano-spec">
-                <p class="plano-spec-label">${spec.label}</p>
-                <p class="plano-spec-value">${spec.value}</p>
-              </div>
-            `).join('')}
+          <div class="plano-head">
+            <p class="plano-label">Plano</p>
+            ${m2 ? `
+              <div class="plano-m2">
+                <p class="plano-spec-label">${m2.label}</p>
+                <p class="plano-spec-value">${m2.value}</p>
+              </div>` : ''}
           </div>
+          <img class="plano-img" src="${encodeURI(p.plano.src)}" alt="Plano de ${p.nombre}" loading="lazy">
         </div>
       </div>
     `;
