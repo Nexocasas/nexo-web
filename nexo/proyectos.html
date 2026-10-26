@@ -2152,16 +2152,17 @@ const proyectos = [
    · Si una opción tiene otros ambientes, agregale ambientes: '...' y se muestra al deslizar.
    · cotizacion: datos de la página de presupuesto, que NO aparece en el menú ni en las tarjetas.
        Solo se abre con el link:  .../nexo/proyectos.html#cotizacion-<id>
-       Para abrir directo una opción:  #cotizacion-<id>-b  (a, b, c…)
-       precio: 'USD 60.000'  (o '' para mostrar "Precio a consultar")
-       ficha: los datos grandes al lado del plano. Una opción puede pisar alguno con su propia ficha.
+       opcion: la letra del plano que se muestra en la cotización (una sola).
+       nombre: (opcional) título distinto al de la tarjeta, ej. 'Casa 90 m²'.
+       precio: 'U$S 72.000'  (o '' para mostrar "Precio a consultar")
+       ficha: los datos grandes al lado del plano.
    · Los planos van en assets/planos/
    ═══════════════════════════════════════════════════════════════════════════ */
 const MODELOS = [
   {
     nombre: 'Casa 30 m²',
     ambientes: 'Monoambiente · Baño',
-    cotizacion: { id: '30', precio: '', ficha: { Superficie: '30 m²', Ambientes: 'Mono', Baños: '1' } },
+    cotizacion: { id: '30', opcion: 'B', precio: 'U$S 54.000', ficha: { Superficie: '30 m²', Ambientes: 'Mono', Baños: '1' } },
     opciones: [
       { nombre: 'Opción A', plano: '../assets/planos/modelo-30-a.jpg', ambientes: 'Monoambiente · Toilette' },
       { nombre: 'Opción B', plano: '../assets/planos/modelo-30-b.jpg', ambientes: 'Monoambiente · Cocina · Baño completo' },
@@ -2170,7 +2171,7 @@ const MODELOS = [
   {
     nombre: 'Casa 40 m²',
     ambientes: '1 Dormitorio · 1 Baño',
-    cotizacion: { id: '40', precio: 'USD 60.000', ficha: { Superficie: '40 m²', Dormitorios: '1', Baños: '1' } },
+    cotizacion: { id: '40', opcion: 'A', precio: 'U$S 72.000', ficha: { Superficie: '40 m²', Dormitorios: '1', Baños: '1' } },
     opciones: [
       { nombre: 'Opción A', plano: '../assets/planos/modelo-40-b.jpg' },
       { nombre: 'Opción B', plano: '../assets/planos/modelo-40-c.jpg' },
@@ -2180,7 +2181,7 @@ const MODELOS = [
   {
     nombre: 'Casa 65 m²',
     ambientes: '2 Dormitorios · 1 Baño',
-    cotizacion: { id: '65', precio: '', ficha: { Superficie: '65 m²', Dormitorios: '2', Baños: '1' } },
+    cotizacion: { id: '65', opcion: 'B', precio: 'U$S 115.000', ficha: { Superficie: '65 m²', Dormitorios: '2', Baños: '1' } },
     opciones: [
       { nombre: 'Opción A', plano: '../assets/planos/modelo-65-a.jpg', ambientes: '2 Dormitorios · 1 Baño · Lavadero' },
       { nombre: 'Opción B', plano: '../assets/planos/modelo-65-b.jpg', ambientes: '2 Dormitorios · 1 Baño · Lavadero' },
@@ -2189,10 +2190,10 @@ const MODELOS = [
   {
     nombre: 'Casa 85 – 100 m²',
     ambientes: '2 Dormitorios · Baño completo · Toilette · Lavadero',
-    cotizacion: { id: '100', precio: '', ficha: { Superficie: '85–100 m²', Dormitorios: '2', Baños: '1 + toilette' } },
+    cotizacion: { id: '90', alias: ['100'], nombre: 'Casa 90 m²', opcion: 'A', precio: 'U$S 155.000', ficha: { Superficie: '90 m²', Dormitorios: '2', Baños: '1 + toilette' } },
     opciones: [
-      { nombre: 'Opción A', plano: '../assets/planos/plano-100m2.jpg', ficha: { Superficie: '100 m²' } },
-      { nombre: 'Opción B', plano: '../assets/planos/modelo-100-b.jpg', ambientes: '2 Dormitorios · 2 Baños · Lavadero', ficha: { Superficie: '95 m²', Baños: '2' } },
+      { nombre: 'Opción A', plano: '../assets/planos/plano-100m2.jpg' },
+      { nombre: 'Opción B', plano: '../assets/planos/modelo-100-b.jpg', ambientes: '2 Dormitorios · 2 Baños · Lavadero' },
     ],
   },
 ];
@@ -2354,34 +2355,33 @@ function cotMonto(precio, pct) {
   return moneda + ' ' + Math.round(n * pct).toLocaleString('es-AR');
 }
 
-function renderCotizacion(mi, oi) {
+function renderCotizacion(mi) {
   const m = MODELOS[mi];
   const c = m.cotizacion;
+  const oi = c.opcion ? Math.max(0, String(c.opcion).toUpperCase().charCodeAt(0) - 65) : 0;
   const o = m.opciones[oi] || m.opciones[0];
-  const varias = m.opciones.length > 1;
+  const nombreCot = c.nombre || m.nombre;
   const ambientes = o.ambientes || m.ambientes;
-  const ficha = Object.assign({}, c.ficha, o.ficha || {});
-  const precio = o.precio !== undefined ? o.precio : c.precio;
+  const ficha = c.ficha;
+  const precio = c.precio;
   const anticipo = cotMonto(precio, 0.05);
-  const msg = encodeURIComponent(`Hola! Me interesa la ${m.nombre}${varias ? ' (' + o.nombre + ')' : ''}. ¿Me pasan más info?`);
+  const msg = encodeURIComponent(`Hola! Me interesa la ${nombreCot}. ¿Me pasan más info?`);
   const page = document.getElementById('cotizacion-page');
 
   page.innerHTML = `
     <div class="fade-in">
       <div class="cot-det-head">
         <p class="proyecto-tag">[&nbsp;Cotización · Anteproyecto&nbsp;]</p>
-        <h2 class="cot-det-nombre">${m.nombre}</h2>
+        <h2 class="cot-det-nombre">${nombreCot}</h2>
         <p class="cot-det-amb">${ambientes}</p>
-        ${varias ? `<div class="cot-opciones">${m.opciones.map((op, k) =>
-          `<button class="cot-opcion${k === oi ? ' activa' : ''}" onclick="irACotizacion(${mi}, ${k})">${attr(op.nombre)}</button>`).join('')}</div>` : ''}
       </div>
 
       <div class="plano-section">
         <div class="plano-section-inner">
-          <p class="plano-label">Plano de referencia${varias ? ' · ' + attr(o.nombre) : ''}</p>
-          <img class="plano-img" src="${encodeURI(o.plano)}" alt="Plano ${attr(m.nombre)}"
-               data-src="${encodeURI(o.plano)}" data-seccion="Plano de referencia${varias ? ' · ' + attr(o.nombre) : ''}"
-               data-proyecto="${attr(m.nombre)}" data-desc="${attr(ambientes)}"
+          <p class="plano-label">Plano de referencia</p>
+          <img class="plano-img" src="${encodeURI(o.plano)}" alt="Plano ${attr(nombreCot)}"
+               data-src="${encodeURI(o.plano)}" data-seccion="Plano de referencia"
+               data-proyecto="${attr(nombreCot)}" data-desc="${attr(ambientes)}"
                data-grupo="cot-plano" onclick="abrirLightbox(this)">
           <div class="plano-specs">
             ${Object.keys(ficha).map(k => `<div class="plano-spec"><p class="plano-spec-label">${k}</p><p class="plano-spec-value">${ficha[k]}</p></div>`).join('')}
@@ -2414,20 +2414,18 @@ function renderCotizacion(mi, oi) {
   `;
 }
 
-function irACotizacion(mi, oi) {
+function irACotizacion(mi) {
   const m = MODELOS[mi];
   if (!m || !m.cotizacion) return;
-  oi = Math.max(0, Math.min(m.opciones.length - 1, oi || 0));
   const yaAbierta = document.body.classList.contains('en-cotizacion');
-  renderCotizacion(mi, oi);
+  renderCotizacion(mi);
   document.getElementById('proyecto-page').classList.remove('activa');
   document.getElementById('hero').classList.add('activa');
   document.body.classList.remove('en-proyecto');
   document.body.classList.add('en-cotizacion');
   const tabIncluye = document.querySelector('.tab-btn2');
   if (tabIncluye) mostrarTab2('incluye2', tabIncluye);
-  const sufijo = oi > 0 ? '-' + String.fromCharCode(97 + oi) : '';
-  try { history.replaceState(null, '', '#cotizacion-' + m.cotizacion.id + sufijo); } catch (e) {}
+  try { history.replaceState(null, '', '#cotizacion-' + m.cotizacion.id); } catch (e) {}
   if (!yaAbierta) window.scrollTo({ top: 0 });
 }
 
@@ -2439,11 +2437,12 @@ function salirDeCotizacion() {
 
 function abrirCotizacionDesdeHash() {
   const h = decodeURIComponent(location.hash);
-  const mt = h.match(/^#cotizacion-(.+?)(?:-([a-z]))?$/i);
+  const mt = h.match(/^#cotizacion-(\d+)/i);
   if (!mt) return false;
-  const mi = MODELOS.findIndex(m => m.cotizacion && m.cotizacion.id === mt[1]);
+  const mi = MODELOS.findIndex(m => m.cotizacion &&
+    (m.cotizacion.id === mt[1] || (m.cotizacion.alias || []).includes(mt[1])));
   if (mi < 0) return false;
-  irACotizacion(mi, mt[2] ? mt[2].toLowerCase().charCodeAt(0) - 97 : 0);
+  irACotizacion(mi);
   return true;
 }
 
