@@ -371,69 +371,42 @@
     .nexo-info-inf { font-size: 2.1rem; }
   }
 
-  /* ── PORTADA: logo + fotos que van pasando (como la página de Tomás) ── */
+  /* ── PORTADA: título sobre una foto, a modo de header ── */
   .nexo-intro.portada {
-    display: grid;
-    grid-template-columns: 1fr 1.15fr;
+    display: flex;
+    flex-direction: column;
     align-items: stretch;
-    justify-content: stretch;
+    justify-content: center;
     text-align: left;
+    position: relative;
+    overflow: hidden;
+    min-height: 82vh;
     padding: 61px 0 0;
-    min-height: 100vh;
     background: var(--bg);
   }
   .nexo-intro.portada::before { display: none; }
-  .portada-texto {
-    display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+  .nexo-intro.portada > .portada-foto { position: absolute; top: 61px; right: 0; bottom: 0; width: 64%; z-index: 0; }
+  .portada-foto img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; display: block; filter: saturate(0.8) brightness(0.72); }
+  .portada-foto::after {
+    content: ''; position: absolute; inset: 0;
+    background:
+      linear-gradient(90deg, var(--bg) 0%, rgba(13,11,9,0.88) 18%, rgba(13,11,9,0.35) 55%, rgba(13,11,9,0.25) 100%),
+      linear-gradient(0deg, var(--bg) 0%, rgba(13,11,9,0) 30%);
+  }
+  .nexo-intro.portada > .portada-texto {
+    position: relative; z-index: 1; width: 100%;
     padding: 4rem 3.5rem 4rem max(3.5rem, calc((100vw - 1300px) / 2 + 3.5rem));
   }
-  .portada-logo { width: clamp(170px, 17vw, 240px); height: auto; margin-bottom: 2.75rem; opacity: 0.96; transform: translateX(-9%); }
-  .portada-eyebrow { font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--amber); margin-bottom: 1.1rem; }
-  .portada-bajada { font-size: 0.98rem; line-height: 1.75; color: var(--muted); font-weight: 300; max-width: 34ch; margin-bottom: 2.5rem; }
-  .portada-ctas { display: flex; gap: 0.85rem; flex-wrap: wrap; }
-  .portada-btn {
-    display: inline-block; padding: 0.9rem 1.8rem; border-radius: 2px; text-decoration: none;
-    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
-    background: var(--amber); color: #1a1814; border: 1px solid var(--amber); transition: background 0.2s, color 0.2s, border-color 0.2s;
-  }
-  .portada-btn:hover { background: transparent; color: var(--amber); }
-  .portada-btn.sec { background: transparent; color: var(--text); border-color: var(--border); }
-  .portada-btn.sec:hover { border-color: var(--amber); color: var(--amber); }
-
-  .portada-fotos { position: relative; overflow: hidden; margin: 2rem 2rem 2rem 0; min-height: 420px; background: var(--bg2); }
-  .portada-slide { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity 1.4s ease; }
-  .portada-slide.activo { opacity: 1; }
-  .portada-slide img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.06); transition: transform 7s ease-out; }
-  .portada-slide.activo img { transform: scale(1); }
-  .portada-fotos-overlay {
-    position: absolute; inset: 0; pointer-events: none;
-    background: linear-gradient(90deg, var(--bg) 0%, rgba(13,11,9,0) 28%),
-                linear-gradient(0deg, rgba(13,11,9,0.65) 0%, rgba(13,11,9,0) 30%);
-  }
-  .portada-caption {
-    position: absolute; left: 2rem; bottom: 1.6rem; z-index: 2;
-    background: none; border: none; padding: 0; cursor: pointer; font: inherit;
-    font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(240,236,229,0.85);
-    transition: color 0.2s;
-  }
-  .portada-caption:hover { color: var(--amber); }
-  .portada-caption.sin-link { cursor: default; }
-  .portada-caption.sin-link:hover { color: rgba(240,236,229,0.85); }
-  .portada-dots { position: absolute; right: 1.6rem; bottom: 1.6rem; z-index: 2; display: flex; gap: 0.45rem; }
-  .portada-dot { width: 18px; height: 2px; border: none; padding: 0; cursor: pointer; background: rgba(240,236,229,0.35); transition: background 0.3s, width 0.3s; }
-  .portada-dot.activo { background: var(--amber); width: 30px; }
+  .portada-logo { width: clamp(190px, 20vw, 280px); height: auto; margin-bottom: 2.5rem; opacity: 0.97; transform: translateX(-9%); display: block; }
+  .portada-eyebrow { font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--amber); margin-bottom: 1rem; }
+  .portada-bajada { font-size: 1rem; line-height: 1.75; color: rgba(240,236,229,0.82); font-weight: 300; max-width: 34ch; }
 
   @media (max-width: 900px) {
-    .nexo-intro.portada { grid-template-columns: 1fr; min-height: auto; padding-top: 52px; }
-    .portada-fotos { order: -1; margin: 0; height: 62vh; min-height: 340px; }
-    .portada-fotos-overlay { background: linear-gradient(0deg, var(--bg) 0%, rgba(13,11,9,0) 45%); }
-    .portada-caption { left: 1.2rem; bottom: 1.2rem; }
-    .portada-dots { right: 1.2rem; bottom: 1.35rem; }
-    .portada-texto { padding: 0.5rem 1.2rem 3.5rem; }
-    .portada-logo { width: 170px; margin-bottom: 2rem; margin-top: -1.5rem; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .portada-slide img, .portada-slide.activo img { transform: none; transition: none; }
+    .nexo-intro.portada { min-height: 80vh; justify-content: flex-end; padding-top: 52px; }
+    .nexo-intro.portada > .portada-foto { top: 52px; width: 100%; }
+    .portada-foto::after { background: linear-gradient(0deg, var(--bg) 0%, rgba(13,11,9,0.75) 40%, rgba(13,11,9,0.35) 100%); }
+    .nexo-intro.portada > .portada-texto { padding: 3rem 1.2rem 3rem; }
+    .portada-logo { width: 180px; margin-bottom: 1.75rem; }
   }
 
   /* ── NEXO INTRO ── */
@@ -1541,24 +1514,14 @@
 
 <!-- ═══ HERO ═══ -->
 <div class="nexo-intro portada" id="inicio">
+  <!-- Foto de portada: para cambiarla, reemplazá el src -->
+  <div class="portada-foto">
+    <img src="../assets/img/portada/obra-1-obra-equipo.jpg" alt="Equipo de Nexo levantando muros de madera">
+  </div>
   <div class="portada-texto">
     <img src="../assets/nexo-logo-blanco.svg" class="portada-logo" alt="Nexo Casas">
     <p class="portada-eyebrow">San Martín de los Andes · Patagonia</p>
     <p class="portada-bajada">Casas modulares de madera, fabricadas en nuestro taller y montadas en tu terreno.</p>
-    <div class="portada-ctas">
-      <a href="#proyectos" class="portada-btn" onclick="irAInicio('proyectos');return false;">Ver proyectos</a>
-      <a href="#modelos" class="portada-btn sec" onclick="irAInicio('modelos');return false;">Nuestros modelos</a>
-    </div>
-  </div>
-  <div class="portada-fotos" id="portada-fotos">
-    <!-- Fotos de portada: para cambiarlas, editá esta lista.
-         data-texto = leyenda abajo de la foto · data-proyecto (opcional) = nombre exacto de un proyecto para que la leyenda lleve a él -->
-    <figure class="portada-slide activo" data-texto="Nuestro equipo en obra"><img src="../assets/img/portada/obra-1-obra-equipo.jpg" alt="Equipo de Nexo levantando muros de madera"></figure>
-    <figure class="portada-slide" data-texto="Sistema Wood Frame"><img src="../assets/img/portada/obra-2-obra-panel.jpg" alt="Panel de muro con estructura de madera" loading="lazy"></figure>
-    <figure class="portada-slide" data-texto="Sistema Wood Frame"><img src="../assets/img/portada/obra-3-obra-muro.jpg" alt="Muro de madera y estructura de piso" loading="lazy"></figure>
-    <div class="portada-fotos-overlay"></div>
-    <button class="portada-caption" id="portada-caption" type="button"></button>
-    <div class="portada-dots" id="portada-dots"></div>
   </div>
 </div>
 
@@ -2532,39 +2495,7 @@ function abrirCotizacionDesdeHash() {
 renderModelos();
 initCardsCarrusel('modelos');
 
-// ─── PORTADA: fotos que van pasando ──────────────────────────────────────────
-(function initPortada() {
-  const wrap = document.getElementById('portada-fotos');
-  if (!wrap) return;
-  const slides = Array.from(wrap.querySelectorAll('.portada-slide'));
-  const caption = document.getElementById('portada-caption');
-  const dotsWrap = document.getElementById('portada-dots');
-  let i = 0, timer = null;
-  dotsWrap.innerHTML = slides.map((_, k) => `<button class="portada-dot${k === 0 ? ' activo' : ''}" aria-label="Foto ${k + 1}"></button>`).join('');
-  const dots = Array.from(dotsWrap.children);
-  function mostrar(k) {
-    i = (k + slides.length) % slides.length;
-    slides.forEach((s, j) => s.classList.toggle('activo', j === i));
-    dots.forEach((d, j) => d.classList.toggle('activo', j === i));
-    const img = slides[i].querySelector('img');
-    if (img && img.loading === 'lazy') img.loading = 'eager';
-    const sig = slides[(i + 1) % slides.length].querySelector('img');
-    if (sig) sig.loading = 'eager';
-    const conLink = !!slides[i].dataset.proyecto;
-    caption.textContent = (slides[i].dataset.texto || slides[i].dataset.proyecto || '') + (conLink ? ' →' : '');
-    caption.classList.toggle('sin-link', !conLink);
-  }
-  function arrancar() { clearInterval(timer); timer = setInterval(() => mostrar(i + 1), 5500); }
-  dots.forEach((d, k) => d.addEventListener('click', () => { mostrar(k); arrancar(); }));
-  caption.addEventListener('click', () => {
-    if (!slides[i].dataset.proyecto) return;
-    const idx = proyectos.findIndex(p => p.nombre === slides[i].dataset.proyecto);
-    if (idx >= 0) irAProyecto(idx);
-  });
-  document.addEventListener('visibilitychange', () => { document.hidden ? clearInterval(timer) : arrancar(); });
-  mostrar(0);
-  arrancar();
-})();
+
 
 // Link privado de cotización
 if (!abrirCotizacionDesdeHash() && /^#cotizacion/.test(location.hash)) {
