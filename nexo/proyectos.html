@@ -496,6 +496,12 @@
     margin: 0 auto;
   }
 
+  /* Las líneas separadoras quedan ocultas: los títulos de cada sección ya cumplen esa función.
+     El bloque se mantiene como ancla del menú (#proyectos, #modelos, #incluye). */
+  .nexo-divider-line,
+  .nexo-divider-texto { display: none !important; }
+  .nexo-divider { padding: 0 !important; height: 0; overflow: hidden; }
+
   .nexo-divider-line {
     flex: 1;
     height: 1px;
