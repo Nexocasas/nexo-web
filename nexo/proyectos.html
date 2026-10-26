@@ -417,6 +417,8 @@
     transition: color 0.2s;
   }
   .portada-caption:hover { color: var(--amber); }
+  .portada-caption.sin-link { cursor: default; }
+  .portada-caption.sin-link:hover { color: rgba(240,236,229,0.85); }
   .portada-dots { position: absolute; right: 1.6rem; bottom: 1.6rem; z-index: 2; display: flex; gap: 0.45rem; }
   .portada-dot { width: 18px; height: 2px; border: none; padding: 0; cursor: pointer; background: rgba(240,236,229,0.35); transition: background 0.3s, width 0.3s; }
   .portada-dot.activo { background: var(--amber); width: 30px; }
@@ -1549,13 +1551,11 @@
     </div>
   </div>
   <div class="portada-fotos" id="portada-fotos">
-    <!-- Fotos de portada: para cambiarlas, editá esta lista (data-proyecto = nombre exacto del proyecto) -->
-    <figure class="portada-slide activo" data-proyecto="Casa Facundo"><img src="../assets/img/portada/portada-1-facundo.jpg" alt="Casa Facundo"></figure>
-    <figure class="portada-slide" data-proyecto="Casa Lu"><img src="../assets/img/portada/portada-2-lu-interior.jpg" alt="Interior Casa Lu" loading="lazy"></figure>
-    <figure class="portada-slide" data-proyecto="Casa G & F"><img src="../assets/img/portada/portada-3-gyf.jpg" alt="Casa G & F" loading="lazy"></figure>
-    <figure class="portada-slide" data-proyecto="Casa Lu"><img src="../assets/img/portada/portada-4-lu-vista.jpg" alt="Vista desde Casa Lu" loading="lazy"></figure>
-    <figure class="portada-slide" data-proyecto="Casa Marco"><img src="../assets/img/portada/portada-5-marco.jpg" alt="Casa Marco" loading="lazy"></figure>
-    <figure class="portada-slide" data-proyecto="Casa Luli"><img src="../assets/img/portada/portada-6-luli.jpg" alt="Interior Casa Luli" loading="lazy"></figure>
+    <!-- Fotos de portada: para cambiarlas, editá esta lista.
+         data-texto = leyenda abajo de la foto · data-proyecto (opcional) = nombre exacto de un proyecto para que la leyenda lleve a él -->
+    <figure class="portada-slide activo" data-texto="Nuestro equipo en obra"><img src="../assets/img/portada/obra-1-obra-equipo.jpg" alt="Equipo de Nexo levantando muros de madera"></figure>
+    <figure class="portada-slide" data-texto="Sistema Wood Frame"><img src="../assets/img/portada/obra-2-obra-panel.jpg" alt="Panel de muro con estructura de madera" loading="lazy"></figure>
+    <figure class="portada-slide" data-texto="Sistema Wood Frame"><img src="../assets/img/portada/obra-3-obra-muro.jpg" alt="Muro de madera y estructura de piso" loading="lazy"></figure>
     <div class="portada-fotos-overlay"></div>
     <button class="portada-caption" id="portada-caption" type="button"></button>
     <div class="portada-dots" id="portada-dots"></div>
@@ -2550,11 +2550,14 @@ initCardsCarrusel('modelos');
     if (img && img.loading === 'lazy') img.loading = 'eager';
     const sig = slides[(i + 1) % slides.length].querySelector('img');
     if (sig) sig.loading = 'eager';
-    caption.textContent = (slides[i].dataset.proyecto || '') + ' →';
+    const conLink = !!slides[i].dataset.proyecto;
+    caption.textContent = (slides[i].dataset.texto || slides[i].dataset.proyecto || '') + (conLink ? ' →' : '');
+    caption.classList.toggle('sin-link', !conLink);
   }
   function arrancar() { clearInterval(timer); timer = setInterval(() => mostrar(i + 1), 5500); }
   dots.forEach((d, k) => d.addEventListener('click', () => { mostrar(k); arrancar(); }));
   caption.addEventListener('click', () => {
+    if (!slides[i].dataset.proyecto) return;
     const idx = proyectos.findIndex(p => p.nombre === slides[i].dataset.proyecto);
     if (idx >= 0) irAProyecto(idx);
   });
