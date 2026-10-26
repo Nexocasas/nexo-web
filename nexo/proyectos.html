@@ -2099,6 +2099,7 @@ const proyectos = [
    NUESTROS MODELOS — editar solo este bloque
    · Cada modelo es una tarjeta. Dentro de la tarjeta se desliza entre sus opciones.
    · Para sumar una opción, copiá una línea { nombre: ..., plano: ... } y cambiale los datos.
+   · Si una opción tiene otros ambientes, agregale ambientes: '...' y se muestra al deslizar.
    · Los planos van en assets/planos/
    ═══════════════════════════════════════════════════════════════════════════ */
 const MODELOS = [
@@ -2120,10 +2121,11 @@ const MODELOS = [
     ],
   },
   {
-    nombre: 'Casa 100 m²',
+    nombre: 'Casa 85 – 100 m²',
     ambientes: '2 Dormitorios · Baño completo · Toilette · Lavadero',
     opciones: [
       { nombre: 'Opción A', plano: '../assets/planos/plano-100m2.jpg' },
+      { nombre: 'Opción B', plano: '../assets/planos/modelo-100-b.jpg', ambientes: '2 Dormitorios · 2 Baños · Lavadero' },
     ],
   },
 ];
@@ -2221,7 +2223,7 @@ function renderModelos() {
             <div class="modelo-slide">
               <img src="${encodeURI(o.plano)}" alt="Plano ${attr(m.nombre)} · ${attr(o.nombre)}" loading="lazy"
                    data-src="${encodeURI(o.plano)}" data-seccion="${attr(o.nombre)}"
-                   data-proyecto="${attr(m.nombre)}" data-desc="${attr(m.ambientes)}"
+                   data-proyecto="${attr(m.nombre)}" data-desc="${attr(o.ambientes || m.ambientes)}"
                    data-grupo="modelo-${i}" onclick="abrirLightbox(this)">
             </div>`).join('')}
         </div>
@@ -2233,7 +2235,7 @@ function renderModelos() {
         <div>
           <p class="cot-card-tag">Modelo</p>
           <p class="cot-card-nombre">${m.nombre}</p>
-          <p class="cot-card-amb">${m.ambientes}</p>
+          <p class="cot-card-amb">${m.opciones[0].ambientes || m.ambientes}</p>
         </div>
         <div class="modelo-opcion">
           <p class="modelo-opcion-nombre"${varias ? '' : ' hidden'}>${attr(m.opciones[0].nombre)}</p>
@@ -2249,6 +2251,7 @@ function renderModelos() {
     const track = card.querySelector('.modelo-track');
     const dots = card.querySelectorAll('.modelo-dot');
     const nombre = card.querySelector('.modelo-opcion-nombre');
+    const amb = card.querySelector('.cot-card-amb');
     const prev = card.querySelector('.modelo-flecha.prev');
     const next = card.querySelector('.modelo-flecha.next');
     const actual = () => Math.round(track.scrollLeft / (track.clientWidth || 1));
@@ -2259,7 +2262,10 @@ function renderModelos() {
     const actualizar = () => {
       const k = actual();
       dots.forEach((d, j) => d.classList.toggle('activo', j === k));
-      if (m.opciones[k]) nombre.textContent = m.opciones[k].nombre;
+      if (m.opciones[k]) {
+        nombre.textContent = m.opciones[k].nombre;
+        amb.textContent = m.opciones[k].ambientes || m.ambientes;
+      }
       if (prev) prev.classList.toggle('inactiva', k <= 0);
       if (next) next.classList.toggle('inactiva', k >= m.opciones.length - 1);
     };
