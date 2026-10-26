@@ -1505,7 +1505,12 @@
     </div>
     <p class="hero-desc">Tipologías de base para empezar a proyectar tu casa. Deslizá cada tarjeta para ver las distintas opciones de planta, y tocá el plano para verlo en grande.</p>
   </div>
-  <div class="cot-grid" id="modelos-grid"></div>
+  <div class="cards-carrusel">
+    <button class="cards-arrow prev" id="modelos-prev" aria-label="Anterior"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 19l-7-7 7-7"/></svg></button>
+    <button class="cards-arrow next" id="modelos-next" aria-label="Siguiente"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></button>
+    <div class="cards-grid" id="modelos-grid"></div>
+  </div>
+  <div class="cards-dots" id="modelos-dots"></div>
 </section>
 
 <!-- ═══ QUÉ INCLUYE + CÓMO SEGUIMOS ═══ -->
@@ -2104,6 +2109,14 @@ const proyectos = [
    ═══════════════════════════════════════════════════════════════════════════ */
 const MODELOS = [
   {
+    nombre: 'Casa 30 m²',
+    ambientes: 'Monoambiente · Baño',
+    opciones: [
+      { nombre: 'Opción A', plano: '../assets/planos/modelo-30-a.jpg', ambientes: 'Monoambiente · Toilette' },
+      { nombre: 'Opción B', plano: '../assets/planos/modelo-30-b.jpg', ambientes: 'Monoambiente · Cocina · Baño completo' },
+    ],
+  },
+  {
     nombre: 'Casa 40 m²',
     ambientes: '1 Dormitorio · 1 Baño',
     opciones: [
@@ -2153,12 +2166,13 @@ function renderCards() {
 renderCards();
 
 // ─── CARRUSEL DE PROYECTOS ───────────────────────────────────────────────────
-function initCardsCarrusel() {
-  const scroll = document.getElementById('cards-grid');
+function initCardsCarrusel(base) {
+  base = base || 'cards';
+  const scroll = document.getElementById(base + '-grid');
   if (!scroll) return;
-  const prev = document.getElementById('cards-prev');
-  const next = document.getElementById('cards-next');
-  const dotsWrap = document.getElementById('cards-dots');
+  const prev = document.getElementById(base + '-prev');
+  const next = document.getElementById(base + '-next');
+  const dotsWrap = document.getElementById(base + '-dots');
   function colW() {
     const gap = parseFloat(getComputedStyle(scroll).gap) || 0;
     const first = scroll.firstElementChild;
@@ -2283,6 +2297,7 @@ function salirDeCotizacion() {
 }
 
 renderModelos();
+initCardsCarrusel('modelos');
 
 // Links viejos (proyectos.html#cotizacion-40 o #cotizaciones) → llevan a Nuestros modelos
 if (/^#cotizacion/.test(location.hash)) {
