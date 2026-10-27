@@ -376,6 +376,16 @@
   /* La franja "Casas modulares hechas en la Patagonia" es la primera pantalla */
   .nexo-info.nexo-primera { min-height: 72vh; display: flex; flex-direction: column; justify-content: center; padding-top: calc(61px + 3rem); }
   .nexo-info.nexo-primera .nexo-info-grid { align-items: center; width: 100%; }
+  /* Foto de fondo (la misma que estaba detrás del logo en la portada original), a todo el ancho */
+  .nexo-info.nexo-primera { position: relative; isolation: isolate; }
+  .nexo-info.nexo-primera::before {
+    content: ''; position: absolute; z-index: -1;
+    top: 0; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%);
+    background:
+      linear-gradient(to bottom, rgba(13,11,9,0.55) 0%, rgba(13,11,9,0.85) 70%, rgba(13,11,9,1) 100%),
+      url('../assets/img/nexo-hero-portada.jpg') center top / cover no-repeat;
+  }
+  .nexo-info.nexo-primera .nexo-info-datos { background: rgba(13,11,9,0.35); backdrop-filter: blur(2px); }
 
   @media (max-width: 700px) {
     .nexo-info { padding: 3rem 1.5rem; }
