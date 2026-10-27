@@ -403,7 +403,7 @@
     <ul class="nav-links" onclick="this.closest('nav').classList.remove('nav-abierto')">
       <li><a href="#muebles">Muebles</a></li>
       <li><a href="#objetos">Objetos</a></li>
-      <li><a href="#nexo">Nexo Casas</a></li>
+      <li><a href="nexo/proyectos.html">Nexo Casas</a></li>
       <li><a href="#construcciones">Construcción</a></li>
       <li><a href="#historia">Historia</a></li>
       <li><a href="#contacto">Contacto</a></li>
@@ -419,7 +419,7 @@
       <p class="hero-subtitulo">Carpintería de autor</p>
       <p class="hero-descripcion">Diseñador industrial reconvertido en carpintero patagónico. Desde 2016 construyo casas, muebles y objetos con madera, experiencia y un taller propio en San Martín de los Andes.</p>
       <div class="hero-ctas">
-        <a href="#nexo" class="btn-primario">Nexo Casas</a>
+        <a href="nexo/proyectos.html" class="btn-primario">Nexo Casas</a>
         <a href="#contacto" class="btn-secundario">Contactar</a>
       </div>
     </div>
@@ -512,53 +512,6 @@
 
     <!-- Dots: 11 items - 3 visibles = 8 posiciones -->
     <div id="objetos-dots" style="display:flex;gap:0.5rem;margin-top:1.5rem;justify-content:center;"></div>
-  </section>
-
-  <!-- NEXO -->
-  <section class="nexo-seccion" id="nexo">
-    <div class="nexo-encabezado">
-      <p class="seccion-eyebrow">Nexo Casas</p>
-    </div>
-    <div class="nexo-oscuro">
-    <div class="nexo-inner">
-      <div class="nexo-titulo-row">
-        <img src="assets/nexo-icono-blanco.png" class="nexo-logo-img" alt="Logo Nexo Casas">
-        <div>
-          <h2 class="seccion-titulo" style="color:var(--blanco); margin:0;">Nexo</h2>
-          <p class="nexo-subtitulo">Taller de Casas</p>
-        </div>
-      </div>
-
-      <div class="nexo-carrusel-wrap">
-        <button id="n-prev" aria-label="Anterior" style="position:absolute;left:-1.75rem;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;border:none;background:var(--blanco);box-shadow:0 2px 16px rgba(0,0,0,0.28);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--negro);opacity:0.4;transition:opacity 0.2s;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 19l-7-7 7-7"/></svg>
-        </button>
-        <button id="n-next" aria-label="Siguiente" style="position:absolute;right:-1.75rem;top:50%;transform:translateY(-50%);z-index:10;width:48px;height:48px;border-radius:50%;border:none;background:var(--blanco);box-shadow:0 2px 16px rgba(0,0,0,0.28);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--negro);transition:opacity 0.2s;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
-        </button>
-        <div id="nexo-scroll" style="display:grid;grid-auto-flow:column;gap:1.25rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;">
-          <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/nexo-facundo.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — exterior"></div>
-          <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/interior_cover.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — interior cocina"></div>
-          <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/exterior_ref_1.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — exterior"></div>
-          <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/nexo-ays-interior.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — interior Casa AyS"></div>
-          <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/nexo-gyf-exterior.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — exterior Casa GyF"></div>
-          <div style="scroll-snap-align:start;border-radius:3px;overflow:hidden;"><img src="assets/img/nexo-luli-interior.jpg" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block;" alt="Casa Nexo — interior Casa Luli"></div>
-        </div>
-      </div>
-      <div id="nexo-dots" style="display:flex;gap:0.5rem;margin-top:1.5rem;justify-content:center;"></div>
-
-      <div class="nexo-desc">
-        <p class="nexo-banner-texto">Casas modulares hechas en la Patagonia, para la Patagonia. Fabricadas en nuestro taller, ensambladas en tu terreno en plazos cortos y reales.</p>
-        <div class="nexo-features">
-          <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Construidas 100% en taller</span></div>
-          <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Opciones desde 40 hasta 100 m²</span></div>
-          <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Diseño personalizado</span></div>
-          <div class="nexo-feature"><div class="nexo-feature-dot"></div><span>Bajo impacto sobre tu terreno</span></div>
-        </div>
-        <a href="nexo/proyectos.html" target="_blank" class="btn-primario">Ver proyectos →</a>
-      </div>
-    </div>
-    </div>
   </section>
 
   <!-- CONSTRUCCIONES -->
@@ -673,7 +626,7 @@
 
   <footer>
     <p>© 2025 Tomás Brinnand · San Martín de los Andes, Patagonia</p>
-    <a href="#nexo">Nexo Casas →</a>
+    <a href="nexo/proyectos.html">Nexo Casas →</a>
   </footer>
 
   <script>
@@ -748,7 +701,6 @@
 
     initCarrusel('muebles-scroll', 'm-prev', 'm-next', 'muebles-dots', 4500);
     initCarrusel('objetos-scroll', 'o-prev', 'o-next', 'objetos-dots', 4500);
-    initCarrusel('nexo-scroll', 'n-prev', 'n-next', 'nexo-dots', 4500);
 
 
     // ── LIGHTBOX CONSTRUCCIONES ──
@@ -851,7 +803,6 @@
       }
       engancharGaleria(document.getElementById('muebles-scroll'), 'Muebles');
       engancharGaleria(document.getElementById('objetos-scroll'), 'Objetos');
-      engancharGaleria(document.getElementById('nexo-scroll'), 'Nexo Casas');
     })();
 
     document.addEventListener('keydown', e => {
