@@ -49,6 +49,8 @@
     text-decoration: none;
   }
   .nav-logo img { height: 20px; width: auto; }
+  .nav-logo img.nav-logo-h { height: 40px; display: block; }
+  @media (max-width: 768px) { .nav-logo img.nav-logo-h { height: 34px; } }
   .nav-logo span { font-family: 'scale-variable', sans-serif; font-size: 1.1rem; font-weight: 300; color: var(--text); letter-spacing: 0.04em; }
   .nav-links { display: flex; gap: 1.75rem; align-items: center; list-style: none; }
   .nav-links a { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(240,236,229,0.6); text-decoration: none; transition: color 0.2s; white-space: nowrap; }
@@ -362,52 +364,19 @@
   .nexo-info-num { font-family: 'scale-variable', sans-serif; font-size: 2rem; font-weight: 300; color: var(--amber); line-height: 1; margin-bottom: 0.4rem; }
   .nexo-info-inf { font-size: 3rem; line-height: 0.66; }
   .nexo-info-label { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  /* La franja "Casas modulares hechas en la Patagonia" es la primera pantalla */
+  .nexo-info.nexo-primera { min-height: 72vh; display: flex; flex-direction: column; justify-content: center; padding-top: calc(61px + 3rem); }
+  .nexo-info.nexo-primera .nexo-info-grid { align-items: center; width: 100%; }
 
   @media (max-width: 700px) {
     .nexo-info { padding: 3rem 1.5rem; }
+    .nexo-info.nexo-primera { min-height: auto; padding-top: calc(52px + 3rem); }
     .nexo-info-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     .nexo-info-datos { grid-template-columns: 1fr 1fr; }
     .nexo-info-num { font-size: 1.4rem; }
     .nexo-info-inf { font-size: 2.1rem; }
   }
 
-  /* ── PORTADA: título sobre una foto, a modo de header ── */
-  .nexo-intro.portada {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: center;
-    text-align: left;
-    position: relative;
-    overflow: hidden;
-    min-height: 82vh;
-    padding: 61px 0 0;
-    background: var(--bg);
-  }
-  .nexo-intro.portada::before { display: none; }
-  .nexo-intro.portada > .portada-foto { position: absolute; top: 61px; right: 0; bottom: 0; width: 64%; z-index: 0; }
-  .portada-foto img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; display: block; filter: saturate(0.8) brightness(0.72); }
-  .portada-foto::after {
-    content: ''; position: absolute; inset: 0;
-    background:
-      linear-gradient(90deg, var(--bg) 0%, rgba(13,11,9,0.88) 18%, rgba(13,11,9,0.35) 55%, rgba(13,11,9,0.25) 100%),
-      linear-gradient(0deg, var(--bg) 0%, rgba(13,11,9,0) 30%);
-  }
-  .nexo-intro.portada > .portada-texto {
-    position: relative; z-index: 1; width: 100%;
-    padding: 4rem 3.5rem 4rem max(3.5rem, calc((100vw - 1300px) / 2 + 3.5rem));
-  }
-  .portada-logo { width: clamp(190px, 20vw, 280px); height: auto; margin-bottom: 2.5rem; opacity: 0.97; transform: translateX(-9%); display: block; }
-  .portada-eyebrow { font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--amber); margin-bottom: 1rem; }
-  .portada-bajada { font-size: 1rem; line-height: 1.75; color: rgba(240,236,229,0.82); font-weight: 300; max-width: 34ch; }
-
-  @media (max-width: 900px) {
-    .nexo-intro.portada { min-height: 80vh; justify-content: flex-end; padding-top: 52px; }
-    .nexo-intro.portada > .portada-foto { top: 52px; width: 100%; }
-    .portada-foto::after { background: linear-gradient(0deg, var(--bg) 0%, rgba(13,11,9,0.75) 40%, rgba(13,11,9,0.35) 100%); }
-    .nexo-intro.portada > .portada-texto { padding: 3rem 1.2rem 3rem; }
-    .portada-logo { width: 180px; margin-bottom: 1.75rem; }
-  }
 
   /* ── NEXO INTRO ── */
   .nexo-intro {
@@ -1438,8 +1407,7 @@
 <nav class="nav" id="nav">
   <!-- Logo -->
   <a class="nav-logo" onclick="irAInicio()" href="#inicio">
-    <img src="../assets/nexo-icono-blanco.png" alt="Nexo">
-    <span>Nexo</span>
+    <img class="nav-logo-h" src="../assets/nexo-logo-horizontal-blanco.svg" alt="Nexo · Taller de Casas">
   </a>
 
   <!-- Links centrales -->
@@ -1512,21 +1480,10 @@
   </button>
 </div>
 
-<!-- ═══ HERO ═══ -->
-<div class="nexo-intro portada" id="inicio">
-  <!-- Foto de portada: para cambiarla, reemplazá el src -->
-  <div class="portada-foto">
-    <img src="../assets/img/portada/obra-1-obra-equipo.jpg" alt="Equipo de Nexo levantando muros de madera">
-  </div>
-  <div class="portada-texto">
-    <img src="../assets/nexo-logo-blanco.svg" class="portada-logo" alt="Nexo Casas">
-    <p class="portada-eyebrow">San Martín de los Andes · Patagonia</p>
-    <p class="portada-bajada">Casas modulares de madera, fabricadas en nuestro taller y montadas en tu terreno.</p>
-  </div>
-</div>
+
 
 <!-- ═══ INFO ═══ -->
-<div class="nexo-info" id="info">
+<div class="nexo-info nexo-primera" id="inicio">
   <div class="nexo-info-grid">
     <div>
       <h2 style="font-family:'scale-variable',sans-serif;font-size:clamp(1.8rem,3vw,3rem);font-weight:300;line-height:1.15;margin-bottom:1.5rem;">Casas modulares hechas en la <span style="color:var(--amber);">Patagonia</span></h2>
