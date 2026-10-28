@@ -44,6 +44,9 @@
   .cli-body { display:none; margin-top:1.2rem; padding-top:1.2rem; border-top:1px solid var(--border); }
   .cli.abierto .cli-body { display:block; }
   .link-row { display:flex; gap:0.5rem; align-items:center; margin:0.4rem 0; font-size:0.75rem; color:var(--muted); }
+  .gestion-row { display:flex; gap:0.5rem; flex-wrap:wrap; margin:0.9rem 0 0.2rem; }
+  .btn.peligro { background:transparent; color:var(--warn); border:1px solid rgba(217,139,106,0.45); }
+  .btn.peligro:hover { background:rgba(217,139,106,0.1); }
   .link-row code { background:var(--bg); border:1px solid var(--border); border-radius:4px; padding:3px 8px; color:var(--amber); font-size:0.7rem; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
   .rubro-bloque { margin-top:1.2rem; }
   .rubro-bloque h4 { font-size:0.6rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--amber); margin-bottom:0.5rem; }
@@ -125,6 +128,25 @@ async function crear(){
   toggleNuevo();
   recargar();
 }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+async function renombrar(idx){
+  var row=FILAS[idx]; if(!row) return;
+  var nuevo=prompt('Nuevo nombre para "'+row.nombre+'":', row.nombre);
+  if(nuevo===null) return;
+  nuevo=nuevo.trim();
+  if(!nuevo || nuevo===row.nombre) return;
+  const r=await SB.rpc('admin_renombrar',{p_pass:PASS,p_token:row.token,p_nombre:nuevo});
+  if(r.error){ alert('No se pudo renombrar: '+r.error.message); return; }
+  recargar();
+}
+async function eliminar(idx){
+  var row=FILAS[idx]; if(!row) return;
+  if(!confirm('¿Eliminar a "'+row.nombre+'"?\n\nSe borran el cliente y todas sus respuestas, y su link deja de funcionar. Esta acción no se puede deshacer.')) return;
+  const r=await SB.rpc('admin_eliminar',{p_pass:PASS,p_token:row.token});
+  if(r.error){ alert('No se pudo eliminar: '+r.error.message); return; }
+  try{ localStorage.removeItem('visto_'+row.token); localStorage.removeItem('datos_'+row.token); }catch(e){}
+  recargar();
+}
 function fecha(s){ try{ return new Date(s).toLocaleDateString('es-AR',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}); }catch(e){ return s; } }
 
 var FILAS=[];
@@ -141,7 +163,7 @@ function renderLista(rows){
     var card=document.createElement('div'); card.className='cli';
     card.innerHTML=
       '<div class="cli-head" onclick="toggleCli(this,\''+row.token+'\',\''+row.actualizado+'\')">'+
-        '<div><div class="cli-nombre" id="nombre-'+row.token+'">'+row.nombre+badge+'</div><div class="cli-meta">Última actividad: '+fecha(row.actualizado)+'</div></div>'+
+        '<div><div class="cli-nombre" id="nombre-'+row.token+'">'+esc(row.nombre)+badge+'</div><div class="cli-meta">Última actividad: '+fecha(row.actualizado)+'</div></div>'+
         '<div class="cli-acciones">'+
           '<button class="btn sm" onclick="event.stopPropagation();copiar(\''+linkCli+'\',this)">Copiar link cliente</button>'+
           '<a class="btn ghost sm" href="'+linkNexo+'" target="_blank" onclick="event.stopPropagation()">Abrir</a>'+
@@ -150,6 +172,10 @@ function renderLista(rows){
       '</div>'+
       '<div class="cli-body">'+
         '<div class="link-row"><span>Link cliente:</span><code>'+linkCli+'</code></div>'+
+        '<div class="gestion-row">'+
+          '<button class="btn ghost sm" onclick="renombrar('+idx+')">✎ Renombrar</button>'+
+          '<button class="btn peligro sm" onclick="eliminar('+idx+')">Eliminar cliente</button>'+
+        '</div>'+
         bitacora(row.datos||{}, JSON.parse(localStorage.getItem('datos_'+row.token)||'{}'))+
         '<button class="volver-btn" onclick="cerrarCli(this)">↑ Volver al listado</button>'+
       '</div>';
