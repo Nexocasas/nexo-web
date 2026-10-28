@@ -1697,6 +1697,8 @@ const descripciones = {
   'casa-ays-cocina-puerta-corrediza.jpg': 'Puerta corrediza de Eucalipto y vidrio hacia el hall frío',
   'casa-luli-exterior-1.jpg': 'Revestimiento de chapa negra y deck de madera',
   'casa-luli-exterior-acceso.jpg': 'Acceso por hall frío con deck y escalera',
+  'casa-lu-exterior-1.jpg': 'Revestimiento de chapa negra y ventana mirador',
+  'casa-lu-exterior-montana.jpg': 'Ventana mirador con vista a la montaña',
   'interior 1.jpg': 'Revestimiento Eucalipto y piso vinilico SPC',
   'iNTERIOR 2.MOV': 'Revestimiento Eucalipto y piso vinilico',
   'baño.png': 'Baño personalizado',
@@ -1918,6 +1920,7 @@ const proyectos = [
     tag: 'PROYECTO 40M²',
     desc: 'Proyecto de 40m² pensado para una persona. Amplio vestidor tipo walk-in, baño completo con opciones de revestimiento y espacios optimizados para la vida cotidiana.',
     heroFotos: [
+      BASE + 'Casa Lu/casa-lu-exterior-1.jpg',
       BASE + 'Casa Lu/Portada.png',
       BASE + 'Casa Lu/portada 2.jpg',
     ],
@@ -1930,6 +1933,14 @@ const proyectos = [
       ]
     },
     secciones: [
+      {
+        label: 'EXTERIOR',
+        layout: 'duo',
+        fotos: [
+          BASE + 'Casa Lu/casa-lu-exterior-1.jpg',
+          BASE + 'Casa Lu/casa-lu-exterior-montana.jpg',
+        ]
+      },
       {
         label: 'INTERIOR',
         layout: 'trio',
