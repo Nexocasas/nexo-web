@@ -2708,14 +2708,17 @@ function mostrarLightbox(src, seccion, proyecto, desc, poster) {
   document.getElementById('lb-proyecto').textContent = proyecto;
   document.getElementById('lb-desc').textContent = desc;
   document.getElementById('lb-contador').textContent = `${lbIdx + 1} / ${lbFotos.length}`;
-  document.getElementById('lb-prev').classList.toggle('oculto', lbIdx === 0);
-  document.getElementById('lb-next').classList.toggle('oculto', lbIdx === lbFotos.length - 1);
+  document.getElementById('lb-prev').classList.toggle('oculto', lbFotos.length <= 1);
+  document.getElementById('lb-next').classList.toggle('oculto', lbFotos.length <= 1);
   document.getElementById('lightbox').classList.add('abierto');
   document.body.style.overflow = 'hidden';
 }
 
 function navLightbox(dir) {
-  lbIdx = Math.max(0, Math.min(lbFotos.length - 1, lbIdx + dir));
+  // Circular: después de la última vuelve a la primera (y al revés)
+  const n = lbFotos.length;
+  if (!n) return;
+  lbIdx = (lbIdx + dir + n) % n;
   const el = lbFotos[lbIdx];
   mostrarLightbox(el.dataset.src, el.dataset.seccion, el.dataset.proyecto, el.dataset.desc, el.tagName === 'VIDEO' ? el.dataset.poster : null);
 }
