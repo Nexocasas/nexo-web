@@ -2125,6 +2125,8 @@ const proyectos = [
         label: 'EXTERIOR',
         layout: 'trio',
         fotos: [
+          BASE + 'Casa Marco/marco-exterior-4.jpg',
+          BASE + 'Casa Marco/marco-exterior-3.jpg',
           BASE + 'Casa Marco/marco-exterior-2.jpg',
           BASE + 'Casa Marco/marco-exterior-1.jpg',
           BASE + 'Casa Marco/marco-exterior-acceso.jpg',
@@ -2134,8 +2136,11 @@ const proyectos = [
         label: 'INTERIOR',
         layout: 'trio',
         fotos: [
+          BASE + 'Casa Marco/marco-interior-video.mp4',
+          BASE + 'Casa Marco/marco-interior-ventana.jpg',
           BASE + 'Casa Marco/marco-interior-1.jpg',
           BASE + 'Casa Marco/marco-interior-2.jpg',
+          BASE + 'Casa Marco/marco-interior-puerta.jpg',
           BASE + 'Casa Marco/marco-interior-placard.jpg',
         ]
       },
@@ -2143,6 +2148,9 @@ const proyectos = [
         label: 'COCINA',
         layout: 'duo',
         fotos: [
+          BASE + 'Casa Marco/marco-cocina-video-2.mp4',
+          BASE + 'Casa Marco/marco-cocina-3.jpg',
+          BASE + 'Casa Marco/marco-cocina-video-1.mp4',
           BASE + 'Casa Marco/marco-cocina-1.jpg',
           BASE + 'Casa Marco/marco-cocina-2.jpg',
         ]
@@ -2151,7 +2159,9 @@ const proyectos = [
         label: 'BAÑO',
         layout: 'duo',
         fotos: [
+          BASE + 'Casa Marco/marco-bano-video-1.mp4',
           BASE + 'Casa Marco/marco-bano-1.jpg',
+          BASE + 'Casa Marco/marco-bano-video-2.mp4',
           BASE + 'Casa Marco/marco-bano-2.jpg',
         ]
       },
@@ -2693,8 +2703,10 @@ function renderProyecto(idx) {
             const src = encodeURI(f);
             const esVideo = /\.(mov|mp4|webm|ogg)$/i.test(f);
             if (esVideo) {
+              // Los .mp4 llevan una imagen de portada con el mismo nombre + .poster.jpg
+              const poster = /\.mp4$/i.test(f) ? ` poster="${src.replace(/\.mp4$/i, '.poster.jpg')}"` : '';
               return `<video
-                src="${src}"
+                src="${src}"${poster}
                 autoplay loop muted playsinline
                 style="width:100%;display:block;"
               ></video>`;
