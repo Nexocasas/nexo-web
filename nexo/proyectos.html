@@ -2503,6 +2503,29 @@ initCardsCarrusel('modelos');
 
 
 
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+window.addEventListener('popstate', function(e) {
+  const lb = document.getElementById('lightbox');
+  if (lb && lb.classList.contains('abierto')) cerrarLightbox({ target: lb });
+  const st = e.state;
+  if (st && st.nexo === 'proyecto' && proyectos[st.idx]) {
+    irAProyecto(st.idx, true);
+  } else if (document.body.classList.contains('en-proyecto')) {
+    irAInicio('proyectos', true);
+  }
+});
+
+// Link directo a un proyecto: proyectos.html#proyecto-casa-lu
+(function abrirProyectoDesdeHash() {
+  const m = location.hash.match(/^#proyecto-(.+)$/);
+  if (!m) return;
+  const idx = proyectos.findIndex((p, i) => slugProyecto(i) === m[1]);
+  if (idx < 0) return;
+  try { history.replaceState(null, '', location.pathname); } catch (e) {}
+  irAProyecto(idx);
+})();
+
 // Link privado de cotización
 if (!abrirCotizacionDesdeHash() && /^#cotizacion/.test(location.hash)) {
   setTimeout(() => { const el = document.getElementById('modelos'); if (el) el.scrollIntoView(); }, 300);
@@ -2551,23 +2574,43 @@ function toggleIA(el) {
   el.classList.toggle('abierto');
 }
 
-function irAInicio(seccion) {
+function irAInicio(seccion, instantaneo) {
   cerrarMenu();
   salirDeCotizacion();
+  // Si se sale de un proyecto con el logo o el menú, el link deja de apuntar al proyecto
+  if (history.state && history.state.nexo === 'proyecto') {
+    try { history.replaceState(null, '', location.pathname); } catch (e) {}
+  }
   document.getElementById('hero').classList.add('activa');
   document.getElementById('proyecto-page').classList.remove('activa');
   document.body.classList.remove('en-proyecto');
   if (seccion) {
     setTimeout(function() {
       const el = document.getElementById(seccion);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }, 50);
+      if (el) el.scrollIntoView(instantaneo ? undefined : { behavior: 'smooth' });
+    }, instantaneo ? 0 : 50);
   } else {
     window.scrollTo({ top: 0 });
   }
 }
 
-function irAProyecto(idx) {
+// ─── HISTORIAL: el botón "atrás" (navegador / celular) desde un proyecto vuelve a Nuestros Proyectos ──
+function slugProyecto(idx) {
+  return proyectos[idx].nombre.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/&/g, 'y').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function irAProyecto(idx, desdeHistorial) {
+  if (!desdeHistorial) {
+    const estado = { nexo: 'proyecto', idx: idx };
+    const url = '#proyecto-' + slugProyecto(idx);
+    try {
+      // Entrar desde la portada agrega un paso al historial; pasar de un proyecto a otro lo reemplaza,
+      // así "atrás" siempre vuelve a la lista de proyectos.
+      if (document.body.classList.contains('en-proyecto')) history.replaceState(estado, '', url);
+      else history.pushState(estado, '', url);
+    } catch (e) {}
+  }
   salirDeCotizacion();
   salidoDePortada = true;
   proyectoActual = idx;
