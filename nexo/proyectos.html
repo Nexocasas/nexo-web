@@ -1435,11 +1435,11 @@
       </button>
       <div class="nav-dropdown-menu">
         <button class="nav-dropdown-item" onclick="irAProyecto(0);cerrarDropdown()">Casa Facundo</button>
-        <button class="nav-dropdown-item" onclick="irAProyecto(1);cerrarDropdown()">Casa G &amp; F</button>
-        <button class="nav-dropdown-item" onclick="irAProyecto(2);cerrarDropdown()">Casa Lu</button>
-        <button class="nav-dropdown-item" onclick="irAProyecto(3);cerrarDropdown()">Casa Luli</button>
-        <button class="nav-dropdown-item" onclick="irAProyecto(4);cerrarDropdown()">Taller P &amp; F</button>
-        <button class="nav-dropdown-item" onclick="irAProyecto(5);cerrarDropdown()">Casa A &amp; S</button>
+        <button class="nav-dropdown-item" onclick="irAProyecto(1);cerrarDropdown()">Casa Lu</button>
+        <button class="nav-dropdown-item" onclick="irAProyecto(2);cerrarDropdown()">Casa Luli</button>
+        <button class="nav-dropdown-item" onclick="irAProyecto(3);cerrarDropdown()">Taller P &amp; F</button>
+        <button class="nav-dropdown-item" onclick="irAProyecto(4);cerrarDropdown()">Casa A &amp; S</button>
+        <button class="nav-dropdown-item" onclick="irAProyecto(5);cerrarDropdown()">Casa G &amp; F</button>
         <button class="nav-dropdown-item" onclick="irAProyecto(6);cerrarDropdown()">Casa Marco</button>
       </div>
     </li>
@@ -1463,11 +1463,11 @@
 <div class="nav-mobile-menu" id="nav-mobile-menu">
   <span style="font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">Proyectos</span>
   <button class="nav-mobile-sub" onclick="irAProyecto(0);cerrarNavMobile()">Casa Facundo</button>
-  <button class="nav-mobile-sub" onclick="irAProyecto(1);cerrarNavMobile()">Casa G &amp; F</button>
-  <button class="nav-mobile-sub" onclick="irAProyecto(2);cerrarNavMobile()">Casa Lu</button>
-  <button class="nav-mobile-sub" onclick="irAProyecto(3);cerrarNavMobile()">Casa Luli</button>
-  <button class="nav-mobile-sub" onclick="irAProyecto(4);cerrarNavMobile()">Taller P &amp; F</button>
-  <button class="nav-mobile-sub" onclick="irAProyecto(5);cerrarNavMobile()">Casa A &amp; S</button>
+  <button class="nav-mobile-sub" onclick="irAProyecto(1);cerrarNavMobile()">Casa Lu</button>
+  <button class="nav-mobile-sub" onclick="irAProyecto(2);cerrarNavMobile()">Casa Luli</button>
+  <button class="nav-mobile-sub" onclick="irAProyecto(3);cerrarNavMobile()">Taller P &amp; F</button>
+  <button class="nav-mobile-sub" onclick="irAProyecto(4);cerrarNavMobile()">Casa A &amp; S</button>
+  <button class="nav-mobile-sub" onclick="irAProyecto(5);cerrarNavMobile()">Casa G &amp; F</button>
   <button class="nav-mobile-sub" onclick="irAProyecto(6);cerrarNavMobile()">Casa Marco</button>
   <a href="#modelos" class="nav-mobile-item" onclick="irAInicio('modelos');cerrarNavMobile()">Nuestros modelos</a>
   <a href="#contacto" class="nav-mobile-item" onclick="irAInicio('contacto');cerrarNavMobile()">Contacto</a>
@@ -1482,11 +1482,11 @@
   <button class="menu-close" onclick="cerrarMenu()">×</button>
   <p class="menu-subtitulo">Nuestros Proyectos</p>
   <button class="menu-item" onclick="irAProyecto(0); cerrarMenu()">Casa Facundo</button>
-  <button class="menu-item" onclick="irAProyecto(1); cerrarMenu()">Casa G &amp; F</button>
-  <button class="menu-item" onclick="irAProyecto(2); cerrarMenu()">Casa Lu</button>
-  <button class="menu-item" onclick="irAProyecto(3); cerrarMenu()">Casa Luli</button>
-  <button class="menu-item" onclick="irAProyecto(4); cerrarMenu()">Taller P &amp; F</button>
-  <button class="menu-item" onclick="irAProyecto(5); cerrarMenu()">Casa A &amp; S</button>
+  <button class="menu-item" onclick="irAProyecto(1); cerrarMenu()">Casa Lu</button>
+  <button class="menu-item" onclick="irAProyecto(2); cerrarMenu()">Casa Luli</button>
+  <button class="menu-item" onclick="irAProyecto(3); cerrarMenu()">Taller P &amp; F</button>
+  <button class="menu-item" onclick="irAProyecto(4); cerrarMenu()">Casa A &amp; S</button>
+  <button class="menu-item" onclick="irAProyecto(5); cerrarMenu()">Casa G &amp; F</button>
   <button class="menu-item" onclick="irAProyecto(6); cerrarMenu()">Casa Marco</button>
   <button class="menu-icon-bottom" onclick="cerrarMenu(); irAInicio()" style="background:none;border:none;cursor:pointer;padding:0;">
     <svg viewBox="0 0 249.03 217.91" xmlns="http://www.w3.org/2000/svg">
@@ -1842,80 +1842,6 @@ const proyectos = [
     ]
   },
   {
-    nombre: 'Casa G & F',
-    tag: 'PROYECTO 35M²',
-    desc: 'Casa de 35m² para dos. Diseño abierto con cocina integrada, baño equipado con bañadera de depósito embutido y lavadero incorporado. Fachada combinada en chapa y madera.',
-    heroFotos: [
-      BASE + 'Casa GyF/Poertada 1.jpg',
-      BASE + 'Casa GyF/exterior.jpg',
-    ],
-    plano: {
-      src: BASE + 'Casa GyF/planos.jpg',
-      specs: [
-        { label: 'Metros cuadrados', value: '35 m²' },
-        { label: 'Módulos', value: '3' },
-        { label: 'Ambientes', value: '3' },
-      ]
-    },
-    secciones: [
-      {
-        label: 'EXTERIOR',
-        layout: 'trio',
-        fotos: [
-          BASE + 'Casa GyF/casa-gyf-exterior-acceso.jpg',
-          BASE + 'Casa GyF/casa-gyf-exterior-nieve.jpg',
-          BASE + 'Casa GyF/casa-gyf-exterior-3.jpg',
-        ]
-      },
-      {
-        label: 'INTERIOR',
-        layout: 'trio-grid',
-        fotos: [
-          BASE + 'Casa GyF/interior 1.jpg',
-          BASE + 'Casa GyF/iNTERIOR 2.MOV',
-          BASE + 'Casa GyF/casa-gyf-interior-3.jpg',
-          BASE + 'Casa GyF/casa-gyf-interior-4.jpg',
-          BASE + 'Casa GyF/casa-gyf-interior-5.jpg',
-        ]
-      },
-      {
-        label: 'BAÑO',
-        layout: 'duo',
-        fotos: [
-          BASE + 'Casa GyF/casa-gyf-bano-1.png',
-          BASE + 'Casa GyF/casa-gyf-bano-2.jpg',
-        ]
-      },
-      {
-        label: 'COCINA',
-        layout: 'featured-vid',
-        fotos: [
-          BASE + 'Casa GyF/Cocina 1.jpg',
-          BASE + 'Casa GyF/Cocina 2.MOV',
-        ],
-        noSep: true,
-      },
-      {
-        label: '',
-        layout: 'duo',
-        positions: { 'Casa GyF/Cocina 4.jpg': 'bottom' },
-        fotos: [
-          BASE + 'Casa GyF/Cocina 3.jpg',
-          BASE + 'Casa GyF/Cocina 4.jpg',
-        ]
-      },
-      {
-        label: 'LAVADERO',
-        layout: 'duo',
-        objectPosition: 'bottom',
-        fotos: [
-          BASE + 'Casa GyF/LAVADERO.jpg',
-          BASE + 'Casa GyF/LAVADERO 2.jpg',
-        ]
-      }
-    ]
-  },
-  {
     nombre: 'Casa Lu',
     tag: 'PROYECTO 40M²',
     desc: 'Proyecto de 40m² pensado para una persona. Amplio vestidor tipo walk-in, baño completo con opciones de revestimiento y espacios optimizados para la vida cotidiana.',
@@ -2132,6 +2058,80 @@ const proyectos = [
           BASE + 'Casa AyS/casa-ays-lavadero-mueble-bajo-mesada-euca-2.jpeg',
         ]
       },
+    ]
+  },
+  {
+    nombre: 'Casa G & F',
+    tag: 'PROYECTO 35M²',
+    desc: 'Casa de 35m² para dos. Diseño abierto con cocina integrada, baño equipado con bañadera de depósito embutido y lavadero incorporado. Fachada combinada en chapa y madera.',
+    heroFotos: [
+      BASE + 'Casa GyF/Poertada 1.jpg',
+      BASE + 'Casa GyF/exterior.jpg',
+    ],
+    plano: {
+      src: BASE + 'Casa GyF/planos.jpg',
+      specs: [
+        { label: 'Metros cuadrados', value: '35 m²' },
+        { label: 'Módulos', value: '3' },
+        { label: 'Ambientes', value: '3' },
+      ]
+    },
+    secciones: [
+      {
+        label: 'EXTERIOR',
+        layout: 'trio',
+        fotos: [
+          BASE + 'Casa GyF/casa-gyf-exterior-acceso.jpg',
+          BASE + 'Casa GyF/casa-gyf-exterior-nieve.jpg',
+          BASE + 'Casa GyF/casa-gyf-exterior-3.jpg',
+        ]
+      },
+      {
+        label: 'INTERIOR',
+        layout: 'trio-grid',
+        fotos: [
+          BASE + 'Casa GyF/interior 1.jpg',
+          BASE + 'Casa GyF/iNTERIOR 2.MOV',
+          BASE + 'Casa GyF/casa-gyf-interior-3.jpg',
+          BASE + 'Casa GyF/casa-gyf-interior-4.jpg',
+          BASE + 'Casa GyF/casa-gyf-interior-5.jpg',
+        ]
+      },
+      {
+        label: 'BAÑO',
+        layout: 'duo',
+        fotos: [
+          BASE + 'Casa GyF/casa-gyf-bano-1.png',
+          BASE + 'Casa GyF/casa-gyf-bano-2.jpg',
+        ]
+      },
+      {
+        label: 'COCINA',
+        layout: 'featured-vid',
+        fotos: [
+          BASE + 'Casa GyF/Cocina 1.jpg',
+          BASE + 'Casa GyF/Cocina 2.MOV',
+        ],
+        noSep: true,
+      },
+      {
+        label: '',
+        layout: 'duo',
+        positions: { 'Casa GyF/Cocina 4.jpg': 'bottom' },
+        fotos: [
+          BASE + 'Casa GyF/Cocina 3.jpg',
+          BASE + 'Casa GyF/Cocina 4.jpg',
+        ]
+      },
+      {
+        label: 'LAVADERO',
+        layout: 'duo',
+        objectPosition: 'bottom',
+        fotos: [
+          BASE + 'Casa GyF/LAVADERO.jpg',
+          BASE + 'Casa GyF/LAVADERO 2.jpg',
+        ]
+      }
     ]
   },
   {
