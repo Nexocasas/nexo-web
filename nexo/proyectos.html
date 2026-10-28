@@ -2678,7 +2678,12 @@ function abrirLightbox(el) {
   const desc    = el.dataset.desc;
   const grupo   = el.dataset.grupo;
 
-  lbFotos = Array.from(document.querySelectorAll(`[data-grupo="${grupo}"]`));
+  // Dentro de un proyecto el visor recorre TODA la galería (todas las secciones, en orden);
+  // en otros lugares (p. ej. la cotización) recorre solo su grupo.
+  const pagina = el.closest('#proyecto-page');
+  lbFotos = pagina
+    ? Array.from(pagina.querySelectorAll('[data-grupo]'))
+    : Array.from(document.querySelectorAll(`[data-grupo="${grupo}"]`));
   lbIdx   = lbFotos.indexOf(el);
 
   mostrarLightbox(src, seccion, proyecto, desc, el.tagName === 'VIDEO' ? el.dataset.poster : null);
@@ -2721,6 +2726,24 @@ function cerrarLightbox(e) {
   document.getElementById('lb-video').pause();
   document.body.style.overflow = '';
 }
+
+// Deslizar dentro del visor para pasar de foto
+(function() {
+  const lb = document.getElementById('lightbox');
+  let sx = 0, sy = 0, activo = false;
+  lb.addEventListener('touchstart', function(e) {
+    activo = e.touches && e.touches.length === 1;
+    if (!activo) return;
+    sx = e.touches[0].clientX; sy = e.touches[0].clientY;
+  }, { passive: true });
+  lb.addEventListener('touchend', function(e) {
+    if (!activo) return;
+    activo = false;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - sx, dy = t.clientY - sy;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.3) navLightbox(dx < 0 ? 1 : -1);
+  }, { passive: true });
+})();
 
 document.addEventListener('keydown', e => {
   const lb = document.getElementById('lightbox');
