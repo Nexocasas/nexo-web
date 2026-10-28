@@ -1211,7 +1211,9 @@
     position: relative;
   }
 
-  .lb-img-wrap img {
+  .lb-img-wrap [hidden] { display: none !important; }
+  .lb-img-wrap img,
+  .lb-img-wrap video {
     max-width: 100%;
     max-height: 75vh;
     object-fit: contain;
@@ -1661,6 +1663,7 @@
   <div class="lb-img-wrap">
     <button class="lb-arrow prev" id="lb-prev" onclick="event.stopPropagation(); navLightbox(-1)">‹</button>
     <img id="lb-img" src="" alt="">
+    <video id="lb-video" controls loop muted playsinline hidden></video>
     <button class="lb-arrow next" id="lb-next" onclick="event.stopPropagation(); navLightbox(1)">›</button>
   </div>
   <div class="lb-info">
@@ -2128,7 +2131,6 @@ const proyectos = [
         fotos: [
           BASE + 'Casa Marco/marco-exterior-4.jpg',
           BASE + 'Casa Marco/marco-exterior-3.jpg',
-          BASE + 'Casa Marco/marco-exterior-2.jpg',
           BASE + 'Casa Marco/marco-exterior-1.jpg',
           BASE + 'Casa Marco/marco-exterior-acceso.jpg',
         ]
@@ -2140,7 +2142,6 @@ const proyectos = [
           BASE + 'Casa Marco/marco-interior-video.mp4',
           BASE + 'Casa Marco/marco-interior-ventana.jpg',
           BASE + 'Casa Marco/marco-interior-1.jpg',
-          BASE + 'Casa Marco/marco-interior-2.jpg',
           BASE + 'Casa Marco/marco-interior-puerta.jpg',
           BASE + 'Casa Marco/marco-interior-placard.jpg',
         ]
@@ -2608,14 +2609,27 @@ function abrirLightbox(el) {
   const desc    = el.dataset.desc;
   const grupo   = el.dataset.grupo;
 
-  lbFotos = Array.from(document.querySelectorAll(`img[data-grupo="${grupo}"]`));
+  lbFotos = Array.from(document.querySelectorAll(`[data-grupo="${grupo}"]`));
   lbIdx   = lbFotos.indexOf(el);
 
-  mostrarLightbox(src, seccion, proyecto, desc);
+  mostrarLightbox(src, seccion, proyecto, desc, el.tagName === 'VIDEO' ? el.dataset.poster : null);
 }
 
-function mostrarLightbox(src, seccion, proyecto, desc) {
-  document.getElementById('lb-img').src = src;
+// poster !== null → es un video (se muestra con controles y se reproduce)
+function mostrarLightbox(src, seccion, proyecto, desc, poster) {
+  const lbImg = document.getElementById('lb-img');
+  const lbVid = document.getElementById('lb-video');
+  const esVideo = poster !== null && poster !== undefined;
+  lbImg.hidden = esVideo;
+  lbVid.hidden = !esVideo;
+  if (esVideo) {
+    if (lbVid.getAttribute('src') !== src) { lbVid.src = src; }
+    if (poster) lbVid.poster = poster; else lbVid.removeAttribute('poster');
+    lbVid.play().catch(() => {});
+  } else {
+    lbVid.pause();
+    lbImg.src = src;
+  }
   document.getElementById('lb-seccion').textContent = seccion;
   document.getElementById('lb-proyecto').textContent = proyecto;
   document.getElementById('lb-desc').textContent = desc;
@@ -2629,12 +2643,13 @@ function mostrarLightbox(src, seccion, proyecto, desc) {
 function navLightbox(dir) {
   lbIdx = Math.max(0, Math.min(lbFotos.length - 1, lbIdx + dir));
   const el = lbFotos[lbIdx];
-  mostrarLightbox(el.dataset.src, el.dataset.seccion, el.dataset.proyecto, el.dataset.desc);
+  mostrarLightbox(el.dataset.src, el.dataset.seccion, el.dataset.proyecto, el.dataset.desc, el.tagName === 'VIDEO' ? el.dataset.poster : null);
 }
 
 function cerrarLightbox(e) {
   if (e && e.target !== document.getElementById('lightbox') && !e.target.classList.contains('lb-close')) return;
   document.getElementById('lightbox').classList.remove('abierto');
+  document.getElementById('lb-video').pause();
   document.body.style.overflow = '';
 }
 
@@ -2709,7 +2724,14 @@ function renderProyecto(idx) {
               return `<video
                 src="${src}"${poster}
                 autoplay loop muted playsinline
-                style="width:100%;display:block;"
+                style="width:100%;display:block;cursor:zoom-in;"
+                data-src="${src}"
+                data-poster="${poster ? src.replace(/\.mp4$/i, '.poster.jpg') : ''}"
+                data-seccion="${sec.label}"
+                data-proyecto="${attr(p.nombre)}"
+                data-desc="${attr(descripcionFoto(f))}"
+                data-grupo="${grupoId}"
+                onclick="abrirLightbox(this)"
               ></video>`;
             }
             const fileKey = f.replace(BASE, '');
