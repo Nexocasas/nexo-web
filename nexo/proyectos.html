@@ -1444,6 +1444,7 @@
         <button class="nav-dropdown-item" onclick="irAProyecto(4);cerrarDropdown()">Casa A &amp; S</button>
         <button class="nav-dropdown-item" onclick="irAProyecto(5);cerrarDropdown()">Casa G &amp; F</button>
         <button class="nav-dropdown-item" onclick="irAProyecto(6);cerrarDropdown()">Casa Marco</button>
+        <button class="nav-dropdown-item" onclick="irAProyecto(7);cerrarDropdown()">Casa Ampi y Martín</button>
       </div>
     </li>
     <li><a href="#modelos" onclick="irAInicio('modelos')">Nuestros modelos</a></li>
@@ -1472,6 +1473,7 @@
   <button class="nav-mobile-sub" onclick="irAProyecto(4);cerrarNavMobile()">Casa A &amp; S</button>
   <button class="nav-mobile-sub" onclick="irAProyecto(5);cerrarNavMobile()">Casa G &amp; F</button>
   <button class="nav-mobile-sub" onclick="irAProyecto(6);cerrarNavMobile()">Casa Marco</button>
+  <button class="nav-mobile-sub" onclick="irAProyecto(7);cerrarNavMobile()">Casa Ampi y Martín</button>
   <a href="#modelos" class="nav-mobile-item" onclick="irAInicio('modelos');cerrarNavMobile()">Nuestros modelos</a>
   <a href="#contacto" class="nav-mobile-item" onclick="irAInicio('contacto');cerrarNavMobile()">Contacto</a>
   <a href="../index.html" class="nav-mobile-item por-tomas">
@@ -1491,6 +1493,7 @@
   <button class="menu-item" onclick="irAProyecto(4); cerrarMenu()">Casa A &amp; S</button>
   <button class="menu-item" onclick="irAProyecto(5); cerrarMenu()">Casa G &amp; F</button>
   <button class="menu-item" onclick="irAProyecto(6); cerrarMenu()">Casa Marco</button>
+  <button class="menu-item" onclick="irAProyecto(7); cerrarMenu()">Casa Ampi y Martín</button>
   <button class="menu-icon-bottom" onclick="cerrarMenu(); irAInicio()" style="background:none;border:none;cursor:pointer;padding:0;">
     <svg viewBox="0 0 249.03 217.91" xmlns="http://www.w3.org/2000/svg">
       <path d="M21.8,167.82l39.14,31.78,3.51,2.8,3.29-2.85,57.66-47.07,56.28,46.89,3.41,2.67,41.12-33.7,1.88-1.62v-1.06s.02,0,.02,0v-63.62l-.02-2.79-2.07-1.44L127.84,18.13l-3.56-2.62-41.11,34.89s-.1.06-.15.1l-60.07,47.32c-1.3,1.04-2.04,2.59-2.04,4.25v62.27c0,1.19.4,2.31,1.09,3.23l-.2.25ZM64.29,188.63l-29.64-24.07,62.75-51.36,27.11-22,29.65,24.06-89.88,73.37ZM185.04,188.33l-51.26-42.7,28.81-23.52,51.8,42.16-29.35,24.06ZM91.83,56.99l32.76-27.81,92.9,75.37v48.53l-49.64-40.4.04-28.18-.04-2.58-39.9-32.37c-2.01-1.63-4.9-1.6-6.89.07l-29.23,24.71v-17.32ZM31.55,104.58l49.66-39.11v20.12c0,2.11,1.24,4.04,3.19,4.92l3.14,1.36,37.08-31.35,32.65,26.49-.02,17.06-29.25-23.73c-2.01-1.67-4.92-1.68-6.9-.04l-30.4,24.66-59.14,48.41v-48.79Z"/>
@@ -1702,6 +1705,20 @@ const descripciones = {
   'casa-luli-exterior-acceso.jpg': 'Acceso por hall frío con deck y escalera',
   'casa-lu-exterior-1.jpg': 'Revestimiento de chapa negra y ventana mirador',
   'casa-lu-exterior-montana.jpg': 'Ventana mirador con vista a la montaña',
+  'aym-exterior-1.jpg': 'Chapa negra, cubierta roja y marcos de Eucalipto',
+  'aym-deck-montana.jpg': 'Deck exterior con vista a la montaña',
+  'aym-deck-fachada.jpg': 'Pérgola metálica y revestimiento de Eucalipto',
+  'aym-exterior-acceso.jpg': 'Acceso con pérgola metálica y puerta de Eucalipto',
+  'aym-hall.jpg': 'Hall frío con perchero de madera',
+  'aym-living-1.jpg': 'Living con ventana mirador y asiento de madera',
+  'aym-estar-nicho.jpg': 'Nicho con estante e iluminación embutida',
+  'aym-puerta-deck.jpg': 'Puerta vidriada hacia el deck',
+  'aym-cocina-1.jpg': 'Cocina lineal negra con mesada de granito',
+  'aym-cocina-2.jpg': 'Cocina lineal negra con mesada de granito',
+  'aym-dormitorio-2.jpg': 'Ventana alta con vista a la montaña',
+  'aym-vestidor.jpg': 'Vestidor de Eucalipto con cajonera',
+  'aym-bano-completo.jpg': 'Bañera, revestimiento cerámico y vanitory negro',
+  'aym-bano-banera-1.jpg': 'Bañera con ventana y nicho de madera',
   'interior 1.jpg': 'Revestimiento Eucalipto y piso vinilico SPC',
   'iNTERIOR 2.MOV': 'Revestimiento Eucalipto y piso vinilico',
   'baño.png': 'Baño personalizado',
@@ -2194,6 +2211,77 @@ const proyectos = [
           BASE + 'Casa Marco/marco-bano-1.jpg',
           BASE + 'Casa Marco/marco-bano-video-2.mp4',
           BASE + 'Casa Marco/marco-bano-2.jpg',
+        ]
+      },
+    ]
+  },
+  {
+    nombre: 'Casa Ampi y Martín',
+    tag: 'PROYECTO 35M²',
+    desc: 'Casa de 35m² con fachada de chapa negra, cubierta roja y marcos de Eucalipto. Interior íntegramente revestido en madera, con ventanas mirador, cocina negra lineal, dormitorio con vestidor y baño con bañera. Deck exterior con vista a la montaña.',
+    heroFotos: [
+      BASE + 'Casa AyM/aym-exterior-1.jpg',
+      BASE + 'Casa AyM/aym-deck-montana.jpg',
+    ],
+    secciones: [
+      {
+        label: 'EXTERIOR',
+        layout: 'trio',
+        fotos: [
+          BASE + 'Casa AyM/aym-exterior-1.jpg',
+          BASE + 'Casa AyM/aym-deck-montana.jpg',
+          BASE + 'Casa AyM/aym-exterior-2.jpg',
+          BASE + 'Casa AyM/aym-deck-fachada.jpg',
+          BASE + 'Casa AyM/aym-exterior-acceso.jpg',
+        ]
+      },
+      {
+        label: 'HALL FRÍO',
+        layout: 'duo',
+        fotos: [
+          BASE + 'Casa AyM/aym-hall.jpg',
+          BASE + 'Casa AyM/aym-hall-ventana.jpg',
+        ]
+      },
+      {
+        label: 'LIVING',
+        layout: 'trio',
+        fotos: [
+          BASE + 'Casa AyM/aym-living-video.mp4',
+          BASE + 'Casa AyM/aym-living-1.jpg',
+          BASE + 'Casa AyM/aym-estar-nicho.jpg',
+          BASE + 'Casa AyM/aym-puerta-deck.jpg',
+        ]
+      },
+      {
+        label: 'COCINA',
+        layout: 'trio',
+        fotos: [
+          BASE + 'Casa AyM/aym-cocina-video.mp4',
+          BASE + 'Casa AyM/aym-cocina-1.jpg',
+          BASE + 'Casa AyM/aym-cocina-2.jpg',
+        ]
+      },
+      {
+        label: 'DORMITORIO',
+        layout: 'trio',
+        fotos: [
+          BASE + 'Casa AyM/aym-dormitorio-video.mp4',
+          BASE + 'Casa AyM/aym-dormitorio-1.jpg',
+          BASE + 'Casa AyM/aym-dormitorio-2.jpg',
+          BASE + 'Casa AyM/aym-dormitorio-3.jpg',
+          BASE + 'Casa AyM/aym-vestidor.jpg',
+        ]
+      },
+      {
+        label: 'BAÑO',
+        layout: 'trio',
+        fotos: [
+          BASE + 'Casa AyM/aym-bano-video.mp4',
+          BASE + 'Casa AyM/aym-bano-completo.jpg',
+          BASE + 'Casa AyM/aym-bano-lavatorio.jpg',
+          BASE + 'Casa AyM/aym-bano-banera-1.jpg',
+          BASE + 'Casa AyM/aym-bano-banera-2.jpg',
         ]
       },
     ]
