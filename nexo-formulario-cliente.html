@@ -279,7 +279,7 @@ function elegirPiso(el,kE,val){
 function seleccionarBase(btn,kE,kC){
   var choice=btn.closest('.choice');
   var input=choice.querySelector('input[data-key="'+kE+'"]');
-  var tieneExtras=choice.querySelector('select[data-key]');
+  var tieneExtras=choice.querySelector('select[data-key]:not([data-type="condicion"])');
   var ya=btn.classList.contains('seleccionado');
   if(ya){
     btn.classList.remove('seleccionado');

@@ -199,7 +199,8 @@ function bitacora(d, dAntes){
         var clsNuevo=esNuevo?' nuevo':'';
         var tagNuevo=esNuevo?'<span class="dec-tag-nuevo">nuevo</span>':'';
         var partes=[];
-        if(e&&e.trim()) partes.push('<span class="val">'+textoEleccion(e, it[1])+'</span>');
+        var eTxt=textoEleccion(e, it[1], c);
+        if(eTxt&&eTxt.trim()) partes.push('<span class="val">'+eTxt+'</span>');
         if(c&&c!=='A definir') partes.push('<span class="val">['+c+']</span>');
         lineas+='<div class="dec'+clsNuevo+'"><span class="it">'+item+tagNuevo+'</span> — '+partes.join(' · ')+'</div>';
       }
@@ -222,8 +223,10 @@ function bitacora(d, dAntes){
 // Cuando el cliente marca "Opción base", el formulario guarda "Mantener opción cotizada":
 // acá se reemplaza por la descripción real de esa opción base.
 var BASE_MARCA='Mantener opción cotizada';
-function textoEleccion(e, base){
-  if(e===BASE_MARCA) return base ? 'Opción base: '+base : 'Opción base';
+function textoEleccion(e, base, cond){
+  var esBase = e===BASE_MARCA || ((!e || !String(e).trim()) && (cond===BASE_MARCA || cond==='Definido'));
+  if(esBase && base && !/a cotizar|a definir|no incluid/i.test(base)) return 'Opción base: '+base;
+  if(e===BASE_MARCA) return 'Opción base';
   return e;
 }
 function estCls(v){ if(v==='Mantener opción cotizada'||v==='Definido')return 'def'; if(v==='Evaluar alternativa')return 'eval'; if(v==='Requiere recotización')return 'recot'; return 'adef'; }
@@ -271,7 +274,7 @@ function imprimir(idx){
     cat.items.forEach(function(it){
       var item=it[0];
       var kE=keyFor(cat.slug,item,'eleccion'), kC=keyFor(cat.slug,item,'condicion');
-      var e=textoEleccion(d[kE], it[1]), cnd=d[kC]||'A definir';
+      var e=textoEleccion(d[kE], it[1], d[kC]), cnd=d[kC]||'A definir';
       hay=true;
       lineas+='<div class="dec"><span class="it">'+item+'</span><span class="val">'+(e&&e.trim()?e:'—')+'</span><span class="est '+estCls(cnd)+'">'+cnd+'</span></div>';
     });
