@@ -1,5 +1,6 @@
 User-agent: *
 Disallow: /panel.html
 Disallow: /nexo-formulario-cliente.html
+Disallow: /CLAUDE.md
 
 Sitemap: https://www.tomasbrinnand.com.ar/sitemap.xml
