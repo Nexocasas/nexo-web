@@ -23,7 +23,7 @@ Resume cómo está armado el sitio y los criterios que se vienen usando. **Mante
 | `assets/planos/` | Planos de **Nuestros modelos** (`modelo-<m2>-<letra>.jpg`). |
 | `assets/img/construccion/` | Fotos de las tarjetas de Construcción (página de Tomás). |
 | `assets/img/cot/`, `assets/img/*_ref_*.jpg` | Imágenes del formulario del cliente. |
-| `.github/workflows/supabase-keepalive.yml` | Tarea programada que evita que Supabase pause los proyectos (consulta de solo lectura cada 3 días). |
+| `.github/workflows/supabase-keepalive.yml` | Tarea programada que evita que Supabase pause los proyectos (consultas de solo lectura todos los días, con reintentos). |
 | `robots.txt` | Excluye `panel.html` y el formulario de buscadores. |
 
 ## `nexo/proyectos.html` — estructura
